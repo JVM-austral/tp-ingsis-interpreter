@@ -1,0 +1,43 @@
+@startuml
+interface Lexer {
+    +tokenize(Tokens ): List<Token>
+}
+
+interface Parser {
+    +parse(Lexer lex ): AST
+}
+
+interface Interpreter {
+    +interpret(List<AST> ast ): Result
+}
+
+Parser -d-> Lexer
+Interpreter -d-> Parser
+
+Lexer --> Token
+
+Parser --> AST
+
+Interpreter --> Result
+
+note left of Result
+Todavía no sabemos, medio generico queda
+end note
+
+class Token <<value object>> {
+    +type: TokenType
+    +value: String
+}
+note left of Token
+Puse esos dos, puede haber más.
+end note
+
+note left of AST
+- Nose si tiene que ser un árbol con nodos o
+   una representación con una lista.
+- Otra cosa también puede ser.
+- Puede que se necesiten más clases.
+end note
+
+
+@enduml
