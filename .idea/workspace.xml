@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tp-ingsis-interpreter.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/diagrams/BaseDiagram.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/Lexer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/LexerImplementationV1.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/ListOfRestrictedTokensFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/PrintScriptTokenFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/rules/LexerRules.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/token/Token.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/token/TokenType.kt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/lexer">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="31Cx9gLa9UZQeYyE4dSROe6IrTK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Vito/Programming/faculty/ingsis",
+    "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="tp-ingsis-interpreter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="tp-ingsis-interpreter" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
+      <created>1755041707476</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755041707476</updated>
+      <workItem from="1755041708837" duration="1082000" />
+      <workItem from="1755042809737" duration="471000" />
+      <workItem from="1755125699830" duration="108000" />
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/utilities/build.gradle</url>
+          <line>5</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
