@@ -4,42 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/ScapeAst.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/BinaryNumberOperatorAnalyzer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/LetVariableDeclarationWithAssignmentAnalyzer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/StringConcatenationAnalyzer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/StructureAnalyzer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/VariableDefinitionAnalyzer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/BinaryNumberOperatorExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/LetVariableDeclarationWithAssignmentExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/StringConcatenationExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/StructureExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/VariableDefinitionExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserV1Test.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/token/src/main/kotlin/rules/EnterAnalyzer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Ast.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Ast.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/BinaryOperation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/BinaryOperation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/VarDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/VarDeclaration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/parser/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parser/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserV1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserV1.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token/src/main/kotlin/rules/PunctuationAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/kotlin/rules/PunctuationAnalyzer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token/src/main/kotlin/token/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/kotlin/token/TokenType.kt" afterDir="false" />
-    </list>
-    <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="">
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/LetVariableDeclarationAnalyzer.kt" afterDir="false" />
-    </list>
-    <list id="a3388d06-8782-43ba-be4f-cb0c30ab9481" name="Changes by Vito" comment="">
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/LetVariableDeclarationExecutor.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/ParseResult.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Assigment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Assigment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Literal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Literal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/TypeDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/TypeDeclaration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Variable.kt" beforeDir="false" />
-    </list>
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
+    <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -290,7 +256,7 @@
       <workItem from="1755125699830" duration="108000" />
       <workItem from="1755550907696" duration="11760000" />
       <workItem from="1755565162448" duration="301000" />
-      <workItem from="1755565476998" duration="6279000" />
+      <workItem from="1755565476998" duration="6607000" />
     </task>
     <servers />
   </component>
@@ -304,11 +270,6 @@
           <url>file://$PROJECT_DIR$/utilities/build.gradle</url>
           <line>5</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserV1Test.kt</url>
-          <line>604</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
