@@ -5,36 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tp-ingsis-interpreter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/diagrams/BaseDiagram.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/Lexer.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/LexerImplementationV1.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/ListOfRestrictedTokensFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/PrintScriptTokenFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/lexer/rules/LexerRules.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/token/Token.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelo/src/main/kotlin/token/TokenType.kt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/ScapeAst.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/BinaryNumberOperatorAnalyzer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/LetVariableDeclarationWithAssignmentAnalyzer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/StringConcatenationAnalyzer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/StructureAnalyzer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/VariableDefinitionAnalyzer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/BinaryNumberOperatorExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/LetVariableDeclarationWithAssignmentExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/StringConcatenationExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/StructureExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/VariableDefinitionExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserV1Test.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/token/src/main/kotlin/rules/EnterAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Ast.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Ast.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/BinaryOperation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/BinaryOperation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/VarDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/VarDeclaration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/parser/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parser/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserV1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserV1.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token/src/main/kotlin/rules/PunctuationAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/kotlin/rules/PunctuationAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token/src/main/kotlin/token/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/kotlin/token/TokenType.kt" afterDir="false" />
+    </list>
+    <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="">
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/analyzer/LetVariableDeclarationAnalyzer.kt" afterDir="false" />
+    </list>
+    <list id="a3388d06-8782-43ba-be4f-cb0c30ab9481" name="Changes by Vito" comment="">
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/LetVariableDeclarationExecutor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/executor/ParseResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Assigment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Assigment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Literal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Literal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/TypeDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/ast/TypeDeclaration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/ast/Variable.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,14 +56,32 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tp-ingsis-interpreter" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Interface" />
+        <option value="Class" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,35 +97,183 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.ComprehensiveParserTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
+    "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze simple addition.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor": "Run",
+    "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Juani",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Vito/Programming/faculty/ingsis",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\juani\\.gradle"
+    ]
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="tp-ingsis-interpreter" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation">
+    <configuration name="ComprehensiveParserTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.ComprehensiveParserTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ComprehensiveParserTest.should accept a variable definition with a binary operation" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.ComprehensiveParserTest.should accept a variable definition with a binary operation&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ComprehensiveParserTest.should analyze complex arithmetic expression" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.ComprehensiveParserTest.should analyze complex arithmetic expression&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ComprehensiveParserTest.should analyze expression with parentheses" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.ComprehensiveParserTest.should analyze expression with parentheses&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ComprehensiveParserTest.should analyze simple addition" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.ComprehensiveParserTest.should analyze simple addition&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="tp-ingsis-interpreter" />
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation" />
+        <item itemvalue="Gradle.ComprehensiveParserTest" />
+        <item itemvalue="Gradle.ComprehensiveParserTest.should analyze expression with parentheses" />
+        <item itemvalue="Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression" />
+        <item itemvalue="Gradle.ComprehensiveParserTest.should analyze simple addition" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -118,8 +288,14 @@
       <workItem from="1755041708837" duration="1082000" />
       <workItem from="1755042809737" duration="471000" />
       <workItem from="1755125699830" duration="108000" />
+      <workItem from="1755550907696" duration="11760000" />
+      <workItem from="1755565162448" duration="301000" />
+      <workItem from="1755565476998" duration="6279000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -128,6 +304,11 @@
           <url>file://$PROJECT_DIR$/utilities/build.gradle</url>
           <line>5</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserV1Test.kt</url>
+          <line>604</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
