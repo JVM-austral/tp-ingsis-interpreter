@@ -3,6 +3,7 @@ package lexertest
 import lexer.rules.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+
 import token.TokenType
 
 class AnalyzerTest {
@@ -24,7 +25,7 @@ class AnalyzerTest {
         val analyzer = NumberTypeAnalyzer()
         val result = true
         assertEquals(result, analyzer.analyze("number"))
-        val result2 = TokenType.TYPE
+        val result2 = TokenType.IDENTIFIER
         assertEquals(result2, analyzer.giveType())
     }
 
@@ -59,7 +60,7 @@ class AnalyzerTest {
 
     @Test
     fun `mid string analyzer`() {
-        val analyzer = lexer.rules.MidStringAnalyzer()
+        val analyzer = MidStringAnalyzer()
         val result = true
         assertEquals(result, analyzer.analyze("\"abc"))
         assertEquals(result, analyzer.analyze("'abc"))
@@ -72,16 +73,16 @@ class AnalyzerTest {
     }
     @Test
     fun `number type analyzer`() {
-        val analyzer=lexer.rules.NumberTypeAnalyzer()
+        val analyzer=NumberTypeAnalyzer()
         assertTrue(analyzer.analyze("number"))
         assertFalse(analyzer.analyze("123"))
         assertFalse(analyzer.analyze("num"))
         assertFalse(analyzer.analyze(""))
-        assertEquals(TokenType.TYPE, analyzer.giveType())
+        assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
     @Test
     fun `operator analyzer`() {
-        val analyzer = lexer.rules.OperatorAnalyzer()
+        val analyzer = OperatorAnalyzer()
         assertTrue(analyzer.analyze("+"))
         assertTrue(analyzer.analyze("-"))
         assertTrue(analyzer.analyze("x"))
@@ -97,11 +98,11 @@ class AnalyzerTest {
         val analyzer = StringTypeAnalyzer()
         assertTrue(analyzer.analyze("string"))
         assertFalse(analyzer.analyze("other"))
-        assertEquals(TokenType.TYPE, analyzer.giveType())
+        assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
     @Test
     fun `variable analyzer`() {
-        val analyzer = lexer.rules.VariableAnalyzer()
+        val analyzer = VariableAnalyzer()
         assertTrue(analyzer.analyze("variable"))
         assertTrue(analyzer.analyze("abc"))
         assertFalse(analyzer.analyze("Variable"))
@@ -113,7 +114,7 @@ class AnalyzerTest {
     }
     @Test
     fun `whitespace analyzer`() {
-        val analyzer = lexer.rules.WhitespaceAnalyzer()
+        val analyzer = WhitespaceAnalyzer()
         assertTrue(analyzer.analyze(" "))
         assertFalse(analyzer.analyze(""))
         assertFalse(analyzer.analyze("  "))

@@ -9,26 +9,36 @@ class LetVariableDeclarationAnalyzer: StructureAnalyzer {
 
     override fun analyzeStructure(tokens: List<Token>): Boolean {
 
-        if (tokens.size!=4) {
-            return false
-        }
-        if (tokens.first().value!="let"){
-            return false
-        }
-        if(tokens[1].type != TokenType.IDENTIFIER || tokens[1].value == "string"  || tokens[1].value == "number") {
+        if(tokens.size != 4) {
             return false
         }
 
-        if(tokens[2].value != ":"){
+        if (tokens[0].value != "let") {
             return false
         }
-        if(tokens[3].value != "string"  && tokens[3].value != "number") {
+
+        if (tokens[1].type != TokenType.IDENTIFIER ||
+            isReservedType(tokens[1].value)) {
             return false
         }
+        if (tokens[2].value != ":") {
+            return false
+        }
+
+        if (!isReservedType(tokens[3].value)) {
+            return false
+        }
+
         return true
     }
-    override fun getExecutor(): StructureExecutor{
+
+    override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationExecutor()
     }
+
+    private fun isReservedType(value: String): Boolean {
+        return value == "string" || value == "number"
+    }
+
 
 }

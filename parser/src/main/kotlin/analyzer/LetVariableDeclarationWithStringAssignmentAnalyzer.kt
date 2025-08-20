@@ -3,10 +3,8 @@ package analyzer
 import executor.LetVariableDeclarationWithAssignmentExecutor
 import executor.StructureExecutor
 import token.Token
-import token.TokenType
 
-class LetVariableDeclarationWithAssignmentAnalyzer : StructureAnalyzer {
-
+class LetVariableDeclarationWithStringAssignmentAnalyzer :StructureAnalyzer {
 
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         if (tokens.size<6) {
@@ -17,11 +15,15 @@ class LetVariableDeclarationWithAssignmentAnalyzer : StructureAnalyzer {
             return false
         }
 
+        if(tokens[3].value != "string") {
+            return false
+        }
+
         if(tokens[4].value != "="  ){
             return false
         }
 
-        if(!BinaryNumberOperatorAnalyzer().analyzeStructure(tokens.subList(5,tokens.size)) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5,tokens.size))){
+        if(!StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5,tokens.size))){
             return false
         }
 
@@ -31,5 +33,4 @@ class LetVariableDeclarationWithAssignmentAnalyzer : StructureAnalyzer {
     override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(),StringConcatenationAnalyzer()))
     }
-
 }

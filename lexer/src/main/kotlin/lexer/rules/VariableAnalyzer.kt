@@ -1,10 +1,11 @@
-package rules
+package lexer.rules
 
 import token.TokenType
 
-class StringTypeAnalyzer : TokenAnalyzer {
+class VariableAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        return input == "string"
+        val regex = "^[a-z]+$".toRegex()
+        return regex.matches(input)
     }
 
     override fun giveType(): TokenType {

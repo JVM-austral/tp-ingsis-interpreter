@@ -1,26 +1,34 @@
 package lexer
 
-import rules.TokenAnalyzer
+import lexer.rules.TokenAnalyzer
 import token.Token
-import token.TokenType
-import java.awt.print.Book
+import kotlin.Exception
+
 
 class LexerImplementationV1(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
 
-    override fun tokenize(input: String): List<Token> {
+    override fun tokenize(input: String): List<Result<Token>> {
+        var currentLine = 0
+        var currentColumn = 0
         var current = ""
         var rematchMode=false
-        val tokenizedString :MutableList<Token> = mutableListOf()
+        val tokenizedString :MutableList<Result<Token>> = mutableListOf()
 
         for (char in input) {
             current += char
+            if(char == '\n') {
+                currentLine++
+                currentColumn = 0
+            } else {
+                currentColumn++
+            }
             when {
                 isInTokenList(current) && !rematchMode-> {
                     rematchMode = true
                     continue
                 }
                 !isInTokenList(current) && rematchMode -> {
-                    tokenizedString.add(Token(current.dropLast(1), takeToken(current.dropLast(1))))
+                    tokenizedString.add(takeToken(current.dropLast(1),  currentLine, currentColumn - current.length))
                     current = current.last().toString()
                     continue
                 }
@@ -30,8 +38,9 @@ class LexerImplementationV1(private val listOfAnalyzers: List<TokenAnalyzer>) : 
                     continue
                 }
             }
+
         }
-        tokenizedString.add(Token(current, takeToken(current)))
+        tokenizedString.add(takeToken(current, currentLine, currentColumn- current.length))
 
         return tokenizedString
     }
@@ -44,13 +53,13 @@ class LexerImplementationV1(private val listOfAnalyzers: List<TokenAnalyzer>) : 
         return false;
     }
 
-    private fun takeToken(current :String): TokenType{
+    private fun takeToken(current :String, line: Int, column:Int): Result<Token>{
         for(analyzer in listOfAnalyzers ){
             if(analyzer.analyze(current)){
-                return analyzer.giveType()
+                return Result.success(Token(current, analyzer.giveType(), line, column))
             }
         }
-        return TokenType.UNKNOWN;
+        return Result.failure(Exception())
     }
 
 }

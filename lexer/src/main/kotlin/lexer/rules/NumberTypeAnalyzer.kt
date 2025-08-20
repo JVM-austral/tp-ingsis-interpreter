@@ -1,14 +1,14 @@
-package rules
+package lexer.rules
 
 import token.TokenType
 
-class VariableAnalyzer : TokenAnalyzer {
+class NumberTypeAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        val regex = "^[a-z]+$".toRegex()
-        return regex.matches(input)
+        return input == "number"
     }
 
     override fun giveType(): TokenType {
         return TokenType.IDENTIFIER;
     }
 }
+

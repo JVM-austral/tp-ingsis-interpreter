@@ -2,7 +2,8 @@ package lexertest
 
 import com.google.gson.Gson
 import lexer.LexerImplementationV1
-import rules.*
+import lexer.rules.*
+
 
 object TestGenerator {
     private val analyzers = listOf(

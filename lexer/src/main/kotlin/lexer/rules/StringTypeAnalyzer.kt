@@ -2,13 +2,12 @@ package lexer.rules
 
 import token.TokenType
 
-class NumberTypeAnalyzer : TokenAnalyzer {
+class StringTypeAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        return input == "number"
+        return input == "string"
     }
 
     override fun giveType(): TokenType {
-        return TokenType.TYPE;
+        return TokenType.IDENTIFIER;
     }
 }
-

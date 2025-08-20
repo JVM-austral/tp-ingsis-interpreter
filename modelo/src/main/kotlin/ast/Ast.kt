@@ -1,4 +1,0 @@
-package ast
-
-interface Ast {
-}

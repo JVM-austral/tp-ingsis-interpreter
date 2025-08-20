@@ -14,7 +14,8 @@ class ComprehensiveParserTest {
 
     private lateinit var parser: ParserV1
     private lateinit var letAnalyzer: LetVariableDeclarationAnalyzer
-    private lateinit var letWithAssignmentAnalyzer: LetVariableDeclarationWithAssignmentAnalyzer
+    private lateinit var letWithStringAssignmentAnalyzer: LetVariableDeclarationWithStringAssignmentAnalyzer
+    private lateinit var letWithNumberAssignmentAnalyzer: LetVariableDeclarationWithNumberAssignmentAnalyzer
     private lateinit var variableDefinitionAnalyzer: VariableDefinitionAnalyzer
     private lateinit var binaryNumberAnalyzer: BinaryNumberOperatorAnalyzer
     private lateinit var stringConcatenationAnalyzer: StringConcatenationAnalyzer
@@ -22,12 +23,13 @@ class ComprehensiveParserTest {
     @BeforeEach
     fun setUp() {
         letAnalyzer = LetVariableDeclarationAnalyzer()
-        letWithAssignmentAnalyzer = LetVariableDeclarationWithAssignmentAnalyzer()
+        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer()
+        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer()
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()
 
-        parser = ParserV1(listOf(letAnalyzer, letWithAssignmentAnalyzer, variableDefinitionAnalyzer))
+        parser = ParserV1(listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer))
     }
 
     // ============ LetVariableDeclarationAnalyzer Tests ============
@@ -35,10 +37,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze valid let declaration`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         assertTrue(letAnalyzer.analyzeStructure(tokens))
@@ -47,10 +49,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze valid let declaration with number type`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("count", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("number", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("count", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("number", TokenType.IDENTIFIER, 1, 4)
         )
 
         assertTrue(letAnalyzer.analyzeStructure(tokens))
@@ -59,9 +61,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject let declaration with wrong size`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3)
         )
 
         assertFalse(letAnalyzer.analyzeStructure(tokens))
@@ -70,10 +72,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject let declaration without let keyword`() {
         val tokens = listOf(
-            Token("var", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("var", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         assertFalse(letAnalyzer.analyzeStructure(tokens))
@@ -82,10 +84,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject let declaration with reserved identifier`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("string", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("string", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         assertFalse(letAnalyzer.analyzeStructure(tokens))
@@ -95,10 +97,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject let declaration without colon`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token("=", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token("=", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         assertFalse(letAnalyzer.analyzeStructure(tokens))
@@ -109,9 +111,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze simple addition`() {
         val tokens = listOf(
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("5", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         assertTrue(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -120,13 +122,13 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze complex arithmetic expression`() {
         val tokens = listOf(
-            Token("10", TokenType.NUMBER_LITERAL),
-            Token("*", TokenType.OPERATOR),
-            Token("2", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("/", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("10", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("*", TokenType.OPERATOR, 1, 2),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 3),
+            Token("+", TokenType.OPERATOR, 1, 4),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 5),
+            Token("/", TokenType.OPERATOR, 1, 6),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 7)
         )
 
         assertTrue(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -135,13 +137,13 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze expression with parentheses`() {
         val tokens = listOf(
-            Token("(", TokenType.PUNCTUATION),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL),
-            Token(")", TokenType.PUNCTUATION),
-            Token("*", TokenType.OPERATOR),
-            Token("2", TokenType.NUMBER_LITERAL)
+            Token("(", TokenType.PUNCTUATION, 1, 1),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 2),
+            Token("+", TokenType.OPERATOR, 1, 3),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 4),
+            Token(")", TokenType.PUNCTUATION, 1, 5),
+            Token("*", TokenType.OPERATOR, 1, 6),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 7)
         )
 
         assertTrue(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -156,8 +158,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject expression starting with operator`() {
         val tokens = listOf(
-            Token("+", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL)
+            Token("+", TokenType.OPERATOR, 1, 1),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 2)
         )
 
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -166,8 +168,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject expression ending with operator`() {
         val tokens = listOf(
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR)
+            Token("5", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2)
         )
 
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -176,10 +178,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject unbalanced parentheses`() {
         val tokens = listOf(
-            Token("(", TokenType.PUNCTUATION),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("(", TokenType.PUNCTUATION, 1, 1),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 2),
+            Token("+", TokenType.OPERATOR, 1, 3),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 4)
         )
 
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -188,9 +190,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject invalid operator`() {
         val tokens = listOf(
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("%", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("5", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("%", TokenType.OPERATOR, 1, 2),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
@@ -201,9 +203,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze simple string concatenation`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("\"world\"", TokenType.STRING_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("\"world\"", TokenType.STRING_LITERAL, 1, 3)
         )
 
         assertTrue(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -212,7 +214,7 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze single string literal`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1)
         )
 
         assertTrue(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -221,11 +223,11 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze multiple string concatenation`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("\"beautiful\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("\"world\"", TokenType.STRING_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("\"beautiful\"", TokenType.STRING_LITERAL, 1, 3),
+            Token("+", TokenType.OPERATOR, 1, 4),
+            Token("\"world\"", TokenType.STRING_LITERAL, 1, 5)
         )
 
         assertTrue(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -240,8 +242,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject string concatenation starting with operator`() {
         val tokens = listOf(
-            Token("+", TokenType.OPERATOR),
-            Token("\"hello\"", TokenType.STRING_LITERAL)
+            Token("+", TokenType.OPERATOR, 1, 1),
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 2)
         )
 
         assertFalse(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -250,8 +252,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject string concatenation ending with operator`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2)
         )
 
         assertFalse(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -260,9 +262,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject non-string literals in concatenation`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         assertFalse(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -271,9 +273,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject wrong operator in string concatenation`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("-", TokenType.OPERATOR),
-            Token("\"world\"", TokenType.STRING_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1),
+            Token("-", TokenType.OPERATOR, 1, 2),
+            Token("\"world\"", TokenType.STRING_LITERAL, 1, 3)
         )
 
         assertFalse(stringConcatenationAnalyzer.analyzeStructure(tokens))
@@ -284,11 +286,11 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze variable definition with number expression`() {
         val tokens = listOf(
-            Token("myVar", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("myVar", TokenType.IDENTIFIER, 1, 1),
+            Token("=", TokenType.OPERATOR, 1, 2),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 3),
+            Token("+", TokenType.OPERATOR, 1, 4),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 5)
         )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -297,11 +299,11 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze variable definition with string concatenation`() {
         val tokens = listOf(
-            Token("greeting", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR),
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("\"world\"", TokenType.STRING_LITERAL)
+            Token("greeting", TokenType.IDENTIFIER, 1, 1),
+            Token("=", TokenType.OPERATOR, 1, 2),
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
+            Token("+", TokenType.OPERATOR, 1, 4),
+            Token("\"world\"", TokenType.STRING_LITERAL, 1, 5)
         )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -310,8 +312,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject variable definition with insufficient tokens`() {
         val tokens = listOf(
-            Token("myVar", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR)
+            Token("myVar", TokenType.IDENTIFIER, 1, 1),
+            Token("=", TokenType.OPERATOR, 1, 2)
         )
 
         assertFalse(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -320,9 +322,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject variable definition without identifier`() {
         val tokens = listOf(
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("=", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("5", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("=", TokenType.OPERATOR, 1, 2),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         assertFalse(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -331,9 +333,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject variable definition without equals`() {
         val tokens = listOf(
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("5", TokenType.NUMBER_LITERAL)
+            Token("myVar", TokenType.IDENTIFIER, 1, 1),
+            Token(":", TokenType.PUNCTUATION, 1, 2),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         assertFalse(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -344,60 +346,60 @@ class ComprehensiveParserTest {
     @Test
     fun `should analyze let declaration with number assignment`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("count", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("number", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("count", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("number", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 6),
+            Token("+", TokenType.OPERATOR, 1, 7),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 8),
         )
 
-        assertTrue(letWithAssignmentAnalyzer.analyzeStructure(tokens))
+        assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
     fun `should analyze let declaration with string assignment`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("message", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR),
-            Token("\"hello\"", TokenType.STRING_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("\"world\"", TokenType.STRING_LITERAL)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("message", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5),
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
+            Token("+", TokenType.OPERATOR, 1, 7),
+            Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
         )
 
-        assertTrue(letWithAssignmentAnalyzer.analyzeStructure(tokens))
+        assertTrue(letWithStringAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
     fun `should reject let declaration with assignment but insufficient tokens`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER),
-            Token("=", TokenType.OPERATOR)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5)
         )
 
-        assertFalse(letWithAssignmentAnalyzer.analyzeStructure(tokens))
+        assertFalse(letWithStringAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
     fun `should reject let declaration with assignment without equals`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("\"hello\"", TokenType.STRING_LITERAL)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4),
+            Token(":", TokenType.PUNCTUATION, 1, 5),
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6)
         )
 
-        assertFalse(letWithAssignmentAnalyzer.analyzeStructure(tokens))
+        assertFalse(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
     // ============ Executor Tests ============
@@ -405,10 +407,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should execute let variable declaration`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("myVar", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         val executor = LetVariableDeclarationExecutor()
@@ -421,9 +423,9 @@ class ComprehensiveParserTest {
     @Test
     fun `should execute binary number operation`() {
         val tokens = listOf(
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL)
+            Token("5", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 3)
         )
 
         val executor = BinaryNumberOperatorExecutor()
@@ -439,11 +441,11 @@ class ComprehensiveParserTest {
     @Test
     fun `should execute complex binary number operation`() {
         val tokens = listOf(
-            Token("10", TokenType.NUMBER_LITERAL),
-            Token("*", TokenType.OPERATOR),
-            Token("2", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL)
+            Token("10", TokenType.NUMBER_LITERAL, 1, 1),
+            Token("*", TokenType.OPERATOR, 1, 2),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 3),
+            Token("+", TokenType.OPERATOR, 1, 4),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 5)
         )
 
         val executor = BinaryNumberOperatorExecutor()
@@ -459,13 +461,13 @@ class ComprehensiveParserTest {
     @Test
     fun `should execute binary operation with parentheses`() {
         val tokens = listOf(
-            Token("(", TokenType.PUNCTUATION),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL),
-            Token(")", TokenType.PUNCTUATION),
-            Token("*", TokenType.OPERATOR),
-            Token("2", TokenType.NUMBER_LITERAL)
+            Token("(", TokenType.PUNCTUATION, 1, 1),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 2),
+            Token("+", TokenType.OPERATOR, 1, 3),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 4),
+            Token(")", TokenType.PUNCTUATION, 1, 5),
+            Token("*", TokenType.OPERATOR, 1, 6),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 7)
         )
 
         val executor = BinaryNumberOperatorExecutor()
@@ -481,8 +483,8 @@ class ComprehensiveParserTest {
     @Test
     fun `should return ScapeAst for invalid binary operation`() {
         val tokens = listOf(
-            Token("+", TokenType.OPERATOR),
-            Token("5", TokenType.NUMBER_LITERAL)
+            Token("+", TokenType.OPERATOR, 1, 1),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 2)
         )
 
         val executor = BinaryNumberOperatorExecutor()
@@ -494,7 +496,7 @@ class ComprehensiveParserTest {
     @Test
     fun `should execute single string literal`() {
         val tokens = listOf(
-            Token("\"hello\"", TokenType.STRING_LITERAL)
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 1)
         )
 
         val executor = StringConcatenationExecutor()
@@ -510,29 +512,28 @@ class ComprehensiveParserTest {
     @Test
     fun `should parse complete let declaration with parser`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token(" ", TokenType.WHITESPACE),
-            Token("userName", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER),
-            Token(";", TokenType.PUNCTUATION)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token(" ", TokenType.WHITESPACE, 1, 2),
+            Token("userName", TokenType.IDENTIFIER, 1, 3),
+            Token(":", TokenType.PUNCTUATION, 1, 4),
+            Token("string", TokenType.IDENTIFIER, 1, 5),
+            Token(";", TokenType.PUNCTUATION, 1, 6)
         )
 
         val result = parser.parse(tokens)
 
         assertEquals(1, result.size)
-        assertTrue(result[0] is VarDeclaration)
+        assertTrue(result[0].isSuccess)
+        assertTrue(result[0].getOrNull() is VarDeclaration)
     }
 
     @Test
     fun `should handle multiple statements`() {
-        // This would require modifying the parser to handle multiple statements
-        // For now, testing single statement parsing
         val tokens1 = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("x", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("number", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("x", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("number", TokenType.IDENTIFIER, 1, 4)
         )
 
         val result1 = parser.parse(tokens1)
@@ -554,14 +555,14 @@ class ComprehensiveParserTest {
     @Test
     fun `should handle whitespace tokens appropriately`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token(" ", TokenType.WHITESPACE),
-            Token(" ", TokenType.WHITESPACE),
-            Token("myVar", TokenType.IDENTIFIER),
-            Token(" ", TokenType.WHITESPACE),
-            Token(":", TokenType.PUNCTUATION),
-            Token(" ", TokenType.WHITESPACE),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token(" ", TokenType.WHITESPACE, 1, 2),
+            Token(" ", TokenType.WHITESPACE, 1, 3),
+            Token("myVar", TokenType.IDENTIFIER, 1, 4),
+            Token(" ", TokenType.WHITESPACE, 1, 5),
+            Token(":", TokenType.PUNCTUATION, 1, 6),
+            Token(" ", TokenType.WHITESPACE, 1, 7),
+            Token("string", TokenType.IDENTIFIER, 1, 8)
         )
 
         // This test depends on how the parser handles whitespace
@@ -573,10 +574,10 @@ class ComprehensiveParserTest {
     @Test
     fun `should reject mixed invalid tokens`() {
         val tokens = listOf(
-            Token("let", TokenType.KEYWORD),
-            Token("123invalid", TokenType.IDENTIFIER), // Invalid identifier
-            Token(":", TokenType.PUNCTUATION),
-            Token("string", TokenType.IDENTIFIER)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("123invalid", TokenType.IDENTIFIER, 1, 2), // Invalid identifier
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
         // This should pass analyzer structure but might fail at execution
@@ -587,24 +588,25 @@ class ComprehensiveParserTest {
     @Test
     fun `should accept a variable definition with a binary operation`(){
         val tokens= listOf(
-            Token("let", TokenType.KEYWORD),
-            Token(" ",TokenType.WHITESPACE),
-            Token("result", TokenType.IDENTIFIER),
-            Token(":", TokenType.PUNCTUATION),
-            Token("number", TokenType.IDENTIFIER),
-            Token("=",TokenType.OPERATOR),
-            Token("(", TokenType.PUNCTUATION),
-            Token("5", TokenType.NUMBER_LITERAL),
-            Token("+", TokenType.OPERATOR),
-            Token("3", TokenType.NUMBER_LITERAL),
-            Token(")", TokenType.PUNCTUATION),
-            Token("*", TokenType.OPERATOR),
-            Token("2", TokenType.NUMBER_LITERAL),
-            Token(";", TokenType.PUNCTUATION)
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token(" ",TokenType.WHITESPACE, 1, 2),
+            Token("result", TokenType.IDENTIFIER, 1, 3),
+            Token(":", TokenType.PUNCTUATION, 1, 4),
+            Token("number", TokenType.IDENTIFIER, 1, 5),
+            Token("=",TokenType.OPERATOR, 1, 6),
+            Token("(", TokenType.PUNCTUATION, 1, 7),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 8),
+            Token("+", TokenType.OPERATOR, 1, 9),
+            Token("3", TokenType.NUMBER_LITERAL, 1, 10),
+            Token(")", TokenType.PUNCTUATION, 1, 11),
+            Token("*", TokenType.OPERATOR, 1, 12),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 13),
+            Token(";", TokenType.PUNCTUATION, 1, 14)
         )
-        val result=parser.parse(tokens)[0]
-        println(result.getChild()[2].getValue())
-
-
+        val parsed = parser.parse(tokens)
+        if(parsed.isNotEmpty() && parsed[0].isSuccess) {
+            val ast = parsed[0].getOrNull()!!
+            println(ast.getChild()[2].getValue())
+        }
     }
 }
