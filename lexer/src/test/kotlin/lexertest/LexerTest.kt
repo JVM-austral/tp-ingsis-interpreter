@@ -1,6 +1,6 @@
 package lexertest
 
-import lexer.LexerImplementationV1
+import lexer.LexerImplementation
 import lexer.rules.NumberAnalyzer
 import lexer.rules.TokenAnalyzer
 import lexer.rules.*
@@ -18,7 +18,7 @@ class LexerTest {
             VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
         )
 
-        val lexer = LexerImplementationV1(analyzers)
+        val lexer = LexerImplementation(analyzers)
 
         val result = listOf<Result<Token>>(
             Result.success(Token("let", TokenType.KEYWORD, 0, 0)),
@@ -44,7 +44,7 @@ class LexerTest {
             VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
         )
 
-        val lexer = LexerImplementationV1(analyzers)
+        val lexer = LexerImplementation(analyzers)
 
         val result = listOf<Result<Token>>(
             Result.success(Token("\"hola mundo\"", TokenType.STRING_LITERAL, 0, 0)),
@@ -62,7 +62,7 @@ class LexerTest {
             VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
         )
 
-        val lexer = LexerImplementationV1(analyzers)
+        val lexer = LexerImplementation(analyzers)
 
         val result = listOf<Result<Token>>(
             Result.success(Token("y", TokenType.IDENTIFIER, 0, 0)),
@@ -81,7 +81,7 @@ class LexerTest {
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
             VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
         )
-        val lexer = LexerImplementationV1(analyzers)
+        val lexer = LexerImplementation(analyzers)
         val result = listOf<Result<Token>>(
             Result.success(Token("z", TokenType.IDENTIFIER, 0, 0)),
             Result.success(Token("+", TokenType.OPERATOR, 0, 1)),
@@ -101,7 +101,7 @@ class LexerTest {
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
             VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
         )
-        val lexer = LexerImplementationV1(analyzers)
+        val lexer = LexerImplementation(analyzers)
         val result = listOf<Result<Token>>(
             Result.success(Token("(", TokenType.PUNCTUATION, 0, 0)),
             Result.success(Token("a", TokenType.IDENTIFIER, 0, 1)),

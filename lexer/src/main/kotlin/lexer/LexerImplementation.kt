@@ -5,7 +5,7 @@ import token.Token
 import kotlin.Exception
 
 
-class LexerImplementationV1(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
+class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
 
     override fun tokenize(input: String): List<Result<Token>> {
         var currentLine = 0
