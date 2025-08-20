@@ -23,6 +23,7 @@ class LexerTest {
             Token(" ", TokenType.WHITESPACE),
             Token("12.3", TokenType.NUMBER_LITERAL),
             Token(";", TokenType.PUNCTUATION))
+
         val input= "let hola = 12.3;"
 
         assertEquals(result, lexer.tokenize(input))

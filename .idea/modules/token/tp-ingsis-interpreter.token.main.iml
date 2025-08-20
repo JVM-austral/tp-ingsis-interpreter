@@ -2,7 +2,8 @@
 <module external.linked.project.id=":token:main" external.linked.project.path="$MODULE_DIR$/../../../token" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="tp-ingsis-interpreter" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false">
+      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\token\src\main\kotlin;C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\token\src\test\kotlin">
+        <compilerSettings />
         <compilerArguments>
           <flagArguments>
             <flagArg name="allowNoSourceFiles" arg="true" />
@@ -38,7 +39,7 @@
     <content url="file://$MODULE_DIR$/../../../token/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../token/src/main/kotlin" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="openjdk-23" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
