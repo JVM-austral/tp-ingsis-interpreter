@@ -1,7 +1,7 @@
 package lexertest
 
 import com.google.gson.Gson
-import lexer.LexerImplementationV1
+import lexer.LexerImplementation
 import lexer.rules.*
 
 
@@ -12,7 +12,7 @@ object TestGenerator {
         VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
     )
 
-    private val lexer = LexerImplementationV1(analyzers)
+    private val lexer = LexerImplementation(analyzers)
     private val gson = Gson()
 
     private fun generateJson(input: String): String {

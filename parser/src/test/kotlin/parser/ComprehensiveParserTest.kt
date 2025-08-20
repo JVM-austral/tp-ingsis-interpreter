@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 
 class ComprehensiveParserTest {
 
-    private lateinit var parser: ParserV1
+    private lateinit var parser: ParserImplementation
     private lateinit var letAnalyzer: LetVariableDeclarationAnalyzer
     private lateinit var letWithStringAssignmentAnalyzer: LetVariableDeclarationWithStringAssignmentAnalyzer
     private lateinit var letWithNumberAssignmentAnalyzer: LetVariableDeclarationWithNumberAssignmentAnalyzer
@@ -29,7 +29,7 @@ class ComprehensiveParserTest {
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()
 
-        parser = ParserV1(listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer))
+        parser = ParserImplementation(listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer))
     }
 
     // ============ LetVariableDeclarationAnalyzer Tests ============
@@ -520,7 +520,7 @@ class ComprehensiveParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 6)
         )
 
-        val result = parser.parse(tokens)
+        val result = parser.parse(tokens.map { Result.success(it) })
 
         assertEquals(1, result.size)
         assertTrue(result[0].isSuccess)
@@ -536,19 +536,18 @@ class ComprehensiveParserTest {
             Token("number", TokenType.IDENTIFIER, 1, 4)
         )
 
-        val result1 = parser.parse(tokens1)
-        assertEquals(0, result1.size)
-        assertTrue(result1.isEmpty())
+        val result1 = parser.parse(tokens1.map { Result.success(it) })
+        assertEquals(1, result1.size)
+        assertTrue(result1.first().isFailure)
     }
 
     // ============ Edge Cases and Error Handling ============
 
     @Test
     fun `should handle empty token list`() {
-        val tokens = emptyList<Token>()
+        val tokens = emptyList<Result<Token>>()
         val result = parser.parse(tokens)
 
-        // Assuming parser returns empty list for no matches
         assertTrue(result.isEmpty())
     }
 
@@ -565,8 +564,6 @@ class ComprehensiveParserTest {
             Token("string", TokenType.IDENTIFIER, 1, 8)
         )
 
-        // This test depends on how the parser handles whitespace
-        // May need adjustment based on actual parser implementation
         val filteredTokens = tokens.filter { it.type != TokenType.WHITESPACE }
         assertTrue(letAnalyzer.analyzeStructure(filteredTokens))
     }
@@ -575,13 +572,11 @@ class ComprehensiveParserTest {
     fun `should reject mixed invalid tokens`() {
         val tokens = listOf(
             Token("let", TokenType.KEYWORD, 1, 1),
-            Token("123invalid", TokenType.IDENTIFIER, 1, 2), // Invalid identifier
+            Token("123invalid", TokenType.IDENTIFIER, 1, 2),
             Token(":", TokenType.PUNCTUATION, 1, 3),
             Token("string", TokenType.IDENTIFIER, 1, 4)
         )
 
-        // This should pass analyzer structure but might fail at execution
-        // depending on identifier validation rules
         assertTrue(letAnalyzer.analyzeStructure(tokens))
     }
 
@@ -603,7 +598,7 @@ class ComprehensiveParserTest {
             Token("2", TokenType.NUMBER_LITERAL, 1, 13),
             Token(";", TokenType.PUNCTUATION, 1, 14)
         )
-        val parsed = parser.parse(tokens)
+        val parsed = parser.parse(tokens.map { Result.success(it) })
         if(parsed.isNotEmpty() && parsed[0].isSuccess) {
             val ast = parsed[0].getOrNull()!!
             println(ast.getChild()[2].getValue())
