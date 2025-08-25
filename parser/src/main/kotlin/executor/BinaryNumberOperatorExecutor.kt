@@ -8,7 +8,6 @@ import token.Token
 import token.TokenType
 
 class BinaryNumberOperatorExecutor : StructureExecutor {
-
     private var index = 0
     private lateinit var tokens: List<Token>
 
@@ -71,11 +70,14 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
     }
 
     private fun peek() = tokens[index]
+
     private fun next() = tokens[index++]
 
-    private fun isAddSubOperator(token: Token) = token.type == TokenType.OPERATOR &&
-        (token.value == "+" || token.value == "-")
+    private fun isAddSubOperator(token: Token) =
+        token.type == TokenType.OPERATOR &&
+            (token.value == "+" || token.value == "-")
 
-    private fun isMulDivOperator(token: Token) = token.type == TokenType.OPERATOR &&
-        (token.value == "*" || token.value == "/")
+    private fun isMulDivOperator(token: Token) =
+        token.type == TokenType.OPERATOR &&
+            (token.value == "*" || token.value == "/")
 }

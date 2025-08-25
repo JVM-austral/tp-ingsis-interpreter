@@ -4,5 +4,6 @@ import token.Token
 
 interface StructureAnalyzer {
     fun analyzeStructure(tokens: List<Token>): Boolean
+
     fun getExecutor(): StructureExecutor
 }
