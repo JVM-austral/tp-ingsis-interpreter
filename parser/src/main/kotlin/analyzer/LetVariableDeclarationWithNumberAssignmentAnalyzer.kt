@@ -5,7 +5,6 @@ import executor.StructureExecutor
 import token.Token
 
 class LetVariableDeclarationWithNumberAssignmentAnalyzer : StructureAnalyzer {
-
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         if (tokens.size < 6) {
             return false
@@ -29,6 +28,7 @@ class LetVariableDeclarationWithNumberAssignmentAnalyzer : StructureAnalyzer {
 
         return true
     }
+
     override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
     }

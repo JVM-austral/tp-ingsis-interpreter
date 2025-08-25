@@ -7,7 +7,6 @@ import token.Token
 import token.TokenType
 
 class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>) : Parser {
-
     companion object {
         private const val UNKNOWN_ERROR_MESSAGE = "Unknown error"
     }
@@ -37,7 +36,10 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         return root
     }
 
-    private fun processStatement(tokens: List<Token>, root: MutableList<Result<Ast>>) {
+    private fun processStatement(
+        tokens: List<Token>,
+        root: MutableList<Result<Ast>>,
+    ) {
         if (tokens.isEmpty()) return
 
         val executorResult = matchesAnalyzer(tokens)

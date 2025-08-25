@@ -14,14 +14,8 @@ subprojects {
             target("**/*.kt")
             targetExclude("**/build/**")
 
-            // Usar KtLint con versión específica
-            ktlint("1.1.1").editorConfigOverride(
-                mapOf(
-                    "indent_size" to "4",
-                    "disabled_rules" to "no-wildcard-imports"
-                )
-            )
-
+            // Usar ktlint con versión específica
+            ktlint("1.1.1")
         }
 
         kotlinGradle {
@@ -30,4 +24,3 @@ subprojects {
         }
     }
 }
-

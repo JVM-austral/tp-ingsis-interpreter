@@ -15,11 +15,12 @@ import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
 
 object TestGenerator {
-    private val analyzers = listOf(
-        KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
-        OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-        VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
-    )
+    private val analyzers =
+        listOf(
+            KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
+            OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
+        )
 
     private val lexer = LexerImplementation(analyzers)
     private val gson = Gson()

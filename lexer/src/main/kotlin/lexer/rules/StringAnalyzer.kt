@@ -7,6 +7,7 @@ class StringAnalyzer : TokenAnalyzer {
         val regex = """^(['"])[^'"]*\1$""".toRegex()
         return regex.matches(input)
     }
+
     override fun giveType(): TokenType {
         return TokenType.STRING_LITERAL
     }

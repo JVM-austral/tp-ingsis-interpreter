@@ -4,9 +4,11 @@ class Assigment(val identifier: String, val variable: Literal, val expr: Ast) : 
     override fun getChild(): List<Ast> {
         return listOf(variable, expr)
     }
+
     override fun getChildLimit(): Int {
         return 2
     }
+
     override fun getValue(): String {
         return identifier
     }

@@ -6,7 +6,6 @@ import token.Token
 import token.TokenType
 
 class BinaryNumberOperatorAnalyzer : StructureAnalyzer {
-
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return isArithmeticOperation(tokens)
     }
