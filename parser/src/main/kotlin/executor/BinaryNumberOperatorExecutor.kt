@@ -22,7 +22,6 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
         }
     }
 
-
     private fun parseExpression(): ParseResult {
         var left = parseTerm()
         if (left is ParseResult.Failure) return ParseResult.Failure
@@ -31,12 +30,11 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next().value
             val right = parseTerm()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(BinaryOperation(op,(left as ParseResult.Success).ast,  (right as ParseResult.Success).ast))
+            left = ParseResult.Success(BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast))
         }
 
         return left
     }
-
 
     private fun parseTerm(): ParseResult {
         var left = parseFactor()
@@ -46,7 +44,7 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next().value
             val right = parseFactor()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(BinaryOperation( op,(left as ParseResult.Success).ast, (right as ParseResult.Success).ast))
+            left = ParseResult.Success(BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast))
         }
 
         return left
@@ -64,7 +62,9 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
                     if (expr is ParseResult.Failure) return ParseResult.Failure
                     if (index >= tokens.size || next().value != ")") return ParseResult.Failure
                     ParseResult.Success((expr as ParseResult.Success).ast)
-                } else ParseResult.Failure
+                } else {
+                    ParseResult.Failure
+                }
             }
             else -> ParseResult.Failure
         }
@@ -74,8 +74,8 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
     private fun next() = tokens[index++]
 
     private fun isAddSubOperator(token: Token) = token.type == TokenType.OPERATOR &&
-            (token.value == "+" || token.value == "-")
+        (token.value == "+" || token.value == "-")
 
     private fun isMulDivOperator(token: Token) = token.type == TokenType.OPERATOR &&
-            (token.value == "*" || token.value == "/")
+        (token.value == "*" || token.value == "/")
 }

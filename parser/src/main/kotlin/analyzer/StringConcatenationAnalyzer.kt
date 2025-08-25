@@ -5,9 +5,8 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class StringConcatenationAnalyzer : StructureAnalyzer{
+class StringConcatenationAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-
         return isStringConcatenation(tokens)
     }
 
@@ -28,5 +27,4 @@ class StringConcatenationAnalyzer : StructureAnalyzer{
         }
         return !expectString
     }
-
 }

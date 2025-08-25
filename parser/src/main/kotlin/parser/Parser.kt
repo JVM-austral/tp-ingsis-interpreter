@@ -4,5 +4,5 @@ import ast.Ast
 import token.Token
 
 interface Parser {
-    fun parse(tokens:List<Result<Token>>): List<Result<Ast>>
+    fun parse(tokens: List<Result<Token>>): List<Result<Ast>>
 }

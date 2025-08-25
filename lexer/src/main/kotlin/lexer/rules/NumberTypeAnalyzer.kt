@@ -8,7 +8,6 @@ class NumberTypeAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.IDENTIFIER;
+        return TokenType.IDENTIFIER
     }
 }
-

@@ -19,16 +19,13 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         val current = mutableListOf<Token>()
 
         for (tokenUnits in cleanTokens) {
-
             if (tokenUnits.isFailure) {
                 root.add(Result.failure(tokenUnits.exceptionOrNull() ?: Exception("No tiene excepción")))
                 current.clear()
-            }
-            else if (isEndOfStatementAndSuccess(tokenUnits)) {
+            } else if (isEndOfStatementAndSuccess(tokenUnits)) {
                 processStatement(current, root)
                 current.clear()
-            }
-            else {
+            } else {
                 tokenUnits.getOrNull()?.let { current.add(it) }
             }
         }
@@ -74,7 +71,7 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
 
     private fun isEndOfStatementAndSuccess(tokenUnits: Result<Token>): Boolean {
         return tokenUnits.isSuccess &&
-                tokenUnits.getOrNull()?.type == TokenType.PUNCTUATION &&
-                tokenUnits.getOrNull()?.value == ";"
+            tokenUnits.getOrNull()?.type == TokenType.PUNCTUATION &&
+            tokenUnits.getOrNull()?.value == ";"
     }
 }

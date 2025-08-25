@@ -4,7 +4,7 @@ class VarDeclaration(
     val identifier: String,
     val variable: Literal,
     val type: TypeDeclaration,
-    val expr: Ast
+    val expr: Ast,
 ) : Ast {
     override fun getChild(): List<Ast> {
         return listOf(variable, type, expr)
@@ -18,4 +18,3 @@ class VarDeclaration(
         return identifier
     }
 }
-

@@ -9,5 +9,5 @@ enum class TokenType() {
     ENTER,
     PUNCTUATION,
     WHITESPACE,
-    UNKNOWN
+    UNKNOWN,
 }

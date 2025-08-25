@@ -1,9 +1,18 @@
 package lexertest
 
 import lexer.LexerImplementation
+import lexer.rules.KeywordAnalyzer
+import lexer.rules.MidNumberAnalyzer
+import lexer.rules.MidStringAnalyzer
 import lexer.rules.NumberAnalyzer
+import lexer.rules.NumberTypeAnalyzer
+import lexer.rules.OperatorAnalyzer
+import lexer.rules.PunctuationAnalyzer
+import lexer.rules.StringAnalyzer
+import lexer.rules.StringTypeAnalyzer
 import lexer.rules.TokenAnalyzer
-import lexer.rules.*
+import lexer.rules.VariableAnalyzer
+import lexer.rules.WhitespaceAnalyzer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import token.Token
@@ -15,7 +24,7 @@ class LexerTest {
         val analyzers = listOf<TokenAnalyzer>(
             KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
         )
 
         val lexer = LexerImplementation(analyzers)
@@ -28,7 +37,7 @@ class LexerTest {
             Result.success(Token("=", TokenType.OPERATOR, 0, 9)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 10)),
             Result.success(Token("12.3", TokenType.NUMBER_LITERAL, 0, 11)),
-            Result.success(Token(";", TokenType.PUNCTUATION, 0, 15))
+            Result.success(Token(";", TokenType.PUNCTUATION, 0, 15)),
         )
 
         val input = "let hola = 12.3;"
@@ -41,14 +50,14 @@ class LexerTest {
         val analyzers = listOf<TokenAnalyzer>(
             KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
         )
 
         val lexer = LexerImplementation(analyzers)
 
         val result = listOf<Result<Token>>(
             Result.success(Token("\"hola mundo\"", TokenType.STRING_LITERAL, 0, 0)),
-            Result.success(Token(";", TokenType.PUNCTUATION, 0, 12))
+            Result.success(Token(";", TokenType.PUNCTUATION, 0, 12)),
         )
         val input = "\"hola mundo\";"
         assertEquals(result, lexer.tokenize(input))
@@ -59,7 +68,7 @@ class LexerTest {
         val analyzers = listOf<TokenAnalyzer>(
             KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
         )
 
         val lexer = LexerImplementation(analyzers)
@@ -68,18 +77,18 @@ class LexerTest {
             Result.success(Token("y", TokenType.IDENTIFIER, 0, 0)),
             Result.success(Token("=", TokenType.OPERATOR, 0, 1)),
             Result.success(Token("5", TokenType.NUMBER_LITERAL, 0, 2)),
-            Result.success(Token(";", TokenType.PUNCTUATION, 0, 3))
+            Result.success(Token(";", TokenType.PUNCTUATION, 0, 3)),
         )
         val input = "y=5;"
         assertEquals(result, lexer.tokenize(input))
     }
 
     @Test
-    fun `multiple operators and numbers`(): Unit {
+    fun `multiple operators and numbers`() {
         val analyzers = listOf<TokenAnalyzer>(
             KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
         )
         val lexer = LexerImplementation(analyzers)
         val result = listOf<Result<Token>>(
@@ -88,7 +97,7 @@ class LexerTest {
             Result.success(Token("y", TokenType.IDENTIFIER, 0, 2)),
             Result.success(Token("-", TokenType.OPERATOR, 0, 3)),
             Result.success(Token("2", TokenType.NUMBER_LITERAL, 0, 4)),
-            Result.success(Token(";", TokenType.PUNCTUATION, 0, 5))
+            Result.success(Token(";", TokenType.PUNCTUATION, 0, 5)),
         )
         val input = "z+y-2;"
         assertEquals(result, lexer.tokenize(input))
@@ -99,7 +108,7 @@ class LexerTest {
         val analyzers = listOf<TokenAnalyzer>(
             KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
             OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer()
+            VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
         )
         val lexer = LexerImplementation(analyzers)
         val result = listOf<Result<Token>>(
@@ -109,7 +118,7 @@ class LexerTest {
             Result.success(Token("+", TokenType.OPERATOR, 0, 3)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 4)),
             Result.success(Token("b", TokenType.IDENTIFIER, 0, 5)),
-            Result.success(Token(")", TokenType.PUNCTUATION, 0, 6))
+            Result.success(Token(")", TokenType.PUNCTUATION, 0, 6)),
         )
         val input = "(a + b)"
         assertEquals(result, lexer.tokenize(input))

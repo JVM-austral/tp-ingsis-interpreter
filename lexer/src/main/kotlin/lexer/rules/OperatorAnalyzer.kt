@@ -10,6 +10,6 @@ class OperatorAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.OPERATOR;
+        return TokenType.OPERATOR
     }
 }

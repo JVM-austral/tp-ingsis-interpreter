@@ -8,6 +8,6 @@ class WhitespaceAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.WHITESPACE;
+        return TokenType.WHITESPACE
     }
 }

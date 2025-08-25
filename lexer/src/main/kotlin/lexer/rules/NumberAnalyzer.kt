@@ -11,6 +11,6 @@ class NumberAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.NUMBER_LITERAL;
+        return TokenType.NUMBER_LITERAL
     }
 }

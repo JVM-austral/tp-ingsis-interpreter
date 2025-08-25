@@ -2,13 +2,13 @@ package lexer.rules
 
 import token.TokenType
 
-class EnterAnalyzer: TokenAnalyzer {
+class EnterAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        val restrictedList= listOf("\n")
+        val restrictedList = listOf("\n")
         return restrictedList.contains(input)
     }
 
     override fun giveType(): TokenType {
-        return TokenType.ENTER;
+        return TokenType.ENTER
     }
 }

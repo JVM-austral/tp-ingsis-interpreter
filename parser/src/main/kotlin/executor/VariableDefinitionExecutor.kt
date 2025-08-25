@@ -6,15 +6,15 @@ import ast.Ast
 import ast.Literal
 import token.Token
 
-class VariableDefinitionExecutor(private val operatorAnalyzers:List<StructureAnalyzer>) : StructureExecutor {
+class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
         lateinit var secondPartExecutor: StructureExecutor
 
-        for(analyzer in operatorAnalyzers){
-            if(analyzer.analyzeStructure(tokens)){
+        for (analyzer in operatorAnalyzers) {
+            if (analyzer.analyzeStructure(tokens)) {
                 secondPartExecutor = analyzer.getExecutor()
             }
         }
-        return Assigment(tokens[1].value,Literal(tokens[0].value),secondPartExecutor.execute(tokens.subList(6, tokens.size)))
+        return Assigment(tokens[1].value, Literal(tokens[0].value), secondPartExecutor.execute(tokens.subList(6, tokens.size)))
     }
 }
