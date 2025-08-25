@@ -9,9 +9,9 @@
       <module name="tp-ingsis-interpreter.ast" target="21" />
       <module name="tp-ingsis-interpreter.ast.main" target="21" />
       <module name="tp-ingsis-interpreter.ast.test" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.main" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.test" target="21" />
+      <module name="tp-ingsis-interpreter.buildSrc" target="18" />
+      <module name="tp-ingsis-interpreter.buildSrc.main" target="18" />
+      <module name="tp-ingsis-interpreter.buildSrc.test" target="18" />
       <module name="tp-ingsis-interpreter.interpreter" target="21" />
       <module name="tp-ingsis-interpreter.interpreter.main" target="21" />
       <module name="tp-ingsis-interpreter.interpreter.test" target="21" />

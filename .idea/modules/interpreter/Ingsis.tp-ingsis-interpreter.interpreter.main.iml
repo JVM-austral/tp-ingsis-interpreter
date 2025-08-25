@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":app:main" external.linked.project.path="$MODULE_DIR$/../../../app" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="tp-ingsis-interpreter" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":interpreter:main" external.linked.project.path="$MODULE_DIR$/../../../interpreter" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="tp-ingsis-interpreter" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\app\src\main\kotlin;C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\app\src\test\kotlin">
-        <compilerSettings />
+      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false">
         <compilerArguments>
           <flagArguments>
             <flagArg name="allowNoSourceFiles" arg="true" />
@@ -11,9 +10,9 @@
             <flagArg name="noStdlib" arg="true" />
           </flagArguments>
           <stringArguments>
-            <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/classes/kotlin/main" />
+            <stringArg name="destination" arg="$MODULE_DIR$/../../../interpreter/build/classes/kotlin/main" />
             <stringArg name="jvmTarget" arg="21" />
-            <stringArg name="moduleName" arg="app" />
+            <stringArg name="moduleName" arg="interpreter" />
             <stringArg name="apiVersion" arg="2.1" />
             <stringArg name="languageVersion" arg="2.1" />
           </stringArguments>
@@ -34,18 +33,15 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
-    <output url="file://$MODULE_DIR$/../../../app/build/classes/kotlin/main" />
+    <output url="file://$MODULE_DIR$/../../../interpreter/build/classes/kotlin/main" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../app/src/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/src/main/kotlin" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../interpreter/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../interpreter/src/main/kotlin" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="openjdk-23" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="tp-ingsis-interpreter.utilities.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-text:1.12.0" level="project" />
-    <orderEntry type="module" module-name="tp-ingsis-interpreter.list.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.14.0" level="project" />
+    <orderEntry type="module" module-name="tp-ingsis-interpreter.ast.main" />
   </component>
 </module>

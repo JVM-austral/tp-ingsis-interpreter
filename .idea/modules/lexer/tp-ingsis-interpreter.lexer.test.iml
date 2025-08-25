@@ -2,9 +2,8 @@
 <module external.linked.project.id=":lexer:test" external.linked.project.path="$MODULE_DIR$/../../../lexer" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="tp-ingsis-interpreter" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\lexer\src\main\kotlin;C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\lexer\src\test\kotlin">
+      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false">
         <additionalVisibleModuleNames>:lexer:main</additionalVisibleModuleNames>
-        <compilerSettings />
         <compilerArguments>
           <flagArguments>
             <flagArg name="allowNoSourceFiles" arg="true" />
@@ -40,13 +39,15 @@
     <content url="file://$MODULE_DIR$/../../../lexer/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../../lexer/src/test/kotlin" isTestSource="true" />
     </content>
-    <orderEntry type="jdk" jdkName="openjdk-23" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.lexer.main" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.token.main" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.11.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.10.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-junit5:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.11.3" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.11.3" level="project" />
