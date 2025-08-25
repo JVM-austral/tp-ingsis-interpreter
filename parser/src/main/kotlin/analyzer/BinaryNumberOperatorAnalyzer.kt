@@ -5,7 +5,7 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class BinaryNumberOperatorAnalyzer : StructureAnalyzer{
+class BinaryNumberOperatorAnalyzer : StructureAnalyzer {
 
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return isArithmeticOperation(tokens)
@@ -30,7 +30,9 @@ class BinaryNumberOperatorAnalyzer : StructureAnalyzer{
                         TokenType.PUNCTUATION -> {
                             if (token.value == "(") {
                                 balance++
-                            } else return false
+                            } else {
+                                return false
+                            }
                         }
                         else -> return false
                     }
@@ -40,13 +42,17 @@ class BinaryNumberOperatorAnalyzer : StructureAnalyzer{
                         TokenType.OPERATOR -> {
                             if (token.value in operators) {
                                 expectOperand = true
-                            } else return false
+                            } else {
+                                return false
+                            }
                         }
                         TokenType.PUNCTUATION -> {
                             if (token.value == ")") {
                                 balance--
                                 if (balance < 0) return false
-                            } else return false
+                            } else {
+                                return false
+                            }
                         }
                         else -> return false
                     }

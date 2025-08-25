@@ -5,11 +5,10 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationAnalyzer: StructureAnalyzer {
+class LetVariableDeclarationAnalyzer : StructureAnalyzer {
 
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-
-        if(tokens.size != 4) {
+        if (tokens.size != 4) {
             return false
         }
 
@@ -18,7 +17,8 @@ class LetVariableDeclarationAnalyzer: StructureAnalyzer {
         }
 
         if (tokens[1].type != TokenType.IDENTIFIER ||
-            isReservedType(tokens[1].value)) {
+            isReservedType(tokens[1].value)
+        ) {
             return false
         }
         if (tokens[2].value != ":") {
@@ -39,6 +39,4 @@ class LetVariableDeclarationAnalyzer: StructureAnalyzer {
     private fun isReservedType(value: String): Boolean {
         return value == "string" || value == "number"
     }
-
-
 }

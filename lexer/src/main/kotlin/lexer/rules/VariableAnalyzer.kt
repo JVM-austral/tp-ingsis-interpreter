@@ -9,6 +9,6 @@ class VariableAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.IDENTIFIER;
+        return TokenType.IDENTIFIER
     }
 }

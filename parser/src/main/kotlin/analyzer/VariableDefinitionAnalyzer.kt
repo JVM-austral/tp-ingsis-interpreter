@@ -17,7 +17,7 @@ class VariableDefinitionAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if(!BinaryNumberOperatorAnalyzer().analyzeStructure(tokens.subList(2,tokens.size)) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2,tokens.size))){
+        if (!BinaryNumberOperatorAnalyzer().analyzeStructure(tokens.subList(2, tokens.size)) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2, tokens.size))) {
             return false
         }
 
@@ -28,6 +28,3 @@ class VariableDefinitionAnalyzer : StructureAnalyzer {
         TODO("Not yet implemented")
     }
 }
-
-
-

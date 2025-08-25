@@ -4,6 +4,13 @@
  * The settings file is used to specify which projects to include in your build.
  * For more detailed information on multi-project builds, please refer to https://docs.gradle.org/8.13/userguide/multi_project_builds.html in the Gradle documentation.
  */
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google() // opcional, si usás Android
+    }
+}
 
 plugins {
     // Apply the foojay-resolver plugin to allow automatic download of JDKs
@@ -11,4 +18,4 @@ plugins {
 }
 
 rootProject.name = 'tp-ingsis-interpreter'
-include('app', 'list', 'utilities', 'lexer', 'parser', 'ast', 'token','interpreter')
+include('lexer', 'parser', 'ast', 'token','interpreter')

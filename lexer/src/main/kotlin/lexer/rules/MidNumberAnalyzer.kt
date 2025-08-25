@@ -10,6 +10,6 @@ class MidNumberAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.UNKNOWN;
+        return TokenType.UNKNOWN
     }
 }

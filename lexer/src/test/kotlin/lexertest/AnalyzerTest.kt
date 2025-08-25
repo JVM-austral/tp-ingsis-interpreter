@@ -1,9 +1,19 @@
 package lexertest
 
-import lexer.rules.*
-import org.junit.jupiter.api.Assertions.*
+import lexer.rules.KeywordAnalyzer
+import lexer.rules.MidNumberAnalyzer
+import lexer.rules.MidStringAnalyzer
+import lexer.rules.NumberTypeAnalyzer
+import lexer.rules.OperatorAnalyzer
+import lexer.rules.PunctuationAnalyzer
+import lexer.rules.StringAnalyzer
+import lexer.rules.StringTypeAnalyzer
+import lexer.rules.VariableAnalyzer
+import lexer.rules.WhitespaceAnalyzer
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-
 import token.TokenType
 
 class AnalyzerTest {
@@ -44,8 +54,8 @@ class AnalyzerTest {
         val result2 = TokenType.PUNCTUATION
         assertEquals(result2, analyzer.giveType())
     }
-    @Test
 
+    @Test
     fun `mid number analyzer`() {
         val analyzer = MidNumberAnalyzer()
         val result = true
@@ -71,15 +81,17 @@ class AnalyzerTest {
         val result2 = TokenType.UNKNOWN
         assertEquals(result2, analyzer.giveType())
     }
+
     @Test
     fun `number type analyzer`() {
-        val analyzer=NumberTypeAnalyzer()
+        val analyzer = NumberTypeAnalyzer()
         assertTrue(analyzer.analyze("number"))
         assertFalse(analyzer.analyze("123"))
         assertFalse(analyzer.analyze("num"))
         assertFalse(analyzer.analyze(""))
         assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
+
     @Test
     fun `operator analyzer`() {
         val analyzer = OperatorAnalyzer()
@@ -93,6 +105,7 @@ class AnalyzerTest {
         assertFalse(analyzer.analyze("1"))
         assertEquals(TokenType.OPERATOR, analyzer.giveType())
     }
+
     @Test
     fun `string type analyzer`() {
         val analyzer = StringTypeAnalyzer()
@@ -100,6 +113,7 @@ class AnalyzerTest {
         assertFalse(analyzer.analyze("other"))
         assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
+
     @Test
     fun `variable analyzer`() {
         val analyzer = VariableAnalyzer()
@@ -112,6 +126,7 @@ class AnalyzerTest {
         assertFalse(analyzer.analyze(""))
         assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
+
     @Test
     fun `whitespace analyzer`() {
         val analyzer = WhitespaceAnalyzer()
@@ -122,8 +137,9 @@ class AnalyzerTest {
         assertFalse(analyzer.analyze("a"))
         assertEquals(TokenType.WHITESPACE, analyzer.giveType())
     }
+
     @Test
-    fun `keyword analyzer` () {
+    fun `keyword analyzer`() {
         val analyzer = KeywordAnalyzer()
         assert(analyzer.analyze("let"))
         assert(analyzer.giveType() == TokenType.KEYWORD)
