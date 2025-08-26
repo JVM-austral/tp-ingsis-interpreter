@@ -1,7 +1,7 @@
 package ast
 
 class BinaryOperation(val operator: String, val left: Ast, val right: Ast) : Ast {
-    override fun getChild(): List<Ast> {
+    override fun getListOfChildren(): List<Ast> {
         return listOf(left, right)
     }
 

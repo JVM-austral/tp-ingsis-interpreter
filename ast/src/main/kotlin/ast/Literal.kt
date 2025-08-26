@@ -1,7 +1,7 @@
 package ast
 
 class Literal(val identifier: String) : Ast {
-    override fun getChild(): List<Ast> {
+    override fun getListOfChildren(): List<Ast> {
         return listOf()
     }
 

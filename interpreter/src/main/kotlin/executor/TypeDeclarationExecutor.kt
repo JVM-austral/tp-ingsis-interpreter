@@ -4,7 +4,7 @@ import ast.Ast
 import ast.TypeDeclaration
 import interpreter.VariableInfo
 
-class TypeDeclarationExecutor(private val heap: MutableMap<String, VariableInfo>) : InterpreterExecutor {
+class TypeDeclarationExecutor : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,

@@ -5,7 +5,7 @@ import ast.Ast
 import executor.FailInterpreterExecutor
 import executor.InterpreterExecutor
 
-class InterpreterImplementationV1(private val listOfAnalyzers: List<InterpreterAnalyzer>, private var heap: MutableMap<String, VariableInfo>) : Interpreter {
+class InterpreterImplementation(private val listOfAnalyzers: List<InterpreterAnalyzer>, private var heap: MutableMap<String, VariableInfo>) : Interpreter {
     private val executionQueue: MutableList<Result<MutableMap<String, VariableInfo>>> = mutableListOf()
 
     override fun interpret(parsedStatement: List<Result<Ast>>): List<Result<MutableMap<String, VariableInfo>>> {

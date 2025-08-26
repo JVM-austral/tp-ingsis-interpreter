@@ -2,7 +2,7 @@ package ast
 
 class VariableIdentifier(private val identifierName: String) : Ast {
 
-    override fun getChild(): List<Ast> {
+    override fun getListOfChildren(): List<Ast> {
         return listOf()
     }
 

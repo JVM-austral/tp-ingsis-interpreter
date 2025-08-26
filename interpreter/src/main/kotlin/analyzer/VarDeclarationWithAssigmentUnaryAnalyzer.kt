@@ -12,7 +12,7 @@ class VarDeclarationWithAssigmentUnaryAnalyzer : InterpreterAnalyzer {
 
     override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Boolean {
         val ast = statement.getOrNull() ?: return false
-        return (ast is VarDeclaration) && (ast.expr !is ScapeAst) && (ast.getChild()[2] !is BinaryOperation)
+        return (ast is VarDeclaration) && (ast.expr !is ScapeAst) && (ast.getListOfChildren()[2] !is BinaryOperation)
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {

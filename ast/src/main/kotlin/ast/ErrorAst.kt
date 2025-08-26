@@ -2,7 +2,7 @@ package ast
 
 class ErrorAst(private val message: String) : Ast {
 
-    override fun getChild(): List<Ast> {
+    override fun getListOfChildren(): List<Ast> {
         return listOf()
     }
 
