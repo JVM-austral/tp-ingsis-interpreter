@@ -1,8 +1,8 @@
 package ast
 
 class VarDeclaration(
-    val identifier: String,
-    val variable: Literal,
+    private val identifier: String,
+    private val variable: StringLiteral,
     val type: TypeDeclaration,
     val expr: Ast,
 ) : Ast {

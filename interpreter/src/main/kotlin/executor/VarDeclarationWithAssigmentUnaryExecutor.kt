@@ -3,7 +3,7 @@ package executor
 import ast.Ast
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentExecutor : InterpreterExecutor {
+class VarDeclarationWithAssigmentUnaryExecutor(private val heap: MutableMap<String, VariableInfo>) : InterpreterExecutor {
 
     override fun execute(
         statement: Result<Ast>,
@@ -18,7 +18,7 @@ class VarDeclarationWithAssigmentExecutor : InterpreterExecutor {
                 heap[variable] = VariableInfo(type, value)
                 Result.success(heap)
             },
-            onFailure = { error ->
+            onFailure = {
                 Result.failure(Exception("Error ejecutando VarDeclaration"))
             },
         )
