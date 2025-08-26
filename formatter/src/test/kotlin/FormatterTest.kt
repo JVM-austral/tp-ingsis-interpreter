@@ -124,9 +124,9 @@ class FormatterTest {
 
     @Test
     fun `debe formatear expresiones complejas`() {
-        val tokens = lexer.tokenize("let   x:number=3x2+4/2-1;")
+        val tokens = lexer.tokenize("let   x:number=3*2+4/2-1;")
         val result = formatter.format(tokens)
-        assertEquals(result, "let x : number = 3 x 2 + 4 / 2 - 1;")
+        assertEquals(result, "let x : number = 3 * 2 + 4 / 2 - 1;")
     }
 
     @Test
@@ -138,9 +138,9 @@ class FormatterTest {
 
     @Test
     fun `debe formatear expresiones matemáticas complejas con paréntesis`() {
-        val tokens = lexer.tokenize("let resultado:number=(5+3)x(8-2)/4+10/3;")
+        val tokens = lexer.tokenize("let resultado:number=(5+3)*(8-2)/4+10/3;")
         val result = formatter.format(tokens)
-        assertEquals(result, "let resultado : number = (5 + 3) x (8 - 2) / 4 + 10 / 3;")
+        assertEquals(result, "let resultado : number = (5 + 3) * (8 - 2) / 4 + 10 / 3;")
     }
 
     @Test

@@ -7,6 +7,7 @@ import lexer.rules.MidStringAnalyzer
 import lexer.rules.NumberAnalyzer
 import lexer.rules.NumberTypeAnalyzer
 import lexer.rules.OperatorAnalyzer
+import lexer.rules.PrintAnalyzer
 import lexer.rules.PunctuationAnalyzer
 import lexer.rules.StringAnalyzer
 import lexer.rules.StringTypeAnalyzer
@@ -50,7 +51,7 @@ class LexerTest {
     @Test
     fun `string literal analyzer`() {
         val analyzers =
-            listOf<TokenAnalyzer>(
+            listOf(
                 KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
                 OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
                 VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
@@ -59,7 +60,7 @@ class LexerTest {
         val lexer = LexerImplementation(analyzers)
 
         val result =
-            listOf<Result<Token>>(
+            listOf(
                 Result.success(Token("\"hola mundo\"", TokenType.STRING_LITERAL, 0, 0)),
                 Result.success(Token(";", TokenType.PUNCTUATION, 0, 12)),
             )
@@ -70,7 +71,7 @@ class LexerTest {
     @Test
     fun `simple variable assignment`() {
         val analyzers =
-            listOf<TokenAnalyzer>(
+            listOf(
                 KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
                 OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
                 VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
@@ -79,7 +80,7 @@ class LexerTest {
         val lexer = LexerImplementation(analyzers)
 
         val result =
-            listOf<Result<Token>>(
+            listOf(
                 Result.success(Token("y", TokenType.IDENTIFIER, 0, 0)),
                 Result.success(Token("=", TokenType.OPERATOR, 0, 1)),
                 Result.success(Token("5", TokenType.NUMBER_LITERAL, 0, 2)),
@@ -131,6 +132,54 @@ class LexerTest {
                 Result.success(Token(")", TokenType.PUNCTUATION, 0, 6)),
             )
         val input = "(a + b)"
+        assertEquals(result, lexer.tokenize(input))
+    }
+
+    @Test
+    fun `analyze println`() {
+        val analyzers =
+            listOf<TokenAnalyzer>(
+                KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
+                OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
+                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
+                PrintAnalyzer(),
+            )
+        val lexer = LexerImplementation(analyzers)
+        val result =
+            listOf<Result<Token>>(
+                Result.success(Token("println", TokenType.IDENTIFIER, 0, 0)),
+                Result.success(Token("(", TokenType.PUNCTUATION, 0, 7)),
+                Result.success(Token("x", TokenType.IDENTIFIER, 0, 8)),
+                Result.success(Token("+", TokenType.OPERATOR, 0, 9)),
+                Result.success(Token("5", TokenType.NUMBER_LITERAL, 0, 10)),
+                Result.success(Token(")", TokenType.PUNCTUATION, 0, 11)),
+                Result.success(Token(";", TokenType.PUNCTUATION, 0, 12)),
+            )
+        val input = "println(x+5);"
+        assertEquals(result, lexer.tokenize(input))
+    }
+
+    @Test
+    fun `println with sum parameter`() {
+        val analyzers =
+            listOf<TokenAnalyzer>(
+                KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
+                OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
+                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
+                PrintAnalyzer(),
+            )
+        val lexer = LexerImplementation(analyzers)
+        val result =
+            listOf<Result<Token>>(
+                Result.success(Token("println", TokenType.IDENTIFIER, 0, 0)),
+                Result.success(Token("(", TokenType.PUNCTUATION, 0, 7)),
+                Result.success(Token("a", TokenType.IDENTIFIER, 0, 8)),
+                Result.success(Token("+", TokenType.OPERATOR, 0, 9)),
+                Result.success(Token("b", TokenType.IDENTIFIER, 0, 10)),
+                Result.success(Token(")", TokenType.PUNCTUATION, 0, 11)),
+                Result.success(Token(";", TokenType.PUNCTUATION, 0, 12)),
+            )
+        val input = "println(a+b);"
         assertEquals(result, lexer.tokenize(input))
     }
 }

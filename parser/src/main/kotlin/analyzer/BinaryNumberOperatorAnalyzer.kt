@@ -25,7 +25,11 @@ class BinaryNumberOperatorAnalyzer : StructureAnalyzer {
             when {
                 expectOperand -> {
                     when (token.type) {
-                        TokenType.NUMBER_LITERAL -> expectOperand = false
+                        TokenType.NUMBER_LITERAL,
+                        TokenType.IDENTIFIER,
+                        -> { // ✅ ahora acepta variables también
+                            expectOperand = false
+                        }
                         TokenType.PUNCTUATION -> {
                             if (token.value == "(") {
                                 balance++

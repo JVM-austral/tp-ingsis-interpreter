@@ -16,15 +16,20 @@ class StringConcatenationAnalyzer : StructureAnalyzer {
 
     private fun isStringConcatenation(tokens: List<Token>): Boolean {
         if (tokens.isEmpty()) return false
-        var expectString = true
+        var expectStringOrVar = true
         for (token in tokens) {
-            if (expectString) {
-                if (token.type != TokenType.STRING_LITERAL) return false
+            if (expectStringOrVar) {
+                when (token.type) {
+                    TokenType.STRING_LITERAL,
+                    TokenType.IDENTIFIER,
+                    -> { /* ✅ acepta string o variable */ }
+                    else -> return false
+                }
             } else {
                 if (token.type != TokenType.OPERATOR || token.value != "+") return false
             }
-            expectString = !expectString
+            expectStringOrVar = !expectStringOrVar
         }
-        return !expectString
+        return !expectStringOrVar
     }
 }

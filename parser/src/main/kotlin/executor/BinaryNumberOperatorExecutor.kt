@@ -2,6 +2,7 @@ import ast.Ast
 import ast.BinaryOperation
 import ast.NumberLiteral
 import ast.ScapeAst
+import ast.VariableIdentifier
 import executor.ParseResult
 import executor.StructureExecutor
 import token.Token
@@ -29,7 +30,9 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next().value
             val right = parseTerm()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast))
+            left = ParseResult.Success(
+                BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast),
+            )
         }
 
         return left
@@ -43,7 +46,9 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next().value
             val right = parseFactor()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast))
+            left = ParseResult.Success(
+                BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast),
+            )
         }
 
         return left
@@ -55,6 +60,7 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
 
         return when (token.type) {
             TokenType.NUMBER_LITERAL -> ParseResult.Success(NumberLiteral(token.value))
+            TokenType.IDENTIFIER -> ParseResult.Success(VariableIdentifier(token.value))
             TokenType.PUNCTUATION -> {
                 if (token.value == "(") {
                     val expr = parseExpression()

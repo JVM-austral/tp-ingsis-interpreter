@@ -4,7 +4,7 @@ import token.TokenType
 
 class OperatorAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        val operators = listOf("+", "-", "x", "/", "=")
+        val operators = listOf("+", "-", "*", "/", "=")
         return operators.contains(input)
     }
 
