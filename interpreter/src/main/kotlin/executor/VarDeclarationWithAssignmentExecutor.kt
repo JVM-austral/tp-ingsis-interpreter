@@ -7,9 +7,8 @@ class VarDeclarationWithAssignmentExecutor : InterpreterExecutor {
 
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>
+        heap: MutableMap<String, VariableInfo>,
     ): Result<MutableMap<String, VariableInfo>> {
-
         return statement.fold(
             onSuccess = { ast ->
                 val variable: String = ast.getChild()[0].getValue()
@@ -21,7 +20,7 @@ class VarDeclarationWithAssignmentExecutor : InterpreterExecutor {
             },
             onFailure = { error ->
                 Result.failure(Exception("Error ejecutando VarDeclaration"))
-            }
+            },
         )
     }
 }
