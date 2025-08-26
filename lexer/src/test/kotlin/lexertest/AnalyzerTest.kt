@@ -5,6 +5,7 @@ import lexer.rules.MidNumberAnalyzer
 import lexer.rules.MidStringAnalyzer
 import lexer.rules.NumberTypeAnalyzer
 import lexer.rules.OperatorAnalyzer
+import lexer.rules.PrintAnalyzer
 import lexer.rules.PunctuationAnalyzer
 import lexer.rules.StringAnalyzer
 import lexer.rules.StringTypeAnalyzer
@@ -97,7 +98,7 @@ class AnalyzerTest {
         val analyzer = OperatorAnalyzer()
         assertTrue(analyzer.analyze("+"))
         assertTrue(analyzer.analyze("-"))
-        assertTrue(analyzer.analyze("x"))
+        assertTrue(analyzer.analyze("*"))
         assertTrue(analyzer.analyze("/"))
         assertTrue(analyzer.analyze("="))
         assertFalse(analyzer.analyze("++"))
@@ -145,5 +146,14 @@ class AnalyzerTest {
         assert(analyzer.giveType() == TokenType.KEYWORD)
         assert(!analyzer.analyze("var"))
         assert(analyzer.giveType() == TokenType.KEYWORD)
+    }
+
+    @Test
+    fun `print analyzer`() {
+        val analyzer = PrintAnalyzer()
+        assertTrue(analyzer.analyze("println"))
+        assertFalse(analyzer.analyze("print"))
+        assertFalse(analyzer.analyze("printlnn"))
+        assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
 }

@@ -2,16 +2,20 @@ package parser
 
 import BinaryNumberOperatorExecutor
 import analyzer.BinaryNumberOperatorAnalyzer
+import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.StringConcatenationAnalyzer
 import analyzer.VariableDefinitionAnalyzer
 import ast.BinaryOperation
+import ast.FunctionCallAst
 import ast.NumberLiteral
 import ast.ScapeAst
 import ast.StringLiteral
 import ast.VarDeclaration
+import ast.VariableIdentifier
+import executor.FunctionExecutor
 import executor.LetVariableDeclarationExecutor
 import executor.StringConcatenationExecutor
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -42,7 +46,7 @@ class ComprehensiveParserTest {
 
         parser =
             ParserImplementation(
-                listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer),
+                listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer()),
             )
     }
 
@@ -656,5 +660,78 @@ class ComprehensiveParserTest {
             val ast = parsed[0].getOrNull()!!
             println(ast.getListOfChildren()[2].getValue())
         }
+    }
+
+    @Test
+    fun `should execute function call with single parameter`() {
+        val tokens = listOf(
+            Token("println", TokenType.IDENTIFIER, 1, 1),
+            Token("(", TokenType.PUNCTUATION, 1, 2),
+            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
+            Token(")", TokenType.PUNCTUATION, 1, 4),
+        )
+
+        val executor = FunctionExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
+        val result = executor.execute(tokens)
+
+        assertTrue(result is FunctionCallAst)
+        val functionCall = result as FunctionCallAst
+        assertEquals("println", functionCall.getValue())
+        assertEquals(1, functionCall.getChildLimit())
+        assertTrue(functionCall.getListOfChildren()[0] is StringLiteral)
+    }
+
+    @Test
+    fun `should execute variable with number arithmetic`() {
+        val tokens = listOf(
+            Token("x", TokenType.IDENTIFIER, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("5", TokenType.NUMBER_LITERAL, 1, 3),
+        )
+
+        val executor = BinaryNumberOperatorExecutor()
+        val result = executor.execute(tokens)
+
+        assertTrue(result is BinaryOperation)
+        val binaryOp = result as BinaryOperation
+        assertEquals("+", binaryOp.operator)
+        assertTrue(binaryOp.left is VariableIdentifier)
+        assertTrue(binaryOp.right is NumberLiteral)
+    }
+
+    @Test
+    fun `should analyze let declaration with variable arithmetic assignment`() {
+        val tokens = listOf(
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("result", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("number", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5),
+            Token("max", TokenType.IDENTIFIER, 1, 6),
+            Token("+", TokenType.OPERATOR, 1, 7),
+            Token("2", TokenType.NUMBER_LITERAL, 1, 8),
+        )
+
+        assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
+    }
+
+    @Test
+    fun `should execute string concatenation with variables`() {
+        val tokens = listOf(
+            Token("nombre", TokenType.IDENTIFIER, 1, 1),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("\"!\"", TokenType.STRING_LITERAL, 1, 3),
+        )
+
+        val executor = StringConcatenationExecutor()
+        val result = executor.execute(tokens)
+
+        assertTrue(result is BinaryOperation)
+        val binaryOp = result as BinaryOperation
+        assertEquals("+", binaryOp.operator)
+        assertTrue(binaryOp.left is VariableIdentifier)
+        assertEquals("nombre", (binaryOp.left as VariableIdentifier).getValue())
+        assertTrue(binaryOp.right is StringLiteral)
+        assertEquals("\"!\"", (binaryOp.right as StringLiteral).getValue())
     }
 }

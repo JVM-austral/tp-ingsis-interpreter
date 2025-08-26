@@ -3,7 +3,6 @@ package executor
 import ast.Assigment
 import ast.Ast
 import ast.BinaryOperation
-import ast.Literal
 import ast.NumberLiteral
 import ast.StringLiteral
 import interpreter.VariableInfo
@@ -73,19 +72,7 @@ class VarDefinitionBinaryExecutor : InterpreterExecutor {
                 }
             }
             is StringLiteral -> ast.getValue()
-            is Literal -> {
-                val value = ast.getValue()
-                // Intentar determinar si es número o string
-                try {
-                    when {
-                        value.contains('.') -> value.toDouble()
-                        value.all { it.isDigit() || it == '-' } -> value.toInt()
-                        else -> value
-                    }
-                } catch (e: NumberFormatException) {
-                    value
-                }
-            }
+
             is BinaryOperation -> {
                 val leftValue = evaluateExpression(ast.getListOfChildren()[1], heap)
                 val rightValue = evaluateExpression(ast.getListOfChildren()[2], heap)
