@@ -8,8 +8,9 @@ import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.StringConcatenationAnalyzer
 import analyzer.VariableDefinitionAnalyzer
 import ast.BinaryOperation
-import ast.Literal
+import ast.NumberLiteral
 import ast.ScapeAst
+import ast.StringLiteral
 import ast.VarDeclaration
 import executor.LetVariableDeclarationExecutor
 import executor.StringConcatenationExecutor
@@ -477,8 +478,8 @@ class ComprehensiveParserTest {
         assertTrue(result is BinaryOperation)
         val binaryOp = result as BinaryOperation
         assertEquals("+", binaryOp.operator)
-        assertTrue(binaryOp.left is Literal)
-        assertTrue(binaryOp.right is Literal)
+        assertTrue(binaryOp.left is NumberLiteral)
+        assertTrue(binaryOp.right is NumberLiteral)
     }
 
     @Test
@@ -499,7 +500,7 @@ class ComprehensiveParserTest {
         val binaryOp = result as BinaryOperation
         assertEquals("+", binaryOp.operator)
         assertTrue(binaryOp.left is BinaryOperation)
-        assertTrue(binaryOp.right is Literal)
+        assertTrue(binaryOp.right is NumberLiteral)
     }
 
     @Test
@@ -522,7 +523,7 @@ class ComprehensiveParserTest {
         val binaryOp = result as BinaryOperation
         assertEquals("*", binaryOp.operator)
         assertTrue(binaryOp.left is BinaryOperation)
-        assertTrue(binaryOp.right is Literal)
+        assertTrue(binaryOp.right is NumberLiteral)
     }
 
     @Test
@@ -549,9 +550,9 @@ class ComprehensiveParserTest {
         val executor = StringConcatenationExecutor()
         val result = executor.execute(tokens)
 
-        assertTrue(result is Literal)
-        val literal = result as Literal
-        assertEquals("\"hello\"", literal.getValue())
+        assertTrue(result is StringLiteral)
+        val stringLiteral = result as StringLiteral
+        assertEquals("\"hello\"", stringLiteral.getValue())
     }
 
     // ============ Integration Tests ============

@@ -3,7 +3,7 @@ package executor
 import analyzer.StructureAnalyzer
 import ast.Assigment
 import ast.Ast
-import ast.Literal
+import ast.StringLiteral
 import token.Token
 
 class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) : StructureExecutor {
@@ -15,6 +15,6 @@ class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAn
                 secondPartExecutor = analyzer.getExecutor()
             }
         }
-        return Assigment(tokens[1].value, Literal(tokens[0].value), secondPartExecutor.execute(tokens.subList(6, tokens.size)))
+        return Assigment(tokens[1].value, StringLiteral(tokens[0].value), secondPartExecutor.execute(tokens.subList(6, tokens.size)))
     }
 }

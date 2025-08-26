@@ -1,6 +1,7 @@
 package analyzer
 
 import executor.StructureExecutor
+import executor.VariableDefinitionExecutor
 import token.Token
 import token.TokenType
 
@@ -28,6 +29,6 @@ class VariableDefinitionAnalyzer : StructureAnalyzer {
     }
 
     override fun getExecutor(): StructureExecutor {
-        TODO("Not yet implemented")
+        return VariableDefinitionExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
     }
 }

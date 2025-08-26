@@ -1,6 +1,6 @@
 import ast.Ast
 import ast.BinaryOperation
-import ast.Literal
+import ast.NumberLiteral
 import ast.ScapeAst
 import executor.ParseResult
 import executor.StructureExecutor
@@ -54,7 +54,7 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
         val token = next()
 
         return when (token.type) {
-            TokenType.NUMBER_LITERAL -> ParseResult.Success(Literal(token.value))
+            TokenType.NUMBER_LITERAL -> ParseResult.Success(NumberLiteral(token.value))
             TokenType.PUNCTUATION -> {
                 if (token.value == "(") {
                     val expr = parseExpression()
