@@ -2,6 +2,7 @@ package executor
 
 import ast.Ast
 import ast.BinaryOperation
+import ast.NumberLiteral
 import ast.StringLiteral
 import interpreter.VariableInfo
 
@@ -37,23 +38,26 @@ class VarDeclarationWithAssigmentBinaryExecutor : InterpreterExecutor {
 
     private fun evaluateExpression(ast: Ast, heap: MutableMap<String, VariableInfo>): Any {
         return when (ast) {
-            is StringLiteral -> {
+            is NumberLiteral -> {
                 val value = ast.getValue()
                 try {
-                    when {
-                        value.contains('.') -> value.toDouble()
-                        else -> value.toInt()
+                    if (value.contains('.')) {
+                        return value.toDouble()
+                    } else {
+                        return value.toInt()
                     }
                 } catch (e: NumberFormatException) {
                     value
                 }
             }
-            is BinaryOperation -> {
-                val leftValue = evaluateExpression(ast.getListOfChildren()[1], heap)
-                val rightValue = evaluateExpression(ast.getListOfChildren()[2], heap)
-                val operator = ast.getListOfChildren()[0]
 
-                evaluateBinaryOperation(leftValue, operator.toString(), rightValue)
+            is StringLiteral -> ast.getValue()
+            is BinaryOperation -> {
+                val leftValue = evaluateExpression(ast.getListOfChildren()[0], heap)
+                val rightValue = evaluateExpression(ast.getListOfChildren()[1], heap)
+                val operator = ast.getValue()
+
+                return evaluateBinaryOperation(leftValue, operator.toString(), rightValue)
             }
             else -> throw IllegalArgumentException("Tipo de AST no soportado: ${ast::class.simpleName}")
         }

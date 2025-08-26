@@ -43,6 +43,10 @@ class VarDefinitionBinaryExecutor : InterpreterExecutor {
                 }
             }
 
+            if (!heap.containsKey(variableName)) {
+                return Result.failure(Exception("Cannot define variable '$variableName' without prior declaration"))
+            }
+
             val variableType = inferType(evaluatedValue)
 
             // Actualizar el heap
@@ -64,12 +68,13 @@ class VarDefinitionBinaryExecutor : InterpreterExecutor {
             is NumberLiteral -> {
                 val value = ast.getValue()
                 try {
-                    when {
-                        value.contains('.') -> value.toDouble()
-                        else -> value.toInt()
+                    if (value.contains('.')) {
+                        return value.toDouble()
+                    } else {
+                        return value.toInt()
                     }
                 } catch (e: NumberFormatException) {
-                    throw Exception("Invalid number format: $value")
+                    value
                 }
             }
             is StringLiteral -> ast.getValue()
@@ -87,9 +92,9 @@ class VarDefinitionBinaryExecutor : InterpreterExecutor {
                 }
             }
             is BinaryOperation -> {
-                val leftValue = evaluateExpression(ast.getListOfChildren()[1], heap)
-                val rightValue = evaluateExpression(ast.getListOfChildren()[2], heap)
-                val operator = ast.getListOfChildren()[0].getValue()
+                val leftValue = evaluateExpression(ast.getListOfChildren()[0], heap)
+                val rightValue = evaluateExpression(ast.getListOfChildren()[1], heap)
+                val operator = ast.getValue()
 
                 evaluateBinaryOperation(leftValue, operator, rightValue)
             }
