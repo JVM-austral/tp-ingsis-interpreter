@@ -654,7 +654,7 @@ class ComprehensiveParserTest {
         val parsed = parser.parse(tokens.map { Result.success(it) })
         if (parsed.isNotEmpty() && parsed[0].isSuccess) {
             val ast = parsed[0].getOrNull()!!
-            println(ast.getChild()[2].getValue())
+            println(ast.getListOfChildren()[2].getValue())
         }
     }
 }

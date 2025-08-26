@@ -1,7 +1,7 @@
 package ast
 
 interface Ast {
-    fun getChild(): List<Ast>
+    fun getListOfChildren(): List<Ast>
 
     fun getChildLimit(): Int
 

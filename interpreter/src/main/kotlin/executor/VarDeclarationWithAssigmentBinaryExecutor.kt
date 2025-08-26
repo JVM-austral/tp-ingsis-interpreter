@@ -5,7 +5,7 @@ import ast.BinaryOperation
 import ast.StringLiteral
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentBinaryExecutor(private val heap: MutableMap<String, VariableInfo>) : InterpreterExecutor {
+class VarDeclarationWithAssigmentBinaryExecutor : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
@@ -13,9 +13,9 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val heap: MutableMap<Str
         return statement.fold(
             onSuccess = { ast ->
                 try {
-                    val variable: String = ast.getChild()[0].getValue()
-                    val type: String = ast.getChild()[1].getValue()
-                    val binaryOperationAst: Ast = ast.getChild()[2]
+                    val variable: String = ast.getListOfChildren()[0].getValue()
+                    val type: String = ast.getListOfChildren()[1].getValue()
+                    val binaryOperationAst: Ast = ast.getListOfChildren()[2]
 
                     val evaluatedValue = evaluateExpression(binaryOperationAst, heap)
 
@@ -49,9 +49,9 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val heap: MutableMap<Str
                 }
             }
             is BinaryOperation -> {
-                val leftValue = evaluateExpression(ast.getChild()[1], heap)
-                val rightValue = evaluateExpression(ast.getChild()[2], heap)
-                val operator = ast.getChild()[0]
+                val leftValue = evaluateExpression(ast.getListOfChildren()[1], heap)
+                val rightValue = evaluateExpression(ast.getListOfChildren()[2], heap)
+                val operator = ast.getListOfChildren()[0]
 
                 evaluateBinaryOperation(leftValue, operator.toString(), rightValue)
             }

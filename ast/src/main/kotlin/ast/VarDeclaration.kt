@@ -6,7 +6,7 @@ class VarDeclaration(
     val type: TypeDeclaration,
     val expr: Ast,
 ) : Ast {
-    override fun getChild(): List<Ast> {
+    override fun getListOfChildren(): List<Ast> {
         return listOf(variable, type, expr)
     }
 
