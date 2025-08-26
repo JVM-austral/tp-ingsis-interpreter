@@ -5,7 +5,7 @@ import ast.NumberLiteral
 import ast.StringLiteral
 import interpreter.VariableInfo
 
-class VarDefinitionUnaryExecutor: InterpreterExecutor {
+class VarDefinitionUnaryExecutor : InterpreterExecutor {
     override fun execute(statement: Result<ast.Ast>, heap: MutableMap<String, VariableInfo>): Result<MutableMap<String, VariableInfo>> {
         val ast = statement.getOrNull() ?: return Result.failure(Exception("Invalid AST"))
         if (ast !is Assigment) {

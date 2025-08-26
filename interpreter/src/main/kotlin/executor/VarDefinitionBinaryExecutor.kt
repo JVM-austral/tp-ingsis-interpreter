@@ -1,14 +1,14 @@
 package executor
 
-import ast.Ast
 import ast.Assigment
+import ast.Ast
 import ast.BinaryOperation
 import ast.Literal
 import ast.NumberLiteral
 import ast.StringLiteral
 import interpreter.VariableInfo
 
-class VarDefinitionBinaryExecutor: InterpreterExecutor {
+class VarDefinitionBinaryExecutor : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
@@ -21,7 +21,7 @@ class VarDefinitionBinaryExecutor: InterpreterExecutor {
 
         val children = ast.getListOfChildren()
         if (children.size < 2) {
-            return Result.failure(Exception("It has few children than expected") )
+            return Result.failure(Exception("It has few children than expected"))
         }
 
         val variableName = children[0].getValue()
@@ -32,9 +32,7 @@ class VarDefinitionBinaryExecutor: InterpreterExecutor {
         }
 
         try {
-
             val evaluatedValue = evaluateExpression(binaryOperationAst, heap)
-
 
             if (heap.containsKey(variableName)) {
                 val existingType = heap[variableName]?.type
@@ -45,19 +43,17 @@ class VarDefinitionBinaryExecutor: InterpreterExecutor {
                 }
             }
 
-
             val variableType = inferType(evaluatedValue)
 
             // Actualizar el heap
 
-            if(variableType == "unknown") {
+            if (variableType == "unknown") {
                 return Result.failure(Exception("Unsupported variable type for value: $evaluatedValue"))
             }
 
             heap[variableName] = VariableInfo(variableType, evaluatedValue.toString())
 
             return Result.success(heap)
-
         } catch (e: Exception) {
             return Result.failure(Exception("Error evaluating binary expression: ${e.message}"))
         }
@@ -120,7 +116,6 @@ class VarDefinitionBinaryExecutor: InterpreterExecutor {
     }
 
     private fun evaluateBinaryOperation(left: Any, operator: String, right: Any): Any {
-
         // Convertir operandos a números si es posible
         val leftNum = convertToNumber(left)
         val rightNum = convertToNumber(right)
@@ -186,7 +181,7 @@ class VarDefinitionBinaryExecutor: InterpreterExecutor {
         }
     }
 
-    private fun inferType(value: Any): String {//Deberíamos cambiarlo al agregar nuevos tipos
+    private fun inferType(value: Any): String { // Deberíamos cambiarlo al agregar nuevos tipos
         return when (value) {
             is Int, is Double, is Float -> "number"
             is String -> "string"

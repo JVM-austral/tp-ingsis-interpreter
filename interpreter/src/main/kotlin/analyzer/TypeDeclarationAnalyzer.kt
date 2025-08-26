@@ -13,6 +13,6 @@ class TypeDeclarationAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return TypeDeclarationExecutor(heap)
+        return TypeDeclarationExecutor()
     }
 }

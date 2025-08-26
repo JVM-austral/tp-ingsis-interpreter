@@ -3,7 +3,7 @@ package executor
 import ast.Ast
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentUnaryExecutor : InterpreterExecutor {
+class VarDeclarationWithAssignmentExecutor : InterpreterExecutor {
 
     override fun execute(
         statement: Result<Ast>,
