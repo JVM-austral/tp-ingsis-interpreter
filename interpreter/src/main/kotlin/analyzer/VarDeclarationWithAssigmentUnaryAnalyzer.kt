@@ -16,6 +16,6 @@ class VarDeclarationWithAssigmentUnaryAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return VarDeclarationWithAssigmentUnaryExecutor(heap)
+        return VarDeclarationWithAssigmentUnaryExecutor()
     }
 }
