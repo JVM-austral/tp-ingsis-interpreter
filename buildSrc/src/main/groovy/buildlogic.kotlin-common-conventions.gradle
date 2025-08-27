@@ -72,6 +72,8 @@ tasks.named('check') {
 tasks.named('build') {
     dependsOn 'spotlessApply'
 }
+group = "com.JVM-austral"
+version = "1.0.0-SNAPSHOT"
 
 publishing {
     publications {
