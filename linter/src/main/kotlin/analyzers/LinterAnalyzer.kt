@@ -1,9 +1,9 @@
 package analyzers
 
 import ast.Ast
-import executors.LinterExecutor
+import java.util.Optional
 
 interface LinterAnalyzer {
 
-    fun analyze(ast: Ast): Result<LinterExecutor>
+    fun analyze(ast: Ast): Optional<Error>
 }
