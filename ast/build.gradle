@@ -9,6 +9,9 @@ dependencies {
     implementation project(":token")
 }
 
+group = 'org.JVM-austral'
+version = '1.0.0-SNAPSHOT'
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
