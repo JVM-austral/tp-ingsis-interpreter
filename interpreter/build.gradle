@@ -11,3 +11,24 @@ dependencies {
     implementation project(":ast")
     testImplementation "org.jetbrains.kotlin:kotlin-test:2.1.0"
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = 'interpreter'
+            version = project.version
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri("https://maven.pkg.github.com/JVM-austral/tp-ingsis-interpreter")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}

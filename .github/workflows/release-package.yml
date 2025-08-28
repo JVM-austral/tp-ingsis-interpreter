@@ -1,32 +1,27 @@
+permissions:
+  contents: read
+  packages: write
 name: Java CI
 
 on:
   push:
   workflow_dispatch:
 
-jobs:                 # <-- obligatorio
-  build:              # <-- nombre del job
+jobs:
+  build:
     runs-on: ubuntu-latest
 
-    steps:            # <-- steps va **dentro** del job
-      - uses: actions/checkout@v3
-
+    steps:
+      - uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
           java-version: 21
-          cache: gradle
-          server-id: github
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
+          distribution: temurin
       - name: Build with Gradle
         run: ./gradlew build
-
       - name: Publish package
         run: ./gradlew publish
         env:
-          GITHUB_ACTOR: TU_USUARIO
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
