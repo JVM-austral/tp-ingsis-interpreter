@@ -1,10 +1,10 @@
 package ast
 
 class VarDeclaration(
-    private val identifier: String,
-    private val variable: StringLiteral,
-    val type: TypeDeclaration,
-    val expr: Ast,
+    private val identifier: String, // keywords
+    private val variable: StringLiteral, // name
+    val type: TypeDeclaration, // type
+    val expr: Ast, // value
 ) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf(variable, type, expr)

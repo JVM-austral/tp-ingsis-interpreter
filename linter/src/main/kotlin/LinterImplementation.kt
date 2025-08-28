@@ -16,7 +16,7 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
                         if (error.isPresent) {
                             errorsFound.add(error.get())
                         }
-                    } 
+                    }
                 },
                 onFailure = {
                     throw Exception("Statement is not formatted correctly")
