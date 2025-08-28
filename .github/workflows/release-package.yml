@@ -28,5 +28,5 @@ jobs:                 # <-- obligatorio
       - name: Publish package
         run: ./gradlew publish
         env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: TU_USUARIO
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
