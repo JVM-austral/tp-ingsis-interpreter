@@ -8,7 +8,7 @@ class TypeDeclarationExecutor : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
-    ): Result<MutableMap<String, VariableInfo>> {
+    ): Result<Ast> {
         val ast = statement.getOrNull()
         if (ast is TypeDeclaration) {
             val variableName = ast.getValue()
@@ -17,7 +17,7 @@ class TypeDeclarationExecutor : InterpreterExecutor {
                 return Result.failure(Exception("La variable '$variableName' ya está declarada"))
             }
             heap[variableName] = VariableInfo(type = variableType, value = "")
-            return Result.success(heap)
+            return Result.success(ast)
         }
         return Result.failure(Exception("No es una declaración de tipo"))
     }

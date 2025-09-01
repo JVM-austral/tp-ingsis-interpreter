@@ -1,37 +1,36 @@
 package executor
 
-import ast.Assigment
 import ast.Ast
 import ast.BinaryOperation
-import ast.NumberLiteral
-import ast.StringLiteral
+import ast.VarDefinition
+import evaluator.AstEvaluationEngine
 import interpreter.VariableInfo
 
-class VarDefinitionBinaryExecutor : InterpreterExecutor {
+class VarDefinitionBinaryExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
-    ): Result<MutableMap<String, VariableInfo>> {
-        val ast = statement.getOrNull() ?: return Result.failure(Exception("Invalid AST"))
+    ): Result<Ast> {
+        val ast = statement.getOrNull() ?: return Result.failure(Exception("AST inválido"))
 
-        if (ast !is Assigment) {
-            return Result.failure(Exception("AST is not an Assignment"))
+        if (ast !is VarDefinition) {
+            return Result.failure(Exception("AST no es un VarDefinition"))
         }
 
         val children = ast.getListOfChildren()
         if (children.size < 2) {
-            return Result.failure(Exception("It has few children than expected"))
+            return Result.failure(Exception("VarDefinition tiene menos hijos de los esperados"))
         }
 
         val variableName = children[0].getValue()
         val binaryOperationAst = children[1]
 
         if (binaryOperationAst !is BinaryOperation) {
-            return Result.failure(Exception("Expected BinaryOperation but got ${binaryOperationAst::class.simpleName}"))
+            return Result.failure(Exception("Se esperaba BinaryOperation pero se obtuvo ${binaryOperationAst::class.simpleName}"))
         }
 
         try {
-            val evaluatedValue = evaluateExpression(binaryOperationAst, heap)
+            val evaluatedValue = engine.evaluate(binaryOperationAst, heap)
 
             if (heap.containsKey(variableName)) {
                 val existingType = heap[variableName]?.type
@@ -48,132 +47,19 @@ class VarDefinitionBinaryExecutor : InterpreterExecutor {
 
             val variableType = inferType(evaluatedValue)
 
-            // Actualizar el heap
-
             if (variableType == "unknown") {
-                return Result.failure(Exception("Unsupported variable type for value: $evaluatedValue"))
+                return Result.failure(Exception("Tipo de variable no soportado para el valor: $evaluatedValue"))
             }
 
             heap[variableName] = VariableInfo(variableType, evaluatedValue.toString())
 
-            return Result.success(heap)
+            return Result.success(ast)
         } catch (e: Exception) {
-            return Result.failure(Exception("Error evaluating binary expression: ${e.message}"))
+            return Result.failure(Exception(e.message))
         }
     }
 
-    private fun evaluateExpression(ast: Ast, heap: MutableMap<String, VariableInfo>): Any {
-        return when (ast) {
-            is NumberLiteral -> {
-                val value = ast.getValue()
-                try {
-                    if (value.contains('.')) {
-                        return value.toDouble()
-                    } else {
-                        return value.toInt()
-                    }
-                } catch (e: NumberFormatException) {
-                    value
-                }
-            }
-            is StringLiteral -> ast.getValue()
-
-            is BinaryOperation -> {
-                val leftValue = evaluateExpression(ast.getListOfChildren()[0], heap)
-                val rightValue = evaluateExpression(ast.getListOfChildren()[1], heap)
-                val operator = ast.getValue()
-
-                evaluateBinaryOperation(leftValue, operator, rightValue)
-            }
-            else -> {
-                // Si es una variable, buscarla en el heap
-                val variableName = ast.getValue()
-                val variableInfo = heap[variableName]
-                    ?: throw Exception("Variable '$variableName' not found")
-
-                // Convertir el valor almacenado al tipo apropiado
-                when (variableInfo.type) {
-                    "number" -> {
-                        val value = variableInfo.value
-                        when {
-                            value.contains('.') -> value.toDouble()
-                            else -> value.toInt()
-                        }
-                    }
-                    "string" -> variableInfo.value
-                    else -> variableInfo.value
-                }
-            }
-        }
-    }
-
-    private fun evaluateBinaryOperation(left: Any, operator: String, right: Any): Any {
-        // Convertir operandos a números si es posible
-        val leftNum = convertToNumber(left)
-        val rightNum = convertToNumber(right)
-
-        if (leftNum != null && rightNum != null) {
-            return when (operator) {
-                "+" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() + rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() + rightNum.toInt()
-                    }
-                }
-                "-" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() - rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() - rightNum.toInt()
-                    }
-                }
-                "*" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() * rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() * rightNum.toInt()
-                    }
-                }
-                "/" -> {
-                    val leftDouble = leftNum.toDouble()
-                    val rightDouble = rightNum.toDouble()
-                    if (rightDouble == 0.0) {
-                        throw ArithmeticException("Division by zero")
-                    }
-                    leftDouble / rightDouble
-                }
-                else -> throw IllegalArgumentException("Unsupported operator: $operator")
-            }
-        } else {
-            // Manejar concatenación de strings para el operador +
-            if (operator == "+") {
-                return left.toString() + right.toString()
-            } else {
-                throw IllegalArgumentException("Operation $operator not supported for non-numeric types")
-            }
-        }
-    }
-
-    private fun convertToNumber(value: Any): Number? {
-        return when (value) {
-            is Number -> value
-            is String -> {
-                try {
-                    when {
-                        value.contains('.') -> value.toDouble()
-                        value.all { it.isDigit() || it == '-' } -> value.toInt()
-                        else -> null
-                    }
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
-            else -> null
-        }
-    }
-
-    private fun inferType(value: Any): String { // Deberíamos cambiarlo al agregar nuevos tipos
+    private fun inferType(value: Any): String {
         return when (value) {
             is Int, is Double, is Float -> "number"
             is String -> "string"

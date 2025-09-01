@@ -1,6 +1,6 @@
 package ast
 
-class Assigment(val identifier: String, val variable: StringLiteral, val expr: Ast) : Ast {
+class VarDefinition(val identifier: String, val variable: StringLiteral, val expr: Ast) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf(variable, expr)
     }
