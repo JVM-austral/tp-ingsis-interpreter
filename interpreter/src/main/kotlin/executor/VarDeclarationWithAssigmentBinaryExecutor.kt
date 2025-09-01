@@ -1,33 +1,30 @@
 package executor
 
 import ast.Ast
-import ast.BinaryOperation
-import ast.NumberLiteral
-import ast.StringLiteral
+import evaluator.AstEvaluationEngine
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentBinaryExecutor : InterpreterExecutor {
-    override fun execute(
-        statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,
-    ): Result<MutableMap<String, VariableInfo>> {
+class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
+    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
-                    val variable: String = ast.getListOfChildren()[0].getValue()
-                    val type: String = ast.getListOfChildren()[1].getValue()
-                    val binaryOperationAst: Ast = ast.getListOfChildren()[2]
+                    val variable = ast.getListOfChildren()[0].getValue()
+                    val type = ast.getListOfChildren()[1].getValue()
+                    val expression = ast.getListOfChildren()[2]
 
-                    val evaluatedValue = evaluateExpression(binaryOperationAst, heap)
+                    val evaluatedValue = engine.evaluate(expression, heap)
 
                     if (isCompatibleType(type, evaluatedValue)) {
                         heap[variable] = VariableInfo(type, evaluatedValue.toString())
-                        Result.success(heap)
+                        Result.success(ast)
                     } else {
                         Result.failure(Exception("Tipo incompatible: se esperaba $type pero se obtuvo ${evaluatedValue::class.simpleName}"))
                     }
+                } catch (e: ArithmeticException) {
+                    Result.failure(Exception(e.message))
                 } catch (e: Exception) {
-                    Result.failure(Exception("Error evaluando la expresión: ${e.message}"))
+                    Result.failure(Exception("Error ejecutando VarDeclaration: ${e.message}"))
                 }
             },
             onFailure = { exception ->
@@ -36,106 +33,10 @@ class VarDeclarationWithAssigmentBinaryExecutor : InterpreterExecutor {
         )
     }
 
-    private fun evaluateExpression(ast: Ast, heap: MutableMap<String, VariableInfo>): Any {
-        return when (ast) {
-            is NumberLiteral -> {
-                val value = ast.getValue()
-                try {
-                    if (value.contains('.')) {
-                        return value.toDouble()
-                    } else {
-                        return value.toInt()
-                    }
-                } catch (e: NumberFormatException) {
-                    value
-                }
-            }
-
-            is StringLiteral -> ast.getValue()
-            is BinaryOperation -> {
-                val leftValue = evaluateExpression(ast.getListOfChildren()[0], heap)
-                val rightValue = evaluateExpression(ast.getListOfChildren()[1], heap)
-                val operator = ast.getValue()
-
-                return evaluateBinaryOperation(leftValue, operator.toString(), rightValue)
-            }
-            else -> throw IllegalArgumentException("Tipo de AST no soportado: ${ast::class.simpleName}")
-        }
-    }
-
-    private fun evaluateBinaryOperation(left: Any, operator: String, right: Any): Any {
-        val leftNum = convertToNumber(left)
-        val rightNum = convertToNumber(right)
-
-        if (leftNum != null && rightNum != null) {
-            return when (operator) {
-                "+" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() + rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() + rightNum.toInt()
-                    }
-                }
-                "-" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() - rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() - rightNum.toInt()
-                    }
-                }
-                "*" -> {
-                    if (leftNum is Double || rightNum is Double) {
-                        leftNum.toDouble() * rightNum.toDouble()
-                    } else {
-                        leftNum.toInt() * rightNum.toInt()
-                    }
-                }
-                "/" -> {
-                    val leftDouble = leftNum.toDouble()
-                    val rightDouble = rightNum.toDouble()
-                    if (rightDouble == 0.0) {
-                        throw ArithmeticException("División por cero")
-                    }
-
-                    leftDouble / rightDouble
-                }
-                else -> throw IllegalArgumentException("Operador no soportado: $operator")
-            }
-        } else {
-            if (operator == "+") {
-                return left.toString() + right.toString()
-            } else {
-                throw IllegalArgumentException("Operación $operator no soportada para tipos no numéricos")
-            }
-        }
-    }
-
-    private fun convertToNumber(value: Any): Number? {
-        return when (value) {
-            is Number -> value
-            is String -> {
-                try {
-                    when {
-                        value.contains('.') -> value.toDouble()
-                        else -> value.toInt()
-                    }
-                } catch (e: NumberFormatException) {
-                    null
-                }
-            }
-            else -> null
-        }
-    }
-
-    private fun isCompatibleType(declaredType: String, value: Any): Boolean {
-        return when (declaredType.lowercase()) {
+    private fun isCompatibleType(declaredType: String, value: Any): Boolean =
+        when (declaredType.lowercase()) {
             "number" -> value is Number
             "string" -> value is String
-            // Todo: Los que están abajo
-            // "int", "integer" -> value is Int
-            // "double", "float" -> value is Double || value is Float
-            // "auto", "var" -> true
             else -> false
         }
-    }
 }

@@ -1,19 +1,18 @@
 package analyzer
 
 import ast.Ast
-import ast.BinaryOperation
-import ast.VarDefinition
+import ast.FunctionCallAst
 import evaluator.AstEvaluationEngine
+import executor.FunctionCallExecutor
 import executor.InterpreterExecutor
 import interpreter.VariableInfo
 
-class VarDefinitionBinaryAnalyzer : InterpreterAnalyzer {
+class FunctionCallAnalyzer : InterpreterAnalyzer {
     override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Boolean {
         val ast = statement.getOrNull() ?: return false
-        return ast is VarDefinition && ast.getListOfChildren()[1] is BinaryOperation
+        return ast is FunctionCallAst
     }
-
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return executor.VarDefinitionBinaryExecutor(AstEvaluationEngine())
+        return FunctionCallExecutor(AstEvaluationEngine())
     }
 }

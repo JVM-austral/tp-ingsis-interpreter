@@ -1,14 +1,15 @@
 package executor
 
-import ast.Assigment
+import ast.Ast
 import ast.NumberLiteral
 import ast.StringLiteral
+import ast.VarDefinition
 import interpreter.VariableInfo
 
 class VarDefinitionUnaryExecutor : InterpreterExecutor {
-    override fun execute(statement: Result<ast.Ast>, heap: MutableMap<String, VariableInfo>): Result<MutableMap<String, VariableInfo>> {
+    override fun execute(statement: Result<ast.Ast>, heap: MutableMap<String, VariableInfo>): Result<Ast> {
         val ast = statement.getOrNull() ?: return Result.failure(Exception("Invalid AST"))
-        if (ast !is Assigment) {
+        if (ast !is VarDefinition) {
             return Result.failure(Exception("AST is not a VarDefinition"))
         }
         if (heap.containsKey(ast.getListOfChildren()[0].getValue())) {
@@ -26,6 +27,6 @@ class VarDefinitionUnaryExecutor : InterpreterExecutor {
 
         heap[variableName] = VariableInfo(variableType, variableValue)
 
-        return Result.success(heap)
+        return Result.success(ast)
     }
 }

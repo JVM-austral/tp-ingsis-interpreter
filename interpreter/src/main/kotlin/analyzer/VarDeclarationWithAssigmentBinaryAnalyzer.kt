@@ -3,6 +3,7 @@ package analyzer
 import ast.Ast
 import ast.BinaryOperation
 import ast.VarDeclaration
+import evaluator.AstEvaluationEngine
 import executor.InterpreterExecutor
 import executor.VarDeclarationWithAssigmentBinaryExecutor
 import interpreter.VariableInfo
@@ -14,6 +15,6 @@ class VarDeclarationWithAssigmentBinaryAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return VarDeclarationWithAssigmentBinaryExecutor()
+        return VarDeclarationWithAssigmentBinaryExecutor(AstEvaluationEngine())
     }
 }

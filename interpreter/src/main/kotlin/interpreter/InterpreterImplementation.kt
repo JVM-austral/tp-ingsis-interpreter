@@ -6,14 +6,11 @@ import executor.FailInterpreterExecutor
 import executor.InterpreterExecutor
 
 class InterpreterImplementation(private val listOfAnalyzers: List<InterpreterAnalyzer>, private var heap: MutableMap<String, VariableInfo>) : Interpreter {
-    private val executionQueue: MutableList<Result<MutableMap<String, VariableInfo>>> = mutableListOf()
+    private val executionQueue: MutableList<Result<Ast>> = mutableListOf()
 
-    override fun interpret(parsedStatement: List<Result<Ast>>): List<Result<MutableMap<String, VariableInfo>>> {
+    override fun interpret(parsedStatement: List<Result<Ast>>): List<Result<Ast>> {
         for (statement in parsedStatement) {
             val result = verifyRules(statement).execute(statement, heap)
-            result.onSuccess { resultHeap ->
-                heap = resultHeap
-            }
             executionQueue.add(result)
         }
         return executionQueue
