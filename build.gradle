@@ -7,7 +7,7 @@ subprojects {
     afterEvaluate {
         if (plugins.hasPlugin('maven-publish')) {
             tasks.matching { it.name == 'publish' }.all {
-                // No-op, just ensures the task exists
+
             }
         }
     }
