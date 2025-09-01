@@ -1,13 +1,13 @@
 package linterconfig
 
 import Linter
-import analyzers.LinterAnalyzer
-import analyzers.PrintLnWithOutBinaryOperationAnalyzer
-import com.google.gson.Gson
-import java.io.File
 import LinterImplementation
 import analyzers.CamelCaseAnalyzer
+import analyzers.LinterAnalyzer
+import analyzers.PrintLnWithOutBinaryOperationAnalyzer
 import analyzers.SnakeCaseAnalyzer
+import com.google.gson.Gson
+import java.io.File
 
 class ConfigurableLinter(private val configFilePath: String) {
 
@@ -21,14 +21,14 @@ class ConfigurableLinter(private val configFilePath: String) {
 
     private val analyzers = mutableListOf<LinterAnalyzer>()
 
-
     fun getConfigurableLinter(): Linter {
-
         when (jsonOptions.namingConvention.lowercase()) {
             "camelcase" -> analyzers.add(CamelCaseAnalyzer())
             "snake_case" -> analyzers.add(SnakeCaseAnalyzer())
-            else -> throw IllegalArgumentException("Invalid naming convention: " +
-                "${jsonOptions.namingConvention}. Supported values are 'camelCase' and 'snake_case'")
+            else -> throw IllegalArgumentException(
+                "Invalid naming convention: " +
+                    "${jsonOptions.namingConvention}. Supported values are 'camelCase' and 'snake_case'",
+            )
         }
 
         if (jsonOptions.usePrintlnAnalyzer) {
@@ -38,7 +38,4 @@ class ConfigurableLinter(private val configFilePath: String) {
         val linterImpl: LinterImplementation = LinterImplementation(analyzers)
         return linterImpl
     }
-
-
-
 }

@@ -1,13 +1,19 @@
+import ast.BinaryOperation
+import ast.FunctionCallAst
+import ast.NumberLiteral
+import ast.StringLiteral
+import ast.TypeDeclaration
+import ast.VarDeclaration
 import linterconfig.ConfigurableLinter
-import ast.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.AfterEach
 import java.io.File
+import kotlin.Result
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ConfigurableLinterTest {
 
@@ -47,7 +53,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validCamelCase"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
@@ -73,7 +79,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("invalid_snake_case"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(invalidVar))
         val errors = linter.lint(statements)
@@ -100,7 +106,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("valid_snake_case"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
@@ -126,7 +132,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("invalidCamelCase"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(invalidVar))
         val errors = linter.lint(statements)
@@ -198,7 +204,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validCamelCase"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
@@ -307,13 +313,13 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validCamelCase"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val binaryOperation = BinaryOperation("+", NumberLiteral("1"), NumberLiteral("2"))
         val printlnWithBinaryOp = FunctionCallAst("println", listOf(binaryOperation))
         val statements = listOf(
             Result.success(validVar),
-            Result.success(printlnWithBinaryOp)
+            Result.success(printlnWithBinaryOp),
         )
         val errors = linter.lint(statements)
 
@@ -338,14 +344,14 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validCamelCase"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
 
         val invalidVar = VarDeclaration(
             "let",
             StringLiteral("invalid_snake_case"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
 
         val validPrintln = FunctionCallAst("println", listOf(StringLiteral("Hello")))
@@ -357,7 +363,7 @@ class ConfigurableLinterTest {
             Result.success(validVar),
             Result.success(invalidVar),
             Result.success(validPrintln),
-            Result.success(invalidPrintln)
+            Result.success(invalidPrintln),
         )
         val errors = linter.lint(statements)
 
@@ -388,7 +394,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validName"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(validVar))
 
@@ -419,7 +425,7 @@ class ConfigurableLinterTest {
             "let",
             StringLiteral("validName"),
             TypeDeclaration("String"),
-            StringLiteral("value")
+            StringLiteral("value"),
         )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)

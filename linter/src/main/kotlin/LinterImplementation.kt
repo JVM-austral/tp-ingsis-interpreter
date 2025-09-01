@@ -2,7 +2,6 @@ import analyzers.LinterAnalyzer
 import ast.Ast
 import error.LinterError
 
-
 class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter {
 
     override fun lint(statements: List<Result<Ast>>): List<LinterError> {
@@ -27,7 +26,6 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
     }
 
     private fun doesNotMatchALintingRule(ast: Ast, listOfRules: List<LinterAnalyzer>): List<LinterError> {
-
         val listOfErrors = mutableListOf<LinterError>()
 
         for (rule in listOfRules) {
