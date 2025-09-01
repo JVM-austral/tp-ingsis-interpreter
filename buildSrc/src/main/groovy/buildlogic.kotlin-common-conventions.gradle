@@ -6,6 +6,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
     id 'com.diffplug.spotless'
     id 'jacoco'
+    id 'maven-publish'
 }
 
 repositories {
@@ -71,3 +72,4 @@ tasks.named('check') {
 tasks.named('build') {
     dependsOn 'spotlessApply'
 }
+
