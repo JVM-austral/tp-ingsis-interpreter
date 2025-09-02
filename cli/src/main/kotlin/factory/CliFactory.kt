@@ -3,7 +3,6 @@ package factory
 import Cli
 import Formatter
 import Linter
-import factory.linterfactory.LinterFactory
 import factory.linterfactory.LinterFactoryWithJson
 import interpreter.Interpreter
 import lexer.Lexer
@@ -37,7 +36,7 @@ class CliFactory : Factory<Cli> {
             createFormatter(),
             "",
             "",
-            ""
+            "",
         )
     }
 }

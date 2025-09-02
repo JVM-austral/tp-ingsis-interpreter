@@ -1,15 +1,12 @@
 
-import analyzers.FormatRulesAnalyzers
+import ast.Ast
+import error.LinterError
+import factory.FormatterFactoryWithJson
+import factory.linterfactory.LinterFactoryWithJson
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
 import java.nio.file.Path
-import ast.Ast
-import error.LinterError
-import factory.FormatterFactoryWithJson
-import factory.linterfactory.LinterFactory
-import factory.linterfactory.LinterFactoryWithJson
-
 
 class Cli(
     private val lexer: Lexer,
@@ -19,32 +16,31 @@ class Cli(
     private var formatter: Formatter,
     private var srcCodePath: String?,
     private var linterConfigPath: String?,
-    private var formatterConfigPath: String?
+    private var formatterConfigPath: String?,
 ) {
 
     private var analyzedCode: List<Result<Ast>> = emptyList()
     private var formattedCode: String = ""
-    private var code=""
+    private var code = ""
 
     fun run(task: String) {
-        when (task){
-            Flags.ANALYZING.toString() ->{
+        when (task) {
+            Flags.ANALYZING.toString() -> {
                 analyzeCode()
             }
-            Flags.FORMATTING.toString()->{
+            Flags.FORMATTING.toString() -> {
                 formatCode()
             }
-            Flags.EXECUTION.toString()->{
+            Flags.EXECUTION.toString() -> {
                 executeCode()
             }
-            Flags.VALIDATION.toString()->{
+            Flags.VALIDATION.toString() -> {
                 validateCode()
             }
-
         }
     }
 
-    fun printHelp () {
+    fun printHelp() {
         println("Usage: cli [options] <file>")
         println("Options:")
         println("  --help          Show this help message")
@@ -56,43 +52,35 @@ class Cli(
     private fun setSrcFile(path: Path) {
         code = path.toFile().readText()
     }
-    private fun changeSrcCode(path: Path){
+    private fun changeSrcCode(path: Path) {
         srcCodePath = path.toString()
     }
 
-    private fun setFormatterConfig(){
-        formatter= FormatterFactoryWithJson(formatterConfigPath.toString()).create();
+    private fun setFormatterConfig() {
+        formatter = FormatterFactoryWithJson(formatterConfigPath.toString()).create()
     }
 
-    private fun setLinterConfig(pathFile: String){
+    private fun setLinterConfig(pathFile: String) {
         linter = LinterFactoryWithJson(pathFile).create()
     }
 
-
-    private fun validateCode(){
-
+    private fun validateCode() {
     }
 
-    private fun analyzeCode(){
+    private fun analyzeCode() {
         val lintErrors: List<LinterError> = linter.lint(analyzedCode)
-        if (lintErrors.isEmpty()){
+        if (lintErrors.isEmpty()) {
             println("No linting errors found.")
-        }
-        else{
+        } else {
             for (error in lintErrors) {
                 println("Linting Error: ${error.message} at line ${error.line}, column ${error.column}")
             }
         }
     }
 
-    private fun formatCode(){
-
+    private fun formatCode() {
     }
 
-    private fun executeCode(){
-
+    private fun executeCode() {
     }
-
-
-
 }

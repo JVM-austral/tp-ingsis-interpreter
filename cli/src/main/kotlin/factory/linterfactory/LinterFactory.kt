@@ -10,11 +10,10 @@ import factory.Factory
 class LinterFactory : Factory<Linter> {
     private val rules = listOf(
         CamelCaseAnalyzer(),
-        SnakeCaseAnalyzer() ,
-        PrintLnWithOutBinaryOperationAnalyzer()
+        SnakeCaseAnalyzer(),
+        PrintLnWithOutBinaryOperationAnalyzer(),
     )
     override fun create(): Linter {
         return LinterImplementation(rules)
     }
-
 }
