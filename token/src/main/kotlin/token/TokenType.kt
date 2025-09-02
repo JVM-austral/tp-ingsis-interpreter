@@ -10,4 +10,7 @@ enum class TokenType() {
     PUNCTUATION,
     WHITESPACE,
     UNKNOWN,
+    CONDITIONAL,
+    BOOLEAN,
+    BOOLOPERATOR,
 }

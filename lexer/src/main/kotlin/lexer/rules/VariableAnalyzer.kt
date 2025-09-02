@@ -4,7 +4,7 @@ import token.TokenType
 
 class VariableAnalyzer : TokenAnalyzer {
     override fun analyze(input: String): Boolean {
-        val regex = "^[a-z]+$".toRegex()
+        val regex = "^[a-zA-Z_]+$".toRegex()
         return regex.matches(input)
     }
 

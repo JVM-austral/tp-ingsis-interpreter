@@ -120,10 +120,10 @@ class AnalyzerTest {
         val analyzer = VariableAnalyzer()
         assertTrue(analyzer.analyze("variable"))
         assertTrue(analyzer.analyze("abc"))
-        assertFalse(analyzer.analyze("Variable"))
+        assertTrue(analyzer.analyze("Variable"))
         assertFalse(analyzer.analyze("abc123"))
         assertFalse(analyzer.analyze("123"))
-        assertFalse(analyzer.analyze("a_b"))
+        assertTrue(analyzer.analyze("a_b"))
         assertFalse(analyzer.analyze(""))
         assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
