@@ -14,6 +14,6 @@ class FunctionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) :
                 secondPartExecutor = analyzer.getExecutor()
             }
         }
-        return FunctionCallAst(tokens[0].value, listOf(secondPartExecutor.execute(tokens.subList(2, tokens.size - 1))))
+        return FunctionCallAst(tokens[0].value, listOf(secondPartExecutor.execute(tokens.subList(2, tokens.size - 1))), tokens[0].line, tokens[0].column)
     }
 }

@@ -1,6 +1,6 @@
 package ast
 
-class ErrorAst(private val message: String) : Ast {
+class ErrorAst(private val message: String, private val row: Int, private val col: Int) : Ast {
 
     override fun getListOfChildren(): List<Ast> {
         return listOf()
@@ -12,5 +12,13 @@ class ErrorAst(private val message: String) : Ast {
 
     override fun getValue(): String {
         return message
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }

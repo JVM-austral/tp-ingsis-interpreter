@@ -14,7 +14,7 @@ class PrintLnWithOutBinaryOperationAnalyzer : LinterAnalyzer {
                 if (ast.getListOfChildren().size == 1) {
                     val parameter = ast.getListOfChildren()[0]
                     if (parameter is BinaryOperation) {
-                        return Optional.of(LinterError("println should`nt have a binary operation as parameter", 0, 0))
+                        return Optional.of(LinterError("println should`nt have a binary operation as parameter", ast.getRow(), ast.getColumn()))
                     }
                 }
             }

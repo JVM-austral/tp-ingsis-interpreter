@@ -1,6 +1,6 @@
 package ast
 
-class VariableIdentifier(private val identifierName: String) : Ast {
+class VariableIdentifier(private val identifierName: String, private val row: Int, private val col: Int) : Ast {
 
     override fun getListOfChildren(): List<Ast> {
         return listOf()
@@ -12,5 +12,13 @@ class VariableIdentifier(private val identifierName: String) : Ast {
 
     override fun getValue(): String {
         return identifierName
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }

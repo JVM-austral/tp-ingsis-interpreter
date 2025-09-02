@@ -5,6 +5,8 @@ class VarDeclaration(
     private val variable: StringLiteral, // name
     val type: TypeDeclaration, // type
     val expr: Ast, // value
+    private val row: Int,
+    private val col: Int,
 ) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf(variable, type, expr)
@@ -16,5 +18,13 @@ class VarDeclaration(
 
     override fun getValue(): String {
         return identifier
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }

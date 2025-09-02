@@ -1,6 +1,6 @@
 package ast
 
-class VarDefinition(val identifier: String, val variable: StringLiteral, val expr: Ast) : Ast {
+class VarDefinition(val identifier: String, val variable: StringLiteral, val expr: Ast, private val row: Int, private val col: Int) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf(variable, expr)
     }
@@ -11,5 +11,13 @@ class VarDefinition(val identifier: String, val variable: StringLiteral, val exp
 
     override fun getValue(): String {
         return identifier
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }
