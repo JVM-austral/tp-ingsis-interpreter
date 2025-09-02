@@ -12,4 +12,12 @@ class ScapeAst : Ast {
     override fun getValue(): String {
         return ""
     }
+
+    override fun getRow(): Int {
+        return -1
+    }
+
+    override fun getColumn(): Int {
+        return -1
+    }
 }

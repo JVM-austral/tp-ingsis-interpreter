@@ -13,8 +13,8 @@ class StringConcatenationExecutor : StructureExecutor {
         if (tokens.isEmpty()) return ScapeAst()
 
         val firstAst = when (tokens[0].type) {
-            TokenType.STRING_LITERAL -> StringLiteral(tokens[0].value)
-            TokenType.IDENTIFIER -> VariableIdentifier(tokens[0].value)
+            TokenType.STRING_LITERAL -> StringLiteral(tokens[0].value, tokens[0].line, tokens[0].column)
+            TokenType.IDENTIFIER -> VariableIdentifier(tokens[0].value, tokens[0].line, tokens[0].column)
             else -> return ScapeAst()
         }
 
@@ -25,6 +25,6 @@ class StringConcatenationExecutor : StructureExecutor {
         val operator = tokens[1].value
         val restAst = execute(tokens.subList(2, tokens.size))
 
-        return BinaryOperation(operator, firstAst, restAst)
+        return BinaryOperation(operator, firstAst, restAst, tokens[1].line, tokens[1].column)
     }
 }

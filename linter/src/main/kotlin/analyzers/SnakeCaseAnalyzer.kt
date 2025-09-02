@@ -12,7 +12,7 @@ class SnakeCaseAnalyzer : LinterAnalyzer {
             val name = ast.getListOfChildren()[0].getValue()
             val regex = Regex("^[a-z]+(_[a-z]+)*$")
             if (!regex.matches(name)) {
-                return Optional.of(LinterError("Variable name '$name' is not in snake_case format", 0, 0))
+                return Optional.of(LinterError("Variable name '$name' is not in snake_case format", ast.getListOfChildren()[0].getRow(), ast.getListOfChildren()[0].getColumn()))
             }
         }
         return Optional.empty()

@@ -1,6 +1,6 @@
 package ast
 
-class TypeDeclaration(val type: String) : Ast {
+class TypeDeclaration(val type: String, private val row: Int, private val col: Int) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf()
     }
@@ -11,5 +11,13 @@ class TypeDeclaration(val type: String) : Ast {
 
     override fun getValue(): String {
         return type
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }

@@ -27,11 +27,11 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
         if (left is ParseResult.Failure) return ParseResult.Failure
 
         while (index < tokens.size && isAddSubOperator(peek())) {
-            val op = next().value
+            val op = next()
             val right = parseTerm()
             if (right is ParseResult.Failure) return ParseResult.Failure
             left = ParseResult.Success(
-                BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast),
+                BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
             )
         }
 
@@ -43,11 +43,11 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
         if (left is ParseResult.Failure) return ParseResult.Failure
 
         while (index < tokens.size && isMulDivOperator(peek())) {
-            val op = next().value
+            val op = next()
             val right = parseFactor()
             if (right is ParseResult.Failure) return ParseResult.Failure
             left = ParseResult.Success(
-                BinaryOperation(op, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast),
+                BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
             )
         }
 
@@ -59,8 +59,8 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
         val token = next()
 
         return when (token.type) {
-            TokenType.NUMBER_LITERAL -> ParseResult.Success(NumberLiteral(token.value))
-            TokenType.IDENTIFIER -> ParseResult.Success(VariableIdentifier(token.value))
+            TokenType.NUMBER_LITERAL -> ParseResult.Success(NumberLiteral(token.value, token.line, token.column))
+            TokenType.IDENTIFIER -> ParseResult.Success(VariableIdentifier(token.value, token.line, token.column))
             TokenType.PUNCTUATION -> {
                 if (token.value == "(") {
                     val expr = parseExpression()

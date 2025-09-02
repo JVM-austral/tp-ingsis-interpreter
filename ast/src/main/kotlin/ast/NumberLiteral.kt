@@ -1,6 +1,6 @@
 package ast
 
-class NumberLiteral(private val numberLiteral: String) : Ast {
+class NumberLiteral(private val numberLiteral: String, private val row: Int, private val col: Int) : Ast {
     override fun getListOfChildren(): List<Ast> {
         return listOf()
     }
@@ -11,5 +11,13 @@ class NumberLiteral(private val numberLiteral: String) : Ast {
 
     override fun getValue(): String {
         return numberLiteral
+    }
+
+    override fun getRow(): Int {
+        return row
+    }
+
+    override fun getColumn(): Int {
+        return col
     }
 }

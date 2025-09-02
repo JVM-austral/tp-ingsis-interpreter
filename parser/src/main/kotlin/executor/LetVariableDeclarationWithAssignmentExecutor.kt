@@ -15,12 +15,14 @@ class LetVariableDeclarationWithAssignmentExecutor(private val operatorAnalyzers
                 secondPartExecutor = analyzer.getExecutor()
                 return VarDeclaration(
                     tokens[0].value,
-                    StringLiteral(tokens[1].value),
-                    TypeDeclaration(tokens[3].value),
+                    StringLiteral(tokens[1].value, tokens[1].line, tokens[1].column),
+                    TypeDeclaration(tokens[3].value, tokens[3].line, tokens[3].column),
                     secondPartExecutor.execute(tokens.subList(5, tokens.size)),
+                    tokens[0].line,
+                    tokens[0].column,
                 )
             }
         }
-        return VarDeclaration(tokens[0].value, StringLiteral(tokens[1].value), TypeDeclaration(tokens[3].value), StringLiteral(tokens.last().value))
+        return VarDeclaration(tokens[0].value, StringLiteral(tokens[1].value, tokens[1].line, tokens[1].column), TypeDeclaration(tokens[3].value, tokens[3].line, tokens[3].column), StringLiteral(tokens.last().value, tokens.last().line, tokens.last().column), tokens[0].line, tokens[0].column)
     }
 }
