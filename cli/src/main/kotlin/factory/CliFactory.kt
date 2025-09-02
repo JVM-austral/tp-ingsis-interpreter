@@ -3,6 +3,8 @@ package factory
 import Cli
 import Formatter
 import Linter
+import factory.linterfactory.LinterFactory
+import factory.linterfactory.LinterFactoryWithJson
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
@@ -21,12 +23,10 @@ class CliFactory : Factory<Cli> {
         return InterpreterFactory().create()
     }
     private fun createLinter(): Linter {
-        TODO()
-        // Implement linter creation logic here
+        return LinterFactoryWithJson(null).create()
     }
     private fun createFormatter(): Formatter {
-        TODO()
-        // Implement formatter creation logic here
+        return FormatterFactory().create()
     }
     private fun createCli(): Cli {
         return Cli(
@@ -35,6 +35,9 @@ class CliFactory : Factory<Cli> {
             createInterpreter(),
             createLinter(),
             createFormatter(),
+            "",
+            "",
+            ""
         )
     }
 }

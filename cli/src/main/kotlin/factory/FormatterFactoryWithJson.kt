@@ -3,8 +3,9 @@ package factory
 import Formatter
 import FormatterImpl
 import analyzers.*
+import formatterconfig.ConfigurableAnalyzerFormatter
 
-class FormatterFactory : Factory<Formatter> {
+class FormatterFactoryWithJson(private val path: String) : Factory<Formatter> {
     private val rules = listOf(CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
         SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
         SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
@@ -14,7 +15,7 @@ class FormatterFactory : Factory<Formatter> {
         )
     override fun create(): Formatter {
 
-        return FormatterImpl(rules)
+        return FormatterImpl(ConfigurableAnalyzerFormatter(path).buildAnalyzers())
     }
 
 }
