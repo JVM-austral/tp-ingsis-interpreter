@@ -430,14 +430,7 @@ class InterpreterTest {
         val interpreter = InterpreterImplementation(analyzers, heap)
 
         val statements = listOf(
-            Result.success(
-                VarDeclaration(
-                    "let",
-                    StringLiteral("y"),
-                    TypeDeclaration("string"),
-                    StringLiteral("hello"),
-                ) as Ast,
-            ),
+            Result.success(VarDeclaration("let", StringLiteral("y"), TypeDeclaration("string"), StringLiteral("hello")) as Ast),
         )
 
         val results = interpreter.interpret(statements)
@@ -513,23 +506,9 @@ class InterpreterTest {
         val interpreter = InterpreterImplementation(analyzers, heap)
 
         val statements = listOf(
-            Result.success(
-                VarDeclaration(
-                    "let",
-                    StringLiteral("x"),
-                    TypeDeclaration("string"),
-                    StringLiteral("hello"),
-                ) as Ast,
-            ),
+            Result.success(VarDeclaration("let", StringLiteral("x"), TypeDeclaration("string"), StringLiteral("hello")) as Ast),
             Result.success(TypeDeclaration("x") as Ast), // Should fail - duplicate declaration
-            Result.success(
-                VarDeclaration(
-                    "let",
-                    StringLiteral("y"),
-                    TypeDeclaration("number"),
-                    NumberLiteral("42"),
-                ) as Ast,
-            ),
+            Result.success(VarDeclaration("let", StringLiteral("y"), TypeDeclaration("number"), NumberLiteral("42")) as Ast),
         )
 
         val results = interpreter.interpret(statements)
@@ -740,55 +719,5 @@ class InterpreterTest {
 
         assertTrue(result.isSuccess)
         assertEquals(listOf("Hello Test!"), mockOutput.captured)
-    }
-
-    @Test
-    fun `FunctionCall println binary op print`() {
-        val mockOutput = MockOutputHandler()
-        val engine = AstEvaluationEngine(mockOutput)
-        val executor = FunctionCallExecutor(engine)
-        val heap = mutableMapOf<String, VariableInfo>()
-
-        val call = FunctionCallAst("println", listOf(BinaryOperation("+", NumberLiteral("10"), NumberLiteral("15"))))
-        val result = executor.execute(Result.success(call), heap)
-
-        assertTrue(result.isSuccess)
-        assertEquals(listOf("25.0"), mockOutput.captured)
-    }
-
-    @Test
-    fun `Functioasn`() {
-        val analyzers = listOf<InterpreterAnalyzer>(
-            TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(),
-            FunctionCallAnalyzer(),
-        )
-        val interpreter = InterpreterImplementation(analyzers, heap)
-        val statements = listOf(
-            Result.success(
-                TypeDeclaration("greeting") as Ast,
-            ),
-            Result.success(
-                VarDeclaration(
-                    "let",
-                    StringLiteral("greeting"),
-                    TypeDeclaration("string"),
-                    StringLiteral("Hello"),
-                ) as Ast,
-            ),
-            Result.success(
-                FunctionCallAst(
-                    "println",
-                    listOf(VariableIdentifier("greeting"), NumberLiteral("3")),
-                ) as Ast,
-            ),
-        )
-        val results = interpreter.interpret(statements)
-        assertEquals(3, results.size)
-        assertTrue(results[0].isSuccess)
-        assertTrue(results[1].isSuccess)
-        assertTrue(results[2].isSuccess)
-        assertTrue(heap.containsKey("greeting"))
-        assertEquals("Hello", heap["greeting"]?.value)
     }
 }

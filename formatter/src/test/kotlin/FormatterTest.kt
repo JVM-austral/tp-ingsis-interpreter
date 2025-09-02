@@ -1,8 +1,6 @@
-package lexertest
-import Formatter
-import FormatterImpl
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.NewLineAfterSemiColonAnalyzer
+import analyzers.NewLinesBeforePrintlnAnalyzer
 import analyzers.OnlyOneSpaceAnalyzer
 import analyzers.SpaceAfterColonAnalyzer
 import analyzers.SpaceAfterEqualsAnalyzer
@@ -11,6 +9,7 @@ import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
 import lexer.LexerImplementation
+import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
 import lexer.rules.MidStringAnalyzer
@@ -36,17 +35,19 @@ class FormatterTest {
     fun setup() {
         formatter = FormatterImpl(
             listOf(
-                CanNotStartLineWithSpaceAnalyzer(), SpaceAfterColonAnalyzer(),
+                CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
                 SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
                 SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
                 SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
+                SpaceAfterEqualsAnalyzer(),
+
             ),
         )
         lexer = LexerImplementation(
             listOf<TokenAnalyzer>(
                 KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
                 OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
+                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(), EnterAnalyzer(),
             ),
         )
     }
@@ -173,8 +174,15 @@ class FormatterTest {
 
     @Test
     fun `debe manejar espacios extremos y formatear correctamente`() {
-        val tokens = lexer.tokenize("   let     a   :   number   =   (   1   +   2   )   +   3   ;   let   y:string=   \"test\"   ;   ")
+        val tokens = lexer.tokenize("   let     a   :   number   =   (   1   +   2   )   +   3   ;\n    let   y:string=   \"test\"   ;   ")
         val result = formatter.format(tokens)
         assertEquals(result, "let a : number = ( 1 + 2 ) + 3 ;\nlet y : string = \"test\" ;\n")
+    }
+
+    @Test
+    fun `debe manejar enters antes del println correctamente`() {
+        val tokens = lexer.tokenize("let a : number=3; \n\n\nprintln(a);")
+        val result = formatter.format(tokens)
+        assertEquals(result, "let a : number = 3;\nprintln(a);")
     }
 }
