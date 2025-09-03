@@ -17,6 +17,7 @@ import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
 
 class LexerFactory : Factory<Lexer> {
+
     private val rules = listOf(
         EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
         NumberAnalyzer(), OperatorAnalyzer(), NumberTypeAnalyzer(),
