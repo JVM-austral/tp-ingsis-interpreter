@@ -7,9 +7,6 @@ import token.Token
 import token.TokenType
 
 class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>) : Parser {
-    companion object {
-        private const val UNKNOWN_ERROR_MESSAGE = "Unknown error"
-    }
 
     override fun parse(tokens: List<Result<Token>>): List<Result<Ast>> {
         val root: MutableList<Result<Ast>> = mutableListOf()
