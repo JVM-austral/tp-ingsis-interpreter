@@ -19,6 +19,7 @@ class ParserFactory : Factory<Parser> {
         LetVariableDeclarationWithStringAssignmentAnalyzer(),
         StringConcatenationAnalyzer(),
         VariableDefinitionAnalyzer(),
+
     )
     override fun create(): Parser {
         return ParserImplementation(rules)

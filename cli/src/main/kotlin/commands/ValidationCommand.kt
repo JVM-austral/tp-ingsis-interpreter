@@ -13,9 +13,9 @@ class ValidationCommand(
     private val parser: Parser,
     private val lexer: Lexer,
     private val linter: Linter,
-    private val formatter: Formatter
+    private val formatter: Formatter,
 
-)  : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
+) : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
     private val file by option("-f", "--file", help = "file to be validated").required()
 
     override fun run() {
@@ -23,6 +23,6 @@ class ValidationCommand(
 
         FormatCommand(formatter, lexer).run()
 
-        LintCommand(linter,parser, lexer).run()
+        LintCommand(linter, parser, lexer).run()
     }
 }

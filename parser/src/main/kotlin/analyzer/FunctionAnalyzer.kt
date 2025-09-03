@@ -22,7 +22,7 @@ class FunctionAnalyzer : StructureAnalyzer {
         }
         if (!BinaryNumberOperatorAnalyzer().analyzeStructure(
                 tokens.subList(2, tokens.size-1),
-            ) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2, tokens.size))
+            ) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2, tokens.size-1))
         ) {
             return false
         }

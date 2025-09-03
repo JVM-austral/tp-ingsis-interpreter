@@ -8,7 +8,7 @@ import lexer.Lexer
 import parser.Parser
 import java.io.File
 
-class LintCommand(private val linter:Linter,private val parser: Parser,private val lexer: Lexer) :
+class LintCommand(private val linter: Linter, private val parser: Parser, private val lexer: Lexer) :
     CliktCommand(name = "Analyzing", help = "Static code analysis of the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the linter").required()
 

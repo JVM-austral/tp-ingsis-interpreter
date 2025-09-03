@@ -1,0 +1,3 @@
+let a:string = "hello";
+println("world" + a);
+
