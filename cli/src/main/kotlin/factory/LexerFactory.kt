@@ -19,11 +19,12 @@ import lexer.rules.WhitespaceAnalyzer
 class LexerFactory : Factory<Lexer> {
 
     private val rules = listOf(
-        EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
-        NumberAnalyzer(), OperatorAnalyzer(), NumberTypeAnalyzer(),
+        NumberAnalyzer(), EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
+        OperatorAnalyzer(), NumberTypeAnalyzer(),
         PrintAnalyzer(), PunctuationAnalyzer(), StringTypeAnalyzer(),
         StringAnalyzer(), VariableAnalyzer(), WhitespaceAnalyzer(),
         MidStringAnalyzer(),
+
     )
     override fun create(): Lexer {
         return LexerImplementation(rules)

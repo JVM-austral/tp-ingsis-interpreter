@@ -11,7 +11,7 @@ import java.io.File
 class ExecutionCommand(
     private val interpreter: Interpreter,
     private val parser: Parser,
-    private val lexer: Lexer
+    private val lexer: Lexer,
 
 ) : CliktCommand(name = "execution", help = "Run the source code") {
     private val file by option("-f", "--file", help = "file to be ran").required()

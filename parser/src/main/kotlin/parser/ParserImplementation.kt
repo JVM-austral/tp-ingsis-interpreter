@@ -63,7 +63,7 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
                 return Result.success(analyzer.getExecutor())
             }
         }
-        return Result.failure(Exception("No matching analyzer for provided tokens"))
+        return Result.failure(Exception("No matching analyzer for provided tokens $tokens"))
     }
 
     private fun isEndOfStatementAndSuccess(tokenUnits: Result<Token>): Boolean {

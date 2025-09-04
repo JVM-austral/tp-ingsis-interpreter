@@ -8,16 +8,24 @@ import lexer.Lexer
 import parser.Parser
 import java.io.File
 
-class LintCommand(private val linter:Linter,private val parser: Parser,private val lexer: Lexer) :
-    CliktCommand(name = "Analyzing", help = "Static code analysis of the source code") {
+class LintCommand(private val linter: Linter, private val parser: Parser, private val lexer: Lexer) :
+    CliktCommand(name = "analyzing", help = "Static code analysis of the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the linter").required()
 
     override fun run() {
-        val code = File(file).readText()
         println("Running linter on $file...")
+        val code = File(file).readText()
+        if (code.isEmpty()) {
+            println("File is empty.")
+            return
+        }
         val tokens = lexer.tokenize(code)
         val ast = parser.parse(tokens)
-        val result = linter.lint(ast)
-        print(result.joinToString("\n") { it.message })
+        val lintResult = linter.lint(ast)
+        if (lintResult.isEmpty()) {
+            println("No lint issues found.")
+        } else {
+            lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
+        }
     }
 }

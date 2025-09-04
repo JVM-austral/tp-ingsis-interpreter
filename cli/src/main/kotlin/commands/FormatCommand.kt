@@ -6,12 +6,11 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import lexer.Lexer
 
-
-class FormatCommand(private val formatter:Formatter,private val lexer: Lexer) : CliktCommand(name = "format", help = "Formatea el código fuente") {
+class FormatCommand(private val formatter: Formatter, private val lexer: Lexer) : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
 
     override fun run() {
-        try{
+        try {
             println("Formatting $file...")
             val code = java.io.File(file).readText()
             val tokens = lexer.tokenize(code)
@@ -21,8 +20,7 @@ class FormatCommand(private val formatter:Formatter,private val lexer: Lexer) : 
                 fileToWrite.writeText(formatted)
             }
             println("Formatted successfully $file")
-        }
-        catch (exception: Exception){
+        } catch (exception: Exception) {
             println(exception)
         }
     }
