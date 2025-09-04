@@ -375,7 +375,7 @@ class LinterImplementationTest {
             linter.lint(statements)
         }
 
-        assertEquals("Statement is not formatted correctly", exception.message)
+        assertEquals("Statement is not formatted correctly Parse error", exception.message)
     }
 
     @Test
