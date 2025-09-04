@@ -13,4 +13,5 @@ enum class TokenType() {
     CONDITIONAL,
     BOOLEAN,
     BOOLOPERATOR,
+    TAB,
 }

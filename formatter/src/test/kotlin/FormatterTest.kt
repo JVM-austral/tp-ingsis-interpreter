@@ -42,6 +42,7 @@ class FormatterTest {
                 SpaceAfterEqualsAnalyzer(),
 
             ),
+            1,
         )
         lexer = LexerImplementation(
             listOf<TokenAnalyzer>(

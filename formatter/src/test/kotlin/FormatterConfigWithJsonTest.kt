@@ -17,7 +17,7 @@ class FormatterConfigWithJsonTest {
     @Test
     fun `test buildAnalyzers with custom config file`() {
         val formatter = ConfigurableAnalyzerFormatter("src/test/resources/exampleconfig.json")
-        val analyzers = formatter.buildAnalyzers()
+        val analyzers = formatter.buildFormatter().getAnalyzers()
 
         assertTrue(analyzers.any { it is SpaceBeforeColonAnalyzer })
         assertFalse(analyzers.any { it is SpaceAfterColonAnalyzer })
