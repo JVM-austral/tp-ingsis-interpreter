@@ -23,6 +23,6 @@ class FormatterFactory : Factory<Formatter> {
 
     )
     override fun create(): Formatter {
-        return FormatterImpl(rules)
+        return FormatterImpl(rules, 1)
     }
 }

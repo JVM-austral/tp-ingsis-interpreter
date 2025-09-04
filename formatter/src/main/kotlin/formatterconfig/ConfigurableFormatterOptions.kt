@@ -6,4 +6,5 @@ data class ConfigurableFormatterOptions(
     val spaceBeforeEquals: Boolean = false,
     val spaceAfterEquals: Boolean = false,
     val amountOfNewLinesBeforePrint: Int = 0,
+    val indentationSize: Int = 1,
 )

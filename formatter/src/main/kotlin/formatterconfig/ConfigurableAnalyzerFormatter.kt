@@ -1,5 +1,7 @@
 package formatterconfig
 
+import Formatter
+import FormatterImpl
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.FormatRulesAnalyzers
 import analyzers.NewLineAfterSemiColonAnalyzer
@@ -23,7 +25,7 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String) {
         ConfigurableFormatterOptions()
     }
 
-    fun buildAnalyzers(): List<FormatRulesAnalyzers> {
+    fun buildFormatter(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
 
         if (options.spaceBeforeColon) analyzers.add(SpaceBeforeColonAnalyzer())
@@ -41,6 +43,6 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String) {
             analyzers.add(NewLinesBeforePrintlnAnalyzer(options.amountOfNewLinesBeforePrint))
         }
 
-        return analyzers
+        return FormatterImpl(analyzers, options.indentationSize)
     }
 }
