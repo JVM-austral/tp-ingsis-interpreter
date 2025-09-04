@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import lexer.Lexer
 
-class FormatCommand(private val formatter: Formatter, private val lexer: Lexer) : CliktCommand(name = "format", help = "Formatea el código fuente") {
+class FormatCommand(private val formatter: Formatter, private val lexer: Lexer) : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
 
     override fun run() {
