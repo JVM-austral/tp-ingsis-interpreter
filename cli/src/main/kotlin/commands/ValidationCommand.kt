@@ -34,7 +34,7 @@ class ValidationCommand(
             if (lintResult.isEmpty()) {
                 println("No lint issues found.")
             } else {
-                lintResult.forEach { println(it.message + "on " + it.line + ":"+it.column) }
+                lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
             }
         } catch (e: Exception) {
             println("Exception: ${e.message}")

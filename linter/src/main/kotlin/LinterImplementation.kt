@@ -17,7 +17,7 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
                     }
                 },
                 onFailure = {
-                    throw Exception("Statement is not formatted correctly "+ it.message )
+                    throw Exception("Statement is not formatted correctly " + it.message)
                 },
             )
         }

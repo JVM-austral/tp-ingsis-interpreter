@@ -25,7 +25,7 @@ class LintCommand(private val linter: Linter, private val parser: Parser, privat
         if (lintResult.isEmpty()) {
             println("No lint issues found.")
         } else {
-            lintResult.forEach { println(it.message + "on " + it.line + ":"+it.column) }
+            lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
         }
     }
 }

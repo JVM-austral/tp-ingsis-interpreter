@@ -1,24 +1,24 @@
-import factory.ParserFactory
-import factory.LexerFactory
-import factory.InterpreterFactory
-import factory.FormatterFactory
-import commands.LintCommand
 import commands.ExecutionCommand
 import commands.FormatCommand
-import commands.ValidationCommand
+import commands.LintCommand
 import commands.PrintScriptCLI
+import commands.ValidationCommand
+import factory.FormatterFactory
+import factory.InterpreterFactory
+import factory.LexerFactory
+import factory.ParserFactory
 import factory.linterfactory.LinterFactory
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.nio.file.Path
 
-class CliTest{
+class CliTest {
 
     private lateinit var lexer: lexer.Lexer
     private lateinit var parser: parser.Parser
@@ -44,18 +44,19 @@ class CliTest{
         outputStream = ByteArrayOutputStream()
         originalOut = System.out
         System.setOut(PrintStream(outputStream))
-
     }
 
     @Test
     fun `ExecutionCommand should read file and execute valid PrintScript code`() {
         // Arrange
         val testFile = tempDir.resolve("test.ps").toFile()
-        testFile.writeText("""
+        testFile.writeText(
+            """
             let x: number = 5;
             let y: number = 10;
             println(x + y);
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         val command = ExecutionCommand(interpreter, parser, lexer)
 
@@ -112,11 +113,13 @@ class CliTest{
     fun `ExecutionCommand should handle file with only comments or whitespace`() {
         // Arrange
         val testFile = tempDir.resolve("comments.ps").toFile()
-        testFile.writeText("""
+        testFile.writeText(
+            """
             // This is a comment
             
             // Another comment
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         val command = ExecutionCommand(interpreter, parser, lexer)
 
@@ -156,10 +159,12 @@ class CliTest{
     fun `FormatCommand should handle well-formatted code`() {
         // Arrange
         val testFile = tempDir.resolve("wellformatted.ps").toFile()
-        testFile.writeText("""
+        testFile.writeText(
+            """
             let x: number = 5;
             let y: string = "hello";
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         val command = FormatCommand(formatter, lexer)
 
@@ -186,8 +191,10 @@ class CliTest{
         // Assert
         val output = outputStream.toString()
         // Should show an exception message
-        assertTrue(output.contains("Exception") || output.contains("Error") ||
-            output.contains("FileNotFoundException") || output.contains("NoSuchFileException"))
+        assertTrue(
+            output.contains("Exception") || output.contains("Error") ||
+                output.contains("FileNotFoundException") || output.contains("NoSuchFileException"),
+        )
     }
 
     @Test
@@ -195,8 +202,10 @@ class CliTest{
         // Arrange
         val testFile = tempDir.resolve("lint.ps").toFile()
 
-        testFile.writeText("""let another_name: string = "test";
-        """)
+        testFile.writeText(
+            """let another_name: string = "test";
+        """,
+        )
 
         val command = LintCommand(linter, parser, lexer)
 
@@ -209,17 +218,18 @@ class CliTest{
         // Assert
         assertTrue(output.contains("Running linter on ${testFile.absolutePath}..."))
         assertTrue(output.contains("Variable name 'another_name' is not in camelCase format"))
-
     }
 
     @Test
     fun `LintCommand should handle clean code without issues`() {
         // Arrange
         val testFile = tempDir.resolve("clean.ps").toFile()
-        testFile.writeText("""
+        testFile.writeText(
+            """
             let validName: number = 5;
             let anotherValidName: string = "hello";
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         val command = LintCommand(linter, parser, lexer)
 
@@ -315,13 +325,15 @@ class CliTest{
     fun `All commands should handle valid PrintScript syntax`() {
         // Arrange
         val testFile = tempDir.resolve("valid.ps").toFile()
-        testFile.writeText("""
+        testFile.writeText(
+            """
             let firstName: string = "John";
             let lastName: string = "Doe";
             let age: number = 25;
             println(firstName + " " + lastName);
             println("Age: " + age);
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         // Test ExecutionCommand
         val execCommand = ExecutionCommand(interpreter, parser, lexer)
