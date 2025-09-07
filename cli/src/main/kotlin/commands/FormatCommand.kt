@@ -11,17 +11,19 @@ class FormatCommand(private val formatter: Formatter, private val lexer: Lexer) 
 
     override fun run() {
         try {
-            println("Formatting $file...")
+            echo("Formatting $file...")
+
             val code = java.io.File(file).readText()
             val tokens = lexer.tokenize(code)
+
             val formatted = formatter.format(tokens)
             code.let {
                 val fileToWrite = java.io.File(file)
                 fileToWrite.writeText(formatted)
             }
-            println("Formatted successfully $file")
+            echo("Formatted successfully $file")
         } catch (exception: Exception) {
-            println(exception)
+            echo(exception)
         }
     }
 }
