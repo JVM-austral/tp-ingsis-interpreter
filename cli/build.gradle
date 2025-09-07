@@ -4,7 +4,7 @@
 
 plugins {
     id 'buildlogic.kotlin-library-conventions'
-
+    id 'application'
 }
 
 group = 'org.JVM-austral'
@@ -41,4 +41,8 @@ publishing {
             }
         }
     }
+}
+
+application {
+    mainClass.set("MainKt")
 }
