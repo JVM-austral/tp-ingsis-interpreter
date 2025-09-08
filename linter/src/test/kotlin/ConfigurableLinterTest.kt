@@ -89,7 +89,7 @@ class ConfigurableLinterTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'invalid_snake_case' is not in camelCase format", errors[0].message)
+        assertEquals("Variable name 'invalid_snake_case' is not in camelCase format: ", errors[0].message)
     }
 
     @Test
@@ -146,7 +146,7 @@ class ConfigurableLinterTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'invalidCamelCase' is not in snake_case format", errors[0].message)
+        assertEquals("Variable name 'invalidCamelCase' is not in snake_case format: ", errors[0].message)
     }
 
     @Test

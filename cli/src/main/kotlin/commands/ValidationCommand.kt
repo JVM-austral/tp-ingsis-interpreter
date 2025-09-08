@@ -1,27 +1,49 @@
 package commands
 
-import Formatter
 import Linter
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
+import com.github.ajalt.clikt.parameters.types.choice
+import commands.ExecutionCommand.Version
+import commands.factory.ValidationCommandFactory
 import lexer.Lexer
 import parser.Parser
 import java.io.File
 
 class ValidationCommand(
-    private val parser: Parser,
-    private val lexer: Lexer,
-    private val linter: Linter,
-    private val formatter: Formatter,
+    private val factory: ValidationCommandFactory,
 
 ) : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
     private val file by option("-f", "--file", help = "file to be validated").required()
+    private val version by option("-v", "--version", help = "printScript version to run")
+        .choice("V1", "V2")
+        .required()
 
     override fun run() {
         try {
             println("Formatting $file...")
             val code = File(file).readText()
+            val lexer: Lexer = when (version) {
+                Version.V1.toString() -> factory.getLexerV1()
+                Version.V2.toString() -> factory.getLexerV2()
+                else -> throw IllegalArgumentException("Invalid version")
+            }
+            val parser: Parser = when (version) {
+                Version.V1.toString() -> factory.getParserV1()
+                Version.V2.toString() -> factory.getParserV2()
+                else -> throw IllegalArgumentException("Invalid version")
+            }
+            val linter: Linter = when (version) {
+                Version.V1.toString() -> factory.getLinterV1()
+                Version.V2.toString() -> factory.getLinterV2()
+                else -> throw IllegalArgumentException("Invalid version")
+            }
+            val formatter = when (version) {
+                Version.V1.toString() -> factory.getFormatterV1()
+                Version.V2.toString() -> factory.getFormatterV2()
+                else -> throw IllegalArgumentException("Invalid version")
+            }
             val tokens = lexer.tokenize(code)
             val formattedCode = formatter.format(tokens)
             File(file).writeText(formattedCode)
@@ -32,12 +54,12 @@ class ValidationCommand(
             val ast = parser.parse(lintTokens)
             val lintResult = linter.lint(ast)
             if (lintResult.isEmpty()) {
-                println("No lint issues found.")
+                echo("No lint issues found.")
             } else {
-                lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
+                lintResult.forEach { echo(it.message + "on " + it.line + ":" + it.column) }
             }
         } catch (e: Exception) {
-            println("Exception: ${e.message}")
+            echo("Exception: ${e.message}")
         }
     }
 }
