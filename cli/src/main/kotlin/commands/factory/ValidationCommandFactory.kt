@@ -11,7 +11,7 @@ import parser.Parser
 
 class ValidationCommandFactory {
 
-    fun getLexerV1() : Lexer {
+    fun getLexerV1(): Lexer {
         return LexerFactoryV1().create()
     }
 
@@ -19,15 +19,15 @@ class ValidationCommandFactory {
         return ParserFactoryV1().create()
     }
 
-    fun getLinterV1() : Linter {
+    fun getLinterV1(): Linter {
         return LinterFactoryV1().create()
     }
 
-    fun getFormatterV1() : Formatter {
+    fun getFormatterV1(): Formatter {
         return FormatterFactoryV1().create()
     }
 
-    fun getLexerV2() : Lexer {
+    fun getLexerV2(): Lexer {
         TODO()
     }
 
@@ -35,11 +35,11 @@ class ValidationCommandFactory {
         TODO()
     }
 
-    fun getFormatterV2() : Formatter {
+    fun getFormatterV2(): Formatter {
         TODO()
     }
 
-    fun getLinterV2() : Linter {
+    fun getLinterV2(): Linter {
         TODO()
     }
 }

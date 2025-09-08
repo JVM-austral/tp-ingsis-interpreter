@@ -3,11 +3,11 @@ import commands.FormatCommand
 import commands.LintCommand
 import commands.PrintScriptCLI
 import commands.ValidationCommand
+import factory.linterfactory.LinterFactoryV1
 import factory.version.first.FormatterFactoryV1
 import factory.version.first.InterpreterFactoryV1
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
-import factory.linterfactory.LinterFactoryV1
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue

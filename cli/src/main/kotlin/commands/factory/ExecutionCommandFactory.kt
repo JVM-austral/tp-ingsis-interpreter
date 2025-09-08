@@ -7,9 +7,9 @@ import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
 
-class ExecutionCommandFactory{
+class ExecutionCommandFactory {
 
-    fun getLexerV1() : Lexer {
+    fun getLexerV1(): Lexer {
         return LexerFactoryV1().create()
     }
 
@@ -21,7 +21,7 @@ class ExecutionCommandFactory{
         return InterpreterFactoryV1().create()
     }
 
-    fun getLexerV2() : Lexer {
+    fun getLexerV2(): Lexer {
         TODO()
     }
 
@@ -32,5 +32,4 @@ class ExecutionCommandFactory{
     fun getInterpreterV2(): Interpreter {
         TODO()
     }
-
 }

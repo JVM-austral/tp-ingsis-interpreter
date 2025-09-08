@@ -13,7 +13,7 @@ class PrintScriptCLI : CliktCommand(help = "PrintScript CLI") {
             FormatCommand(FormatCommandFactory()),
             LintCommand(LintCommandFactory()),
             ExecutionCommand(ExecutionCommandFactory()),
-            ValidationCommand(ValidationCommandFactory())
+            ValidationCommand(ValidationCommandFactory()),
         )
     }
 

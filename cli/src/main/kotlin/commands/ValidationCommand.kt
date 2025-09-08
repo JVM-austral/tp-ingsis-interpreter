@@ -12,7 +12,7 @@ import parser.Parser
 import java.io.File
 
 class ValidationCommand(
-   private val factory: ValidationCommandFactory
+    private val factory: ValidationCommandFactory,
 
 ) : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
     private val file by option("-f", "--file", help = "file to be validated").required()

@@ -5,14 +5,13 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import commands.factory.ExecutionCommandFactory
-import factory.version.first.FormatterFactoryV1
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
 import java.io.File
 
 class ExecutionCommand(
-    private val factory: ExecutionCommandFactory
+    private val factory: ExecutionCommandFactory,
 
 ) : CliktCommand(name = "execution", help = "Run the source code") {
     private val file by option("-f", "--file", help = "file to be ran").required()

@@ -7,19 +7,19 @@ import lexer.Lexer
 
 class FormatCommandFactory {
 
-    fun getLexerV1() : Lexer {
+    fun getLexerV1(): Lexer {
         return LexerFactoryV1().create()
     }
 
-    fun getFormatterV1() : Formatter {
+    fun getFormatterV1(): Formatter {
         return FormatterFactoryV1().create()
     }
 
-    fun getLexerV2() : Lexer {
+    fun getLexerV2(): Lexer {
         TODO()
     }
 
-    fun getFormatterV2() : Formatter {
+    fun getFormatterV2(): Formatter {
         TODO()
     }
 }

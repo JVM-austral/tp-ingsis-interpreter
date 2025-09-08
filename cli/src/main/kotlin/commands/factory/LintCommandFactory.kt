@@ -9,7 +9,7 @@ import parser.Parser
 
 class LintCommandFactory {
 
-    fun getLexerV1() : Lexer {
+    fun getLexerV1(): Lexer {
         return LexerFactoryV1().create()
     }
 
@@ -17,11 +17,11 @@ class LintCommandFactory {
         return ParserFactoryV1().create()
     }
 
-    fun getLinterV1() : Linter {
+    fun getLinterV1(): Linter {
         return LinterFactoryV1().create()
     }
 
-    fun getLexerV2() : Lexer {
+    fun getLexerV2(): Lexer {
         TODO()
     }
 
@@ -29,8 +29,7 @@ class LintCommandFactory {
         TODO()
     }
 
-    fun getLinterV2() : Linter {
+    fun getLinterV2(): Linter {
         TODO()
     }
-
 }

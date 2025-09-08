@@ -10,7 +10,7 @@ import commands.factory.FormatCommandFactory
 import lexer.Lexer
 
 class FormatCommand(
-    private val factory: FormatCommandFactory
+    private val factory: FormatCommandFactory,
 
 ) : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
