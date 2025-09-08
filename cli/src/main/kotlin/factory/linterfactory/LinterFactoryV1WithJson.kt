@@ -4,12 +4,12 @@ import Linter
 import factory.Factory
 import linterconfig.ConfigurableLinter
 
-class LinterFactoryWithJson(private val linterConfigPath: String?) : Factory<Linter> {
+class LinterFactoryV1WithJson(private val linterConfigPath: String?) : Factory<Linter> {
 
     override fun create(): Linter {
         var configPath = linterConfigPath
         if (configPath == null) {
-            configPath = "linter-rules.json"
+            configPath = "linter-rules-v-1.json"
         }
         val configurableLinter = ConfigurableLinter(configPath)
 

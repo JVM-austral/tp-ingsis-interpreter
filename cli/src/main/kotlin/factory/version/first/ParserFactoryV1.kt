@@ -1,4 +1,4 @@
-package factory
+package factory.version.first
 
 import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
@@ -7,10 +7,11 @@ import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.StringConcatenationAnalyzer
 import analyzer.VariableDefinitionAnalyzer
+import factory.Factory
 import parser.Parser
 import parser.ParserImplementation
 
-class ParserFactory : Factory<Parser> {
+class ParserFactoryV1 : Factory<Parser> {
     private val rules = listOf(
         BinaryNumberOperatorAnalyzer(),
         FunctionAnalyzer(),

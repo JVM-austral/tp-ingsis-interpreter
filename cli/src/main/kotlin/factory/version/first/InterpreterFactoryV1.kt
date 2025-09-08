@@ -1,4 +1,4 @@
-package factory
+package factory.version.first
 
 import analyzer.FunctionCallAnalyzer
 import analyzer.TypeDeclarationAnalyzer
@@ -7,10 +7,11 @@ import analyzer.VarDeclarationWithAssigmentUnaryAnalyzer
 import analyzer.VarDeclarationWithAssignmentAnalyzer
 import analyzer.VarDefinitionBinaryAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
+import factory.Factory
 import interpreter.Interpreter
 import interpreter.InterpreterImplementation
 
-class InterpreterFactory : Factory<Interpreter> {
+class InterpreterFactoryV1 : Factory<Interpreter> {
     private val rules = listOf(
         FunctionCallAnalyzer(),
         TypeDeclarationAnalyzer(),

@@ -1,14 +1,14 @@
-import factory.InterpreterFactory
-import factory.LexerFactory
-import factory.ParserFactory
+import factory.version.first.InterpreterFactoryV1
+import factory.version.first.LexerFactoryV1
+import factory.version.first.ParserFactoryV1
 import org.junit.jupiter.api.Test
 import java.io.File
 
 class IntegrationTest {
 
-    private val lexer = LexerFactory().create()
-    private val parser = ParserFactory().create()
-    private val interpreter = InterpreterFactory().create()
+    private val lexer = LexerFactoryV1().create()
+    private val parser = ParserFactoryV1().create()
+    private val interpreter = InterpreterFactoryV1().create()
 
     @Test
     fun `integration test print hello world`() {

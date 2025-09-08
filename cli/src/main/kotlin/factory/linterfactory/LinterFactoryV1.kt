@@ -7,7 +7,7 @@ import analyzers.PrintLnWithOutBinaryOperationAnalyzer
 import analyzers.SnakeCaseAnalyzer
 import factory.Factory
 
-class LinterFactory : Factory<Linter> {
+class LinterFactoryV1 : Factory<Linter> {
     private val rules = listOf(
         CamelCaseAnalyzer(),
         SnakeCaseAnalyzer(),

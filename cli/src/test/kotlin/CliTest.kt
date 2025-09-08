@@ -3,11 +3,11 @@ import commands.FormatCommand
 import commands.LintCommand
 import commands.PrintScriptCLI
 import commands.ValidationCommand
-import factory.FormatterFactory
-import factory.InterpreterFactory
-import factory.LexerFactory
-import factory.ParserFactory
-import factory.linterfactory.LinterFactory
+import factory.version.first.FormatterFactoryV1
+import factory.version.first.InterpreterFactoryV1
+import factory.version.first.LexerFactoryV1
+import factory.version.first.ParserFactoryV1
+import factory.linterfactory.LinterFactoryV1
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -34,11 +34,11 @@ class CliTest {
     @BeforeEach
     fun setUp() {
         // Create real instances using factories
-        lexer = LexerFactory().create()
-        parser = ParserFactory().create()
-        interpreter = InterpreterFactory().create()
-        formatter = FormatterFactory().create()
-        linter = LinterFactory().create()
+        lexer = LexerFactoryV1().create()
+        parser = ParserFactoryV1().create()
+        interpreter = InterpreterFactoryV1().create()
+        formatter = FormatterFactoryV1().create()
+        linter = LinterFactoryV1().create()
 
         // Capture System.out
         outputStream = ByteArrayOutputStream()
