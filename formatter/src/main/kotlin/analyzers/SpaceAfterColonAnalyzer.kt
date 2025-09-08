@@ -14,4 +14,7 @@ class SpaceAfterColonAnalyzer : FormatRulesAnalyzers {
     override fun giveExecutor(): FormatRulesExecutors {
         return SpaceAfterColonExecutor()
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

@@ -10,4 +10,8 @@ class CanNotStartLineWithSpaceAnalyzer : FormatRulesAnalyzers {
     override fun giveExecutor(): executors.FormatRulesExecutors {
         return executors.CanNotStartLineWithSpaceExecutor()
     }
+
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

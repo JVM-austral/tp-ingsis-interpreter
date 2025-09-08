@@ -14,4 +14,7 @@ class NewLineAfterIfStatementAnalyzer : FormatRulesAnalyzers {
     override fun giveExecutor(): FormatRulesExecutors {
         return NewLineAfterIfStatementExecutor()
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

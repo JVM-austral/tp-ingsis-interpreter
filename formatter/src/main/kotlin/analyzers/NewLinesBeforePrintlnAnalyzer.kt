@@ -22,4 +22,7 @@ class NewLinesBeforePrintlnAnalyzer(private val amountOfLines: Int) : FormatRule
         }
         return count
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

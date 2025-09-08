@@ -39,10 +39,9 @@ class FormatterTest {
                 SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
                 SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
                 SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
-                SpaceAfterEqualsAnalyzer(),
 
             ),
-            1,
+
         )
         lexer = LexerImplementation(
             listOf<TokenAnalyzer>(

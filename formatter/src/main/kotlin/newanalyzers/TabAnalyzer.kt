@@ -1,17 +1,17 @@
-package analyzers
+package newanalyzers
 
+import analyzers.FormatRulesAnalyzers
 import executors.FormatRulesExecutors
-import executors.OnlyOneSpaceExecutor
+import newexecutors.TabExecutor
 import token.Token
-import token.TokenType
 
-class OnlyOneSpaceAnalyzer : FormatRulesAnalyzers {
+class TabAnalyzer : FormatRulesAnalyzers {
     override fun analyze(exToken: Token, currentToken: Token, currenString: String): Boolean {
-        return exToken.isOfType(TokenType.WHITESPACE) and currentToken.isOfType(TokenType.WHITESPACE)
+        return currentToken.value == "\t"
     }
 
     override fun giveExecutor(): FormatRulesExecutors {
-        return OnlyOneSpaceExecutor()
+        return TabExecutor()
     }
     override fun stillNecessaryToAddToken(): Boolean {
         return false
