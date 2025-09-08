@@ -66,7 +66,7 @@ class NewLexerVersionTest {
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 20)),
             Result.success(Token("=", TokenType.OPERATOR, 0, 21)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 22)),
-            Result.success(Token("true", TokenType.BOOLEAN, 0, 23)),
+            Result.success(Token("true", TokenType.BOOLEAN_LITERAL, 0, 23)),
             Result.success(Token(";", TokenType.PUNCTUATION, 0, 27)),
         )
 
@@ -79,11 +79,11 @@ class NewLexerVersionTest {
         val expected = listOf(
             Result.success(Token("if", TokenType.CONDITIONAL, 0, 0)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 2)),
-            Result.success(Token("true", TokenType.BOOLEAN, 0, 3)),
+            Result.success(Token("true", TokenType.BOOLEAN_LITERAL, 0, 3)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 7)),
             Result.success(Token("else", TokenType.CONDITIONAL, 0, 8)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 12)),
-            Result.success(Token("false", TokenType.BOOLEAN, 0, 13)),
+            Result.success(Token("false", TokenType.BOOLEAN_LITERAL, 0, 13)),
         )
 
         assertEquals(expected, lexer.tokenize(input))
@@ -93,17 +93,17 @@ class NewLexerVersionTest {
     fun `boolean operators should be recognized as BOOLOPERATOR`() {
         val input = "== != > < >= <="
         val expected = listOf(
-            Result.success(Token("==", TokenType.BOOLOPERATOR, 0, 0)),
+            Result.success(Token("==", TokenType.BOOL_OPERATOR, 0, 0)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 2)),
-            Result.success(Token("!=", TokenType.BOOLOPERATOR, 0, 3)),
+            Result.success(Token("!=", TokenType.BOOL_OPERATOR, 0, 3)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 5)),
-            Result.success(Token(">", TokenType.BOOLOPERATOR, 0, 6)),
+            Result.success(Token(">", TokenType.BOOL_OPERATOR, 0, 6)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 7)),
-            Result.success(Token("<", TokenType.BOOLOPERATOR, 0, 8)),
+            Result.success(Token("<", TokenType.BOOL_OPERATOR, 0, 8)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 9)),
-            Result.success(Token(">=", TokenType.BOOLOPERATOR, 0, 10)),
+            Result.success(Token(">=", TokenType.BOOL_OPERATOR, 0, 10)),
             Result.success(Token(" ", TokenType.WHITESPACE, 0, 12)),
-            Result.success(Token("<=", TokenType.BOOLOPERATOR, 0, 13)),
+            Result.success(Token("<=", TokenType.BOOL_OPERATOR, 0, 13)),
         )
 
         assertEquals(expected, lexer.tokenize(input))

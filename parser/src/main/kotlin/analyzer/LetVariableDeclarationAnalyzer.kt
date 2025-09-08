@@ -7,7 +7,7 @@ import token.TokenType
 
 class LetVariableDeclarationAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size != 4) {
+        if (tokens.size != 5) {
             return false
         }
 
@@ -21,6 +21,9 @@ class LetVariableDeclarationAnalyzer : StructureAnalyzer {
             return false
         }
         if (tokens[2].value != ":") {
+            return false
+        }
+        if (tokens[tokens.size - 1].value != ";") {
             return false
         }
 

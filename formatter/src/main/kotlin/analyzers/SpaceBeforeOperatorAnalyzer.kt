@@ -7,7 +7,7 @@ import token.TokenType
 
 class SpaceBeforeOperatorAnalyzer : FormatRulesAnalyzers {
     override fun analyze(exToken: Token, currentToken: Token, currenString: String): Boolean {
-        return (currentToken.isOfType(TokenType.OPERATOR) || currentToken.isOfType(TokenType.BOOLOPERATOR)) &&
+        return (currentToken.isOfType(TokenType.OPERATOR) || currentToken.isOfType(TokenType.BOOL_OPERATOR)) &&
             !exToken.isOfType(TokenType.WHITESPACE) && currentToken.value != "="
     }
 

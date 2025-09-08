@@ -10,6 +10,6 @@ class BooleanOperatorsAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.BOOLOPERATOR
+        return TokenType.BOOL_OPERATOR
     }
 }

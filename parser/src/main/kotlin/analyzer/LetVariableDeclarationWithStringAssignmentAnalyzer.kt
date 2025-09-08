@@ -3,6 +3,7 @@ package analyzer
 import executor.LetVariableDeclarationWithAssignmentExecutor
 import executor.StructureExecutor
 import token.Token
+import token.TokenType
 
 class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
@@ -10,7 +11,20 @@ class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if (!LetVariableDeclarationAnalyzer().analyzeStructure(tokens.subList(0, 4))) {
+        if (tokens[0].value != "let") {
+            return false
+        }
+
+        if (tokens[1].type != TokenType.IDENTIFIER ||
+            isReservedType(tokens[1].value)
+        ) {
+            return false
+        }
+        if (tokens[2].value != ":") {
+            return false
+        }
+
+        if (!isReservedType(tokens[3].value)) {
             return false
         }
 
@@ -22,14 +36,20 @@ class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if (!StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5, tokens.size))) {
+        if (!StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
             return false
         }
 
+        if (tokens[tokens.size - 1].value != ";") {
+            return false
+        }
         return true
     }
 
     override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
+    }
+    private fun isReservedType(value: String): Boolean {
+        return value == "string" || value == "number"
     }
 }

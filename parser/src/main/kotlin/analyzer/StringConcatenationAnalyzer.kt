@@ -22,7 +22,7 @@ class StringConcatenationAnalyzer : StructureAnalyzer {
                 when (token.type) {
                     TokenType.STRING_LITERAL,
                     TokenType.IDENTIFIER,
-                    -> { /* ✅ acepta string o variable */ }
+                    -> {  }
                     else -> return false
                 }
             } else {
