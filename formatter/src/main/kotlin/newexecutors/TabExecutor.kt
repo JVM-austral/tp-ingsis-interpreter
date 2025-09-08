@@ -1,0 +1,10 @@
+package newexecutors
+
+import executors.FormatRulesExecutors
+import token.Token
+
+class TabExecutor : FormatRulesExecutors {
+    override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
+        return currentString
+    }
+}

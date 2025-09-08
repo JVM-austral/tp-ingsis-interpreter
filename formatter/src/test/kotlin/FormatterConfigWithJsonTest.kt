@@ -8,6 +8,7 @@ import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
 import formatterconfig.ConfigurableAnalyzerFormatter
+import newanalyzers.IndentationAnalyzer
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -30,5 +31,6 @@ class FormatterConfigWithJsonTest {
         assertTrue(analyzers.any { it is OnlyOneSpaceAnalyzer })
         assertTrue(analyzers.any { it is CanNotStartLineWithSpaceAnalyzer })
         assertTrue(analyzers.any { it is NewLineAfterSemiColonAnalyzer })
+        assertTrue(analyzers.any { it is IndentationAnalyzer })
     }
 }

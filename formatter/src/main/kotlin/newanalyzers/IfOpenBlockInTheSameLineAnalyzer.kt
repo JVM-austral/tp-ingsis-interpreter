@@ -33,4 +33,7 @@ class IfOpenBlockInTheSameLineAnalyzer : FormatRulesAnalyzers {
 
         return countNewlines
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

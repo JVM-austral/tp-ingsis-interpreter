@@ -11,4 +11,7 @@ class NewLineAfterSemiColonAnalyzer : FormatRulesAnalyzers {
     override fun giveExecutor(): executors.FormatRulesExecutors {
         return executors.NewLineAfterSemiColonExecutor()
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }

@@ -14,6 +14,7 @@ import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
 import com.google.gson.Gson
+import newanalyzers.IndentationAnalyzer
 import java.io.File
 
 class ConfigurableAnalyzerFormatter(private val configFilePath: String) {
@@ -32,6 +33,7 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String) {
         if (options.spaceAfterColon) analyzers.add(SpaceAfterColonAnalyzer())
         if (options.spaceBeforeEquals) analyzers.add(SpaceBeforeEqualsAnalyzer())
         if (options.spaceAfterEquals) analyzers.add(SpaceAfterEqualsAnalyzer())
+        if (options.indentationSize >= 0) analyzers.add(IndentationAnalyzer(options.indentationSize))
 
         analyzers.add(NewLineAfterSemiColonAnalyzer())
         analyzers.add(SpaceAfterOperatorAnalyzer())
@@ -43,6 +45,6 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String) {
             analyzers.add(NewLinesBeforePrintlnAnalyzer(options.amountOfNewLinesBeforePrint))
         }
 
-        return FormatterImpl(analyzers, options.indentationSize)
+        return FormatterImpl(analyzers)
     }
 }

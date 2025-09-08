@@ -13,4 +13,7 @@ class SpaceAfterEqualsAnalyzer : FormatRulesAnalyzers {
     override fun giveExecutor(): FormatRulesExecutors {
         return SpaceAfterEqualsExecutor()
     }
+    override fun stillNecessaryToAddToken(): Boolean {
+        return false
+    }
 }
