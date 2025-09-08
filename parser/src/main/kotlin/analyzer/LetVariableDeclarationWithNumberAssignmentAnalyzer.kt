@@ -50,7 +50,6 @@ class LetVariableDeclarationWithNumberAssignmentAnalyzer : StructureAnalyzer {
         return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
     }
 
-
     private fun isReservedType(value: String): Boolean {
         return value == "string" || value == "number"
     }

@@ -1,6 +1,6 @@
 package ast
 
-class ConditionStatementsAst(private val statements: List<Ast>): Ast {
+class ConditionStatementsAst(private val statements: List<Ast>) : Ast {
 
     override fun getListOfChildren(): List<Ast> {
         return statements
