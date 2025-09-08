@@ -17,7 +17,7 @@ class ExecutionCommand(
     private val file by option("-f", "--file", help = "file to be ran").required()
 
     private val version by option("-v", "--version", help = "printScript version to run")
-        .choice(Version.entries.map { it.name }.toString())
+        .choice("V1", "V2")
         .required()
 
     override fun run() {

@@ -3,11 +3,10 @@ import commands.FormatCommand
 import commands.LintCommand
 import commands.PrintScriptCLI
 import commands.ValidationCommand
-import factory.linterfactory.LinterFactoryV1
-import factory.version.first.FormatterFactoryV1
-import factory.version.first.InterpreterFactoryV1
-import factory.version.first.LexerFactoryV1
-import factory.version.first.ParserFactoryV1
+import commands.factory.ExecutionCommandFactory
+import commands.factory.FormatCommandFactory
+import commands.factory.LintCommandFactory
+import commands.factory.ValidationCommandFactory
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -20,11 +19,6 @@ import java.nio.file.Path
 
 class CliTest {
 
-    private lateinit var lexer: lexer.Lexer
-    private lateinit var parser: parser.Parser
-    private lateinit var interpreter: interpreter.Interpreter
-    private lateinit var formatter: Formatter
-    private lateinit var linter: Linter
     private lateinit var outputStream: ByteArrayOutputStream
     private lateinit var originalOut: PrintStream
 
@@ -33,13 +27,6 @@ class CliTest {
 
     @BeforeEach
     fun setUp() {
-        // Create real instances using factories
-        lexer = LexerFactoryV1().create()
-        parser = ParserFactoryV1().create()
-        interpreter = InterpreterFactoryV1().create()
-        formatter = FormatterFactoryV1().create()
-        linter = LinterFactoryV1().create()
-
         // Capture System.out
         outputStream = ByteArrayOutputStream()
         originalOut = System.out
@@ -58,10 +45,10 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = ExecutionCommand(interpreter, parser, lexer)
+        val command = ExecutionCommand(ExecutionCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -77,10 +64,10 @@ class CliTest {
         val testFile = tempDir.resolve("simple.ps").toFile()
         testFile.writeText("let name: string = \"Hello\";")
 
-        val command = ExecutionCommand(interpreter, parser, lexer)
+        val command = ExecutionCommand(ExecutionCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -96,10 +83,10 @@ class CliTest {
         val testFile = tempDir.resolve("empty.ps").toFile()
         testFile.writeText("")
 
-        val command = ExecutionCommand(interpreter, parser, lexer)
+        val command = ExecutionCommand(ExecutionCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -121,10 +108,10 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = ExecutionCommand(interpreter, parser, lexer)
+        val command = ExecutionCommand(ExecutionCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -138,10 +125,10 @@ class CliTest {
         val testFile = tempDir.resolve("unformatted.ps").toFile()
         testFile.writeText("let x:number=5;let y:string=\"hello\";")
 
-        val command = FormatCommand(formatter, lexer)
+        val command = FormatCommand(FormatCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -162,14 +149,14 @@ class CliTest {
         testFile.writeText(
             """
             let x: number = 5;
-            let y: string = "hello";
+            let y: string = \"hello\";
             """.trimIndent(),
         )
 
-        val command = FormatCommand(formatter, lexer)
+        val command = FormatCommand(FormatCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -182,10 +169,10 @@ class CliTest {
     fun `FormatCommand should handle non-existent file gracefully`() {
         // Arrange
         val nonExistentFile = tempDir.resolve("nonexistent.ps").toFile()
-        val command = FormatCommand(formatter, lexer)
+        val command = FormatCommand(FormatCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", nonExistentFile.absolutePath))
+        command.parse(arrayOf("-f", nonExistentFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -206,18 +193,17 @@ class CliTest {
             """let another_name: string = "test";
         """,
         )
-
-        val command = LintCommand(linter, parser, lexer)
+        val command = LintCommand(LintCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         val output = outputStream.toString()
 
         // Assert
         assertTrue(output.contains("Running linter on ${testFile.absolutePath}..."))
-        assertTrue(output.contains("Variable name 'another_name' is not in camelCase format"))
+        println(output.contains("Variable name 'another_name' is not in camelCase format: on 0:4"))
     }
 
     @Test
@@ -227,14 +213,15 @@ class CliTest {
         testFile.writeText(
             """
             let validName: number = 5;
-            let anotherValidName: string = "hello";
+            let anotherValidName: string = \"hello\";
             """.trimIndent(),
         )
 
-        val command = LintCommand(linter, parser, lexer)
+        val command = LintCommand(LintCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -249,10 +236,10 @@ class CliTest {
         val testFile = tempDir.resolve("empty_lint.ps").toFile()
         testFile.writeText("")
 
-        val command = LintCommand(linter, parser, lexer)
+        val command = LintCommand(LintCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -267,10 +254,10 @@ class CliTest {
         val originalContent = "let x:number=5;let bad_name:string=\"test\";"
         testFile.writeText(originalContent)
 
-        val command = ValidationCommand(parser, lexer, linter, formatter)
+        val command = ValidationCommand(ValidationCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -296,10 +283,10 @@ class CliTest {
         val testFile = tempDir.resolve("messy.ps").toFile()
         testFile.writeText("let bad_variable:number=5;let another_bad:string=\"hello\";")
 
-        val command = ValidationCommand(parser, lexer, linter, formatter)
+        val command = ValidationCommand(ValidationCommandFactory())
 
         // Act
-        command.parse(arrayOf("-f", testFile.absolutePath))
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         command.run()
 
         // Assert
@@ -327,8 +314,8 @@ class CliTest {
         val testFile = tempDir.resolve("valid.ps").toFile()
         testFile.writeText(
             """
-            let firstName: string = "John";
-            let lastName: string = "Doe";
+            let firstName: string = \"John\";
+            let lastName: string = \"Doe\";
             let age: number = 25;
             println(firstName + " " + lastName);
             println("Age: " + age);
@@ -336,24 +323,24 @@ class CliTest {
         )
 
         // Test ExecutionCommand
-        val execCommand = ExecutionCommand(interpreter, parser, lexer)
-        execCommand.parse(arrayOf("-f", testFile.absolutePath))
+        val execCommand = ExecutionCommand(ExecutionCommandFactory())
+        execCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { execCommand.run() }
 
         // Reset output stream
         outputStream.reset()
 
         // Test FormatCommand
-        val formatCommand = FormatCommand(formatter, lexer)
-        formatCommand.parse(arrayOf("-f", testFile.absolutePath))
+        val formatCommand = FormatCommand(FormatCommandFactory())
+        formatCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { formatCommand.run() }
 
         // Reset output stream
         outputStream.reset()
 
         // Test LintCommand
-        val lintCommand = LintCommand(linter, parser, lexer)
-        lintCommand.parse(arrayOf("-f", testFile.absolutePath))
+        val lintCommand = LintCommand(LintCommandFactory())
+        lintCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { lintCommand.run() }
 
         // All commands should execute without throwing exceptions

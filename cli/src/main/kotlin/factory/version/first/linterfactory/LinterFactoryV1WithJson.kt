@@ -1,4 +1,4 @@
-package factory.linterfactory
+package factory.version.first.linterfactory
 
 import Linter
 import factory.Factory

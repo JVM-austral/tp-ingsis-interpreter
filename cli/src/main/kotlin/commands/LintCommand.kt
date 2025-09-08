@@ -15,7 +15,7 @@ class LintCommand(private val factory: LintCommandFactory) :
     CliktCommand(name = "analyzing", help = "Static code analysis of the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the linter").required()
     private val version by option("-v", "--version", help = "printScript version to run")
-        .choice(Version.entries.map { it.name }.toString())
+        .choice("V1", "V2")
         .required()
 
     override fun run() {
@@ -25,6 +25,7 @@ class LintCommand(private val factory: LintCommandFactory) :
             println("File is empty.")
             return
         }
+
         val lexer: Lexer = when (version) {
             Version.V1.toString() -> factory.getLexerV1()
             Version.V2.toString() -> factory.getLexerV2()
@@ -40,13 +41,19 @@ class LintCommand(private val factory: LintCommandFactory) :
             Version.V2.toString() -> factory.getLinterV2()
             else -> throw IllegalArgumentException("Invalid version")
         }
-        val tokens = lexer.tokenize(code)
-        val ast = parser.parse(tokens)
-        val lintResult = linter.lint(ast)
-        if (lintResult.isEmpty()) {
-            println("No lint issues found.")
-        } else {
-            lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
+
+        try {
+            println("Running linter on $file...")
+            val tokens = lexer.tokenize(code)
+            val ast = parser.parse(tokens)
+            val lintResult = linter.lint(ast)
+            if (lintResult.isEmpty()) {
+                println("No lint issues found.")
+            } else {
+                lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
+            }
+        } catch (e: Exception) {
+            println("Parse error: ${e.message}")
         }
     }
 }

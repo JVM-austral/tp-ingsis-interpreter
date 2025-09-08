@@ -15,7 +15,7 @@ class FormatCommand(
 ) : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
     private val version by option("-v", "--version", help = "printScript version to run")
-        .choice(Version.entries.map { it.name }.toString())
+        .choice("V1", "V2")
         .required()
 
     override fun run() {

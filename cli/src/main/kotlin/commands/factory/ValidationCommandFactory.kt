@@ -2,10 +2,10 @@ package commands.factory
 
 import Formatter
 import Linter
-import factory.linterfactory.LinterFactoryV1
 import factory.version.first.FormatterFactoryV1
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
+import factory.version.first.linterfactory.LinterFactoryV1
 import lexer.Lexer
 import parser.Parser
 

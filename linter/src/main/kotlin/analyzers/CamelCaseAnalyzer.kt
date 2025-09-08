@@ -11,7 +11,7 @@ class CamelCaseAnalyzer : LinterAnalyzer {
             val name = ast.getListOfChildren()[0].getValue()
             val regex = Regex("^[a-z]+([A-Z][a-z]*)*$")
             if (!regex.matches(name)) {
-                return Optional.of(LinterError("Variable name '$name' is not in camelCase format", ast.getListOfChildren()[0].getRow(), ast.getListOfChildren()[0].getColumn()))
+                return Optional.of(LinterError("Variable name '$name' is not in camelCase format: ", ast.getListOfChildren()[0].getRow(), ast.getListOfChildren()[0].getColumn()))
             }
         }
         return Optional.empty()

@@ -81,7 +81,7 @@ class LinterImplementationTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'invalid_snake_case' is not in camelCase format", errors[0].message)
+        assertEquals("Variable name 'invalid_snake_case' is not in camelCase format: ", errors[0].message)
         assertEquals(1, errors[0].line)
         assertEquals(5, errors[0].column)
     }
@@ -105,7 +105,7 @@ class LinterImplementationTest {
         assertEquals(1, errors.size)
         assertEquals(1, errors[0].line)
         assertEquals(5, errors[0].column)
-        assertEquals("Variable name 'InvalidPascalCase' is not in camelCase format", errors[0].message)
+        assertEquals("Variable name 'InvalidPascalCase' is not in camelCase format: ", errors[0].message)
     }
 
     @Test
@@ -163,7 +163,7 @@ class LinterImplementationTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'invalidCamelCase' is not in snake_case format", errors[0].message)
+        assertEquals("Variable name 'invalidCamelCase' is not in snake_case format: ", errors[0].message)
     }
 
     @Test
@@ -305,7 +305,7 @@ class LinterImplementationTest {
 
         // Should return error from first rule that fails (SnakeCaseAnalyzer in this case)
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'someVariable' is not in snake_case format", errors[0].message)
+        assertEquals("Variable name 'someVariable' is not in snake_case format: ", errors[0].message)
     }
 
     @Test
@@ -343,7 +343,7 @@ class LinterImplementationTest {
         val errors = linter.lint(statements)
 
         assertEquals(2, errors.size)
-        assertEquals("Variable name 'invalid_name' is not in camelCase format", errors[0].message)
+        assertEquals("Variable name 'invalid_name' is not in camelCase format: ", errors[0].message)
         assertEquals("println should`nt have a binary operation as parameter", errors[1].message)
     }
 
@@ -414,7 +414,7 @@ class LinterImplementationTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'variable123' is not in camelCase format", errors[0].message)
+        assertEquals("Variable name 'variable123' is not in camelCase format: ", errors[0].message)
     }
 
     @Test
@@ -434,7 +434,7 @@ class LinterImplementationTest {
         val errors = linter.lint(statements)
 
         assertEquals(1, errors.size)
-        assertEquals("Variable name 'Invalid_Case' is not in snake_case format", errors[0].message)
+        assertEquals("Variable name 'Invalid_Case' is not in snake_case format: ", errors[0].message)
     }
 
     @Test
