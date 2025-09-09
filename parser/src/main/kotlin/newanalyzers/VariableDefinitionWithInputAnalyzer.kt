@@ -2,13 +2,13 @@ package newanalyzers
 
 import analyzer.StructureAnalyzer
 import executor.StructureExecutor
-import newexecutors.VariableDefinitionWithEnvExecutor
+import newexecutors.VariableDefinitionWithInputExecutor
 import token.Token
 import token.TokenType
 
-class VariableDefinitionWithEnvAnalyzer : StructureAnalyzer {
+class VariableDefinitionWithInputAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 7) {
+        if (tokens.size < 6) {
             return false
         }
 
@@ -19,25 +19,23 @@ class VariableDefinitionWithEnvAnalyzer : StructureAnalyzer {
         if (tokens[1].value != "=") {
             return false
         }
-        if (tokens[2].value != "readEnv") {
+        if (tokens[2].value != "readInput") {
             return false
         }
         if (tokens[3].value != "(") {
             return false
         }
-        if (tokens[4].type != TokenType.IDENTIFIER) {
+
+        if (tokens[4].value != ")") {
             return false
         }
-        if (tokens[5].value != ")") {
-            return false
-        }
-        if (tokens[6].value != ";") {
+        if (tokens[5].value != ";") {
             return false
         }
         return true
     }
 
     override fun getExecutor(): StructureExecutor {
-        return VariableDefinitionWithEnvExecutor()
+        return VariableDefinitionWithInputExecutor()
     }
 }
