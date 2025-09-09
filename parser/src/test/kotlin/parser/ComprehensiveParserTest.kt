@@ -346,8 +346,6 @@ class ComprehensiveParserTest {
                 Token("greeting", TokenType.IDENTIFIER, 1, 1),
                 Token("=", TokenType.OPERATOR, 1, 2),
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
-                Token("+", TokenType.OPERATOR, 1, 4),
-                Token("\"world\"", TokenType.STRING_LITERAL, 1, 5),
                 Token(";", TokenType.PUNCTUATION, 1, 6),
 
             )

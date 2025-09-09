@@ -7,7 +7,7 @@ import token.TokenType
 
 class VariableDefinitionAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 5) {
+        if (tokens.size < 4) {
             return false
         }
         if (tokens[0].type != TokenType.IDENTIFIER) {
