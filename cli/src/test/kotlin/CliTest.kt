@@ -50,7 +50,6 @@ class CliTest {
         // Assert
         val output = outputStream.toString()
         assertTrue(output.contains("Running ${testFile.absolutePath}..."))
-
     }
 
     @Test
