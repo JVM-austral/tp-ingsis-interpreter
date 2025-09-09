@@ -1,14 +1,8 @@
 package ast
 
-class VarDefinition(
-    val identifier: String,
-    val variable: StringLiteral,
-    val expr: Ast,
-    private val row: Int,
-    private val col: Int,
-) : Ast {
+class BooleanBinaryOperation(val operator: String, val left: Ast, val right: Ast, private val row: Int, private val col: Int) : Ast {
     override fun getListOfChildren(): List<Ast> {
-        return listOf(variable, expr)
+        return listOf(left, right)
     }
 
     override fun getChildLimit(): Int {
@@ -16,7 +10,7 @@ class VarDefinition(
     }
 
     override fun getValue(): String {
-        return identifier
+        return operator
     }
 
     override fun getRow(): Int {

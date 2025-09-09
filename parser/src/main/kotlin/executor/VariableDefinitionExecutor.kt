@@ -15,6 +15,12 @@ class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAn
                 secondPartExecutor = analyzer.getExecutor()
             }
         }
-        return VarDefinition(tokens[1].value, StringLiteral(tokens[0].value, tokens[0].line, tokens[0].column), secondPartExecutor.execute(tokens.subList(6, tokens.size)), tokens[1].line, tokens[1].column)
+        return VarDefinition(
+            tokens[1].value,
+            StringLiteral(tokens[0].value, tokens[0].line, tokens[0].column),
+            secondPartExecutor.execute(tokens.subList(6, tokens.size - 1)),
+            tokens[1].line,
+            tokens[1].column,
+        )
     }
 }

@@ -1,24 +1,23 @@
 package ast
 
-class ConditionStatementsAst(private val statements: List<Ast>) : Ast {
-
+class BooleanLiteral(private val booleanLiteral: String, private val row: Int, private val col: Int) : Ast {
     override fun getListOfChildren(): List<Ast> {
-        return statements
+        return listOf()
     }
 
     override fun getChildLimit(): Int {
-        return statements.size
+        return 0
     }
 
     override fun getValue(): String {
-        return ""
+        return booleanLiteral
     }
 
     override fun getRow(): Int {
-        return 0
+        return row
     }
 
     override fun getColumn(): Int {
-        return 0
+        return col
     }
 }

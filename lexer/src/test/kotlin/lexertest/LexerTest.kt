@@ -1,6 +1,7 @@
 package lexertest
 
 import lexer.LexerImplementation
+import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
 import lexer.rules.MidStringAnalyzer
@@ -181,5 +182,21 @@ class LexerTest {
             )
         val input = "println(a+b);"
         assertEquals(result, lexer.tokenize(input))
+    }
+
+    @Test
+    fun `complex expression with all token types`() {
+        val analyzers =
+            listOf<TokenAnalyzer>(
+                KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
+                OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
+                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
+                PrintAnalyzer(), EnterAnalyzer(),
+            )
+        val lexer = LexerImplementation(analyzers)
+        val result = lexer.tokenize(
+            "let a : string = \"hello\";\n" +
+                "println(\"world\" + a);",
+        )
     }
 }
