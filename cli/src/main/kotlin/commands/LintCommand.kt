@@ -16,7 +16,6 @@ class LintCommand :
     private val version by option("-v", "--version", help = "printScript version to run")
         .choice("V1", "V2")
 
-
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {

@@ -28,7 +28,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         val result = interpreter.interpret(ast)
         val finalResult = interpreter.runAll()
 
-        if(finalResult.isNotEmpty()){
+        if (finalResult.isNotEmpty()) {
             echo("Printing errors found during execution:")
             finalResult.map { echo(it.message) }
         }

@@ -19,7 +19,7 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
         try {
             echo("Formatting $file...")
 
-            val factory = FormatCommandFactory(fromString(version ?: "V1"),formatterConfigPath)
+            val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
             val lexer: Lexer = factory.getLexer()
             val formatter: Formatter = factory.getFormatter()
             val code = java.io.File(file).readText()
