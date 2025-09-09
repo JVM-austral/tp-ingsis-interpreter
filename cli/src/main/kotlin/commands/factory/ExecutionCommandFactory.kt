@@ -1,5 +1,6 @@
 package commands.factory
 
+import commands.Version
 import factory.version.first.InterpreterFactoryV1
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
@@ -7,29 +8,26 @@ import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
 
-class ExecutionCommandFactory {
+class ExecutionCommandFactory(private val version: Version) {
 
-    fun getLexerV1(): Lexer {
-        return LexerFactoryV1().create()
+    fun getLexer(): Lexer {
+        return when (version) {
+            Version.V1 -> LexerFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
 
-    fun getParserV1(): Parser {
-        return ParserFactoryV1().create()
+    fun getParser(): Parser {
+        return when (version) {
+            Version.V1 -> ParserFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
 
-    fun getInterpreterV1(): Interpreter {
-        return InterpreterFactoryV1().create()
-    }
-
-    fun getLexerV2(): Lexer {
-        TODO()
-    }
-
-    fun getParserV2(): Parser {
-        TODO()
-    }
-
-    fun getInterpreterV2(): Interpreter {
-        TODO()
+    fun getInterpreter(): Interpreter {
+        return when (version) {
+            Version.V1 -> InterpreterFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
 }

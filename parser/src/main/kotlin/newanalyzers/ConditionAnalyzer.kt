@@ -1,11 +1,11 @@
- package analyzer
+package analyzer
 
- import ConditionExecutor
- import executor.StructureExecutor
- import token.Token
- import token.TokenType
+import ConditionExecutor
+import executor.StructureExecutor
+import token.Token
+import token.TokenType
 
- class ConditionAnalyzer : StructureAnalyzer {
+class ConditionAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return isBooleanExpression(tokens)
     }
@@ -30,7 +30,8 @@
                     when (token.type) {
                         TokenType.NUMBER_LITERAL,
                         TokenType.IDENTIFIER,
-                        TokenType.BOOLEAN_LITERAL -> {
+                        TokenType.BOOLEAN_LITERAL,
+                        -> {
                             expectOperand = false
                         }
                         TokenType.PUNCTUATION -> {
@@ -49,7 +50,8 @@
                             when (token.value) {
                                 in comparisonOperators,
                                 in logicalOperators,
-                                in arithmeticOperators -> expectOperand = true
+                                in arithmeticOperators,
+                                -> expectOperand = true
                                 else -> return false
                             }
                         }
@@ -69,4 +71,4 @@
 
         return !expectOperand && balance == 0
     }
- }
+}

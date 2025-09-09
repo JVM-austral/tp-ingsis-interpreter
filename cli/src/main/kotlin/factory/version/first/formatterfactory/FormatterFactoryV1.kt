@@ -1,4 +1,4 @@
-package factory.version.first
+package factory.version.first.formatterfactory
 
 import Formatter
 import FormatterImpl

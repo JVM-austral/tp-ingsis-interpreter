@@ -1,25 +1,23 @@
 package commands.factory
 
 import Formatter
-import factory.version.first.FormatterFactoryV1
+import commands.Version
 import factory.version.first.LexerFactoryV1
+import factory.version.first.formatterfactory.FormatterFactoryWithJsonV1
 import lexer.Lexer
 
-class FormatCommandFactory {
-
-    fun getLexerV1(): Lexer {
-        return LexerFactoryV1().create()
+class FormatCommandFactory(private val version: Version, private val formatterConfigPath: String?) {
+    fun getLexer(): Lexer {
+        return when (version) {
+            Version.V1 -> LexerFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
 
-    fun getFormatterV1(): Formatter {
-        return FormatterFactoryV1().create()
-    }
-
-    fun getLexerV2(): Lexer {
-        TODO()
-    }
-
-    fun getFormatterV2(): Formatter {
-        TODO()
+    fun getFormatter(): Formatter {
+        return when (version) {
+            Version.V1 -> FormatterFactoryWithJsonV1(formatterConfigPath).create()
+            Version.V2 -> TODO()
+        }
     }
 }

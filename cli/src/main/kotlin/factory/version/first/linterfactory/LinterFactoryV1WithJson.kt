@@ -9,9 +9,11 @@ class LinterFactoryV1WithJson(private val linterConfigPath: String?) : Factory<L
     override fun create(): Linter {
         var configPath = linterConfigPath
         if (configPath == null) {
-            configPath = "linter-rules-v-1.json"
+            configPath = "src/main/resources/linter-rules-v-1.json"
         }
         val configurableLinter = ConfigurableLinter(configPath)
+
+        println("hay? " + configurableLinter.getConfigurableLinter())
 
         return configurableLinter.getConfigurableLinter()
     }
