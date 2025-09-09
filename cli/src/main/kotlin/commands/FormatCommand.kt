@@ -12,7 +12,6 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
     private val version by option("-v", "--version", help = "printScript version to run")
         .choice("V1", "V2")
-        .required()
 
     private val formatterConfigPath by option("-cf", "--configFormatter", help = "path to formatter configuration file")
 
@@ -20,7 +19,7 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
         try {
             echo("Formatting $file...")
 
-            val factory = FormatCommandFactory(fromString(version), formatterConfigPath)
+            val factory = FormatCommandFactory(fromString(version ?: "V1"),formatterConfigPath)
             val lexer: Lexer = factory.getLexer()
             val formatter: Formatter = factory.getFormatter()
             val code = java.io.File(file).readText()
