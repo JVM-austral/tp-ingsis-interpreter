@@ -38,7 +38,7 @@ class IntegrationTest {
 
         // Optionally print interpretation result if needed
         finalResult.forEach { r ->
-              println("RUNTIME ERROR: ${r.message}") }
+            println("RUNTIME ERROR: ${r.message}")
         }
     }
-
+}
