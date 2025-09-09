@@ -4,7 +4,7 @@ import ast.Ast
 import evaluator.AstEvaluationEngine
 import interpreter.VariableInfo
 
-class FunctionCallExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
+class PrintLnExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
@@ -19,7 +19,7 @@ class FunctionCallExecutor(private val engine: AstEvaluationEngine) : Interprete
                 }
             },
             onFailure = { exception ->
-                Result.failure(Exception("Error en la estructura del AST: ${exception.message}"))
+                Result.failure(Exception(exception.message))
             },
         )
     }

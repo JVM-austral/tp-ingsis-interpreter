@@ -41,14 +41,13 @@ class ExecutionCommand(
         val tokens = lexer.tokenize(code)
         val ast = parser.parse(tokens)
         val result = interpreter.interpret(ast)
+        val finalResult = interpreter.runAll()
         if (result.isEmpty()) {
             echo("No output produced.")
         } else {
             echo("Execution results:")
-            result.forEachIndexed { i, r ->
-                if (r.isSuccess) {
-                    echo("[$i] Failure -> ${r.exceptionOrNull()?.message}")
-                }
+            finalResult.forEachIndexed { i, r ->
+                echo("[$i] Failure -> ${r.message}")
             }
         }
     }

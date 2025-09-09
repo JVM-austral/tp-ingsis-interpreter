@@ -2,23 +2,19 @@ package evaluator
 
 import ast.Ast
 import ast.BinaryOperation
+import evaluator.binarystrategy.BinaryOperationStrategy
 import interpreter.VariableInfo
 
-class BinaryOperationEvaluator(private val engine: AstEvaluationEngine) : AstEvaluator {
+class BinaryOperationEvaluator(private val engine: AstEvaluationEngine, private val strategies: List<BinaryOperationStrategy>) : AstEvaluator {
     override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>): Any {
         val node = ast as BinaryOperation
         val left = engine.evaluate(node.getListOfChildren()[0], heap)
         val right = engine.evaluate(node.getListOfChildren()[1], heap)
-        return when (node.getValue()) {
-            "+" -> if (left is Number && right is Number) left.toDouble() + right.toDouble() else left.toString() + right.toString()
-            "-" -> (left as Number).toDouble() - (right as Number).toDouble()
-            "*" -> (left as Number).toDouble() * (right as Number).toDouble()
-            "/" -> {
-                val r = (right as Number).toDouble()
-                if (r == 0.0) throw ArithmeticException("Division por cero")
-                (left as Number).toDouble() / r
+        for (strategy in strategies) {
+            if (strategy.canExecute(node.getValue())) {
+                return strategy.execute(left, right)
             }
-            else -> throw Exception("Operador no soportado: ${node.getValue()}")
         }
+        throw Exception("Operador no soportado: ${node.getValue()}")
     }
 }

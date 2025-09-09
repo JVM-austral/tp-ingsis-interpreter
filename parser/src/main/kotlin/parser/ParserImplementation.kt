@@ -26,11 +26,14 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
             val token = tokenUnits.getOrNull() ?: continue
             current.add(token)
 
+            // 🚩 si cerramos un bloque
             if (token.value == "}") {
                 if (current.firstOrNull()?.value == "if" && current.firstOrNull()?.type == TokenType.CONDITIONAL) {
+                    // no procesamos todavía: puede venir un else
                     ifMode = true
                     continue
                 } else if (ifMode) {
+                    // terminamos el bloque else → procesamos todo junto
                     processStatement(current, root)
                     current.clear()
                     ifMode = false
@@ -38,15 +41,19 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
                 }
             }
 
+            // 🚩 si viene un else y estamos en modo if, seguimos acumulando
             if (ifMode && token.type == TokenType.CONDITIONAL && token.value == "else") {
-                continue
+                continue // dejamos que el bloque else se acumule
             }
 
+            // 🚩 condición normal: si no estamos en ifMode y hay un analyzer válido
             if (!ifMode && matchesAnalyzer(current).isSuccess) {
                 processStatement(current, root)
                 current.clear()
             }
         }
+
+        // 🚩 al final, si quedó algo pendiente
         if (current.isNotEmpty()) {
             processStatement(current, root)
         }

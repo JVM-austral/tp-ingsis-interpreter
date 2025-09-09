@@ -1,5 +1,8 @@
 package analyzer
 
+import IsCompatibleTypeCondition
+import PriorityDeclarationCondition
+import VarDefinitionBinaryStructureCondition
 import ast.Ast
 import ast.BinaryOperation
 import ast.VarDefinition
@@ -14,6 +17,17 @@ class VarDefinitionBinaryAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return executor.VarDefinitionBinaryExecutor(AstEvaluationEngine())
+        return executor.VarDefinitionBinaryExecutor(
+            AstEvaluationEngine(),
+            IsCompatibleTypeCondition(
+                mapOfCondition = mapOf(
+                    "number" to Number::class,
+                    "string" to String::class,
+                    "boolean" to Boolean::class,
+                ),
+            ),
+            VarDefinitionBinaryStructureCondition(),
+            PriorityDeclarationCondition(),
+        )
     }
 }
