@@ -3,10 +3,6 @@ import commands.FormatCommand
 import commands.LintCommand
 import commands.PrintScriptCLI
 import commands.ValidationCommand
-import commands.factory.ExecutionCommandFactory
-import commands.factory.FormatCommandFactory
-import commands.factory.LintCommandFactory
-import commands.factory.ValidationCommandFactory
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -45,7 +41,7 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = ExecutionCommand(ExecutionCommandFactory())
+        val command = ExecutionCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -64,7 +60,7 @@ class CliTest {
         val testFile = tempDir.resolve("simple.ps").toFile()
         testFile.writeText("let name: string = \"Hello\";")
 
-        val command = ExecutionCommand(ExecutionCommandFactory())
+        val command = ExecutionCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -83,7 +79,7 @@ class CliTest {
         val testFile = tempDir.resolve("empty.ps").toFile()
         testFile.writeText("")
 
-        val command = ExecutionCommand(ExecutionCommandFactory())
+        val command = ExecutionCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -108,7 +104,7 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = ExecutionCommand(ExecutionCommandFactory())
+        val command = ExecutionCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -125,7 +121,7 @@ class CliTest {
         val testFile = tempDir.resolve("unformatted.ps").toFile()
         testFile.writeText("let x:number=5;let y:string=\"hello\";")
 
-        val command = FormatCommand(FormatCommandFactory())
+        val command = FormatCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -153,7 +149,7 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = FormatCommand(FormatCommandFactory())
+        val command = FormatCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -169,7 +165,7 @@ class CliTest {
     fun `FormatCommand should handle non-existent file gracefully`() {
         // Arrange
         val nonExistentFile = tempDir.resolve("nonexistent.ps").toFile()
-        val command = FormatCommand(FormatCommandFactory())
+        val command = FormatCommand()
 
         // Act
         command.parse(arrayOf("-f", nonExistentFile.absolutePath, "-v", "V1"))
@@ -193,7 +189,7 @@ class CliTest {
             """let another_name: string = "test";
         """,
         )
-        val command = LintCommand(LintCommandFactory())
+        val command = LintCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -217,7 +213,7 @@ class CliTest {
             """.trimIndent(),
         )
 
-        val command = LintCommand(LintCommandFactory())
+        val command = LintCommand()
 
         // Act
 
@@ -236,7 +232,7 @@ class CliTest {
         val testFile = tempDir.resolve("empty_lint.ps").toFile()
         testFile.writeText("")
 
-        val command = LintCommand(LintCommandFactory())
+        val command = LintCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -254,7 +250,7 @@ class CliTest {
         val originalContent = "let x:number=5;let bad_name:string=\"test\";"
         testFile.writeText(originalContent)
 
-        val command = ValidationCommand(ValidationCommandFactory())
+        val command = ValidationCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -283,7 +279,7 @@ class CliTest {
         val testFile = tempDir.resolve("messy.ps").toFile()
         testFile.writeText("let bad_variable:number=5;let another_bad:string=\"hello\";")
 
-        val command = ValidationCommand(ValidationCommandFactory())
+        val command = ValidationCommand()
 
         // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
@@ -323,7 +319,7 @@ class CliTest {
         )
 
         // Test ExecutionCommand
-        val execCommand = ExecutionCommand(ExecutionCommandFactory())
+        val execCommand = ExecutionCommand()
         execCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { execCommand.run() }
 
@@ -331,7 +327,7 @@ class CliTest {
         outputStream.reset()
 
         // Test FormatCommand
-        val formatCommand = FormatCommand(FormatCommandFactory())
+        val formatCommand = FormatCommand()
         formatCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { formatCommand.run() }
 
@@ -339,7 +335,7 @@ class CliTest {
         outputStream.reset()
 
         // Test LintCommand
-        val lintCommand = LintCommand(LintCommandFactory())
+        val lintCommand = LintCommand()
         lintCommand.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
         assertDoesNotThrow { lintCommand.run() }
 

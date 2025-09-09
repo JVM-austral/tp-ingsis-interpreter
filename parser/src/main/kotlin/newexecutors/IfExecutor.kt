@@ -1,26 +1,23 @@
 
- package newexecutors
+package newexecutors
 
- import ConditionExecutor
- import analyzer.BinaryNumberOperatorAnalyzer
- import ast.Ast
- import ast.IfDeclaration
- import executor.StructureExecutor
- import parser.ParserImplementation
- import token.Token
- import token.TokenType
- import analyzer.ConditionAnalyzer
- import analyzer.FunctionAnalyzer
- import analyzer.IfAnalyzer
- import analyzer.LetVariableDeclarationAnalyzer
- import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
- import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
- import analyzer.StringConcatenationAnalyzer
- import analyzer.StructureAnalyzer
- import analyzer.VariableDefinitionAnalyzer
- import ast.ErrorAst
+import ConditionExecutor
+import analyzer.FunctionAnalyzer
+import analyzer.IfAnalyzer
+import analyzer.LetVariableDeclarationAnalyzer
+import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
+import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
+import analyzer.StructureAnalyzer
+import analyzer.VariableDefinitionAnalyzer
+import ast.Ast
+import ast.ErrorAst
+import ast.IfDeclaration
+import executor.StructureExecutor
+import parser.ParserImplementation
+import token.Token
+import token.TokenType
 
- class IfExecutor : StructureExecutor {
+class IfExecutor : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
         var index = 1 // después de "if"
 
@@ -56,7 +53,7 @@
             onSuccess,
             onFailure,
             tokens[0].line,
-            tokens[0].column
+            tokens[0].column,
         )
     }
 
@@ -71,8 +68,9 @@
         var balance = 1
         while (index < tokens.size && balance > 0) {
             val t = tokens[index]
-            if (t.value == "(") balance++
-            else if (t.value == ")") balance--
+            if (t.value == "(") {
+                balance++
+            } else if (t.value == ")") balance--
             if (balance > 0) condTokens.add(t)
             index++
         }
@@ -89,8 +87,9 @@
 
         while (index < tokens.size && balance > 0) {
             val t = tokens[index]
-            if (t.value == "{") balance++
-            else if (t.value == "}") balance--
+            if (t.value == "{") {
+                balance++
+            } else if (t.value == "}") balance--
             if (balance > 0) blockTokens.add(t)
             index++
         }
@@ -99,14 +98,15 @@
         return blockTokens to index
     }
 
-
     // ⚡️ acá tenés que pasar la lista de analyzers que ya usa tu Parser
     private fun getAnalyzers(): List<StructureAnalyzer> {
         return listOf(
-            FunctionAnalyzer(), LetVariableDeclarationAnalyzer(),
-            LetVariableDeclarationWithNumberAssignmentAnalyzer(),LetVariableDeclarationWithStringAssignmentAnalyzer(),
-            VariableDefinitionAnalyzer(),IfAnalyzer()
+            FunctionAnalyzer(),
+            LetVariableDeclarationAnalyzer(),
+            LetVariableDeclarationWithNumberAssignmentAnalyzer(),
+            LetVariableDeclarationWithStringAssignmentAnalyzer(),
+            VariableDefinitionAnalyzer(),
+            IfAnalyzer(),
         )
     }
- }
-
+}

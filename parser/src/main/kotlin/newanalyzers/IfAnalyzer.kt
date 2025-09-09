@@ -1,12 +1,11 @@
- package analyzer
+package analyzer
 
+import executor.StructureExecutor
+import newexecutors.IfExecutor
+import token.Token
+import token.TokenType
 
- import executor.StructureExecutor
- import newexecutors.IfExecutor
- import token.Token
- import token.TokenType
-
- class IfAnalyzer : StructureAnalyzer {
+class IfAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         if (!startsWithIf(tokens)) return false
 
@@ -49,8 +48,9 @@
         var balance = 1
         while (index < tokens.size && balance > 0) {
             val t = tokens[index]
-            if (t.value == "(") balance++
-            else if (t.value == ")") balance--
+            if (t.value == "(") {
+                balance++
+            } else if (t.value == ")") balance--
             if (balance > 0) condTokens.add(t)
             index++
         }
@@ -67,8 +67,9 @@
 
         while (index < tokens.size && balance > 0) {
             val t = tokens[index]
-            if (t.value == "{") balance++
-            else if (t.value == "}") balance--
+            if (t.value == "{") {
+                balance++
+            } else if (t.value == "}") balance--
             if (balance > 0) blockTokens.add(t)
             index++
         }
@@ -86,4 +87,4 @@
         }
         return index
     }
- }
+}
