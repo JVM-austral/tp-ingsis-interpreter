@@ -6,7 +6,7 @@ import token.Token
 import token.TokenType
 import kotlin.test.Test
 
-class NewComprehensiveParserTest {
+class IfElseBlocksParserTest {
     private lateinit var ifAnalyzer: IfAnalyzer
 
     @BeforeEach

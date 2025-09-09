@@ -2,13 +2,13 @@ package newanalyzers
 
 import analyzer.StructureAnalyzer
 import executor.StructureExecutor
-import newexecutors.LetVariableDeclarationWithEnvAssignmentExecutor
+import newexecutors.LetVariableDeclarationWithInputAssignmentExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithEnvAssignment : StructureAnalyzer {
+class LetVariableDeclarationWithInputAssignment : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 10) {
+        if (tokens.size < 9) {
             return false
         }
         if (tokens[0].value != "let") {
@@ -26,25 +26,22 @@ class LetVariableDeclarationWithEnvAssignment : StructureAnalyzer {
         if (tokens[4].value != "=") {
             return false
         }
-        if (tokens[5].value != "readEnv") {
+        if (tokens[5].value != "readInput") {
             return false
         }
         if (tokens[6].value != "(") {
             return false
         }
-        if (tokens[7].type != TokenType.IDENTIFIER) {
+        if (tokens[7].value != ")") {
             return false
         }
-        if (tokens[8].value != ")") {
-            return false
-        }
-        if (tokens[9].value != ";") {
+        if (tokens[8].value != ";") {
             return false
         }
         return true
     }
 
     override fun getExecutor(): StructureExecutor {
-        return LetVariableDeclarationWithEnvAssignmentExecutor()
+        return LetVariableDeclarationWithInputAssignmentExecutor()
     }
 }
