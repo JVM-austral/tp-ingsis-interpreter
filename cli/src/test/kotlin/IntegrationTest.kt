@@ -34,10 +34,11 @@ class IntegrationTest {
         }
 
         val result = interpreter.interpret(astResults)
+        val finalResult = interpreter.runAll()
 
         // Optionally print interpretation result if needed
-        result.forEach { r ->
-            r.onFailure { println("RUNTIME ERROR: ${it.message}") }
+        finalResult.forEach { r ->
+              println("RUNTIME ERROR: ${r.message}") }
         }
     }
-}
+
