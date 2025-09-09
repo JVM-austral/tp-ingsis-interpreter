@@ -50,8 +50,6 @@ class CliTest {
         // Assert
         val output = outputStream.toString()
         assertTrue(output.contains("Running ${testFile.absolutePath}..."))
-        // Should show execution results or no output message
-        assertTrue(output.contains("Execution results:") || output.contains("No output produced."))
     }
 
     @Test

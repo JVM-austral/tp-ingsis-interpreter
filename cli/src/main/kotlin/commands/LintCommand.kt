@@ -15,12 +15,11 @@ class LintCommand :
     private val file by option("-f", "--file", help = "file to be processed by the linter").required()
     private val version by option("-v", "--version", help = "printScript version to run")
         .choice("V1", "V2")
-        .required()
 
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {
-        val factory = LintCommandFactory(fromString(version), linterConfigPath)
+        val factory = LintCommandFactory(fromString(version ?: "V1"), linterConfigPath)
 
         println("Running linter on $file...")
         val code = File(file).readText()

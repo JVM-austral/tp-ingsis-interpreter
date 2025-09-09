@@ -13,8 +13,6 @@ class LinterFactoryV1WithJson(private val linterConfigPath: String?) : Factory<L
         }
         val configurableLinter = ConfigurableLinter(configPath)
 
-        println("hay? " + configurableLinter.getConfigurableLinter())
-
         return configurableLinter.getConfigurableLinter()
     }
 }

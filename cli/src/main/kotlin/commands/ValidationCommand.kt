@@ -14,7 +14,6 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
     private val file by option("-f", "--file", help = "file to be validated").required()
     private val version by option("-v", "--version", help = "printScript version to run")
         .choice("V1", "V2")
-        .required()
 
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
@@ -22,7 +21,7 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
 
     override fun run() {
         try {
-            val factory = ValidationCommandFactory(fromString(version), linterConfigPath, formatterConfigPath)
+            val factory = ValidationCommandFactory(fromString(version ?: "V1"), linterConfigPath, formatterConfigPath)
 
             println("Formatting $file...")
             val code = File(file).readText()
