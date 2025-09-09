@@ -18,7 +18,7 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
             if (tokenUnits.isFailure) {
                 root.add(Result.failure(tokenUnits.exceptionOrNull() ?: Exception("Token has no exception")))
                 current.clear()
-            } else if (isEndOfStatementAndSuccess(tokenUnits)) {
+            } else if (matchesAnalyzer(current).isSuccess) {
                 processStatement(current, root)
                 current.clear()
             } else {
@@ -26,7 +26,7 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
             }
         }
         if (current.isNotEmpty()) {
-            root.add(Result.failure(Exception("Statement must end with semicolon")))
+            processStatement(current, root)
         }
         return root
     }

@@ -11,7 +11,7 @@ enum class TokenType() {
     WHITESPACE,
     UNKNOWN,
     CONDITIONAL,
-    BOOLEAN,
-    BOOLOPERATOR,
+    BOOLEAN_LITERAL,
+    BOOL_OPERATOR,
     TAB,
 }

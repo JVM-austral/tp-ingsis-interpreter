@@ -7,7 +7,7 @@ import token.TokenType
 
 class VariableDefinitionAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 3) {
+        if (tokens.size < 5) {
             return false
         }
         if (tokens[0].type != TokenType.IDENTIFIER) {
@@ -19,9 +19,12 @@ class VariableDefinitionAnalyzer : StructureAnalyzer {
         }
 
         if (!BinaryNumberOperatorAnalyzer().analyzeStructure(
-                tokens.subList(2, tokens.size),
-            ) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2, tokens.size))
+                tokens.subList(2, tokens.size-1),
+            ) && !StringConcatenationAnalyzer().analyzeStructure(tokens.subList(2, tokens.size-1))
         ) {
+            return false
+        }
+        if (tokens[tokens.size - 1].value != ";") {
             return false
         }
 

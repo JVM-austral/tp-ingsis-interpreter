@@ -1,4 +1,4 @@
-package factory
+package factory.version.first
 
 import Formatter
 import FormatterImpl
@@ -12,8 +12,9 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
+import factory.Factory
 
-class FormatterFactory : Factory<Formatter> {
+class FormatterFactoryV1 : Factory<Formatter> {
     private val rules = listOf(
         CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
         SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),

@@ -10,6 +10,6 @@ class BooleanAnalyzer : TokenAnalyzer {
     }
 
     override fun giveType(): TokenType {
-        return TokenType.BOOLEAN
+        return TokenType.BOOLEAN_LITERAL
     }
 }

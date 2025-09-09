@@ -60,6 +60,7 @@ class ComprehensiveParserTest {
                 Token("myVar", TokenType.IDENTIFIER, 1, 2),
                 Token(":", TokenType.PUNCTUATION, 1, 3),
                 Token("string", TokenType.IDENTIFIER, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
             )
 
         assertTrue(letAnalyzer.analyzeStructure(tokens))
@@ -73,6 +74,8 @@ class ComprehensiveParserTest {
                 Token("count", TokenType.IDENTIFIER, 1, 2),
                 Token(":", TokenType.PUNCTUATION, 1, 3),
                 Token("number", TokenType.IDENTIFIER, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+
             )
 
         assertTrue(letAnalyzer.analyzeStructure(tokens))
@@ -329,6 +332,8 @@ class ComprehensiveParserTest {
                 Token("5", TokenType.NUMBER_LITERAL, 1, 3),
                 Token("+", TokenType.OPERATOR, 1, 4),
                 Token("3", TokenType.NUMBER_LITERAL, 1, 5),
+                Token(";", TokenType.PUNCTUATION, 1, 6),
+
             )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -343,6 +348,8 @@ class ComprehensiveParserTest {
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
                 Token("+", TokenType.OPERATOR, 1, 4),
                 Token("\"world\"", TokenType.STRING_LITERAL, 1, 5),
+                Token(";", TokenType.PUNCTUATION, 1, 6),
+
             )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -397,6 +404,8 @@ class ComprehensiveParserTest {
                 Token("5", TokenType.NUMBER_LITERAL, 1, 6),
                 Token("+", TokenType.OPERATOR, 1, 7),
                 Token("3", TokenType.NUMBER_LITERAL, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
+
             )
 
         assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
@@ -414,6 +423,8 @@ class ComprehensiveParserTest {
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
                 Token("+", TokenType.OPERATOR, 1, 7),
                 Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
+
             )
 
         assertTrue(letWithStringAssignmentAnalyzer.analyzeStructure(tokens))
@@ -617,6 +628,7 @@ class ComprehensiveParserTest {
                 Token(":", TokenType.PUNCTUATION, 1, 6),
                 Token(" ", TokenType.WHITESPACE, 1, 7),
                 Token("string", TokenType.IDENTIFIER, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
             )
 
         val filteredTokens = tokens.filter { it.type != TokenType.WHITESPACE }
@@ -633,7 +645,7 @@ class ComprehensiveParserTest {
                 Token("string", TokenType.IDENTIFIER, 1, 4),
             )
 
-        assertTrue(letAnalyzer.analyzeStructure(tokens))
+        assertFalse(letAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
@@ -710,6 +722,7 @@ class ComprehensiveParserTest {
             Token("max", TokenType.IDENTIFIER, 1, 6),
             Token("+", TokenType.OPERATOR, 1, 7),
             Token("2", TokenType.NUMBER_LITERAL, 1, 8),
+            Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
         assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))

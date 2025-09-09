@@ -1,5 +1,6 @@
-package factory
+package factory.version.first
 
+import factory.Factory
 import lexer.Lexer
 import lexer.LexerImplementation
 import lexer.rules.EnterAnalyzer
@@ -16,7 +17,7 @@ import lexer.rules.StringTypeAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
 
-class LexerFactory : Factory<Lexer> {
+class LexerFactoryV1 : Factory<Lexer> {
 
     private val rules = listOf(
         NumberAnalyzer(), EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
