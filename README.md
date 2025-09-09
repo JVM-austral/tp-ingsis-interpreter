@@ -57,7 +57,7 @@ The CLI provides four main commands: `execution`, `format`, `analyzing`, and `va
 ### General Syntax
 
 ```bash
-printscript-cli <command> [options]
+./gradlew :cli:run --args="<command> [options]"
 ```
 
 ### Execution
@@ -65,16 +65,16 @@ printscript-cli <command> [options]
 Run a PrintScript source file:
 
 ```bash
-printscript-cli execution -f <file> -v <version>
+./gradlew :cli:run --args="execution -f <file> -v <version>"
 ```
 
 **Options:**
 - `-f, --file`: Path to the PrintScript file to execute (required)
-- `-v, --version`: PrintScript version to use (`V1` or `V2`) (required)
+- `-v, --version`: PrintScript version to use (`V1` or `V2`) (optional) (default version is `V1`)
 
 **Example:**
 ```bash
-printscript-cli execution -f hello.ps -v V1
+./gradlew :cli:run --args="execution -f hello.ps -v V1"
 ```
 
 ### Formatting
@@ -82,17 +82,17 @@ printscript-cli execution -f hello.ps -v V1
 Format a PrintScript source file:
 
 ```bash
-printscript-cli format -f <file> -v <version> [-cf <config-file>]
+./gradlew :cli:run --args="format -f <file> -v <version> [-cf <config-file>]"
 ```
 
 **Options:**
 - `-f, --file`: Path to the file to format (required)
-- `-v, --version`: PrintScript version to use (`V1` or `V2`) (required)
+- `-v, --version`: PrintScript version to use (`V1` or `V2`)  (optional) (default version is `V1`)
 - `-cf, --configFormatter`: Path to formatter configuration file (optional)
 
 **Example:**
 ```bash
-printscript-cli format -f mycode.ps -v V1 -cf formatter-config.json
+./gradlew :cli:run --args="format -f mycode.ps -v V1 -cf formatter-config.json"
 ```
 
 ### Linting
@@ -100,17 +100,17 @@ printscript-cli format -f mycode.ps -v V1 -cf formatter-config.json
 Perform static code analysis:
 
 ```bash
-printscript-cli analyzing -f <file> -v <version> [-cl <config-file>]
+./gradlew :cli:run --args="analyzing -f <file> -v <version> [-cl <config-file>]"
 ```
 
 **Options:**
 - `-f, --file`: Path to the file to analyze (required)
-- `-v, --version`: PrintScript version to use (`V1` or `V2`) (required)
+- `-v, --version`: PrintScript version to use (`V1` or `V2`)  (optional) (default version is `V1`)
 - `-cl, --configLinter`: Path to linter configuration file (optional)
 
 **Example:**
 ```bash
-printscript-cli analyzing -f mycode.ps -v V1 -cl linter-config.json
+./gradlew :cli:run --args="analyzing -f mycode.ps -v V1 -cl linter-config.json"
 ```
 
 ### Validation
@@ -118,7 +118,7 @@ printscript-cli analyzing -f mycode.ps -v V1 -cl linter-config.json
 Run both formatting and linting in sequence:
 
 ```bash
-printscript-cli validation -f <file> -v <version> [-cl <linter-config>] [-cf <formatter-config>]
+./gradlew :cli:run --args="validation -f <file> -v <version> [-cl <linter-config>] [-cf <formatter-config>]"
 ```
 
 **Options:**
@@ -129,7 +129,7 @@ printscript-cli validation -f <file> -v <version> [-cl <linter-config>] [-cf <fo
 
 **Example:**
 ```bash
-printscript-cli validation -f mycode.ps -v V1 -cl linter.json -cf formatter.json
+./gradlew :cli:run --args="validation -f mycode.ps -v V1 -cl linter.json -cf formatter.json"
 ```
 
 ## Supported Versions
@@ -161,22 +161,22 @@ println(message);
 
 2. **Format the code:**
 ```bash
-printscript-cli format -f hello.ps -v V1
+./gradlew :cli:run --args="format -f hello.ps -v V1"
 ```
 
 3. **Lint the code:**
 ```bash
-printscript-cli analyzing -f hello.ps -v V1
+./gradlew :cli:run --args="analyzing -f hello.ps -v V1"
 ```
 
 4. **Execute the code:**
 ```bash
-printscript-cli execution -f hello.ps -v V1
+./gradlew :cli:run --args="execution -f hello.ps -v V1"
 ```
 
 5. **Or do it all with validation:**
 ```bash
-printscript-cli validation -f hello.ps -v V1
+./gradlew :cli:run --args="validation -f hello.ps -v V1"
 ```
 
 ### Using Configuration Files
@@ -203,7 +203,7 @@ printscript-cli validation -f hello.ps -v V1
 
 **Using configs:**
 ```bash
-printscript-cli validation -f mycode.ps -cl linter.json -cf formatter.json
+./gradlew :cli:run --args="validation -f mycode.ps -cl linter.json -cf formatter.json"
 ```
 
 ## Error Handling
@@ -255,7 +255,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
-
----
-
-**Note**: Version V2 support is currently under development. Please use V1 for production code.
