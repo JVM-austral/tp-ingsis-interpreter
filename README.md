@@ -123,7 +123,7 @@ printscript-cli validation -f <file> -v <version> [-cl <linter-config>] [-cf <fo
 
 **Options:**
 - `-f, --file`: Path to the file to validate (required)
-- `-v, --version`: PrintScript version to use (`V1` or `V2`) (required)
+- `-v, --version`: PrintScript version to use (`V1` or `V2`) (optional, defaults to `V1`)
 - `-cl, --configLinter`: Path to linter configuration file (optional)
 - `-cf, --configFormatter`: Path to formatter configuration file (optional)
 
@@ -203,7 +203,7 @@ printscript-cli validation -f hello.ps -v V1
 
 **Using configs:**
 ```bash
-printscript-cli validation -f mycode.ps -v V1 -cl linter.json -cf formatter.json
+printscript-cli validation -f mycode.ps -cl linter.json -cf formatter.json
 ```
 
 ## Error Handling
@@ -244,7 +244,7 @@ cd printscript-cli
 
 ## License
 
-This project is licensed under the UNIVERSIDAD AUSTRAL License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
