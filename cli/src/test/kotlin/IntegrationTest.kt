@@ -12,7 +12,9 @@ class IntegrationTest {
 
     @Test
     fun `integration test print hello world`() {
-        val input = (File("./src/test/resources/helloWorld.txt")).readText()
+        val input = File("./src/test/resources/helloWorld.txt")
+            .readText()
+            .replace("\r", "") // elimina los retornos de carro
 
         val tokens = lexer.tokenize(input)
         println("TOKENS:")

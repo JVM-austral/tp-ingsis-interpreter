@@ -452,9 +452,11 @@ class ComprehensiveParserTest {
                 Token("myVar", TokenType.IDENTIFIER, 1, 2),
                 Token(":", TokenType.PUNCTUATION, 1, 3),
                 Token("string", TokenType.IDENTIFIER, 1, 4),
-                Token(":", TokenType.PUNCTUATION, 1, 5),
+                Token("=", TokenType.PUNCTUATION, 1, 5),
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
+                Token(";", TokenType.PUNCTUATION, 1, 7),
             )
+        val ast = letWithStringAssignmentAnalyzer.getExecutor().execute(tokens)
 
         assertFalse(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
@@ -567,7 +569,7 @@ class ComprehensiveParserTest {
 
         assertTrue(result is StringLiteral)
         val stringLiteral = result as StringLiteral
-        assertEquals("\"hello\"", stringLiteral.getValue())
+        assertEquals("hello", stringLiteral.getValue())
     }
 
     // ============ Integration Tests ============
@@ -681,6 +683,7 @@ class ComprehensiveParserTest {
             Token("(", TokenType.PUNCTUATION, 1, 2),
             Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
             Token(")", TokenType.PUNCTUATION, 1, 4),
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val executor = FunctionExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
@@ -745,6 +748,6 @@ class ComprehensiveParserTest {
         assertTrue(binaryOp.left is VariableIdentifier)
         assertEquals("nombre", (binaryOp.left as VariableIdentifier).getValue())
         assertTrue(binaryOp.right is StringLiteral)
-        assertEquals("\"!\"", (binaryOp.right as StringLiteral).getValue())
+        assertEquals("!", (binaryOp.right as StringLiteral).getValue())
     }
 }

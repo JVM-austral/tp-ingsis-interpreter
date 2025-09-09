@@ -7,10 +7,10 @@ import ast.NumberLiteral
 import ast.StringLiteral
 import ast.VariableIdentifier
 import interpreter.VariableInfo
-import mock.MockOutputHandler
 import mock.OutputHandler
+import mock.StdOutputHandler
 
-class AstEvaluationEngine(private val outputHandler: OutputHandler = MockOutputHandler()) {
+class AstEvaluationEngine(private val outputHandler: OutputHandler = StdOutputHandler()) {
     private val evaluators: Map<Class<out Ast>, AstEvaluator> = mapOf(
         NumberLiteral::class.java to NumberLiteralEvaluator(),
         StringLiteral::class.java to StringLiteralEvaluator(),
