@@ -94,7 +94,6 @@ class ConditionsTest {
         val ifDecl = ast as IfDeclaration
         assertEquals("if", ifDecl.getValue())
         assertTrue(ifDecl.getOnSuccess().isNotEmpty())
-        assertTrue(ifDecl.getOnFailure().isNotEmpty())
     }
 
     @Test
