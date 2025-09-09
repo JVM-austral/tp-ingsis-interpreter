@@ -13,44 +13,72 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         val cleanTokens: List<Result<Token>> = clearUnnecessaryTokens(tokens)
 
         val current = mutableListOf<Token>()
+        var ifMode = false
 
-        for (tokenUnits in cleanTokens) {
+        for ((i, tokenUnits) in cleanTokens.withIndex()) {
             if (tokenUnits.isFailure) {
                 root.add(Result.failure(tokenUnits.exceptionOrNull() ?: Exception("Token has no exception")))
                 current.clear()
-            } else if (matchesAnalyzer(current).isSuccess) {
+                ifMode = false
+                continue
+            }
+
+            val token = tokenUnits.getOrNull() ?: continue
+            current.add(token)
+
+            // 🚩 si cerramos un bloque
+            if (token.value == "}") {
+                if (current.firstOrNull()?.value == "if" && current.firstOrNull()?.type == TokenType.CONDITIONAL) {
+                    // no procesamos todavía: puede venir un else
+                    ifMode = true
+                    continue
+                } else if (ifMode) {
+                    // terminamos el bloque else → procesamos todo junto
+                    processStatement(current, root)
+                    current.clear()
+                    ifMode = false
+                    continue
+                }
+            }
+
+            // 🚩 si viene un else y estamos en modo if, seguimos acumulando
+            if (ifMode && token.type == TokenType.CONDITIONAL && token.value == "else") {
+                continue // dejamos que el bloque else se acumule
+            }
+
+            // 🚩 condición normal: si no estamos en ifMode y hay un analyzer válido
+            if (!ifMode && matchesAnalyzer(current).isSuccess) {
                 processStatement(current, root)
                 current.clear()
-            } else {
-                tokenUnits.getOrNull()?.let { current.add(it) }
             }
         }
+
+        // 🚩 al final, si quedó algo pendiente
         if (current.isNotEmpty()) {
             processStatement(current, root)
         }
+
         return root
     }
 
-    private fun processStatement(
-        tokens: List<Token>,
-        root: MutableList<Result<Ast>>,
-    ) {
+    private fun processStatement(tokens: List<Token>, root: MutableList<Result<Ast>>) {
         if (tokens.isEmpty()) return
 
         val executorResult = matchesAnalyzer(tokens)
         executorResult
-            .onSuccess { executor ->
-                root.add(Result.success(executor.execute(tokens)))
-            }
-            .onFailure { exc ->
-                root.add(Result.failure(exc))
-            }
+            .onSuccess { executor -> root.add(Result.success(executor.execute(tokens))) }
+            .onFailure { exc -> root.add(Result.failure(exc)) }
     }
 
     private fun clearUnnecessaryTokens(tokens: List<Result<Token>>): List<Result<Token>> {
         val resultList = mutableListOf<Result<Token>>()
         for (result in tokens) {
-            if (result.isFailure || (result.getOrNull()?.type != TokenType.WHITESPACE && result.getOrNull()?.type != TokenType.ENTER)) {
+            if (result.isFailure ||
+                (
+                    result.getOrNull()?.type != TokenType.WHITESPACE &&
+                        result.getOrNull()?.type != TokenType.ENTER
+                    )
+            ) {
                 resultList.add(result)
             }
         }
@@ -64,11 +92,5 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
             }
         }
         return Result.failure(Exception("No matching analyzer for provided tokens $tokens"))
-    }
-
-    private fun isEndOfStatementAndSuccess(tokenUnits: Result<Token>): Boolean {
-        return tokenUnits.isSuccess &&
-            tokenUnits.getOrNull()?.type == TokenType.PUNCTUATION &&
-            tokenUnits.getOrNull()?.value == ";"
     }
 }

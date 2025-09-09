@@ -1,69 +1,51 @@
 package executor
 
+import IsCompatibleTypeCondition
+import PriorityDeclarationCondition
+import VarDefinitionBinaryStructureCondition
 import ast.Ast
-import ast.BinaryOperation
-import ast.VarDefinition
 import evaluator.AstEvaluationEngine
 import interpreter.VariableInfo
 
-class VarDefinitionBinaryExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
+class VarDefinitionBinaryExecutor(
+    private val engine: AstEvaluationEngine,
+    private val isCompatibleTypeCondition: IsCompatibleTypeCondition,
+    private val structureCondition: VarDefinitionBinaryStructureCondition,
+    private val declarationCondition: PriorityDeclarationCondition,
+) : InterpreterExecutor {
+
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
     ): Result<Ast> {
-        val ast = statement.getOrNull() ?: return Result.failure(Exception("AST inválido"))
+        val structureError = structureCondition.evaluate(statement, heap)
+        if (structureError != null) return errorResult(structureError)
 
-        if (ast !is VarDefinition) {
-            return Result.failure(Exception("AST no es un VarDefinition"))
-        }
+        val ast = statement.getOrNull() ?: return errorResult("AST is null")
+        val variableName = obtenerNombreVariable(ast)
+        val binaryOperationAst = obtenerOperacionBinaria(ast)
 
-        val children = ast.getListOfChildren()
-        if (children.size < 2) {
-            return Result.failure(Exception("VarDefinition tiene menos hijos de los esperados"))
-        }
-
-        val variableName = children[0].getValue()
-        val binaryOperationAst = children[1]
-
-        if (binaryOperationAst !is BinaryOperation) {
-            return Result.failure(Exception("Se esperaba BinaryOperation pero se obtuvo ${binaryOperationAst::class.simpleName}"))
-        }
-
-        try {
+        return try {
             val evaluatedValue = engine.evaluate(binaryOperationAst, heap)
 
-            if (heap.containsKey(variableName)) {
-                val existingType = heap[variableName]?.type
-                val newType = inferType(evaluatedValue)
+            val declarationError = declarationCondition.evaluate(statement, heap)
+            if (declarationError != null) return errorResult(declarationError)
 
-                if (existingType != newType) {
-                    return Result.failure(Exception("Variable type mismatch, expected $existingType but got $newType"))
-                }
-            }
+            isCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
+            val typeError = isCompatibleTypeCondition.evaluate(statement, heap)
+            if (typeError != null) return errorResult(typeError)
 
-            if (!heap.containsKey(variableName)) {
-                return Result.failure(Exception("Cannot define variable '$variableName' without prior declaration"))
-            }
+            val type = heap[variableName]?.type
+                ?: return errorResult("Variable '$variableName' has no type information")
 
-            val variableType = inferType(evaluatedValue)
-
-            if (variableType == "unknown") {
-                return Result.failure(Exception("Tipo de variable no soportado para el valor: $evaluatedValue"))
-            }
-
-            heap[variableName] = VariableInfo(variableType, evaluatedValue.toString())
-
-            return Result.success(ast)
+            heap[variableName] = VariableInfo(type, evaluatedValue.toString())
+            Result.success(ast)
         } catch (e: Exception) {
-            return Result.failure(Exception(e.message))
+            errorResult(e.message)
         }
     }
 
-    private fun inferType(value: Any): String {
-        return when (value) {
-            is Int, is Double, is Float -> "number"
-            is String -> "string"
-            else -> "unknown"
-        }
-    }
+    private fun obtenerNombreVariable(ast: Ast) = ast.getListOfChildren()[0].getValue()
+    private fun obtenerOperacionBinaria(ast: Ast) = ast.getListOfChildren()[1]
+    private fun errorResult(message: String?): Result<Ast> = Result.failure(Exception(message))
 }

@@ -1,5 +1,7 @@
 package analyzer
 
+import ConditionMessageHandler
+import VariableAlreadyDeclaredCondition
 import ast.Ast
 import ast.TypeDeclaration
 import executor.InterpreterExecutor
@@ -13,6 +15,6 @@ class TypeDeclarationAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return TypeDeclarationExecutor()
+        return TypeDeclarationExecutor(ConditionMessageHandler(listOfConditions = listOf(VariableAlreadyDeclaredCondition())))
     }
 }

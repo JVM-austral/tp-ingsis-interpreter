@@ -452,9 +452,11 @@ class ComprehensiveParserTest {
                 Token("myVar", TokenType.IDENTIFIER, 1, 2),
                 Token(":", TokenType.PUNCTUATION, 1, 3),
                 Token("string", TokenType.IDENTIFIER, 1, 4),
-                Token(":", TokenType.PUNCTUATION, 1, 5),
+                Token("=", TokenType.PUNCTUATION, 1, 5),
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
+                Token(";", TokenType.PUNCTUATION, 1, 7),
             )
+        val ast = letWithStringAssignmentAnalyzer.getExecutor().execute(tokens)
 
         assertFalse(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
@@ -681,6 +683,7 @@ class ComprehensiveParserTest {
             Token("(", TokenType.PUNCTUATION, 1, 2),
             Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
             Token(")", TokenType.PUNCTUATION, 1, 4),
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val executor = FunctionExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))

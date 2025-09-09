@@ -12,7 +12,7 @@ class IntegrationTest {
 
     @Test
     fun `integration test print hello world`() {
-        val input = (File("./src/test/resources/helloWorld.txt")).readText()
+        val input = (File("./src/test/resources/helloWorld.txt")).readText().replace("\r", "")
 
         val tokens = lexer.tokenize(input)
         println("TOKENS:")
@@ -31,11 +31,12 @@ class IntegrationTest {
             println(astSuccess.prettyForest())
         }
 
-        val result = interpreter.interpret(astResults)
+        interpreter.interpret(astResults)
+        val finalResult = interpreter.runAll()
 
         // Optionally print interpretation result if needed
-        result.forEach { r ->
-            r.onFailure { println("RUNTIME ERROR: ${it.message}") }
+        finalResult.forEachIndexed { i, r ->
+            println("[$i] RUNTIME ERROR: ${r.message}")
         }
     }
 }
