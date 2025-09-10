@@ -1,16 +1,17 @@
-package analyzer
+package newanalyzers
 
-import executor.LetVariableDeclarationWithAssignmentExecutor
+import analyzer.ConditionAnalyzer
+import analyzer.StructureAnalyzer
 import executor.StructureExecutor
+import newexecutors.LetVariableDeclarationWithBooleanExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
+class LetVariableDeclarationWithBooleanAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 6) {
+        if (tokens.size < 7) {
             return false
         }
-
         if ((tokens[0].value != "let" && tokens[0].value != "const") || tokens[0].type != TokenType.KEYWORD) {
             return false
         }
@@ -24,11 +25,11 @@ class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if (!isReservedType(tokens[3].value)) {
+        if (tokens[3].value != "boolean") {
             return false
         }
 
-        if (tokens[3].value != "string") {
+        if (tokens[tokens.size - 1].value != ";") {
             return false
         }
 
@@ -36,20 +37,18 @@ class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if (!StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
+        if (!ConditionAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
             return false
         }
 
-        if (tokens[tokens.size - 1].value != ";") {
-            return false
-        }
         return true
     }
 
     override fun getExecutor(): StructureExecutor {
-        return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
+        return LetVariableDeclarationWithBooleanExecutor()
     }
+
     private fun isReservedType(value: String): Boolean {
-        return value == "string" || value == "number"
+        return value == "string" || value == "number" || value == "boolean"
     }
 }

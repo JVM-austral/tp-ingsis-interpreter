@@ -80,8 +80,26 @@ class InputParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
-        // Note: This test will fail due to the bug in the original code
         assertFalse(letInputAnalyzer.analyzeStructure(tokens))
+    }
+
+    @Test
+    fun `should analyze valid let declaration with booclean type and readInput assignment`() {
+        val tokens = listOf(
+            Token("let", TokenType.KEYWORD, 1, 1),
+            Token("isActive", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("boolean", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5),
+            Token("readInput", TokenType.IDENTIFIER, 1, 6),
+            Token("(", TokenType.PUNCTUATION, 1, 7),
+            Token("hola", TokenType.STRING_LITERAL, 1, 7),
+            Token(")", TokenType.PUNCTUATION, 1, 8),
+            Token(";", TokenType.PUNCTUATION, 1, 9),
+        )
+
+        // Note: This test will fail due to the bug in the original code
+        assertTrue(letInputAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
@@ -352,7 +370,7 @@ class InputParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 7),
         )
 
-        assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
+        assertTrue(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
@@ -395,6 +413,7 @@ class InputParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readInput", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
+            Token("hola", TokenType.STRING_LITERAL, 1, 7),
             Token(")", TokenType.PUNCTUATION, 1, 8),
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
@@ -415,7 +434,7 @@ class InputParserTest {
         assertEquals("readInput", functionCall.getValue())
 
         // readInput has no parameters (empty list)
-        assertEquals(0, functionCall.getChildLimit())
+        assertEquals(1, functionCall.getChildLimit())
     }
 
     @Test
@@ -473,6 +492,7 @@ class InputParserTest {
             Token("=", TokenType.OPERATOR, 1, 2),
             Token("readInput", TokenType.IDENTIFIER, 1, 3),
             Token("(", TokenType.PUNCTUATION, 1, 4),
+            Token("hola", TokenType.STRING_LITERAL, 1, 4),
             Token(")", TokenType.PUNCTUATION, 1, 5),
             Token(";", TokenType.PUNCTUATION, 1, 6),
         )
@@ -490,7 +510,8 @@ class InputParserTest {
         assertEquals("readInput", functionCall.getValue())
 
         // readInput has no parameters (empty list)
-        assertEquals(0, functionCall.getChildLimit())
+        assertEquals(1, functionCall.getChildLimit())
+        assertEquals("hola", functionCall.getListOfChildren()[0].getValue())
     }
 
     @Test

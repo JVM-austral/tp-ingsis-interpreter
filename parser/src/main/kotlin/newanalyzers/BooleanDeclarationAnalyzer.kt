@@ -1,13 +1,14 @@
-package analyzer
+package newanalyzers
 
-import executor.LetVariableDeclarationWithAssignmentExecutor
+import analyzer.StructureAnalyzer
 import executor.StructureExecutor
+import newexecutors.BooleanDeclarationExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
+class BooleanDeclarationAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 6) {
+        if (tokens.size != 5) {
             return false
         }
 
@@ -23,33 +24,22 @@ class LetVariableDeclarationWithStringAssignmentAnalyzer : StructureAnalyzer {
         if (tokens[2].value != ":") {
             return false
         }
-
-        if (!isReservedType(tokens[3].value)) {
-            return false
-        }
-
-        if (tokens[3].value != "string") {
-            return false
-        }
-
-        if (tokens[4].value != "=") {
-            return false
-        }
-
-        if (!StringConcatenationAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
-            return false
-        }
-
         if (tokens[tokens.size - 1].value != ";") {
             return false
         }
+
+        if (tokens[3].value != "boolean") {
+            return false
+        }
+
         return true
     }
 
     override fun getExecutor(): StructureExecutor {
-        return LetVariableDeclarationWithAssignmentExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
+        return BooleanDeclarationExecutor()
     }
+
     private fun isReservedType(value: String): Boolean {
-        return value == "string" || value == "number"
+        return value == "string" || value == "number" || value == "boolean"
     }
 }

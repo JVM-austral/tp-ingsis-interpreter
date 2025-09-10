@@ -11,7 +11,7 @@ class LetVariableDeclarationAnalyzer : StructureAnalyzer {
             return false
         }
 
-        if (tokens[0].value != "let") {
+        if ((tokens[0].value != "let" && tokens[0].value != "const") || tokens[0].type != TokenType.KEYWORD) {
             return false
         }
 

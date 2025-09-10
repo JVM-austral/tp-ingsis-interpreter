@@ -14,7 +14,9 @@ class VariableDefinitionWithInputExecutor : StructureExecutor {
             StringLiteral(tokens[0].value, tokens[0].line, tokens[0].column),
             FunctionCallAst(
                 tokens[2].value,
-                listOf(),
+                listOf(
+                    StringLiteral(tokens[4].value, tokens[4].line, tokens[4].column),
+                ),
                 tokens[2].line,
                 tokens[2].column,
             ),
