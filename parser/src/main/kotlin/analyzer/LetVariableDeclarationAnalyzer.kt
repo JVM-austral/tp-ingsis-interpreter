@@ -4,34 +4,18 @@ import executor.LetVariableDeclarationExecutor
 import executor.StructureExecutor
 import token.Token
 import token.TokenType
+import java.sql.Types
 
-class LetVariableDeclarationAnalyzer : StructureAnalyzer {
+class LetVariableDeclarationAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size != 5) {
-            return false
-        }
-
-        if ((tokens[0].value != "let" && tokens[0].value != "const") || tokens[0].type != TokenType.KEYWORD) {
-            return false
-        }
-
-        if (tokens[1].type != TokenType.IDENTIFIER ||
-            isReservedType(tokens[1].value)
-        ) {
-            return false
-        }
-        if (tokens[2].value != ":") {
-            return false
-        }
-        if (tokens[tokens.size - 1].value != ";") {
-            return false
-        }
-
-        if (!isReservedType(tokens[3].value)) {
-            return false
-        }
-
-        return true
+        return tokens.size == 5 &&
+            tokens[0].type == TokenType.KEYWORD &&
+            isDeclarationType(tokens[0].value) &&
+            tokens[1].type == TokenType.IDENTIFIER &&
+            !isReservedType(tokens[1].value) &&
+            tokens[2].value == ":" &&
+            isReservedType(tokens[3].value) &&
+            tokens[4].value == ";"
     }
 
     override fun getExecutor(): StructureExecutor {
@@ -39,6 +23,11 @@ class LetVariableDeclarationAnalyzer : StructureAnalyzer {
     }
 
     private fun isReservedType(value: String): Boolean {
-        return value == "string" || value == "number"
+        return reservedTypes.contains(value)
     }
+
+    private fun isDeclarationType(value: String): Boolean {
+        return declarationTypes.contains(value)
+    }
+
 }

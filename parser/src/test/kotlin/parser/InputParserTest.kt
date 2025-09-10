@@ -23,7 +23,7 @@ class InputParserTest {
 
     @BeforeEach
     fun setUp() {
-        letInputAnalyzer = LetVariableDeclarationWithInputAssignment()
+        letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number","string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
         letInputExecutor = LetVariableDeclarationWithInputAssignmentExecutor()
         varDefInputExecutor = VariableDefinitionWithInputExecutor()
@@ -98,7 +98,6 @@ class InputParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
-        // Note: This test will fail due to the bug in the original code
         assertTrue(letInputAnalyzer.analyzeStructure(tokens))
     }
 

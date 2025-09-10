@@ -6,45 +6,32 @@ import newexecutors.LetVariableDeclarationWithEnvAssignmentExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithEnvAssignment : StructureAnalyzer {
+class LetVariableDeclarationWithEnvAssignment (private val reservedTypes: List<String>, private val declarationTypes: List<String>): StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 10) {
-            return false
-        }
-        if ((tokens[0].value != "let" && tokens[0].value != "const") || tokens[0].type != TokenType.KEYWORD) {
-            return false
-        }
-        if (tokens[1].type != TokenType.IDENTIFIER) {
-            return false
-        }
-        if (tokens[2].value != ":") {
-            return false
-        }
-        if (tokens[3].value != "string" && tokens[3].value != "number" && tokens[3].value != "boolean") {
-            return false
-        }
-        if (tokens[4].value != "=") {
-            return false
-        }
-        if (tokens[5].value != "readEnv") {
-            return false
-        }
-        if (tokens[6].value != "(") {
-            return false
-        }
-        if (tokens[7].type != TokenType.IDENTIFIER) {
-            return false
-        }
-        if (tokens[8].value != ")") {
-            return false
-        }
-        if (tokens[9].value != ";") {
-            return false
-        }
-        return true
+        return tokens.size >= 10 &&
+            tokens[0].type == TokenType.KEYWORD &&
+            isDeclarationType(tokens[0].value) &&
+            tokens[1].type == TokenType.IDENTIFIER &&
+            tokens[2].value == ":" &&
+            isReservedType(tokens[3].value) &&
+            tokens[4].value == "=" &&
+            tokens[5].value == "readEnv" &&
+            tokens[6].value == "(" &&
+            tokens[7].type == TokenType.IDENTIFIER &&
+            tokens[8].value == ")" &&
+            tokens[9].value == ";"
     }
 
     override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationWithEnvAssignmentExecutor()
+    }
+
+
+    private fun isReservedType(value: String): Boolean {
+        return reservedTypes.contains(value)
+    }
+
+    private fun isDeclarationType(value: String): Boolean {
+        return declarationTypes.contains(value)
     }
 }

@@ -27,7 +27,7 @@ class BinaryNumberOperatorAnalyzer : StructureAnalyzer {
                     when (token.type) {
                         TokenType.NUMBER_LITERAL,
                         TokenType.IDENTIFIER,
-                        -> { // ✅ ahora acepta variables también
+                        -> {
                             expectOperand = false
                         }
                         TokenType.PUNCTUATION -> {
