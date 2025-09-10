@@ -1,5 +1,9 @@
 package analyzer
 
+import ConditionMessageHandler
+import MissMatchNumberCondition
+import MissMatchStringCondition
+import MissMatchTypeCondition
 import ast.Ast
 import ast.VarDefinition
 import executor.InterpreterExecutor
@@ -13,6 +17,17 @@ class VarDefinitionUnaryAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return executor.VarDefinitionUnaryExecutor()
+        return executor.VarDefinitionUnaryExecutor(
+            ConditionMessageHandler(
+                listOfConditions = listOf(
+                    MissMatchTypeCondition(
+                        listOf(
+                            MissMatchStringCondition(),
+                            MissMatchNumberCondition(),
+                        ),
+                    ),
+                ),
+            ),
+        )
     }
 }

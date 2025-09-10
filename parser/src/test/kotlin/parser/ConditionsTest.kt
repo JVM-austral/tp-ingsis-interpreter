@@ -1,4 +1,4 @@
-package newexecutors
+package parser
 
 import analyzer.FunctionAnalyzer
 import analyzer.IfAnalyzer
@@ -8,11 +8,11 @@ import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.VariableDefinitionAnalyzer
 import ast.ErrorAst
 import ast.IfDeclaration
+import newexecutors.IfExecutor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import parser.ParserImplementation
 import token.Token
 import token.TokenType
 

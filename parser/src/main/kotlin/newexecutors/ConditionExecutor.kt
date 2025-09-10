@@ -21,6 +21,7 @@ class ConditionExecutor : StructureExecutor {
         }
     }
 
+    // Nivel 1: ||
     private fun parseOrExpression(): ParseResult {
         var left = parseAndExpression()
         if (left is ParseResult.Failure) return ParseResult.Failure
@@ -37,6 +38,7 @@ class ConditionExecutor : StructureExecutor {
         return left
     }
 
+    // Nivel 2: &&
     private fun parseAndExpression(): ParseResult {
         var left = parseComparison()
         if (left is ParseResult.Failure) return ParseResult.Failure
@@ -53,6 +55,7 @@ class ConditionExecutor : StructureExecutor {
         return left
     }
 
+    // Nivel 3: comparadores (entre expresiones numéricas o booleanas)
     private fun parseComparison(): ParseResult {
         val left = parseArithmeticOrPrimary()
         if (left is ParseResult.Failure) return ParseResult.Failure
@@ -69,6 +72,7 @@ class ConditionExecutor : StructureExecutor {
         return left
     }
 
+    // Permite literales, booleanos, variables, paréntesis y expresiones numéricas
     private fun parseArithmeticOrPrimary(): ParseResult {
         if (index >= tokens.size) return ParseResult.Failure
 
@@ -80,7 +84,7 @@ class ConditionExecutor : StructureExecutor {
             }
             TokenType.PUNCTUATION -> {
                 if (token.value == "(") {
-                    next()
+                    next() // consume "("
                     val expr = parseOrExpression()
                     if (expr is ParseResult.Failure) return ParseResult.Failure
                     if (index >= tokens.size || next().value != ")") return ParseResult.Failure
@@ -90,7 +94,9 @@ class ConditionExecutor : StructureExecutor {
                 }
             }
             else -> {
+                // si no es booleano ni paréntesis -> intentamos parsear como expresión numérica
                 val start = index
+                // buscamos hasta un operador lógico o cierre de paréntesis
                 while (index < tokens.size && !isStopToken(peek())) {
                     index++
                 }
@@ -105,6 +111,7 @@ class ConditionExecutor : StructureExecutor {
         }
     }
 
+    // Helpers
     private fun peek() = tokens[index]
 
     private fun next() = tokens[index++]

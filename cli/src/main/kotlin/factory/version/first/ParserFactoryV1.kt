@@ -11,6 +11,7 @@ import parser.ParserImplementation
 
 class ParserFactoryV1 : Factory<Parser> {
     private val rules = listOf(
+
         FunctionAnalyzer(),
         LetVariableDeclarationAnalyzer(),
         LetVariableDeclarationWithNumberAssignmentAnalyzer(),

@@ -1,5 +1,6 @@
 package analyzer
 
+import IsCompatibleTypeCondition
 import ast.Ast
 import ast.BinaryOperation
 import ast.VarDeclaration
@@ -15,6 +16,15 @@ class VarDeclarationWithAssigmentBinaryAnalyzer : InterpreterAnalyzer {
     }
 
     override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
-        return VarDeclarationWithAssigmentBinaryExecutor(AstEvaluationEngine())
+        return VarDeclarationWithAssigmentBinaryExecutor(
+            AstEvaluationEngine(),
+            IsCompatibleTypeCondition(
+                mapOfCondition = mapOf(
+                    "number" to Number::class,
+                    "string" to String::class,
+                    "boolean" to Boolean::class,
+                ),
+            ),
+        )
     }
 }

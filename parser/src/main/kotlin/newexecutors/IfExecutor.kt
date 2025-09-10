@@ -19,20 +19,23 @@ import token.TokenType
 
 class IfExecutor : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
-        var index = 1
+        var index = 1 // después de "if"
 
+        // --- condición ---
         val (condTokens, condEnd) = extractConditionTokens(tokens, index)
             ?: return ErrorAst("Invalid condition in if", tokens[0].line, tokens[0].column)
         index = condEnd
         val conditionAst = ConditionExecutor().execute(condTokens)
 
+        // --- bloque principal ---
         val (mainTokens, mainEnd) = extractBlockTokens(tokens, index)
             ?: return ErrorAst("Invalid condition", tokens[0].line, tokens[0].column)
         index = mainEnd
         val onSuccess = ParserImplementation(getAnalyzers()).parse(mainTokens.map { Result.success(it) })
 
+        // --- bloque else opcional ---
         val onFailure: List<Result<Ast>> = if (index < tokens.size &&
-            tokens[index].type == TokenType.CONDITIONAL &&
+            tokens[index].type == TokenType.KEYWORD &&
             tokens[index].value == "else"
         ) {
             index++
@@ -53,6 +56,8 @@ class IfExecutor : StructureExecutor {
             tokens[0].column,
         )
     }
+
+    // ---------------- helpers ----------------
 
     private fun extractConditionTokens(tokens: List<Token>, startIndex: Int): Pair<List<Token>, Int>? {
         var index = startIndex
@@ -93,6 +98,7 @@ class IfExecutor : StructureExecutor {
         return blockTokens to index
     }
 
+    // ⚡️ acá tenés que pasar la lista de analyzers que ya usa tu Parser
     private fun getAnalyzers(): List<StructureAnalyzer> {
         return listOf(
             FunctionAnalyzer(),

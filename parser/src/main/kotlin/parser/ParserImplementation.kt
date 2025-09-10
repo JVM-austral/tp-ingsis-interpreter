@@ -42,12 +42,10 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         return root
     }
 
-    // --- Métodos auxiliares ---
-
     private fun handleFailureToken(
         tokenUnits: Result<Token>,
         root: MutableList<Result<Ast>>,
-        current: MutableList<Token>
+        current: MutableList<Token>,
     ): Boolean {
         if (tokenUnits.isFailure) {
             root.add(Result.failure(tokenUnits.exceptionOrNull() ?: Exception("Token has no exception")))
@@ -60,14 +58,14 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
     private fun handleClosingBrace(
         token: Token,
         current: MutableList<Token>,
-        root: MutableList<Result<Ast>>
+        root: MutableList<Result<Ast>>,
     ): Boolean {
         if (token.value != "}") return false
 
         if (current.firstOrNull()?.value == "if" && current.firstOrNull()?.type == TokenType.CONDITIONAL) {
             current.add(token)
             return true
-        } else if (current.isNotEmpty() && current.first().value == "}" ) {
+        } else if (current.isNotEmpty() && current.first().value == "}") {
             processStatement(current, root)
             current.clear()
             current.add(token)

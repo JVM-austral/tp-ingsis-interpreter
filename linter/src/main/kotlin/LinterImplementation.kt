@@ -12,7 +12,7 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
                 onSuccess = {
                     val ast = statement.getOrNull()
                     if (ast != null) {
-                        val error = doesNotMatchALintingRule(ast, rulesList)
+                        val error = detectRulesViolations(ast, rulesList)
                         errorsFound.addAll(error)
                     }
                 },
@@ -25,7 +25,7 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
         return errorsFound
     }
 
-    private fun doesNotMatchALintingRule(ast: Ast, listOfRules: List<LinterAnalyzer>): List<LinterError> {
+    private fun detectRulesViolations(ast: Ast, listOfRules: List<LinterAnalyzer>): List<LinterError> {
         val listOfErrors = mutableListOf<LinterError>()
 
         for (rule in listOfRules) {

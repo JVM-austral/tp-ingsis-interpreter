@@ -1,26 +1,25 @@
 package executor
 
+import ConditionMessageHandler
+import IsCompatibleTypeCondition
 import ast.Ast
 import evaluator.AstEvaluationEngine
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
+class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluationEngine, private val IsCompatibleTypeCondition: IsCompatibleTypeCondition) : InterpreterExecutor {
     override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
-                    val variable = ast.getListOfChildren()[0].getValue()
-                    val type = ast.getListOfChildren()[1].getValue()
-                    val expression = ast.getListOfChildren()[2]
+                    val (variable, type, expression) = astDecomposition(ast)
 
-                    val evaluatedValue = engine.evaluate(expression, heap)
+                    val (evaluatedValue, conditionMessageHandler) = settingConditionHandler(expression, heap)
 
-                    if (isCompatibleType(type, evaluatedValue)) {
-                        heap[variable] = VariableInfo(type, evaluatedValue.toString())
-                        Result.success(ast)
-                    } else {
-                        Result.failure(Exception("Tipo incompatible: se esperaba $type pero se obtuvo ${evaluatedValue::class.simpleName}"))
+                    val resultError = conditionMessageHandler.handleConditionMessage(statement, heap)
+                    if (resultError.isFailure) {
+                        return Result.failure(Exception(resultError.toString()))
                     }
+                    appendingInTheHeap(heap, variable, type, evaluatedValue, ast)
                 } catch (e: ArithmeticException) {
                     Result.failure(Exception(e.message))
                 } catch (e: Exception) {
@@ -33,10 +32,31 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluatio
         )
     }
 
-    private fun isCompatibleType(declaredType: String, value: Any): Boolean =
-        when (declaredType.lowercase()) {
-            "number" -> value is Number
-            "string" -> value is String
-            else -> false
-        }
+    private fun appendingInTheHeap(
+        heap: MutableMap<String, VariableInfo>,
+        variable: String,
+        type: String,
+        evaluatedValue: Any,
+        ast: Ast,
+    ): Result<Ast> {
+        heap[variable] = VariableInfo(type, evaluatedValue.toString())
+        return Result.success(ast)
+    }
+
+    private fun settingConditionHandler(
+        expression: Ast,
+        heap: MutableMap<String, VariableInfo>,
+    ): Pair<Any, ConditionMessageHandler> {
+        val evaluatedValue = engine.evaluate(expression, heap)
+        IsCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
+        val conditionMessageHandler = ConditionMessageHandler(listOf(IsCompatibleTypeCondition))
+        return Pair(evaluatedValue, conditionMessageHandler)
+    }
+
+    private fun astDecomposition(ast: Ast): Triple<String, String, Ast> {
+        val variable = ast.getListOfChildren()[0].getValue()
+        val type = ast.getListOfChildren()[1].getValue()
+        val expression = ast.getListOfChildren()[2]
+        return Triple(variable, type, expression)
+    }
 }

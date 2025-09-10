@@ -11,13 +11,16 @@ class IfAnalyzer : StructureAnalyzer {
 
         var index = 1
 
+        // --- condición ---
         val conditionResult = extractConditionTokens(tokens, index) ?: return false
         if (!ConditionAnalyzer().analyzeStructure(conditionResult.first)) return false
         index = conditionResult.second
 
+        // --- bloque principal ---
         val mainBlockResult = extractBlockTokens(tokens, index) ?: return false
         index = mainBlockResult.second
 
+        // --- bloque else opcional ---
         val elseBlockResult = extractElseTokens(tokens, index) ?: index
         index = elseBlockResult
 
@@ -27,6 +30,8 @@ class IfAnalyzer : StructureAnalyzer {
     override fun getExecutor(): StructureExecutor {
         return IfExecutor()
     }
+
+    // ---------- helpers ----------
 
     private fun startsWithIf(tokens: List<Token>): Boolean {
         return tokens.isNotEmpty() &&

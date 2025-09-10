@@ -1,6 +1,6 @@
 package factory.version.first
 
-import analyzer.FunctionCallAnalyzer
+import analyzer.PrintLnAnalyzer
 import analyzer.TypeDeclarationAnalyzer
 import analyzer.VarDeclarationWithAssigmentBinaryAnalyzer
 import analyzer.VarDeclarationWithAssigmentUnaryAnalyzer
@@ -10,10 +10,11 @@ import analyzer.VarDefinitionUnaryAnalyzer
 import factory.Factory
 import interpreter.Interpreter
 import interpreter.InterpreterImplementation
+import mock.StdOutputHandler
 
 class InterpreterFactoryV1 : Factory<Interpreter> {
     private val rules = listOf(
-        FunctionCallAnalyzer(),
+        PrintLnAnalyzer(StdOutputHandler()),
         TypeDeclarationAnalyzer(),
         VarDeclarationWithAssignmentAnalyzer(),
         VarDeclarationWithAssigmentUnaryAnalyzer(),
