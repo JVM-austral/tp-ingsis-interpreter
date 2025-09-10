@@ -32,9 +32,9 @@ class BooleanParserTest {
 
     @BeforeEach
     fun setUp() {
-        booleanDeclarationAnalyzer = BooleanDeclarationAnalyzer()
+        booleanDeclarationAnalyzer = BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
         booleanDefinitionAnalyzer = BooleanDefinitionAnalyzer()
-        letWithBooleanAnalyzer = LetVariableDeclarationWithBooleanAnalyzer()
+        letWithBooleanAnalyzer = LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
 
         booleanDeclarationExecutor = BooleanDeclarationExecutor()
         booleanDefinitionExecutor = BooleanDefinitionExecutor()

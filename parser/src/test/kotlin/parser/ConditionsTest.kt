@@ -26,9 +26,9 @@ class ConditionsTest {
         parser = ParserImplementation(
             listOf(
                 FunctionAnalyzer(),
-                LetVariableDeclarationAnalyzer(),
-                LetVariableDeclarationWithNumberAssignmentAnalyzer(),
-                LetVariableDeclarationWithStringAssignmentAnalyzer(),
+                LetVariableDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+                LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+                LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
                 VariableDefinitionAnalyzer(),
                 IfAnalyzer(),
             ),
