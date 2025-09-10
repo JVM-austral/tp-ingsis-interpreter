@@ -23,7 +23,7 @@ class EnvParserTest {
 
     @BeforeEach
     fun setUp() {
-        letEnvAnalyzer = LetVariableDeclarationWithEnvAssignment(listOf("number","string", "boolean"), listOf("let", "const"))
+        letEnvAnalyzer = LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefEnvAnalyzer = VariableDefinitionWithEnvAnalyzer()
         letEnvExecutor = LetVariableDeclarationWithEnvAssignmentExecutor()
         varDefEnvExecutor = VariableDefinitionWithEnvExecutor()

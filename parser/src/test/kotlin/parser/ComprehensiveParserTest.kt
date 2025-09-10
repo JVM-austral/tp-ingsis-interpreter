@@ -37,9 +37,9 @@ class ComprehensiveParserTest {
 
     @BeforeEach
     fun setUp() {
-        letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number","string"), listOf("let"))
-        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number","string"), listOf("let"))
-        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number","string",), listOf("let"))
+        letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let"))
+        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
+        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()

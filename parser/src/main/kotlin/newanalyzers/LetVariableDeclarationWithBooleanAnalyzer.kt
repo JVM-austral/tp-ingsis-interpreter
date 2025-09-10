@@ -7,7 +7,7 @@ import newexecutors.LetVariableDeclarationWithBooleanExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithBooleanAnalyzer (private val reservedTypes: List<String>, private val declarationTypes: List<String>): StructureAnalyzer {
+class LetVariableDeclarationWithBooleanAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return tokens.size >= 7 &&
             tokens[0].type == TokenType.KEYWORD &&

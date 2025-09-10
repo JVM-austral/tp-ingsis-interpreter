@@ -13,9 +13,9 @@ class ParserFactoryV1 : Factory<Parser> {
     private val rules = listOf(
 
         FunctionAnalyzer(),
-        LetVariableDeclarationAnalyzer(),
-        LetVariableDeclarationWithNumberAssignmentAnalyzer(),
-        LetVariableDeclarationWithStringAssignmentAnalyzer(),
+        LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let")),
+        LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let")),
+        LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let")),
         VariableDefinitionAnalyzer(),
 
     )

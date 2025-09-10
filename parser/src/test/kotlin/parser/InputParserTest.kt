@@ -23,7 +23,7 @@ class InputParserTest {
 
     @BeforeEach
     fun setUp() {
-        letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number","string", "boolean"), listOf("let", "const"))
+        letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
         letInputExecutor = LetVariableDeclarationWithInputAssignmentExecutor()
         varDefInputExecutor = VariableDefinitionWithInputExecutor()

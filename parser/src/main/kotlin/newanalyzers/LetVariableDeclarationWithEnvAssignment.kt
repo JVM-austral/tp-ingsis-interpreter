@@ -6,7 +6,7 @@ import newexecutors.LetVariableDeclarationWithEnvAssignmentExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithEnvAssignment (private val reservedTypes: List<String>, private val declarationTypes: List<String>): StructureAnalyzer {
+class LetVariableDeclarationWithEnvAssignment(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return tokens.size >= 10 &&
             tokens[0].type == TokenType.KEYWORD &&
@@ -25,7 +25,6 @@ class LetVariableDeclarationWithEnvAssignment (private val reservedTypes: List<S
     override fun getExecutor(): StructureExecutor {
         return LetVariableDeclarationWithEnvAssignmentExecutor()
     }
-
 
     private fun isReservedType(value: String): Boolean {
         return reservedTypes.contains(value)

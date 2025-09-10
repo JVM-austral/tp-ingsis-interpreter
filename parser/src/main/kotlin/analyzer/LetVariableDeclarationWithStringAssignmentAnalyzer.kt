@@ -5,7 +5,7 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithStringAssignmentAnalyzer (private val reservedTypes: List<String>, private val declarationTypes: List<String>): StructureAnalyzer {
+class LetVariableDeclarationWithStringAssignmentAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return tokens.size >= 6 &&
             tokens[0].type == TokenType.KEYWORD &&

@@ -6,7 +6,7 @@ import newexecutors.BooleanDeclarationExecutor
 import token.Token
 import token.TokenType
 
-class BooleanDeclarationAnalyzer (private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
+class BooleanDeclarationAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return tokens.size == 5 &&
             tokens[0].type == TokenType.KEYWORD &&

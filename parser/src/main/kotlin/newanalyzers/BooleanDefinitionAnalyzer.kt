@@ -7,7 +7,7 @@ import newexecutors.BooleanDefinitionExecutor
 import token.Token
 import token.TokenType
 
-class BooleanDefinitionAnalyzer  : StructureAnalyzer {
+class BooleanDefinitionAnalyzer : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
         return tokens.size >= 4 &&
             tokens[0].type == TokenType.IDENTIFIER &&

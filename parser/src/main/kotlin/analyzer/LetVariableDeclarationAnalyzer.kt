@@ -4,7 +4,6 @@ import executor.LetVariableDeclarationExecutor
 import executor.StructureExecutor
 import token.Token
 import token.TokenType
-import java.sql.Types
 
 class LetVariableDeclarationAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
@@ -29,5 +28,4 @@ class LetVariableDeclarationAnalyzer(private val reservedTypes: List<String>, pr
     private fun isDeclarationType(value: String): Boolean {
         return declarationTypes.contains(value)
     }
-
 }

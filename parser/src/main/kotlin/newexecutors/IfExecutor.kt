@@ -102,9 +102,9 @@ class IfExecutor : StructureExecutor {
     private fun getAnalyzers(): List<StructureAnalyzer> {
         return listOf(
             FunctionAnalyzer(),
-            LetVariableDeclarationAnalyzer(listOf("number","string", "boolean"), listOf("let", "const")),
-            LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number","string", "boolean"), listOf("let", "const")),
-            LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number","string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
             VariableDefinitionAnalyzer(),
             IfAnalyzer(),
         )
