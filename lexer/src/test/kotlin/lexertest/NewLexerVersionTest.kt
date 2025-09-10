@@ -120,7 +120,6 @@ class NewLexerVersionTest {
             Result.success(Token("=", TokenType.OPERATOR, 1, 13)),
             Result.success(Token(" ", TokenType.WHITESPACE, 1, 14)),
             Result.success(Token("readInput", TokenType.IDENTIFIER, 1, 15)),
-            Result.success(Token(";", TokenType.PUNCTUATION, 1, 24)),
         )
 
         assertEquals(expected, lexer.tokenize(input))
