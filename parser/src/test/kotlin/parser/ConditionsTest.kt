@@ -150,6 +150,21 @@ class ConditionsTest {
             Token("\"small\"", TokenType.STRING_LITERAL, 1, 10),
             Token(")", TokenType.PUNCTUATION, 1, 11),
             Token(";", TokenType.PUNCTUATION, 1, 12),
+
+            Token("if", TokenType.CONDITIONAL, 1, 1),
+            Token("(", TokenType.PUNCTUATION, 1, 2),
+            Token("x", TokenType.IDENTIFIER, 1, 3),
+            Token("<", TokenType.OPERATOR, 1, 4),
+            Token("10", TokenType.NUMBER_LITERAL, 1, 5),
+            Token(")", TokenType.PUNCTUATION, 1, 6),
+            Token("{", TokenType.PUNCTUATION, 1, 7),
+            Token("println", TokenType.IDENTIFIER, 1, 8),
+            Token("(", TokenType.PUNCTUATION, 1, 9),
+            Token("\"small\"", TokenType.STRING_LITERAL, 1, 10),
+            Token(")", TokenType.PUNCTUATION, 1, 11),
+            Token(";", TokenType.PUNCTUATION, 1, 12),
+            Token("}", TokenType.PUNCTUATION, 1, 13),
+
             Token("}", TokenType.PUNCTUATION, 1, 13),
             Token("else", TokenType.CONDITIONAL, 1, 1),
             Token("{", TokenType.PUNCTUATION, 1, 7),
@@ -160,11 +175,38 @@ class ConditionsTest {
             Token(";", TokenType.PUNCTUATION, 1, 12),
             Token("}", TokenType.PUNCTUATION, 1, 13),
 
+            Token("println", TokenType.IDENTIFIER, 1, 8),
+            Token("(", TokenType.PUNCTUATION, 1, 9),
+            Token("\"small\"", TokenType.STRING_LITERAL, 1, 10),
+            Token(")", TokenType.PUNCTUATION, 1, 11),
+            Token(";", TokenType.PUNCTUATION, 1, 12),
+
+            Token("if", TokenType.CONDITIONAL, 1, 1),
+            Token("(", TokenType.PUNCTUATION, 1, 2),
+            Token("x", TokenType.IDENTIFIER, 1, 3),
+            Token("<", TokenType.OPERATOR, 1, 4),
+            Token("10", TokenType.NUMBER_LITERAL, 1, 5),
+            Token(")", TokenType.PUNCTUATION, 1, 6),
+            Token("{", TokenType.PUNCTUATION, 1, 7),
+            Token("println", TokenType.IDENTIFIER, 1, 8),
+            Token("(", TokenType.PUNCTUATION, 1, 9),
+            Token("\"small\"", TokenType.STRING_LITERAL, 1, 10),
+            Token(")", TokenType.PUNCTUATION, 1, 11),
+            Token(";", TokenType.PUNCTUATION, 1, 12),
+            Token("}", TokenType.PUNCTUATION, 1, 13),
+            Token("else", TokenType.CONDITIONAL, 1, 1),
+            Token("{", TokenType.PUNCTUATION, 1, 7),
+            Token("println", TokenType.IDENTIFIER, 1, 8),
+            Token("(", TokenType.PUNCTUATION, 1, 9),
+            Token("\"small\"", TokenType.STRING_LITERAL, 1, 10),
+            Token(")", TokenType.PUNCTUATION, 1, 11),
+            Token(";", TokenType.PUNCTUATION, 1, 12),
+            Token("}", TokenType.PUNCTUATION, 1, 13),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
-        assertEquals(2, result.size)
-        assertTrue(result[0].isSuccess)
+        assertEquals(4, result.size)
+        assertTrue(result[1].isSuccess)
         assertTrue(result[1].getOrNull() is IfDeclaration)
     }
 }
