@@ -13,27 +13,31 @@ import ast.Ast
 import ast.ErrorAst
 import ast.IfDeclaration
 import executor.StructureExecutor
+import newanalyzers.BooleanDeclarationAnalyzer
+import newanalyzers.BooleanDefinitionAnalyzer
+import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
+import newanalyzers.LetVariableDeclarationWithEnvAssignment
+import newanalyzers.LetVariableDeclarationWithInputAssignment
+import newanalyzers.VariableDefinitionWithEnvAnalyzer
+import newanalyzers.VariableDefinitionWithInputAnalyzer
 import parser.ParserImplementation
 import token.Token
 import token.TokenType
 
 class IfExecutor : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
-        var index = 1 // después de "if"
+        var index = 1
 
-        // --- condición ---
         val (condTokens, condEnd) = extractConditionTokens(tokens, index)
             ?: return ErrorAst("Invalid condition in if", tokens[0].line, tokens[0].column)
         index = condEnd
         val conditionAst = ConditionExecutor().execute(condTokens)
 
-        // --- bloque principal ---
         val (mainTokens, mainEnd) = extractBlockTokens(tokens, index)
             ?: return ErrorAst("Invalid condition", tokens[0].line, tokens[0].column)
         index = mainEnd
         val onSuccess = ParserImplementation(getAnalyzers()).parse(mainTokens.map { Result.success(it) })
 
-        // --- bloque else opcional ---
         val onFailure: List<Result<Ast>> = if (index < tokens.size &&
             tokens[index].type == TokenType.KEYWORD &&
             tokens[index].value == "else"
@@ -56,8 +60,6 @@ class IfExecutor : StructureExecutor {
             tokens[0].column,
         )
     }
-
-    // ---------------- helpers ----------------
 
     private fun extractConditionTokens(tokens: List<Token>, startIndex: Int): Pair<List<Token>, Int>? {
         var index = startIndex
@@ -98,7 +100,6 @@ class IfExecutor : StructureExecutor {
         return blockTokens to index
     }
 
-    // ⚡️ acá tenés que pasar la lista de analyzers que ya usa tu Parser
     private fun getAnalyzers(): List<StructureAnalyzer> {
         return listOf(
             FunctionAnalyzer(),
@@ -107,6 +108,13 @@ class IfExecutor : StructureExecutor {
             LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
             VariableDefinitionAnalyzer(),
             IfAnalyzer(),
+            BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            BooleanDefinitionAnalyzer(),
+            LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+            VariableDefinitionWithEnvAnalyzer(),
+            VariableDefinitionWithInputAnalyzer(),
         )
     }
 }
