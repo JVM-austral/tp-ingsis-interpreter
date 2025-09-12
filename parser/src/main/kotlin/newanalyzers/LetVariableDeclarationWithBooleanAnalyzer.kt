@@ -7,41 +7,18 @@ import newexecutors.LetVariableDeclarationWithBooleanExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithBooleanAnalyzer : StructureAnalyzer {
+class LetVariableDeclarationWithBooleanAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 7) {
-            return false
-        }
-        if ((tokens[0].value != "let" && tokens[0].value != "const") || tokens[0].type != TokenType.KEYWORD) {
-            return false
-        }
-
-        if (tokens[1].type != TokenType.IDENTIFIER ||
-            isReservedType(tokens[1].value)
-        ) {
-            return false
-        }
-        if (tokens[2].value != ":") {
-            return false
-        }
-
-        if (tokens[3].value != "boolean") {
-            return false
-        }
-
-        if (tokens[tokens.size - 1].value != ";") {
-            return false
-        }
-
-        if (tokens[4].value != "=") {
-            return false
-        }
-
-        if (!ConditionAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
-            return false
-        }
-
-        return true
+        return tokens.size >= 7 &&
+            tokens[0].type == TokenType.KEYWORD &&
+            isDeclarationType(tokens[0].value) &&
+            tokens[1].type == TokenType.IDENTIFIER &&
+            !isReservedType(tokens[1].value) &&
+            tokens[2].value == ":" &&
+            tokens[3].value == "boolean" &&
+            tokens[4].value == "=" &&
+            ConditionAnalyzer().analyzeStructure(tokens.subList(5, tokens.size - 1)) &&
+            tokens.last().value == ";"
     }
 
     override fun getExecutor(): StructureExecutor {
@@ -49,6 +26,10 @@ class LetVariableDeclarationWithBooleanAnalyzer : StructureAnalyzer {
     }
 
     private fun isReservedType(value: String): Boolean {
-        return value == "string" || value == "number" || value == "boolean"
+        return reservedTypes.contains(value)
+    }
+
+    private fun isDeclarationType(value: String): Boolean {
+        return declarationTypes.contains(value)
     }
 }
