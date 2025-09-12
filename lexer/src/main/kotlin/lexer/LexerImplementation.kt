@@ -2,7 +2,6 @@ package lexer
 
 import lexer.rules.TokenAnalyzer
 import token.Token
-import kotlin.Exception
 
 class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
 
@@ -12,14 +11,19 @@ class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Le
         var current = ""
         var rematchMode = false
         val tokenizedString: MutableList<Result<Token>> = mutableListOf()
+        var lastWasEnter = false
 
         for (char in input) {
             current += char
-            if (char == '\n') {
+            if (lastWasEnter) {
                 currentLine++
                 currentColumn = 1
+                lastWasEnter = false
             } else {
                 currentColumn++
+            }
+            if (char == '\n') {
+                lastWasEnter = true
             }
             when {
                 matchAnyTokenType(current) && !rematchMode -> {
@@ -62,6 +66,6 @@ class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Le
                 return Result.success(Token(current, analyzer.giveType(), line, column))
             }
         }
-        return Result.failure(Exception())
+        return Result.success(Token(current, token.TokenType.UNKNOWN, line, column))
     }
 }

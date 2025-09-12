@@ -5,13 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/interpreterwrapper/InterpreterWrapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapperImplementation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/TokenBuffer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/BufferedLineReader.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/LineReader.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexerwrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/LexerImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/LexerImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/NewLexerVersionTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/NewLexerVersionTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/LexerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/LexerTest.kt" afterDir="false" />
     </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,9 +62,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Interface" />
         <option value="Class" />
         <option value="Kotlin File" />
+        <option value="Interface" />
+        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -79,55 +87,67 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.AnalyzerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build tp-ingsis-interpreter.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze simple addition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserV1Test.should parse valid let declaration tokens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [buildDependents].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [build].executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.TestGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vito/Programming/faculty/ingsis&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.AnalyzerTest.executor": "Run",
+    "Gradle.Build tp-ingsis-interpreter.executor": "Run",
+    "Gradle.ComprehensiveParserTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
+    "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze simple addition.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor": "Run",
+    "Gradle.LexerTest.complex expression with all token types.executor": "Run",
+    "Gradle.LexerTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
+    "Gradle.NewLexerVersionTest.executor": "Run",
+    "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
+    "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
+    "Gradle.tp-ingsis-interpreter [buildDependents].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [build].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [dependencies].executor": "Run",
+    "JUnit.All in tp-ingsis-interpreter.lexer.test.executor": "Run",
+    "Kotlin.TestGenerator.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "feat-lexer-wrapper",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Vito/Programming/faculty/ingsis",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;C:\\Users\\juani\\.gradle&quot;
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\juani\\.gradle"
     ]
   }
-}</component>
-  <component name="RunManager" selected="Gradle.NewLexerVersionTest.readInput should be recognized as identifier">
-    <configuration name="LexerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="lexerwrapper.bufferreader" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.LexerWrapperImplementationTest">
+    <configuration name="LexerTest.complex expression with all token types" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -140,7 +160,7 @@
           <list>
             <option value=":lexer:test" />
             <option value="--tests" />
-            <option value="&quot;lexertest.LexerTest&quot;" />
+            <option value="&quot;lexertest.LexerTest.complex expression with all token types&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -151,7 +171,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="NewLexerVersionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LexerWrapperImplementationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -164,7 +184,7 @@
           <list>
             <option value=":lexer:test" />
             <option value="--tests" />
-            <option value="&quot;lexertest.NewLexerVersionTest&quot;" />
+            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -175,7 +195,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="NewLexerVersionTest.readInput should be recognized as identifier" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -188,7 +208,7 @@
           <list>
             <option value=":lexer:test" />
             <option value="--tests" />
-            <option value="&quot;lexertest.NewLexerVersionTest.readInput should be recognized as identifier&quot;" />
+            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -199,64 +219,68 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="tp-ingsis-interpreter [buildDependents]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LexerWrapperImplementationTest.testMultipleTokens" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="buildDependents" />
+            <option value=":lexer:test" />
+            <option value="--tests" />
+            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testMultipleTokens&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="tp-ingsis-interpreter [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LexerWrapperImplementationTest.testSingleValidToken" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value=":lexer:test" />
+            <option value="--tests" />
+            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testSingleValidToken&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.NewLexerVersionTest" />
-      <item itemvalue="Gradle.NewLexerVersionTest.readInput should be recognized as identifier" />
-      <item itemvalue="Gradle.LexerTest" />
-      <item itemvalue="Gradle.tp-ingsis-interpreter [buildDependents]" />
-      <item itemvalue="Gradle.tp-ingsis-interpreter [build]" />
+      <item itemvalue="Gradle.LexerTest.complex expression with all token types" />
+      <item itemvalue="Gradle.LexerWrapperImplementationTest" />
+      <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
+      <item itemvalue="Gradle.LexerWrapperImplementationTest.testMultipleTokens" />
+      <item itemvalue="Gradle.LexerWrapperImplementationTest.testSingleValidToken" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.NewLexerVersionTest.readInput should be recognized as identifier" />
-        <item itemvalue="Gradle.NewLexerVersionTest" />
-        <item itemvalue="Gradle.LexerTest" />
-        <item itemvalue="Gradle.tp-ingsis-interpreter [buildDependents]" />
-        <item itemvalue="Gradle.tp-ingsis-interpreter [build]" />
+        <item itemvalue="Gradle.LexerWrapperImplementationTest" />
+        <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
+        <item itemvalue="Gradle.LexerTest.complex expression with all token types" />
+        <item itemvalue="Gradle.LexerWrapperImplementationTest.testMultipleTokens" />
+        <item itemvalue="Gradle.LexerWrapperImplementationTest.testSingleValidToken" />
       </list>
     </recent_temporary>
   </component>
@@ -285,7 +309,7 @@
       <workItem from="1755711489753" duration="149000" />
       <workItem from="1755712431787" duration="81000" />
       <workItem from="1755712519877" duration="75000" />
-      <workItem from="1757678306012" duration="1369000" />
+      <workItem from="1757678306012" duration="15634000" />
     </task>
     <servers />
   </component>
