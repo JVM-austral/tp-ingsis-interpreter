@@ -194,9 +194,41 @@ class LexerTest {
                 PrintAnalyzer(), EnterAnalyzer(),
             )
         val lexer = LexerImplementation(analyzers)
-        val result = lexer.tokenize(
-            "let a : string = \"hello\";\n" +
-                "println(\"world\" + a);",
+        val expected = listOf(
+            Triple("let", TokenType.KEYWORD, 1),
+            Triple(" ", TokenType.WHITESPACE, 1),
+            Triple("a", TokenType.IDENTIFIER, 1),
+            Triple(" ", TokenType.WHITESPACE, 1),
+            Triple(":", TokenType.PUNCTUATION, 1),
+            Triple(" ", TokenType.WHITESPACE, 1),
+            Triple("string", TokenType.IDENTIFIER, 1),
+            Triple(" ", TokenType.WHITESPACE, 1),
+            Triple("=", TokenType.OPERATOR, 1),
+            Triple(" ", TokenType.WHITESPACE, 1),
+            Triple("\"hello\"", TokenType.STRING_LITERAL, 1),
+            Triple(";", TokenType.PUNCTUATION, 1),
+            Triple("\n", TokenType.ENTER, 2),
+            Triple("println", TokenType.IDENTIFIER, 2),
+            Triple("(", TokenType.PUNCTUATION, 2),
+            Triple("\"world\"", TokenType.STRING_LITERAL, 2),
+            Triple(" ", TokenType.WHITESPACE, 2),
+            Triple("+", TokenType.OPERATOR, 2),
+            Triple(" ", TokenType.WHITESPACE, 2),
+            Triple("a", TokenType.IDENTIFIER, 2),
+            Triple(")", TokenType.PUNCTUATION, 2),
+            Triple(";", TokenType.PUNCTUATION, 2),
         )
+
+        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
+
+        val input = "let a : string = \"hello\";\n" + "println(\"world\" + a);"
+        lexer.tokenize(input).forEach { result ->
+            val t = result.getOrNull()
+            if (t != null) {
+                tokens.add(Triple(t.value, t.type, t.line))
+            }
+        }
+        assertEquals(expected.size, tokens.size)
+        assertEquals(expected, tokens)
     }
 }
