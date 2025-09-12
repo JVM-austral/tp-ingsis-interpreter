@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import token.Token
 import token.TokenType
+import kotlin.test.assertEquals
 
 class NewLexerVersionTest {
 
@@ -120,6 +121,7 @@ class NewLexerVersionTest {
             Result.success(Token("=", TokenType.OPERATOR, 1, 13)),
             Result.success(Token(" ", TokenType.WHITESPACE, 1, 14)),
             Result.success(Token("readInput", TokenType.IDENTIFIER, 1, 15)),
+            Result.success(Token(";", TokenType.PUNCTUATION, 1, 24)),
         )
 
         assertEquals(expected, lexer.tokenize(input))
