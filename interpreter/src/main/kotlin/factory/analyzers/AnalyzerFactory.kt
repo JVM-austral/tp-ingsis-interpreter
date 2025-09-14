@@ -29,12 +29,16 @@ class AnalyzerFactory {
         return listOf(
             PrintLnAnalyzer(outputHandler, engineV1),
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(engineV1,ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                engineV1,
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
             VarDeclarationWithAssigmentBinaryAnalyzer(
                 engineV1,
                 IsCompatibleTypeCondition(
@@ -70,21 +74,27 @@ class AnalyzerFactory {
             ),
         )
     }
-    fun createAnalyzerV2(outputHandler: OutputHandler, inputProvider: InputProvider,
-                          converter: LiteralConverter
+    fun createAnalyzerV2(
+        outputHandler: OutputHandler,
+        inputProvider: InputProvider,
+        converter: LiteralConverter,
     ): List<InterpreterAnalyzer> {
         val engineV2 = evaluatorFactory.createEvaluationEngineV2(outputHandler, inputProvider, converter)
         return listOf(
-            IfDeclarationAnalyzer(engineV2, outputHandler,inputProvider, converter),
+            IfDeclarationAnalyzer(engineV2, outputHandler, inputProvider, converter),
             PrintLnAnalyzer(outputHandler, engineV2),
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(engineV2,ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
-                    "boolean" to Boolean::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                engineV2,
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                        "boolean" to Boolean::class,
+                    ),
                 ),
-            )),
+            ),
             VarDeclarationWithAssigmentBinaryAnalyzer(
                 engineV2,
                 IsCompatibleTypeCondition(

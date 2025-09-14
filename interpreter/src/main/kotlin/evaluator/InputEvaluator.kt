@@ -7,7 +7,7 @@ import evaluator.input.LiteralConverter
 class InputEvaluator(
     private val engine: AstEvaluator,
     private val converter: LiteralConverter,
-    private val inputProvider: InputProvider
+    private val inputProvider: InputProvider,
 ) : AstEvaluator {
     override fun evaluate(ast: ast.Ast, heap: MutableMap<String, interpreter.VariableInfo>, env: MutableMap<String, Ast>): Any {
         ast.getListOfChildren().forEach {

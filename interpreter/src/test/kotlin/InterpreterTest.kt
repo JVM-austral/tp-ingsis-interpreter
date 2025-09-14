@@ -39,6 +39,8 @@ import executor.VarDefinitionUnaryExecutor
 import factory.evaluators.AstEvaluationEngineV1
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
+import interpreter.ExecutionEngine
+import interpreter.ExecutionUnit
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
 import mock.MockOutputHandler
@@ -83,7 +85,7 @@ class InterpreterTest {
     @Test
     fun `VarDeclarationWithAssigmentBinaryAnalyzer should identify VarDeclaration with BinaryOperation`() {
         val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
+            AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter()),
             IsCompatibleTypeCondition(
                 mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
@@ -100,12 +102,16 @@ class InterpreterTest {
     @Test
     fun `VarDeclarationWithAssigmentUnaryAnalyzer should identify VarDeclaration with non-binary expression`() {
         val analyzer =
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            ))
+            )
         val literal = StringLiteral("hello", 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("string", 0, 0), literal, 0, 0)
         val result = Result.success(varDecl as Ast)
@@ -117,12 +123,16 @@ class InterpreterTest {
     @Test
     fun `VarDeclarationWithAssigmentUnaryAnalyzer should reject ScapeAst`() {
         val analyzer =
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            ))
+            )
         val scapeAst = ScapeAst()
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("string", 0, 0), scapeAst, 0, 0)
         val result = Result.success(varDecl as Ast)
@@ -133,7 +143,7 @@ class InterpreterTest {
     @Test
     fun `VarDefinitionBinaryAnalyzer should identify Assignment with BinaryOperation`() {
         val analyzer = VarDefinitionBinaryAnalyzer(
-            AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
+            AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter()),
             IsCompatibleTypeCondition(
                 mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
@@ -208,13 +218,15 @@ class InterpreterTest {
 
     @Test
     fun `VarDeclarationWithAssigmentUnaryExecutor should assign value to variable`() {
-        val executor = VarDeclarationWithAssigmentUnaryExecutor(AstEvaluationEngineV1(),
-            ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
+        val executor = VarDeclarationWithAssigmentUnaryExecutor(
+            AstEvaluationEngineV1(),
+            ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+            IsCompatibleTypeCondition(
                 mapOf(
                     "number" to Number::class,
                     "string" to String::class,
                 ),
-            )
+            ),
         )
         val literal = StringLiteral("hello", 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("string", 0, 0), literal, 0, 0)
@@ -609,12 +621,16 @@ class InterpreterTest {
     fun `InterpreterImplementation should process type declaration`() {
         val analyzers = listOf(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
             VarDefinitionUnaryAnalyzer(
                 ConditionMessageHandler(
                     listOf(
@@ -640,7 +656,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is TypeDeclarationExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
 
         assertTrue(heap.containsKey("x"))
         assertEquals("x", heap["x"]?.type)
@@ -651,12 +667,16 @@ class InterpreterTest {
     fun `InterpreterImplementation should process variable declaration with assignment`() {
         val analyzers = listOf(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
 
             VarDefinitionUnaryAnalyzer(
                 ConditionMessageHandler(
@@ -692,7 +712,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(heap.containsKey("y"))
         assertEquals("string", heap["y"]?.type)
         assertEquals("hello", heap["y"]?.value)
@@ -702,12 +722,16 @@ class InterpreterTest {
     fun `InterpreterImplementation should process assignment to existing variable`() {
         val analyzers = listOf(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
 
             VarDefinitionUnaryAnalyzer(
                 ConditionMessageHandler(
@@ -735,7 +759,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is VarDefinitionUnaryExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(initialHeap, mutableMapOf()).runAll(results)
 
         assertTrue(initialHeap.containsKey("x"))
         assertEquals("number", initialHeap["x"]?.type)
@@ -779,12 +803,16 @@ class InterpreterTest {
     fun `InterpreterImplementation should stop execution on error but continue with remaining statements`() {
         val analyzers = listOf(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
 
@@ -818,7 +846,7 @@ class InterpreterTest {
         assertTrue(results[0].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[1].executor is TypeDeclarationExecutor) // Duplicate declaration
         assertTrue(results[2].executor is VarDeclarationWithAssigmentUnaryExecutor)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("its already declared") ?: false)
         assertTrue(heap.containsKey("x"))
@@ -831,20 +859,24 @@ class InterpreterTest {
     fun `Complex expression evaluation should work correctly`() {
         val analyzers = listOf(
             VarDeclarationWithAssigmentBinaryAnalyzer(
-                AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"),LiteralConverter(),),
+                AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter()),
                 IsCompatibleTypeCondition(
                     mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
                 ),
                 ConstDefinitionCondition(),
             ),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
+            ),
             VarDefinitionBinaryAnalyzer(
-                AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
+                AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter()),
                 IsCompatibleTypeCondition(
                     mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
                 ),
@@ -895,7 +927,7 @@ class InterpreterTest {
         assertTrue(results[0].executor is VarDeclarationWithAssigmentBinaryExecutor)
         assertTrue(results[1].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[2].executor is VarDefinitionBinaryExecutor)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(heap.containsKey("a"))
         assertTrue(heap.containsKey("b"))
         assertEquals("number", heap["a"]?.type)
@@ -908,7 +940,7 @@ class InterpreterTest {
     fun `Simple FunctionCall evaluation, hello world println`() {
         val outputHandler = StdOutputHandler()
         val analyzers = listOf<InterpreterAnalyzer>(
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),)),
+            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter())),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
@@ -925,7 +957,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is PrintLnExecutor)
         assertTrue(results[0].message == null)
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResult.isEmpty())
         assertTrue(heap.isEmpty())
     }
@@ -934,14 +966,24 @@ class InterpreterTest {
     fun `FunctionCall with variable parameter`() {
         val analyzers = listOf<InterpreterAnalyzer>(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),
-                MockInputProvider("hola"), LiteralConverter(),)),
+            ),
+            PrintLnAnalyzer(
+                StdOutputHandler(),
+                AstEvaluationEngineV2(
+                    StdOutputHandler(),
+                    MockInputProvider("hola"),
+                    LiteralConverter(),
+                ),
+            ),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
@@ -975,7 +1017,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResult.isEmpty())
         assertTrue(heap.containsKey("message"))
         assertEquals("Hello from variable!", heap["message"]?.value)
@@ -984,7 +1026,7 @@ class InterpreterTest {
     @Test
     fun `FunctionCall with undeclared variable should fail`() {
         val analyzers = listOf<InterpreterAnalyzer>(
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),)),
+            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter())),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
@@ -1001,7 +1043,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is PrintLnExecutor)
         assertTrue(results[0].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("Variable no encontrada: undeclaredVar") ?: false)
     }
@@ -1010,13 +1052,17 @@ class InterpreterTest {
     fun `FunctionCall with multiple parameters`() {
         val analyzers = listOf<InterpreterAnalyzer>(
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(AstEvaluationEngineV1(),ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
-                mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
+            VarDeclarationWithAssigmentUnaryAnalyzer(
+                AstEvaluationEngineV1(),
+                ConditionMessageHandler(listOf(ConstDefinitionCondition())),
+                IsCompatibleTypeCondition(
+                    mapOf(
+                        "number" to Number::class,
+                        "string" to String::class,
+                    ),
                 ),
-            )),
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),)),
+            ),
+            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter())),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
@@ -1050,7 +1096,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResults.isEmpty())
         assertTrue(heap.containsKey("greeting"))
         assertEquals("Hello", heap["greeting"]?.value)
@@ -1061,13 +1107,13 @@ class InterpreterTest {
         val analyzers = listOf<InterpreterAnalyzer>(
             TypeDeclarationAnalyzer(),
             VarDeclarationWithAssigmentBinaryAnalyzer(
-                AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
+                AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter()),
                 IsCompatibleTypeCondition(
                     mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
                 ),
                 ConstDefinitionCondition(),
             ),
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),)),
+            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter())),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
@@ -1101,7 +1147,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResults.isEmpty())
         assertTrue(heap.containsKey("num1"))
         assertEquals("8.0", heap["num1"]?.value)
@@ -1171,7 +1217,7 @@ class InterpreterTest {
         assertTrue(results[1].executor is VarDefinitionUnaryExecutor)
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults =ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("La variable PI es una constante y no puede ser reasignada") ?: false)
         assertTrue(heap.containsKey("PI"))

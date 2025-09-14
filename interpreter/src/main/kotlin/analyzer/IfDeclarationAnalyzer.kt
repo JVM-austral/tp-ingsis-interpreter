@@ -10,15 +10,18 @@ import executor.InterpreterExecutor
 import interpreter.VariableInfo
 import mock.OutputHandler
 
-class IfDeclarationAnalyzer(private val engine: AstEvaluator, private val outputHandler: OutputHandler, private val inputProvider: InputProvider,
-                            private val converter: LiteralConverter
+class IfDeclarationAnalyzer(
+    private val engine: AstEvaluator,
+    private val outputHandler: OutputHandler,
+    private val inputProvider: InputProvider,
+    private val converter: LiteralConverter,
 ) : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Boolean {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Boolean {
         val ast = statement.getOrNull() ?: return false
         return ast is IfDeclaration
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): InterpreterExecutor {
         return IfDeclarationExecutor(engine, outputHandler, inputProvider, converter)
     }
 }

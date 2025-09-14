@@ -9,8 +9,10 @@ class EvaluatorFactory {
     fun createEvaluationEngineV1(outputHandler: OutputHandler): AstEvaluator {
         return AstEvaluationEngineV1(outputHandler)
     }
-    fun createEvaluationEngineV2(outputHandler: OutputHandler,inputProvider: InputProvider,
-                                 converter: LiteralConverter
+    fun createEvaluationEngineV2(
+        outputHandler: OutputHandler,
+        inputProvider: InputProvider,
+        converter: LiteralConverter,
     ): AstEvaluator {
         return AstEvaluationEngineV2(outputHandler, inputProvider, converter)
     }

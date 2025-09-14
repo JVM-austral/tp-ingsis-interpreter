@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import commands.factory.ExecutionCommandFactory
+import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
@@ -26,7 +27,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         val tokens = lexer.tokenize(code)
         val ast = parser.parse(tokens)
         val result = interpreter.interpret(ast)
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(mutableMapOf(), mutableMapOf()).runAll(result)
 
         if (finalResult.isNotEmpty()) {
             echo("Printing errors found during execution:")
