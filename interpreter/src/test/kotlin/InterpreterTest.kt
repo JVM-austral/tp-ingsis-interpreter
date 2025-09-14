@@ -831,7 +831,7 @@ class InterpreterTest {
     fun `Complex expression evaluation should work correctly`() {
         val analyzers = listOf(
             VarDeclarationWithAssigmentBinaryAnalyzer(
-                AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
+                AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"),LiteralConverter(),),
                 IsCompatibleTypeCondition(
                     mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
                 ),
@@ -940,7 +940,8 @@ class InterpreterTest {
                     "string" to String::class,
                 ),
             )),
-            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),)),
+            PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2(StdOutputHandler(),
+                MockInputProvider("hola"), LiteralConverter(),)),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
         val statements = listOf(
