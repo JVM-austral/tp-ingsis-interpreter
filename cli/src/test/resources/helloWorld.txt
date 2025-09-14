@@ -1,2 +1,2 @@
-let a : string = "hello";
-println("world " + a);
+let hola_mateo : string = "hello";
+println ("world " + hola_mateo);

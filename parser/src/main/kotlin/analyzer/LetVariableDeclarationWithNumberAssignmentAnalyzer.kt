@@ -5,45 +5,19 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithNumberAssignmentAnalyzer : StructureAnalyzer {
+class LetVariableDeclarationWithNumberAssignmentAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
     override fun analyzeStructure(tokens: List<Token>): Boolean {
-        if (tokens.size < 7) {
-            return false
-        }
-        if (tokens[0].value != "let") {
-            return false
-        }
-
-        if (tokens[1].type != TokenType.IDENTIFIER ||
-            isReservedType(tokens[1].value)
-        ) {
-            return false
-        }
-        if (tokens[2].value != ":") {
-            return false
-        }
-
-        if (!isReservedType(tokens[3].value)) {
-            return false
-        }
-
-        if (tokens[tokens.size - 1].value != ";") {
-            return false
-        }
-
-        if (tokens[3].value != "number") {
-            return false
-        }
-
-        if (tokens[4].value != "=") {
-            return false
-        }
-
-        if (!BinaryNumberOperatorAnalyzer().analyzeStructure(tokens.subList(5, tokens.size-1))) {
-            return false
-        }
-
-        return true
+        return tokens.size >= 7 &&
+            tokens[0].type == TokenType.KEYWORD &&
+            isDeclarationType(tokens[0].value) &&
+            tokens[1].type == TokenType.IDENTIFIER &&
+            !isReservedType(tokens[1].value) &&
+            tokens[2].value == ":" &&
+            isReservedType(tokens[3].value) &&
+            tokens[3].value == "number" &&
+            tokens[4].value == "=" &&
+            tokens.last().value == ";" &&
+            BinaryNumberOperatorAnalyzer().analyzeStructure(tokens.subList(5, tokens.size - 1))
     }
 
     override fun getExecutor(): StructureExecutor {
@@ -51,6 +25,10 @@ class LetVariableDeclarationWithNumberAssignmentAnalyzer : StructureAnalyzer {
     }
 
     private fun isReservedType(value: String): Boolean {
-        return value == "string" || value == "number"
+        return reservedTypes.contains(value)
+    }
+
+    private fun isDeclarationType(value: String): Boolean {
+        return declarationTypes.contains(value)
     }
 }

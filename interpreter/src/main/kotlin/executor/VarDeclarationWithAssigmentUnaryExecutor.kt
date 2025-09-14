@@ -1,16 +1,15 @@
 package executor
 
-import Condition
 import ConditionMessageHandler
 import ast.Ast
-import com.sun.source.tree.DeconstructionPatternTree
 import interpreter.VariableInfo
 
 class VarDeclarationWithAssigmentUnaryExecutor(private val conditionHandler: ConditionMessageHandler) : InterpreterExecutor {
 
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, String>,
     ): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
@@ -21,8 +20,8 @@ class VarDeclarationWithAssigmentUnaryExecutor(private val conditionHandler: Con
                 if (resultError.isFailure) {
                     return Result.failure(Exception(resultError.toString()))
                 }
-                val isConstant= ast.getValue() == "const"
-                heap[variable] = VariableInfo(type, value,isConstant)
+                val isConstant = ast.getValue() == "const"
+                heap[variable] = VariableInfo(type, value, isConstant)
                 Result.success(ast)
             },
             onFailure = {

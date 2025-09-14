@@ -18,7 +18,8 @@ class VarDefinitionBinaryExecutor(
 
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, String>,
     ): Result<Ast> {
         val structureError = structureCondition.evaluate(statement, heap)
         if (structureError != null) return errorResult(structureError)
@@ -28,7 +29,7 @@ class VarDefinitionBinaryExecutor(
         val binaryOperationAst = obtenerOperacionBinaria(ast)
 
         return try {
-            val evaluatedValue = engine.evaluate(binaryOperationAst, heap,env)
+            val evaluatedValue = engine.evaluate(binaryOperationAst, heap, env)
 
             val declarationError = declarationCondition.evaluate(statement, heap)
             if (declarationError != null) return errorResult(declarationError)

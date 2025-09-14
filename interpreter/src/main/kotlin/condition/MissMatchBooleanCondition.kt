@@ -4,7 +4,7 @@ import Condition
 import ast.Ast
 import interpreter.VariableInfo
 
-class MissMatchBooleanCondition : Condition{
+class MissMatchBooleanCondition : Condition {
     override fun evaluate(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): String? {
         val ast = statement.getOrNull() ?: return null
         val row = ast.getRow()

@@ -7,12 +7,12 @@ import executor.InterpreterExecutor
 import interpreter.VariableInfo
 
 class InputAnalyzer : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Boolean {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Boolean {
         val ast = statement.getOrNull() ?: return false
-        return ast  is FunctionCallAst &&  ast.getValue() == "input"
+        return ast is FunctionCallAst && ast.getValue() == "input"
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): InterpreterExecutor {
         return InputExecutor()
     }
 }

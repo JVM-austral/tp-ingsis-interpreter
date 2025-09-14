@@ -7,12 +7,13 @@ import interpreter.VariableInfo
 class PrintLnExecutor(private val engine: AstEvaluator) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, String>,
     ): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
-                    engine.evaluate(ast, heap,env)
+                    engine.evaluate(ast, heap, env)
                     Result.success(ast)
                 } catch (e: Exception) {
                     Result.failure(Exception(e.message))

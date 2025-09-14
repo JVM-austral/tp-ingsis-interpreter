@@ -11,7 +11,8 @@ class TypeDeclarationExecutor(
 
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, String>,
     ): Result<Ast> {
         val ast = statement.getOrNull() ?: return errorResult("ast nulo")
         if (ast !is TypeDeclaration) return errorResult("No es una declaración de tipo")

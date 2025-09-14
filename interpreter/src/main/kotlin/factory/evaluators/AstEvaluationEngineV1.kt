@@ -1,7 +1,17 @@
 package factory.evaluators
 
-import ast.*
-import evaluator.*
+import ast.Ast
+import ast.BinaryOperation
+import ast.FunctionCallAst
+import ast.NumberLiteral
+import ast.StringLiteral
+import ast.VariableIdentifier
+import evaluator.AstEvaluator
+import evaluator.BinaryOperationEvaluator
+import evaluator.NumberLiteralEvaluator
+import evaluator.PrintLnEvaluator
+import evaluator.StringLiteralEvaluator
+import evaluator.VariableIdentifierEvaluator
 import evaluator.binarystrategy.AdditionStrategy
 import evaluator.binarystrategy.DivisionStrategy
 import evaluator.binarystrategy.MultiplicationStrategy
@@ -21,9 +31,9 @@ class AstEvaluationEngineV1(private val outputHandler: OutputHandler = StdOutput
         FunctionCallAst::class.java to PrintLnEvaluator(this, outputHandler),
     )
 
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Any {
         val evaluator = evaluators[ast::class.java]
             ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
-        return evaluator.evaluate(ast, heap,env)
+        return evaluator.evaluate(ast, heap, env)
     }
 }

@@ -1,6 +1,7 @@
-import factory.version.first.InterpreterFactoryV1
+import factory.interpreters.InterpreterFactory
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
+import mock.StdOutputHandler
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -8,7 +9,7 @@ class IntegrationTest {
 
     private val lexer = LexerFactoryV1().create()
     private val parser = ParserFactoryV1().create()
-    private val interpreter = InterpreterFactoryV1().create()
+    private val interpreter = InterpreterFactory().createInterpreterV1(mutableMapOf(), StdOutputHandler(), mutableMapOf())
 
     @Test
     fun `integration test print hello world`() {

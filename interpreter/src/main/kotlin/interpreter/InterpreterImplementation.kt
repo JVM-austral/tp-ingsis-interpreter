@@ -46,7 +46,7 @@ class InterpreterImplementation(
             if (unit.message != null) {
                 results.add(unit)
             } else {
-                val execution = unit.executor.execute(unit.statement, heap,env)
+                val execution = unit.executor.execute(unit.statement, heap, env)
                 if (execution.isFailure) {
                     results.add(
                         ExecutionUnit(
@@ -64,7 +64,7 @@ class InterpreterImplementation(
     private fun verifyRules(statement: Result<Ast>): InterpreterExecutor {
         for (analyzer in listOfAnalyzers) {
             if (analyzer.analyzeInterpretation(statement, heap, env)) {
-                return analyzer.getExecutor(heap,env)
+                return analyzer.getExecutor(heap, env)
             }
         }
         return FailInterpreterExecutor()

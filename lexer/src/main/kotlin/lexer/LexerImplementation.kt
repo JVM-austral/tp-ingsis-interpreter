@@ -2,35 +2,40 @@ package lexer
 
 import lexer.rules.TokenAnalyzer
 import token.Token
-import kotlin.Exception
 
 class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
+
     override fun tokenize(input: String): List<Result<Token>> {
-        var currentLine = 0
-        var currentColumn = 0
+        var currentLine = 1
+        var currentColumn = 1
         var current = ""
         var rematchMode = false
         val tokenizedString: MutableList<Result<Token>> = mutableListOf()
+        var lastWasEnter = false
 
         for (char in input) {
             current += char
-            if (char == '\n') {
+            if (lastWasEnter) {
                 currentLine++
-                currentColumn = 0
+                currentColumn = 1
+                lastWasEnter = false
             } else {
                 currentColumn++
             }
+            if (char == '\n') {
+                lastWasEnter = true
+            }
             when {
-                isInTokenList(current) && !rematchMode -> {
+                matchAnyTokenType(current) && !rematchMode -> {
                     rematchMode = true
                     continue
                 }
-                !isInTokenList(current) && rematchMode -> {
+                !matchAnyTokenType(current) && rematchMode -> {
                     tokenizedString.add(takeToken(current.dropLast(1), currentLine, currentColumn - current.length))
                     current = current.last().toString()
                     continue
                 }
-                isInTokenList(current) && rematchMode -> continue
+                matchAnyTokenType(current) && rematchMode -> continue
                 else -> {
                     current = ""
                     continue
@@ -42,7 +47,7 @@ class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Le
         return tokenizedString
     }
 
-    private fun isInTokenList(current: String): Boolean {
+    private fun matchAnyTokenType(current: String): Boolean {
         for (analyzer in listOfAnalyzers) {
             if (analyzer.analyze(current)) {
                 return true
@@ -61,6 +66,6 @@ class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Le
                 return Result.success(Token(current, analyzer.giveType(), line, column))
             }
         }
-        return Result.failure(Exception())
+        return Result.success(Token(current, token.TokenType.UNKNOWN, line, column))
     }
 }

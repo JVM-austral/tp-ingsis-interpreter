@@ -6,13 +6,13 @@ import executor.EnvExecutor
 import executor.InterpreterExecutor
 import interpreter.VariableInfo
 
-class EnvAnalyzer :InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Boolean {
+class EnvAnalyzer : InterpreterAnalyzer {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Boolean {
         val ast = statement.getOrNull() ?: return false
-        return ast is FunctionCallAst && ast.getValue()=="readEnv"
+        return ast is FunctionCallAst && ast.getValue() == "readEnv"
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): InterpreterExecutor {
         return EnvExecutor()
     }
 }

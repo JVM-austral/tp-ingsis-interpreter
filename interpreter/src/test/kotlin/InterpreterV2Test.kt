@@ -9,14 +9,26 @@ import analyzer.IfDeclarationAnalyzer
 import analyzer.TypeDeclarationAnalyzer
 import analyzer.VarDeclarationWithAssigmentBinaryAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
-import ast.*
+import ast.Ast
+import ast.BinaryOperation
+import ast.BooleanBinaryOperation
+import ast.BooleanLiteral
+import ast.FunctionCallAst
+import ast.IfDeclaration
+import ast.NumberLiteral
+import ast.StringLiteral
+import ast.TypeDeclaration
+import ast.VarDeclaration
+import ast.VarDefinition
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
-import factory.evaluators.AstEvaluationEngineV2
 import executor.TypeDeclarationExecutor
+import factory.evaluators.AstEvaluationEngineV2
 import interpreter.VariableInfo
 import mock.StdOutputHandler
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -44,11 +56,19 @@ class InterpreterV2Test {
     fun `VarDefinitionUnaryExecutor should identify Boolean TypeDeclaration and checks the block`() {
         heap["x"] = VariableInfo("boolean", "")
         val executor =
-            VarDefinitionUnaryAnalyzer(ConditionMessageHandler(listOf(MissMatchTypeCondition(listOf(
-                MissMatchNumberCondition(),
-                MissMatchStringCondition(),
-                MissMatchBooleanCondition()
-            ))))).getExecutor(heap, mutableMapOf())
+            VarDefinitionUnaryAnalyzer(
+                ConditionMessageHandler(
+                    listOf(
+                        MissMatchTypeCondition(
+                            listOf(
+                                MissMatchNumberCondition(),
+                                MissMatchStringCondition(),
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
+            ).getExecutor(heap, mutableMapOf())
         val literal = StringLiteral("hello", 0, 0)
         val assignment = VarDefinition("=", StringLiteral("x", 0, 0), literal, 0, 0)
         val result = Result.success(assignment as Ast)
@@ -61,10 +81,12 @@ class InterpreterV2Test {
 
     @Test
     fun `Var declaration with bool op assigment, should assign a bool value `() {
-        val analyzer =  VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),IsCompatibleTypeCondition(
-            mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)),
-            ConstDefinitionCondition()
+        val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
+            AstEvaluationEngineV2(),
+            IsCompatibleTypeCondition(
+                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
+            ),
+            ConstDefinitionCondition(),
         )
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val assigment = VarDeclaration(
@@ -76,10 +98,10 @@ class InterpreterV2Test {
                 BooleanLiteral("true", 0, 0),
                 BooleanLiteral("false", 0, 0),
                 0,
-                0
+                0,
             ),
             0,
-            0
+            0,
         )
         val result = Result.success(assigment as Ast)
         executor.execute(result, heap, mutableMapOf())
@@ -88,9 +110,13 @@ class InterpreterV2Test {
 
     @Test
     fun `Var declaration with bool op assigment, should fail with illegal arguments`() {
-        val analyzer =  VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),IsCompatibleTypeCondition(
-            mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)),ConstDefinitionCondition())
+        val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
+            AstEvaluationEngineV2(),
+            IsCompatibleTypeCondition(
+                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
+            ),
+            ConstDefinitionCondition(),
+        )
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val assigment = VarDeclaration(
             "let",
@@ -103,11 +129,14 @@ class InterpreterV2Test {
                     NumberLiteral("1", 0, 0),
                     NumberLiteral("1", 0, 0),
                     0,
-                    0
+                    0,
                 ),
-                BooleanLiteral("false", 0, 0), 0, 0
+                BooleanLiteral("false", 0, 0),
+                0,
+                0,
             ),
-            0, 0
+            0,
+            0,
         )
         val result = Result.success(assigment as Ast)
         val finalResult = executor.execute(result, heap, mutableMapOf())
@@ -116,9 +145,13 @@ class InterpreterV2Test {
 
     @Test
     fun `Var declaration with bool op assigment, should assign a value in a binary op`() {
-        val analyzer =  VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),IsCompatibleTypeCondition(
-            mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)),ConstDefinitionCondition())
+        val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
+            AstEvaluationEngineV2(),
+            IsCompatibleTypeCondition(
+                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
+            ),
+            ConstDefinitionCondition(),
+        )
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val assigment = VarDeclaration(
             "let",
@@ -131,12 +164,14 @@ class InterpreterV2Test {
                     NumberLiteral("1", 0, 0),
                     NumberLiteral("1", 0, 0),
                     0,
-                    0
+                    0,
                 ),
                 NumberLiteral("2.0", 0, 0),
                 0,
-                0
-            ), 0, 0
+                0,
+            ),
+            0,
+            0,
         )
         val result = Result.success(assigment as Ast)
         executor.execute(result, heap, mutableMapOf())
@@ -145,10 +180,10 @@ class InterpreterV2Test {
 
     @Test
     fun `conditional evaluator should run the correct block `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(),StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
-        val ifBlock= FunctionCallAst("println", listOf(StringLiteral("In if block",0,0)),0,0)
-        val elseBlock= FunctionCallAst("println", listOf(StringLiteral("In else block",0,0)),0,0)
+        val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
+        val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
         val result = Result.success(ifBlock as Ast)
         val result2 = Result.success(elseBlock as Ast)
         val ifDeclaration = IfDeclaration(
@@ -160,25 +195,27 @@ class InterpreterV2Test {
                     NumberLiteral("1", 0, 0),
                     NumberLiteral("1", 0, 0),
                     0,
-                    0
+                    0,
                 ),
                 NumberLiteral("2.0", 0, 0),
                 0,
-                0
+                0,
             ),
             listOf(result),
             listOf(result2),
-            0, 0
+            0,
+            0,
         )
         val ifResult = executor.execute(Result.success(ifDeclaration as Ast), heap, mutableMapOf())
         assertTrue(ifResult.isSuccess)
     }
+
     @Test
     fun `conditional evaluator should fail if condition is not boolean `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(),StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
-        val ifBlock= FunctionCallAst("println", listOf(StringLiteral("In if block",0,0)),0,0)
-        val elseBlock= FunctionCallAst("println", listOf(StringLiteral("In else block",0,0)),0,0)
+        val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
+        val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
         val result = Result.success(ifBlock as Ast)
         val result2 = Result.success(elseBlock as Ast)
         val ifDeclaration = IfDeclaration(
@@ -188,21 +225,23 @@ class InterpreterV2Test {
                 NumberLiteral("1", 0, 0),
                 NumberLiteral("1", 0, 0),
                 0,
-                0
+                0,
             ),
             listOf(result),
             listOf(result2),
-            0, 0
+            0,
+            0,
         )
         val ifResult = executor.execute(Result.success(ifDeclaration as Ast), heap, mutableMapOf())
         assertTrue(ifResult.isFailure)
     }
+
     @Test
     fun `conditional evaluator should run the else block `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(),StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
-        val ifBlock= FunctionCallAst("println", listOf(StringLiteral("In if block",0,0)),0,0)
-        val elseBlock= FunctionCallAst("println", listOf(StringLiteral("In else block",0,0)),0,0)
+        val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
+        val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
         val result = Result.success(ifBlock as Ast)
         val result2 = Result.success(elseBlock as Ast)
         val ifDeclaration = IfDeclaration(
@@ -214,22 +253,24 @@ class InterpreterV2Test {
                     NumberLiteral("1", 0, 0),
                     NumberLiteral("1", 0, 0),
                     0,
-                    0
+                    0,
                 ),
                 NumberLiteral("3.0", 0, 0),
                 0,
-                0
+                0,
             ),
             listOf(result),
             listOf(result2),
-            0, 0
+            0,
+            0,
         )
         val ifResult = executor.execute(Result.success(ifDeclaration as Ast), heap, mutableMapOf())
         assertTrue(ifResult.isSuccess)
     }
+
     @Test
     fun `should execute multiple ifs correctly`() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(),StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
 
         val ifBlock1 = FunctionCallAst("println", listOf(StringLiteral("En primer if", 0, 0)), 0, 0)
@@ -242,11 +283,13 @@ class InterpreterV2Test {
                 "==",
                 NumberLiteral("1", 0, 0),
                 NumberLiteral("1", 0, 0),
-                0, 0
+                0,
+                0,
             ),
             listOf(resultIf1),
             listOf(resultElse1),
-            0, 0
+            0,
+            0,
         )
 
         val ifBlock2 = FunctionCallAst("println", listOf(StringLiteral("En segundo if", 0, 0)), 0, 0)
@@ -259,11 +302,13 @@ class InterpreterV2Test {
                 "==",
                 NumberLiteral("2", 0, 0),
                 NumberLiteral("3", 0, 0),
-                0, 0
+                0,
+                0,
             ),
             listOf(resultIf2),
             listOf(resultElse2),
-            0, 0
+            0,
+            0,
         )
 
         val res1 = executor.execute(Result.success(ifDeclaration1 as Ast), heap, mutableMapOf())
@@ -272,11 +317,11 @@ class InterpreterV2Test {
         assertTrue(res1.isSuccess) // Se ejecuta el bloque if del primero
         assertTrue(res2.isSuccess) // Se ejecuta el bloque else del segundo
     }
+
     @Test
     fun `should execute recursive ifs`() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(),StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
-
 
         val innerIfBlock = FunctionCallAst("println", listOf(StringLiteral("En if interno", 0, 0)), 0, 0)
         val innerElseBlock = FunctionCallAst("println", listOf(StringLiteral("En else interno", 0, 0)), 0, 0)
@@ -285,7 +330,8 @@ class InterpreterV2Test {
             BooleanBinaryOperation("==", NumberLiteral("2", 0, 0), NumberLiteral("2", 0, 0), 0, 0),
             listOf(Result.success(innerIfBlock as Ast)),
             listOf(Result.success(innerElseBlock as Ast)),
-            0, 0
+            0,
+            0,
         )
 
         val outerIfBlock = innerIfDeclaration
@@ -295,10 +341,10 @@ class InterpreterV2Test {
             BooleanBinaryOperation("==", NumberLiteral("1", 0, 0), NumberLiteral("1", 0, 0), 0, 0),
             listOf(Result.success(outerIfBlock as Ast)),
             listOf(Result.success(outerElseBlock as Ast)),
-            0, 0
+            0,
+            0,
         )
-       val result = executor.execute(Result.success(outerIfDeclaration as Ast), heap, mutableMapOf())
+        val result = executor.execute(Result.success(outerIfDeclaration as Ast), heap, mutableMapOf())
         assertTrue(result.isSuccess)
     }
-
 }

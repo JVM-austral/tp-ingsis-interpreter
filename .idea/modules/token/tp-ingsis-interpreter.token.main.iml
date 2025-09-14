@@ -38,7 +38,7 @@
     <content url="file://$MODULE_DIR$/../../../token/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../token/src/main/kotlin" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />

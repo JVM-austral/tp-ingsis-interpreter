@@ -5,9 +5,9 @@ import ast.FunctionCallAst
 import interpreter.VariableInfo
 import mock.OutputHandler
 
-class FunctionCallEvaluator (
+class FunctionCallEvaluator(
     private val engine: AstEvaluator,
-    private val outputHandler: OutputHandler
+    private val outputHandler: OutputHandler,
 ) : AstEvaluator {
     override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Any {
         val functionAst = ast as FunctionCallAst

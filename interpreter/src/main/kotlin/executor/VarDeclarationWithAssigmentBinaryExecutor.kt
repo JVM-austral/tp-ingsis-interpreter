@@ -7,28 +7,28 @@ import ast.Ast
 import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator, private val isCompatibleTypeCondition: IsCompatibleTypeCondition,private val constCondition:Condition) : InterpreterExecutor {
-    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Result<Ast> {
+class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator, private val isCompatibleTypeCondition: IsCompatibleTypeCondition, private val constCondition: Condition) : InterpreterExecutor {
+    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
                     val (variable, type, expression) = astDecomposition(ast)
 
-                    val (evaluatedValue, conditionMessageHandler) = settingConditionHandler(expression, heap,env)
+                    val (evaluatedValue, conditionMessageHandler) = settingConditionHandler(expression, heap, env)
 
                     val resultError = conditionMessageHandler.handleConditionMessage(statement, heap)
                     if (resultError.isFailure) {
                         return Result.failure(Exception(resultError.toString()))
                     }
-                    val errorConstResult=constCondition.evaluate(statement, heap)
-                    if (errorConstResult!=null) {
+                    val errorConstResult = constCondition.evaluate(statement, heap)
+                    if (errorConstResult != null) {
                         return Result.failure(Exception(errorConstResult))
                     }
                     if (heap.containsKey(variable) && heap[variable]?.isConstant == true) {
                         return Result.failure(Exception("La variable $variable es una constante y no puede ser reasignada"))
                     }
-                    val isConstant= ast.getValue() == "const"
-                    appendingInTheHeap(heap, variable, type, evaluatedValue, ast,isConstant)
+                    val isConstant = ast.getValue() == "const"
+                    appendingInTheHeap(heap, variable, type, evaluatedValue, ast, isConstant)
                 } catch (e: ArithmeticException) {
                     Result.failure(Exception(e.message))
                 } catch (e: Exception) {
@@ -47,7 +47,7 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator
         type: String,
         evaluatedValue: Any,
         ast: Ast,
-        isConstant:Boolean
+        isConstant: Boolean,
     ): Result<Ast> {
         heap[variable] = VariableInfo(type, evaluatedValue.toString(), isConstant)
         return Result.success(ast)
@@ -56,9 +56,9 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator
     private fun settingConditionHandler(
         expression: Ast,
         heap: MutableMap<String, VariableInfo>,
-        env:MutableMap<String,String>
+        env: MutableMap<String, String>,
     ): Pair<Any, ConditionMessageHandler> {
-        val evaluatedValue = engine.evaluate(expression, heap,env)
+        val evaluatedValue = engine.evaluate(expression, heap, env)
         isCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
         val conditionMessageHandler = ConditionMessageHandler(listOf(isCompatibleTypeCondition))
         return Pair(evaluatedValue, conditionMessageHandler)

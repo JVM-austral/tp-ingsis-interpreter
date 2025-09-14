@@ -1,35 +1,30 @@
 package commands.factory
 
 import Linter
+import commands.Version
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
-import factory.version.first.linterfactory.LinterFactoryV1
+import factory.version.first.linterfactory.LinterFactoryV1WithJson
 import lexer.Lexer
 import parser.Parser
 
-class LintCommandFactory {
-
-    fun getLexerV1(): Lexer {
-        return LexerFactoryV1().create()
+class LintCommandFactory(private val version: Version, private val linterConfigPath: String?) {
+    fun getLexer(): Lexer {
+        return when (version) {
+            Version.V1 -> LexerFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
-
-    fun getParserV1(): Parser {
-        return ParserFactoryV1().create()
+    fun getParser(): Parser {
+        return when (version) {
+            Version.V1 -> ParserFactoryV1().create()
+            Version.V2 -> TODO()
+        }
     }
-
-    fun getLinterV1(): Linter {
-        return LinterFactoryV1().create()
-    }
-
-    fun getLexerV2(): Lexer {
-        TODO()
-    }
-
-    fun getParserV2(): Parser {
-        TODO()
-    }
-
-    fun getLinterV2(): Linter {
-        TODO()
+    fun getLinter(): Linter {
+        return when (version) {
+            Version.V1 -> LinterFactoryV1WithJson(linterConfigPath).create()
+            Version.V2 -> TODO()
+        }
     }
 }

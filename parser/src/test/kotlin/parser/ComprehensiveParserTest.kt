@@ -37,9 +37,9 @@ class ComprehensiveParserTest {
 
     @BeforeEach
     fun setUp() {
-        letAnalyzer = LetVariableDeclarationAnalyzer()
-        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer()
-        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer()
+        letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let"))
+        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
+        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()
@@ -346,8 +346,6 @@ class ComprehensiveParserTest {
                 Token("greeting", TokenType.IDENTIFIER, 1, 1),
                 Token("=", TokenType.OPERATOR, 1, 2),
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
-                Token("+", TokenType.OPERATOR, 1, 4),
-                Token("\"world\"", TokenType.STRING_LITERAL, 1, 5),
                 Token(";", TokenType.PUNCTUATION, 1, 6),
 
             )

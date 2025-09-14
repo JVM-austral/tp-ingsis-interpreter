@@ -16,7 +16,9 @@ class LetVariableDeclarationWithInputAssignmentExecutor : StructureExecutor {
             TypeDeclaration(tokens[3].value, tokens[3].line, tokens[3].column),
             FunctionCallAst(
                 tokens[5].value,
-                listOf(),
+                listOf(
+                    StringLiteral(tokens[7].value, tokens[7].line, tokens[7].column),
+                ),
                 tokens[5].line,
                 tokens[5].column,
             ),

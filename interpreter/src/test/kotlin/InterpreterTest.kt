@@ -27,8 +27,6 @@ import ast.VarDefinition
 import ast.VariableIdentifier
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
-import factory.evaluators.AstEvaluationEngineV1
-import factory.evaluators.AstEvaluationEngineV2
 import executor.FailInterpreterExecutor
 import executor.PrintLnExecutor
 import executor.TypeDeclarationExecutor
@@ -36,12 +34,18 @@ import executor.VarDeclarationWithAssigmentBinaryExecutor
 import executor.VarDeclarationWithAssigmentUnaryExecutor
 import executor.VarDefinitionBinaryExecutor
 import executor.VarDefinitionUnaryExecutor
+import factory.evaluators.AstEvaluationEngineV1
+import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
 import mock.MockOutputHandler
 import mock.StdOutputHandler
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertInstanceOf
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -77,10 +81,11 @@ class InterpreterTest {
     @Test
     fun `VarDeclarationWithAssigmentBinaryAnalyzer should identify VarDeclaration with BinaryOperation`() {
         val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(), IsCompatibleTypeCondition(
-                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)
+            AstEvaluationEngineV2(),
+            IsCompatibleTypeCondition(
+                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
-            ConstDefinitionCondition()
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("+", NumberLiteral("5", 0, 0), NumberLiteral("3", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("number", 0, 0), binaryOp, 0, 0)
@@ -116,10 +121,13 @@ class InterpreterTest {
     @Test
     fun `VarDefinitionBinaryAnalyzer should identify Assignment with BinaryOperation`() {
         val analyzer = VarDefinitionBinaryAnalyzer(
-            AstEvaluationEngineV2(), IsCompatibleTypeCondition(
-                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)
+            AstEvaluationEngineV2(),
+            IsCompatibleTypeCondition(
+                mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
-            VarDefinitionBinaryStructureCondition(), PriorityDeclarationCondition(), ConstDefinitionCondition()
+            VarDefinitionBinaryStructureCondition(),
+            PriorityDeclarationCondition(),
+            ConstDefinitionCondition(),
 
         )
         val binaryOp = BinaryOperation("*", NumberLiteral("4", 0, 0), NumberLiteral("2", 0, 0), 0, 0)
@@ -140,11 +148,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             )
         val literal = NumberLiteral("42", 0, 0)
         val assignment = VarDefinition("=", StringLiteral("z", 0, 0), literal, 0, 0)
@@ -189,7 +197,7 @@ class InterpreterTest {
     @Test
     fun `VarDeclarationWithAssigmentUnaryExecutor should assign value to variable`() {
         val executor = VarDeclarationWithAssigmentUnaryExecutor(
-            ConditionMessageHandler(listOf(ConstDefinitionCondition()))
+            ConditionMessageHandler(listOf(ConstDefinitionCondition())),
         )
         val literal = StringLiteral("hello", 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("string", 0, 0), literal, 0, 0)
@@ -213,7 +221,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("+", NumberLiteral("5", 0, 0), NumberLiteral("3", 0, 0), 0, 0) // Cambio aquí
         val varDecl =
@@ -238,7 +247,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("+", StringLiteral("Hello", 0, 0), StringLiteral(" World", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("string", 0, 0), binaryOp, 0, 0)
@@ -262,7 +272,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("/", NumberLiteral("10", 0, 0), NumberLiteral("0", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("number", 0, 0), binaryOp, 0, 0)
@@ -288,7 +299,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("+", StringLiteral("Hello", 0, 0), StringLiteral(" World", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("number", 0, 0), binaryOp, 0, 0)
@@ -310,7 +322,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("-", NumberLiteral("10", 0, 0), NumberLiteral("4", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("number", 0, 0), binaryOp, 0, 0)
@@ -332,7 +345,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("*", NumberLiteral("6", 0, 0), NumberLiteral("7", 0, 0), 0, 0) // 6*7=42
         val varDecl =
@@ -356,7 +370,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("/", NumberLiteral("10", 0, 0), NumberLiteral("2", 0, 0), 0, 0) // 10/2=5.0
         val varDecl =
@@ -378,7 +393,8 @@ class InterpreterTest {
                     "string" to String::class,
                     "boolean" to Boolean::class,
                 ),
-            ), ConstDefinitionCondition()
+            ),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("+", NumberLiteral("2.5", 0, 0), NumberLiteral("3.7", 0, 0), 0, 0)
         val varDecl = VarDeclaration("let", StringLiteral("x", 0, 0), TypeDeclaration("number", 0, 0), binaryOp, 0, 0)
@@ -400,11 +416,12 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        ), PriorityDeclarationCondition()
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                        PriorityDeclarationCondition(),
+                    ),
+                ),
             ).getExecutor(heap, mutableMapOf()) as VarDefinitionUnaryExecutor
         val literal = NumberLiteral("42", 0, 0)
         val assignment = VarDefinition("=", StringLiteral("x", 0, 0), literal, 0, 0)
@@ -430,11 +447,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             ).getExecutor(heap, mutableMapOf()) as VarDefinitionUnaryExecutor
         val literal = StringLiteral("hello", 0, 0)
         val assignment = VarDefinition("=", StringLiteral("x", 0, 0), literal, 0, 0)
@@ -458,11 +475,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             ).getExecutor(heap, mutableMapOf()) as VarDefinitionUnaryExecutor
         val literal = NumberLiteral("99", 0, 0)
         val assignment = VarDefinition("=", StringLiteral("x", 0, 0), literal, 0, 0)
@@ -490,7 +507,8 @@ class InterpreterTest {
                 ),
             ),
             VarDefinitionBinaryStructureCondition(),
-            PriorityDeclarationCondition(), ConstDefinitionCondition()
+            PriorityDeclarationCondition(),
+            ConstDefinitionCondition(),
         )
         val leftVar = VariableIdentifier("a", 0, 0)
         val rightVar = VariableIdentifier("b", 0, 0)
@@ -518,7 +536,8 @@ class InterpreterTest {
                 ),
             ),
             VarDefinitionBinaryStructureCondition(),
-            PriorityDeclarationCondition(), ConstDefinitionCondition()
+            PriorityDeclarationCondition(),
+            ConstDefinitionCondition(),
         )
         val leftVar = VariableIdentifier("nonexistent", 0, 0)
         val rightVar = NumberLiteral("5", 0, 0)
@@ -544,7 +563,8 @@ class InterpreterTest {
                 ),
             ),
             VarDefinitionBinaryStructureCondition(),
-            PriorityDeclarationCondition(), ConstDefinitionCondition()
+            PriorityDeclarationCondition(),
+            ConstDefinitionCondition(),
         )
         val binaryOp = BinaryOperation("/", NumberLiteral("10", 0, 0), NumberLiteral("0", 0, 0), 0, 0)
         val assignment = VarDefinition("=", StringLiteral("result", 0, 0), binaryOp, 0, 0)
@@ -580,11 +600,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             ),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
@@ -618,11 +638,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             ),
         )
         val interpreter = InterpreterImplementation(analyzers, heap, mutableMapOf())
@@ -635,8 +655,8 @@ class InterpreterTest {
                     TypeDeclaration("string", 0, 0),
                     StringLiteral("hello", 0, 0),
                     0,
-                    0
-                ) as Ast
+                    0,
+                ) as Ast,
             ),
         )
 
@@ -664,11 +684,11 @@ class InterpreterTest {
                             listOf(
                                 MissMatchNumberCondition(),
                                 MissMatchStringCondition(),
-                                MissMatchBooleanCondition()
-                            )
-                        )
-                    )
-                )
+                                MissMatchBooleanCondition(),
+                            ),
+                        ),
+                    ),
+                ),
             ),
         )
         val initialHeap = mutableMapOf("x" to VariableInfo("number", "0"))
@@ -739,8 +759,8 @@ class InterpreterTest {
                     TypeDeclaration("string", 0, 0),
                     StringLiteral("hello", 0, 0),
                     0,
-                    0
-                ) as Ast
+                    0,
+                ) as Ast,
             ),
             Result.success(TypeDeclaration("x", 0, 0) as Ast), // Should fail - duplicate declaration
             Result.success(
@@ -750,8 +770,8 @@ class InterpreterTest {
                     TypeDeclaration("number", 0, 0),
                     NumberLiteral("42", 0, 0),
                     0,
-                    0
-                ) as Ast
+                    0,
+                ) as Ast,
             ),
         )
 
@@ -774,16 +794,21 @@ class InterpreterTest {
     fun `Complex expression evaluation should work correctly`() {
         val analyzers = listOf(
             VarDeclarationWithAssigmentBinaryAnalyzer(
-                AstEvaluationEngineV2(), IsCompatibleTypeCondition(
-                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)
-                ), ConstDefinitionCondition()
+                AstEvaluationEngineV2(),
+                IsCompatibleTypeCondition(
+                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
+                ),
+                ConstDefinitionCondition(),
             ),
             VarDeclarationWithAssigmentUnaryAnalyzer(ConditionMessageHandler(listOf(ConstDefinitionCondition()))),
             VarDefinitionBinaryAnalyzer(
-                AstEvaluationEngineV2(), IsCompatibleTypeCondition(
-                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)
+                AstEvaluationEngineV2(),
+                IsCompatibleTypeCondition(
+                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
                 ),
-                VarDefinitionBinaryStructureCondition(), PriorityDeclarationCondition(), ConstDefinitionCondition()
+                VarDefinitionBinaryStructureCondition(),
+                PriorityDeclarationCondition(),
+                ConstDefinitionCondition(),
 
             ),
         )
@@ -983,9 +1008,11 @@ class InterpreterTest {
         val analyzers = listOf<InterpreterAnalyzer>(
             TypeDeclarationAnalyzer(),
             VarDeclarationWithAssigmentBinaryAnalyzer(
-                AstEvaluationEngineV2(), IsCompatibleTypeCondition(
-                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class)
-                ), ConstDefinitionCondition()
+                AstEvaluationEngineV2(),
+                IsCompatibleTypeCondition(
+                    mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
+                ),
+                ConstDefinitionCondition(),
             ),
             PrintLnAnalyzer(StdOutputHandler(), AstEvaluationEngineV2()),
         )
@@ -1063,7 +1090,7 @@ class InterpreterTest {
 
     @Test
     fun `Const assigment must not be mutated`() {
-        val interpreter= InterpreterFactory().createInterpreterV1(heap,StdOutputHandler(), mutableMapOf())
+        val interpreter = InterpreterFactory().createInterpreterV1(heap, StdOutputHandler(), mutableMapOf())
         val statements = listOf(
             Result.success(
                 VarDeclaration(

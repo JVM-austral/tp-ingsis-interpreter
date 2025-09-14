@@ -29,6 +29,7 @@ class IfElseBlocksParserTest {
             Token("1", TokenType.NUMBER_LITERAL, 1, 10),
             Token(";", TokenType.PUNCTUATION, 1, 11),
             Token("}", TokenType.PUNCTUATION, 1, 12),
+
         )
 
         assertTrue(ifAnalyzer.analyzeStructure(tokens))

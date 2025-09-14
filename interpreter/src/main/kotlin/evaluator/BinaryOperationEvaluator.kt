@@ -6,10 +6,10 @@ import evaluator.binarystrategy.BinaryOperationStrategy
 import interpreter.VariableInfo
 
 class BinaryOperationEvaluator(private val engine: AstEvaluator, private val strategies: List<BinaryOperationStrategy>) : AstEvaluator {
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Any {
         val node = ast as BinaryOperation
-        val left = engine.evaluate(node.getListOfChildren()[0], heap,env)
-        val right = engine.evaluate(node.getListOfChildren()[1], heap,env)
+        val left = engine.evaluate(node.getListOfChildren()[0], heap, env)
+        val right = engine.evaluate(node.getListOfChildren()[1], heap, env)
         for (strategy in strategies) {
             if (strategy.canExecute(node.getValue())) {
                 return strategy.execute(left, right)
