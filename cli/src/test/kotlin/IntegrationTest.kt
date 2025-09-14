@@ -1,6 +1,7 @@
 import factory.interpreters.InterpreterFactory
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
+import interpreter.ExecutionEngine
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -35,7 +36,8 @@ class IntegrationTest {
         }
 
         val result = interpreter.interpret(astResults)
-        val finalResult = interpreter.runAll()
+
+        val finalResult =ExecutionEngine(mutableMapOf(), mutableMapOf()).runAll(result)
 
         // Optionally print interpretation result if needed
         finalResult.forEach { r ->

@@ -31,7 +31,7 @@ class AstEvaluationEngineV1(private val outputHandler: OutputHandler = StdOutput
         FunctionCallAst::class.java to PrintLnEvaluator(this, outputHandler),
     )
 
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Any {
         val evaluator = evaluators[ast::class.java]
             ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
         return evaluator.evaluate(ast, heap, env)

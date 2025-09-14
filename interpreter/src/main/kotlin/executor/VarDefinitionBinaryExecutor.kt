@@ -19,7 +19,7 @@ class VarDefinitionBinaryExecutor(
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
-        env:  MutableMap<String, Ast>,
+        env: MutableMap<String, Ast>,
     ): Result<Ast> {
         val structureError = structureCondition.evaluate(statement, heap)
         if (structureError != null) return errorResult(structureError)
