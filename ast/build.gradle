@@ -7,6 +7,10 @@ plugins {
 }
 dependencies {
     implementation project(":token")
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+
 }
 
 group = 'org.JVM-austral'

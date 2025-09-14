@@ -17,6 +17,8 @@ import analyzer.VarDefinitionBinaryAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
+import evaluator.input.InputProvider
+import evaluator.input.LiteralConverter
 import factory.evaluators.EvaluatorFactory
 import mock.OutputHandler
 
@@ -27,7 +29,12 @@ class AnalyzerFactory {
         return listOf(
             PrintLnAnalyzer(outputHandler, engineV1),
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(ConditionMessageHandler(listOf(ConstDefinitionCondition()))),
+            VarDeclarationWithAssigmentUnaryAnalyzer(engineV1,ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
+                mapOf(
+                    "number" to Number::class,
+                    "string" to String::class,
+                ),
+            )),
             VarDeclarationWithAssigmentBinaryAnalyzer(
                 engineV1,
                 IsCompatibleTypeCondition(
@@ -63,13 +70,21 @@ class AnalyzerFactory {
             ),
         )
     }
-    fun createAnalyzerV2(outputHandler: OutputHandler): List<InterpreterAnalyzer> {
-        val engineV2 = evaluatorFactory.createEvaluationEngineV2(outputHandler)
+    fun createAnalyzerV2(outputHandler: OutputHandler, inputProvider: InputProvider,
+                          converter: LiteralConverter
+    ): List<InterpreterAnalyzer> {
+        val engineV2 = evaluatorFactory.createEvaluationEngineV2(outputHandler, inputProvider, converter)
         return listOf(
-            IfDeclarationAnalyzer(engineV2, outputHandler),
+            IfDeclarationAnalyzer(engineV2, outputHandler,inputProvider, converter),
             PrintLnAnalyzer(outputHandler, engineV2),
             TypeDeclarationAnalyzer(),
-            VarDeclarationWithAssigmentUnaryAnalyzer(ConditionMessageHandler(listOf(ConstDefinitionCondition()))),
+            VarDeclarationWithAssigmentUnaryAnalyzer(engineV2,ConditionMessageHandler(listOf(ConstDefinitionCondition())),IsCompatibleTypeCondition(
+                mapOf(
+                    "number" to Number::class,
+                    "string" to String::class,
+                    "boolean" to Boolean::class,
+                ),
+            )),
             VarDeclarationWithAssigmentBinaryAnalyzer(
                 engineV2,
                 IsCompatibleTypeCondition(

@@ -22,8 +22,11 @@ import ast.VarDeclaration
 import ast.VarDefinition
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
+import evaluator.input.LiteralConverter
+import evaluator.input.MockInputProvider
 import executor.TypeDeclarationExecutor
 import factory.evaluators.AstEvaluationEngineV2
+import factory.interpreters.InterpreterFactory
 import interpreter.VariableInfo
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -82,7 +85,7 @@ class InterpreterV2Test {
     @Test
     fun `Var declaration with bool op assigment, should assign a bool value `() {
         val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),
+            AstEvaluationEngineV2(StdOutputHandler(), MockInputProvider("hola"), LiteralConverter(),),
             IsCompatibleTypeCondition(
                 mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
@@ -111,7 +114,7 @@ class InterpreterV2Test {
     @Test
     fun `Var declaration with bool op assigment, should fail with illegal arguments`() {
         val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),
+            AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
             IsCompatibleTypeCondition(
                 mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
@@ -146,7 +149,7 @@ class InterpreterV2Test {
     @Test
     fun `Var declaration with bool op assigment, should assign a value in a binary op`() {
         val analyzer = VarDeclarationWithAssigmentBinaryAnalyzer(
-            AstEvaluationEngineV2(),
+            AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),),
             IsCompatibleTypeCondition(
                 mapOf("number" to Number::class, "string" to String::class, "boolean" to Boolean::class),
             ),
@@ -180,7 +183,7 @@ class InterpreterV2Test {
 
     @Test
     fun `conditional evaluator should run the correct block `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),), StdOutputHandler(),MockInputProvider("hola"),LiteralConverter())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
         val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
@@ -212,7 +215,7 @@ class InterpreterV2Test {
 
     @Test
     fun `conditional evaluator should fail if condition is not boolean `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),), StdOutputHandler(),MockInputProvider("hola"),LiteralConverter())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
         val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
@@ -238,7 +241,7 @@ class InterpreterV2Test {
 
     @Test
     fun `conditional evaluator should run the else block `() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),), StdOutputHandler(),MockInputProvider("hola"),LiteralConverter())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
         val ifBlock = FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0)
         val elseBlock = FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0)
@@ -270,7 +273,7 @@ class InterpreterV2Test {
 
     @Test
     fun `should execute multiple ifs correctly`() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),), StdOutputHandler(),MockInputProvider("hola"),LiteralConverter())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
 
         val ifBlock1 = FunctionCallAst("println", listOf(StringLiteral("En primer if", 0, 0)), 0, 0)
@@ -320,7 +323,7 @@ class InterpreterV2Test {
 
     @Test
     fun `should execute recursive ifs`() {
-        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(), StdOutputHandler())
+        val analyzer = IfDeclarationAnalyzer(AstEvaluationEngineV2(StdOutputHandler(),MockInputProvider("hola"),LiteralConverter(),), StdOutputHandler(),MockInputProvider("hola"),LiteralConverter())
         val executor = analyzer.getExecutor(heap, mutableMapOf())
 
         val innerIfBlock = FunctionCallAst("println", listOf(StringLiteral("En if interno", 0, 0)), 0, 0)
@@ -346,5 +349,36 @@ class InterpreterV2Test {
         )
         val result = executor.execute(Result.success(outerIfDeclaration as Ast), heap, mutableMapOf())
         assertTrue(result.isSuccess)
+    }
+    @Test
+    fun `should assign from env `() {
+        val env = mutableMapOf("MY_VAR" to StringLiteral("Hello from env", 0, 0) as Ast)
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), env,MockInputProvider("hola"),LiteralConverter(),)
+        val assigment = VarDeclaration(
+            "let",
+            StringLiteral("x", 0, 0),
+            TypeDeclaration("string", 0, 0),
+            FunctionCallAst("readEnv", listOf(StringLiteral("MY_VAR", 0, 0)), 0, 0),
+            0,
+            0,
+        )
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast)))
+        interpreter.runAll()
+        assertEquals("Hello from env", heap["x"]?.value)
+    }
+    @Test
+    fun `should assign from input `() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("hello world"),LiteralConverter(),)
+        val assigment = VarDeclaration(
+            "let",
+            StringLiteral("x", 0, 0),
+            TypeDeclaration("string", 0, 0),
+            FunctionCallAst("input", listOf(StringLiteral("hola:",0,0)), 0, 0),
+            0,
+            0,
+        )
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast)))
+        val finalResult=interpreter.runAll()
+        assertEquals("hello world", heap["x"]?.value)
     }
 }
