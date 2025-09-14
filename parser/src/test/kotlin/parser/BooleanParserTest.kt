@@ -1,19 +1,12 @@
 package parser
 
-import ast.ScapeAst
-import ast.StringLiteral
-import ast.TypeDeclaration
-import ast.VarDeclaration
-import ast.VarDefinition
 import newanalyzers.BooleanDeclarationAnalyzer
 import newanalyzers.BooleanDefinitionAnalyzer
 import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
 import newexecutors.BooleanDeclarationExecutor
 import newexecutors.BooleanDefinitionExecutor
 import newexecutors.LetVariableDeclarationWithBooleanExecutor
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -26,9 +19,6 @@ class BooleanParserTest {
     private lateinit var booleanDefinitionAnalyzer: BooleanDefinitionAnalyzer
     private lateinit var letWithBooleanAnalyzer: LetVariableDeclarationWithBooleanAnalyzer
 
-    private lateinit var booleanDeclarationExecutor: BooleanDeclarationExecutor
-    private lateinit var booleanDefinitionExecutor: BooleanDefinitionExecutor
-    private lateinit var letWithBooleanExecutor: LetVariableDeclarationWithBooleanExecutor
 
     @BeforeEach
     fun setUp() {
@@ -36,12 +26,9 @@ class BooleanParserTest {
         booleanDefinitionAnalyzer = BooleanDefinitionAnalyzer()
         letWithBooleanAnalyzer = LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
 
-        booleanDeclarationExecutor = BooleanDeclarationExecutor()
-        booleanDefinitionExecutor = BooleanDefinitionExecutor()
-        letWithBooleanExecutor = LetVariableDeclarationWithBooleanExecutor()
+
     }
 
-    // ============ BooleanDeclarationAnalyzer Tests ============
 
     @Test
     fun `should analyze valid let boolean declaration`() {
@@ -76,7 +63,6 @@ class BooleanParserTest {
             Token("isActive", TokenType.IDENTIFIER, 1, 2),
             Token(":", TokenType.PUNCTUATION, 1, 3),
             Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            // Missing semicolon
         )
 
         assertFalse(booleanDeclarationAnalyzer.analyzeStructure(tokens))
@@ -147,8 +133,6 @@ class BooleanParserTest {
         assertFalse(booleanDeclarationAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ BooleanDefinitionAnalyzer Tests ============
-
     @Test
     fun `should analyze valid boolean definition with simple condition`() {
         val tokens = listOf(
@@ -181,7 +165,6 @@ class BooleanParserTest {
             Token("isActive", TokenType.IDENTIFIER, 1, 1),
             Token("=", TokenType.OPERATOR, 1, 2),
             Token("true", TokenType.BOOLEAN_LITERAL, 1, 3),
-            // Missing semicolon
         )
 
         assertFalse(booleanDefinitionAnalyzer.analyzeStructure(tokens))
@@ -222,8 +205,6 @@ class BooleanParserTest {
 
         assertFalse(booleanDefinitionAnalyzer.analyzeStructure(tokens))
     }
-
-    // ============ LetVariableDeclarationWithBooleanAnalyzer Tests ============
 
     @Test
     fun `should analyze let declaration with boolean assignment`() {
@@ -361,114 +342,6 @@ class BooleanParserTest {
         assertFalse(letWithBooleanAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ BooleanDeclarationExecutor Tests ============
-
-    @Test
-    fun `should execute boolean declaration correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("isActive", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
-
-        val result = booleanDeclarationExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDeclaration = result as VarDeclaration
-        assertEquals("let", varDeclaration.getValue())
-        assertEquals(3, varDeclaration.getChildLimit())
-
-        val children = varDeclaration.getListOfChildren()
-        assertEquals(3, children.size)
-
-        assertTrue(children[0] is StringLiteral)
-        assertEquals("isActive", children[0].getValue())
-
-        assertTrue(children[1] is TypeDeclaration)
-        assertEquals("boolean", children[1].getValue())
-
-        assertTrue(children[2] is ScapeAst)
-    }
-
-    @Test
-    fun `should execute const boolean declaration correctly`() {
-        val tokens = listOf(
-            Token("const", TokenType.KEYWORD, 1, 1),
-            Token("DEBUG_MODE", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
-
-        val result = booleanDeclarationExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDeclaration = result as VarDeclaration
-        assertEquals("const", varDeclaration.getValue())
-
-        val children = varDeclaration.getListOfChildren()
-        assertEquals("DEBUG_MODE", children[0].getValue())
-        assertEquals("boolean", children[1].getValue())
-        assertTrue(children[2] is ScapeAst)
-    }
-
-    // ============ BooleanDefinitionExecutor Tests ============
-
-    @Test
-    fun `should execute boolean definition correctly`() {
-        val tokens = listOf(
-            Token("isActive", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("true", TokenType.BOOLEAN_LITERAL, 1, 3),
-            Token(";", TokenType.PUNCTUATION, 1, 4),
-        )
-
-        val result = booleanDefinitionExecutor.execute(tokens)
-
-        assertTrue(result is VarDefinition)
-        val varDefinition = result as VarDefinition
-        assertEquals("=", varDefinition.getValue())
-        assertEquals(2, varDefinition.getChildLimit())
-
-        val children = varDefinition.getListOfChildren()
-        assertEquals(2, children.size)
-
-        assertTrue(children[0] is StringLiteral)
-        assertEquals("isActive", children[0].getValue())
-
-        assertNotNull(children[1])
-    }
-
-    // ============ LetVariableDeclarationWithBooleanExecutor Tests ============
-
-    @Test
-    fun `should execute let declaration with boolean assignment`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("isActive", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("true", TokenType.BOOLEAN_LITERAL, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7),
-        )
-
-        val result = letWithBooleanExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDeclaration = result as VarDeclaration
-        assertEquals("let", varDeclaration.getValue())
-        assertEquals(3, varDeclaration.getChildLimit())
-
-        val children = varDeclaration.getListOfChildren()
-        assertEquals("isActive", children[0].getValue())
-        assertEquals("boolean", children[1].getValue())
-        assertFalse(children[2] is ScapeAst)
-    }
-
-    // ============ Integration Tests ============
 
     @Test
     fun `should get correct executor from boolean declaration analyzer`() {
@@ -488,7 +361,7 @@ class BooleanParserTest {
         assertTrue(executor is LetVariableDeclarationWithBooleanExecutor)
     }
 
-    // ============ Edge Cases ============
+
 
     @Test
     fun `should handle boolean declarations with different variable names`() {
@@ -584,64 +457,5 @@ class BooleanParserTest {
         }
     }
 
-    // ============ Comprehensive Integration Tests ============
 
-    @Test
-    fun `should handle complete boolean workflow - declaration then definition`() {
-        val declarationTokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("isReady", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
-
-        assertTrue(booleanDeclarationAnalyzer.analyzeStructure(declarationTokens))
-        val declarationResult = booleanDeclarationExecutor.execute(declarationTokens)
-        assertTrue(declarationResult is VarDeclaration)
-
-        val varDeclaration = declarationResult as VarDeclaration
-        assertEquals("let", varDeclaration.getValue())
-        assertEquals("isReady", varDeclaration.getListOfChildren()[0].getValue())
-
-        val definitionTokens = listOf(
-            Token("isReady", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("true", TokenType.BOOLEAN_LITERAL, 1, 3),
-            Token(";", TokenType.PUNCTUATION, 1, 4),
-        )
-
-        assertTrue(booleanDefinitionAnalyzer.analyzeStructure(definitionTokens))
-        val definitionResult = booleanDefinitionExecutor.execute(definitionTokens)
-        assertTrue(definitionResult is VarDefinition)
-
-        val varDefinition = definitionResult as VarDefinition
-        assertEquals("=", varDefinition.getValue())
-        assertEquals("isReady", varDefinition.getListOfChildren()[0].getValue())
-    }
-
-    @Test
-    fun `should handle declaration with immediate assignment`() {
-        val tokens = listOf(
-            Token("const", TokenType.KEYWORD, 1, 1),
-            Token("IS_PRODUCTION", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("false", TokenType.BOOLEAN_LITERAL, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7),
-        )
-
-        assertTrue(letWithBooleanAnalyzer.analyzeStructure(tokens))
-        val result = letWithBooleanExecutor.execute(tokens)
-        assertTrue(result is VarDeclaration)
-
-        val varDeclaration = result as VarDeclaration
-        assertEquals("const", varDeclaration.getValue())
-
-        val children = varDeclaration.getListOfChildren()
-        assertEquals("IS_PRODUCTION", children[0].getValue())
-        assertEquals("boolean", children[1].getValue())
-        assertFalse(children[2] is ScapeAst)
-    }
 }

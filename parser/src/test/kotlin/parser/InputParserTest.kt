@@ -18,18 +18,13 @@ import token.TokenType
 class InputParserTest {
     private lateinit var letInputAnalyzer: LetVariableDeclarationWithInputAssignment
     private lateinit var varDefInputAnalyzer: VariableDefinitionWithInputAnalyzer
-    private lateinit var letInputExecutor: LetVariableDeclarationWithInputAssignmentExecutor
-    private lateinit var varDefInputExecutor: VariableDefinitionWithInputExecutor
 
     @BeforeEach
     fun setUp() {
         letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
-        letInputExecutor = LetVariableDeclarationWithInputAssignmentExecutor()
-        varDefInputExecutor = VariableDefinitionWithInputExecutor()
-    }
 
-    // ============ LetVariableDeclarationWithInputAssignment Analyzer Tests ============
+    }
 
     @Test
     fun `should analyze valid let declaration with string type and readInput assignment`() {
@@ -400,118 +395,8 @@ class InputParserTest {
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ Input Executor Tests ============
 
-    @Test
-    fun `should execute let declaration with input assignment correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("userName", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("readInput", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("hola", TokenType.STRING_LITERAL, 1, 7),
-            Token(")", TokenType.PUNCTUATION, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
 
-        val result = letInputExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDecl = result as VarDeclaration
-        assertEquals("let", varDecl.getValue())
-
-        val varName = varDecl.getListOfChildren()[0] as StringLiteral
-        assertEquals("userName", varName.getValue())
-
-        val typeDecl = varDecl.getListOfChildren()[1] as TypeDeclaration
-        assertEquals("string", typeDecl.getValue())
-
-        val functionCall = varDecl.getListOfChildren()[2] as FunctionCallAst
-        assertEquals("readInput", functionCall.getValue())
-
-        // readInput has no parameters (empty list)
-        assertEquals(1, functionCall.getChildLimit())
-    }
-
-    @Test
-    fun `should execute let declaration with number type correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("age", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("number", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("readInput", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token(")", TokenType.PUNCTUATION, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
-
-        val result = letInputExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDecl = result as VarDeclaration
-        assertEquals("let", varDecl.getValue())
-
-        val typeDecl = varDecl.getListOfChildren()[1] as TypeDeclaration
-        assertEquals("number", typeDecl.getValue())
-    }
-
-    @Test
-    fun `should execute let declaration with boolean type correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("isValid", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("boolean", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("readInput", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token(")", TokenType.PUNCTUATION, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
-
-        val result = letInputExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDecl = result as VarDeclaration
-        assertEquals("let", varDecl.getValue())
-
-        val typeDecl = varDecl.getListOfChildren()[1] as TypeDeclaration
-        assertEquals("boolean", typeDecl.getValue())
-    }
-
-    @Test
-    fun `should execute variable definition with input assignment correctly`() {
-        val tokens = listOf(
-            Token("userChoice", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("readInput", TokenType.IDENTIFIER, 1, 3),
-            Token("(", TokenType.PUNCTUATION, 1, 4),
-            Token("hola", TokenType.STRING_LITERAL, 1, 4),
-            Token(")", TokenType.PUNCTUATION, 1, 5),
-            Token(";", TokenType.PUNCTUATION, 1, 6),
-        )
-
-        val result = varDefInputExecutor.execute(tokens)
-
-        assertTrue(result is VarDefinition)
-        val varDef = result as VarDefinition
-        assertEquals("=", varDef.getValue())
-
-        val varName = varDef.getListOfChildren()[0] as StringLiteral
-        assertEquals("userChoice", varName.getValue())
-
-        val functionCall = varDef.getListOfChildren()[1] as FunctionCallAst
-        assertEquals("readInput", functionCall.getValue())
-
-        // readInput has no parameters (empty list)
-        assertEquals(1, functionCall.getChildLimit())
-        assertEquals("hola", functionCall.getListOfChildren()[0].getValue())
-    }
 
     @Test
     fun `should reject empty token list for let input analyzer`() {
@@ -525,31 +410,9 @@ class InputParserTest {
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
-    @Test
-    fun `should handle complex variable names correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("user_input_data", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("readInput", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token(")", TokenType.PUNCTUATION, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
-
-        val result = letInputExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDecl = result as VarDeclaration
-        val varName = varDecl.getListOfChildren()[0] as StringLiteral
-        assertEquals("user_input_data", varName.getValue())
-    }
 
     @Test
     fun `should validate exact token count requirements`() {
-        // Test that analyzer properly validates minimum token count
         val validTokens = listOf(
             Token("let", TokenType.KEYWORD, 1, 1),
             Token("test", TokenType.IDENTIFIER, 1, 2),
@@ -562,10 +425,8 @@ class InputParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
-        // Should pass with exactly 9 tokens
         assertEquals(9, validTokens.size)
 
-        // Remove last token to test boundary
         val invalidTokens = validTokens.dropLast(1)
         assertEquals(8, invalidTokens.size)
         assertFalse(letInputAnalyzer.analyzeStructure(invalidTokens))

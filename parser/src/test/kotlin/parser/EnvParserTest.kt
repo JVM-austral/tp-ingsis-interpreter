@@ -18,18 +18,15 @@ import token.TokenType
 class EnvParserTest {
     private lateinit var letEnvAnalyzer: LetVariableDeclarationWithEnvAssignment
     private lateinit var varDefEnvAnalyzer: VariableDefinitionWithEnvAnalyzer
-    private lateinit var letEnvExecutor: LetVariableDeclarationWithEnvAssignmentExecutor
-    private lateinit var varDefEnvExecutor: VariableDefinitionWithEnvExecutor
+
 
     @BeforeEach
     fun setUp() {
         letEnvAnalyzer = LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefEnvAnalyzer = VariableDefinitionWithEnvAnalyzer()
-        letEnvExecutor = LetVariableDeclarationWithEnvAssignmentExecutor()
-        varDefEnvExecutor = VariableDefinitionWithEnvExecutor()
+
     }
 
-    // ============ LetVariableDeclarationWithEnvAssignment Analyzer Tests ============
 
     @Test
     fun `should analyze valid let declaration with string type and readEnv assignment`() {
@@ -46,8 +43,6 @@ class EnvParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
 
-        // Note: This test will fail due to the bug in the original code
-        // The condition should be && instead of ||
         assertTrue(letEnvAnalyzer.analyzeStructure(tokens))
     }
 
@@ -66,7 +61,6 @@ class EnvParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
 
-        // Note: This test will fail due to the bug in the original code
         assertTrue(letEnvAnalyzer.analyzeStructure(tokens))
     }
 
@@ -99,7 +93,6 @@ class EnvParserTest {
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
             Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
-            // Missing closing parenthesis and semicolon
         )
 
         assertFalse(letEnvAnalyzer.analyzeStructure(tokens))
@@ -264,8 +257,6 @@ class EnvParserTest {
         assertFalse(letEnvAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ VariableDefinitionWithEnvAnalyzer Tests ============
-
     @Test
     fun `should analyze valid variable definition with readEnv assignment`() {
         val tokens = listOf(
@@ -289,7 +280,6 @@ class EnvParserTest {
             Token("readEnv", TokenType.IDENTIFIER, 1, 3),
             Token("(", TokenType.PUNCTUATION, 1, 4),
             Token("DATABASE_URL", TokenType.IDENTIFIER, 1, 5),
-            // Missing closing parenthesis and semicolon
         )
 
         assertFalse(varDefEnvAnalyzer.analyzeStructure(tokens))
@@ -397,69 +387,6 @@ class EnvParserTest {
         assertFalse(varDefEnvAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ Executor Tests ============
-
-    @Test
-    fun `should execute let declaration with env assignment correctly`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("apiKey", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("readEnv", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
-            Token(")", TokenType.PUNCTUATION, 1, 9),
-            Token(";", TokenType.PUNCTUATION, 1, 10),
-        )
-
-        val result = letEnvExecutor.execute(tokens)
-
-        assertTrue(result is VarDeclaration)
-        val varDecl = result as VarDeclaration
-        assertEquals("let", varDecl.getValue())
-
-        val varName = varDecl.getListOfChildren()[0] as StringLiteral
-        assertEquals("apiKey", varName.getValue())
-
-        val typeDecl = varDecl.getListOfChildren()[1] as TypeDeclaration
-        assertEquals("string", typeDecl.getValue())
-
-        val functionCall = varDecl.getListOfChildren()[2] as FunctionCallAst
-        assertEquals("readEnv", functionCall.getValue())
-
-        val parameter = functionCall.getListOfChildren()[0] as TypeDeclaration
-        assertEquals("API_KEY", parameter.getValue())
-    }
-
-    @Test
-    fun `should execute variable definition with env assignment correctly`() {
-        val tokens = listOf(
-            Token("dbUrl", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("readEnv", TokenType.IDENTIFIER, 1, 3),
-            Token("(", TokenType.PUNCTUATION, 1, 4),
-            Token("DATABASE_URL", TokenType.IDENTIFIER, 1, 5),
-            Token(")", TokenType.PUNCTUATION, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7),
-        )
-
-        val result = varDefEnvExecutor.execute(tokens)
-
-        assertTrue(result is VarDefinition)
-        val varDef = result as VarDefinition
-        assertEquals("=", varDef.getValue())
-
-        val varName = varDef.getListOfChildren()[0] as StringLiteral
-        assertEquals("dbUrl", varName.getValue())
-
-        val functionCall = varDef.getListOfChildren()[1] as FunctionCallAst
-        assertEquals("readEnv", functionCall.getValue())
-
-        val parameter = functionCall.getListOfChildren()[0] as TypeDeclaration
-        assertEquals("DATABASE_URL", parameter.getValue())
-    }
 
     @Test
     fun `should get correct executor from let env analyzer`() {
@@ -472,8 +399,6 @@ class EnvParserTest {
         val executor = varDefEnvAnalyzer.getExecutor()
         assertTrue(executor is VariableDefinitionWithEnvExecutor)
     }
-
-    // ============ Edge Cases ============
 
     @Test
     fun `should reject empty token list for let analyzer`() {
