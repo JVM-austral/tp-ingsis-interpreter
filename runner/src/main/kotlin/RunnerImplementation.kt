@@ -6,7 +6,7 @@ import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
 
-class RunnerImplementation(private val version: String?): Runner {
+class RunnerImplementation(private val version: String?) : Runner {
 
     override fun format(code: String, formatterConfigPath: String?): String {
         val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
@@ -32,7 +32,7 @@ class RunnerImplementation(private val version: String?): Runner {
         }
     }
 
-    override fun lint(code: String, linterConfigPath: String?){
+    override fun lint(code: String, linterConfigPath: String?) {
         val factory = LintCommandFactory(fromString(version ?: "V1"), linterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
@@ -47,5 +47,4 @@ class RunnerImplementation(private val version: String?): Runner {
             lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
         }
     }
-
 }

@@ -12,13 +12,6 @@ version = '1.0.0-SNAPSHOT'
 
 dependencies {
 
-    implementation project(":interpreter")
-    implementation project(":lexer")
-    implementation project(":parser")
-    implementation project(":formatter")
-    implementation project(":linter")
-    implementation project(":ast")
-    implementation project(":token")
     implementation project(":runner")
     implementation("com.github.ajalt.clikt:clikt:4.2.0")
     testImplementation 'com.google.code.gson:gson:2.10.1'

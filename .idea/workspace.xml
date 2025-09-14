@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/runner/build.gradle" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/runner/src/main/kotlin/Runner.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runner/src/main/kotlin/RunnerImplementation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
@@ -36,7 +39,7 @@
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/LintCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/main/kotlin/commands/LintCommand.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/ValidationCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/main/kotlin/commands/ValidationCommand.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/Version.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/Version.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/factory/ExecutionCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/factory/ExecutionCommandFactory.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/factory/FormatCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/FormatCommandFactory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/factory/LintCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/LintCommandFactory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cli/src/main/kotlin/commands/factory/ValidationCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ValidationCommandFactory.kt" afterDir="false" />
@@ -95,8 +98,8 @@
         <option value="Class" />
         <option value="Kotlin File" />
         <option value="Interface" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>

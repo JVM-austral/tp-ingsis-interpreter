@@ -1,8 +1,8 @@
 package factory
 
 import Linter
-import linterfactory.LinterFactoryV1WithJson
 import lexer.Lexer
+import linterfactory.LinterFactoryV1WithJson
 import parser.Parser
 
 class LintCommandFactory(private val version: Version, private val linterConfigPath: String?) {

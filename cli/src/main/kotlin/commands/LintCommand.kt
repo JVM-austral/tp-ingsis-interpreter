@@ -1,15 +1,10 @@
 package commands
 
-import Linter
 import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import factory.LintCommandFactory
-import factory.fromString
-import lexer.Lexer
-import parser.Parser
 import java.io.File
 
 class LintCommand :
@@ -21,7 +16,6 @@ class LintCommand :
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {
-
         println("Running linter on $file...")
         val code = File(file).readText()
         if (code.isEmpty()) {
@@ -33,7 +27,6 @@ class LintCommand :
         try {
             println("Running linter on $file...")
             runner.lint(code, linterConfigPath)
-
         } catch (e: Exception) {
             println("Parse error: ${e.message}")
         }

@@ -3,8 +3,8 @@ package factory
 import Formatter
 import Linter
 import formatterfactory.FormatterFactoryWithJsonV1
-import linterfactory.LinterFactoryV1WithJson
 import lexer.Lexer
+import linterfactory.LinterFactoryV1WithJson
 import parser.Parser
 
 class ValidationCommandFactory(private val version: Version, private val linterConfigPath: String?, private val formatterConfigPath: String?) {

@@ -1,6 +1,5 @@
 package commands
 
-import Linter
 import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
@@ -8,8 +7,6 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import factory.ValidationCommandFactory
 import factory.fromString
-import lexer.Lexer
-import parser.Parser
 import java.io.File
 
 class ValidationCommand : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
@@ -31,7 +28,7 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
 
             val runner = RunnerImplementation(version)
 
-            File(file).writeText(runner.format(code,formatterConfigPath ))
+            File(file).writeText(runner.format(code, formatterConfigPath))
 
             echo("Formatted successfully $file")
 
@@ -40,11 +37,10 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
                 println("File is empty.")
                 return
             }
-                println("Running linter on $file...")
-                runner.lint(code, linterConfigPath)
-
-            } catch (e: Exception) {
-                println("Parse error: ${e.message}")
-            }
+            println("Running linter on $file...")
+            runner.lint(code, linterConfigPath)
+        } catch (e: Exception) {
+            println("Parse error: ${e.message}")
+        }
     }
 }
