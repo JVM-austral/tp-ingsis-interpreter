@@ -1,10 +1,11 @@
 package commands.factory
 
-import factory.version.first.InterpreterFactoryV1
+import factory.interpreters.InterpreterFactory
 import factory.version.first.LexerFactoryV1
 import factory.version.first.ParserFactoryV1
 import interpreter.Interpreter
 import lexer.Lexer
+import mock.StdOutputHandler
 import parser.Parser
 
 class ExecutionCommandFactory {
@@ -18,7 +19,7 @@ class ExecutionCommandFactory {
     }
 
     fun getInterpreterV1(): Interpreter {
-        return InterpreterFactoryV1().create()
+        return InterpreterFactory().createInterpreterV1(mutableMapOf(), StdOutputHandler(), mutableMapOf())
     }
 
     fun getLexerV2(): Lexer {
