@@ -1,12 +1,12 @@
- import ast.Ast
- import ast.BooleanBinaryOperation
- import ast.ScapeAst
- import executor.ParseResult
- import executor.StructureExecutor
- import token.Token
- import token.TokenType
+import ast.Ast
+import ast.BooleanBinaryOperation
+import ast.ScapeAst
+import executor.ParseResult
+import executor.StructureExecutor
+import token.Token
+import token.TokenType
 
- class ConditionExecutor : StructureExecutor {
+class ConditionExecutor : StructureExecutor {
     private var index = 0
     private lateinit var tokens: List<Token>
     private val numberExecutor = BinaryNumberOperatorExecutor() // reutilizamos el aritmético
@@ -31,7 +31,7 @@
             val right = parseAndExpression()
             if (right is ParseResult.Failure) return ParseResult.Failure
             left = ParseResult.Success(
-                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column)
+                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
             )
         }
 
@@ -48,7 +48,7 @@
             val right = parseComparison()
             if (right is ParseResult.Failure) return ParseResult.Failure
             left = ParseResult.Success(
-                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column)
+                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
             )
         }
 
@@ -65,7 +65,7 @@
             val right = parseArithmeticOrPrimary()
             if (right is ParseResult.Failure) return ParseResult.Failure
             return ParseResult.Success(
-                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column)
+                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
             )
         }
 
@@ -124,12 +124,14 @@
 
     private fun isComparisonOperator(token: Token) =
         token.type == TokenType.OPERATOR &&
-            (token.value == "==" || token.value == "!=" ||
-                token.value == "<" || token.value == "<=" ||
-                token.value == ">" || token.value == ">=")
+            (
+                token.value == "==" || token.value == "!=" ||
+                    token.value == "<" || token.value == "<=" ||
+                    token.value == ">" || token.value == ">="
+                )
 
     private fun isStopToken(token: Token): Boolean =
         token.type == TokenType.OPERATOR && (
             isComparisonOperator(token) || isAndOperator(token) || isOrOperator(token)
             ) || (token.type == TokenType.PUNCTUATION && token.value == ")")
- }
+}

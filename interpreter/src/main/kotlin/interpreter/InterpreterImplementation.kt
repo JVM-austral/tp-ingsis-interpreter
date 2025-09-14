@@ -8,6 +8,7 @@ import executor.InterpreterExecutor
 class InterpreterImplementation(
     private val listOfAnalyzers: List<InterpreterAnalyzer>,
     private var heap: MutableMap<String, VariableInfo>,
+    private var env: MutableMap<String, String>,
 ) : Interpreter {
 
     private val executionQueue: MutableList<ExecutionUnit> = mutableListOf()
@@ -45,7 +46,7 @@ class InterpreterImplementation(
             if (unit.message != null) {
                 results.add(unit)
             } else {
-                val execution = unit.executor.execute(unit.statement, heap)
+                val execution = unit.executor.execute(unit.statement, heap,env)
                 if (execution.isFailure) {
                     results.add(
                         ExecutionUnit(
@@ -62,8 +63,8 @@ class InterpreterImplementation(
     }
     private fun verifyRules(statement: Result<Ast>): InterpreterExecutor {
         for (analyzer in listOfAnalyzers) {
-            if (analyzer.analyzeInterpretation(statement, heap)) {
-                return analyzer.getExecutor(heap)
+            if (analyzer.analyzeInterpretation(statement, heap, env)) {
+                return analyzer.getExecutor(heap,env)
             }
         }
         return FailInterpreterExecutor()

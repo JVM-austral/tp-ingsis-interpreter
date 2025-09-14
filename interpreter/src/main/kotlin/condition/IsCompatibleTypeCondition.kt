@@ -1,4 +1,5 @@
 import ast.BinaryOperation
+import ast.BooleanBinaryOperation
 import ast.VarDefinition
 import kotlin.reflect.KClass
 
@@ -19,7 +20,7 @@ class IsCompatibleTypeCondition(
         val row = ast.getRow()
         val column = ast.getColumn()
         val type = if (
-            ast is VarDefinition && ast.getListOfChildren()[1] is BinaryOperation
+            ast is VarDefinition && (ast.getListOfChildren()[1] is BinaryOperation || ast.getListOfChildren()[1] is BooleanBinaryOperation)
         ) {
             val key = ast.getListOfChildren()[0].getValue() as? String
             heap[key]?.type

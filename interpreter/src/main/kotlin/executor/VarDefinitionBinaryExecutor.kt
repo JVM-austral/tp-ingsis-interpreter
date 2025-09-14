@@ -4,19 +4,21 @@ import IsCompatibleTypeCondition
 import PriorityDeclarationCondition
 import VarDefinitionBinaryStructureCondition
 import ast.Ast
-import evaluator.AstEvaluationEngine
+import condition.ConstDefinitionCondition
+import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
 class VarDefinitionBinaryExecutor(
-    private val engine: AstEvaluationEngine,
+    private val engine: AstEvaluator,
     private val isCompatibleTypeCondition: IsCompatibleTypeCondition,
     private val structureCondition: VarDefinitionBinaryStructureCondition,
     private val declarationCondition: PriorityDeclarationCondition,
+    private val constCondition: ConstDefinitionCondition,
 ) : InterpreterExecutor {
 
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,
+        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
     ): Result<Ast> {
         val structureError = structureCondition.evaluate(statement, heap)
         if (structureError != null) return errorResult(structureError)
@@ -26,10 +28,12 @@ class VarDefinitionBinaryExecutor(
         val binaryOperationAst = obtenerOperacionBinaria(ast)
 
         return try {
-            val evaluatedValue = engine.evaluate(binaryOperationAst, heap)
+            val evaluatedValue = engine.evaluate(binaryOperationAst, heap,env)
 
             val declarationError = declarationCondition.evaluate(statement, heap)
             if (declarationError != null) return errorResult(declarationError)
+            val constError = constCondition.evaluate(statement, heap)
+            if (constError != null) return errorResult(constError)
 
             isCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
             val typeError = isCompatibleTypeCondition.evaluate(statement, heap)

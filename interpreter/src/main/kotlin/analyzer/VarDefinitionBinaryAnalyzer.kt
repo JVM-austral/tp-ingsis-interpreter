@@ -6,28 +6,29 @@ import VarDefinitionBinaryStructureCondition
 import ast.Ast
 import ast.BinaryOperation
 import ast.VarDefinition
-import evaluator.AstEvaluationEngine
+import condition.ConstDefinitionCondition
+import evaluator.AstEvaluator
 import executor.InterpreterExecutor
 import interpreter.VariableInfo
 
-class VarDefinitionBinaryAnalyzer : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Boolean {
+class VarDefinitionBinaryAnalyzer(private val engine: AstEvaluator,
+                                  private val isCompatibleTypeCondition: IsCompatibleTypeCondition,
+                                  private val structureCondition: VarDefinitionBinaryStructureCondition,
+                                  private val declarationCondition: PriorityDeclarationCondition,
+                                  private val constCondition: ConstDefinitionCondition
+    ) : InterpreterAnalyzer {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Boolean {
         val ast = statement.getOrNull() ?: return false
         return ast is VarDefinition && ast.getListOfChildren()[1] is BinaryOperation
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): InterpreterExecutor {
         return executor.VarDefinitionBinaryExecutor(
-            AstEvaluationEngine(),
-            IsCompatibleTypeCondition(
-                mapOfCondition = mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
-                    "boolean" to Boolean::class,
-                ),
-            ),
-            VarDefinitionBinaryStructureCondition(),
-            PriorityDeclarationCondition(),
+            engine,
+            isCompatibleTypeCondition,
+            structureCondition,
+            declarationCondition,
+            constCondition
         )
     }
 }

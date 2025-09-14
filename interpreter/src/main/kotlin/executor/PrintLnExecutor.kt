@@ -1,18 +1,18 @@
 package executor
 
 import ast.Ast
-import evaluator.AstEvaluationEngine
+import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
-class PrintLnExecutor(private val engine: AstEvaluationEngine) : InterpreterExecutor {
+class PrintLnExecutor(private val engine: AstEvaluator) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
-        heap: MutableMap<String, VariableInfo>,
+        heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>
     ): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
-                    engine.evaluate(ast, heap)
+                    engine.evaluate(ast, heap,env)
                     Result.success(ast)
                 } catch (e: Exception) {
                     Result.failure(Exception(e.message))

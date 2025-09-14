@@ -4,27 +4,23 @@ import IsCompatibleTypeCondition
 import ast.Ast
 import ast.BinaryOperation
 import ast.VarDeclaration
-import evaluator.AstEvaluationEngine
+import condition.ConstDefinitionCondition
+import evaluator.AstEvaluator
 import executor.InterpreterExecutor
 import executor.VarDeclarationWithAssigmentBinaryExecutor
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentBinaryAnalyzer : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): Boolean {
+class VarDeclarationWithAssigmentBinaryAnalyzer(private val engine: AstEvaluator,private val condition: IsCompatibleTypeCondition,private val constCondition: ConstDefinitionCondition) : InterpreterAnalyzer {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Boolean {
         val ast = statement.getOrNull() ?: return false
         return (ast is VarDeclaration) && (ast.getListOfChildren()[2] is BinaryOperation)
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): InterpreterExecutor {
         return VarDeclarationWithAssigmentBinaryExecutor(
-            AstEvaluationEngine(),
-            IsCompatibleTypeCondition(
-                mapOfCondition = mapOf(
-                    "number" to Number::class,
-                    "string" to String::class,
-                    "boolean" to Boolean::class,
-                ),
-            ),
+            engine,
+            condition,
+            constCondition
         )
     }
 }

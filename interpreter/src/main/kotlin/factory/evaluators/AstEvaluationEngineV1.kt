@@ -1,11 +1,7 @@
-package evaluator
+package factory.evaluators
 
-import ast.Ast
-import ast.BinaryOperation
-import ast.FunctionCallAst
-import ast.NumberLiteral
-import ast.StringLiteral
-import ast.VariableIdentifier
+import ast.*
+import evaluator.*
 import evaluator.binarystrategy.AdditionStrategy
 import evaluator.binarystrategy.DivisionStrategy
 import evaluator.binarystrategy.MultiplicationStrategy
@@ -16,7 +12,7 @@ import interpreter.VariableInfo
 import mock.OutputHandler
 import mock.StdOutputHandler
 
-class AstEvaluationEngine(private val outputHandler: OutputHandler = StdOutputHandler()) {
+class AstEvaluationEngineV1(private val outputHandler: OutputHandler = StdOutputHandler()) : AstEvaluator {
     private val evaluators: Map<Class<out Ast>, AstEvaluator> = mapOf(
         NumberLiteral::class.java to NumberLiteralEvaluator(),
         StringLiteral::class.java to StringLiteralEvaluator(),
@@ -25,9 +21,9 @@ class AstEvaluationEngine(private val outputHandler: OutputHandler = StdOutputHa
         FunctionCallAst::class.java to PrintLnEvaluator(this, outputHandler),
     )
 
-    fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>,env:MutableMap<String,String>): Any {
         val evaluator = evaluators[ast::class.java]
             ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
-        return evaluator.evaluate(ast, heap)
+        return evaluator.evaluate(ast, heap,env)
     }
 }
