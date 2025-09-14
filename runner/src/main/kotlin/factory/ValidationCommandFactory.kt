@@ -1,12 +1,9 @@
-package commands.factory
+package factory
 
 import Formatter
 import Linter
-import commands.Version
-import factory.version.first.LexerFactoryV1
-import factory.version.first.ParserFactoryV1
-import factory.version.first.formatterfactory.FormatterFactoryWithJsonV1
-import factory.version.first.linterfactory.LinterFactoryV1WithJson
+import formatterfactory.FormatterFactoryWithJsonV1
+import linterfactory.LinterFactoryV1WithJson
 import lexer.Lexer
 import parser.Parser
 

@@ -1,12 +1,11 @@
-package factory.version.first.formatterfactory
+package formatterfactory
 
 import Formatter
-import factory.Factory
 import formatterconfig.ConfigurableAnalyzerFormatter
 
-class FormatterFactoryWithJsonV1(private val linterConfigPath: String?) : Factory<Formatter> {
+class FormatterFactoryWithJsonV1(private val linterConfigPath: String?) {
 
-    override fun create(): Formatter {
+        fun create(): Formatter {
         var configPath = linterConfigPath
         if (configPath == null) {
             configPath = "src/main/resources/formatter-rules-v-1.json"

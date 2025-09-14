@@ -1,4 +1,4 @@
-package factory.version.first.formatterfactory
+package formatterfactory
 
 import Formatter
 import FormatterImpl
@@ -12,9 +12,8 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
-import factory.Factory
 
-class FormatterFactoryV1 : Factory<Formatter> {
+class FormatterFactoryV1 {
     private val rules = listOf(
         CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
         SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
@@ -23,7 +22,7 @@ class FormatterFactoryV1 : Factory<Formatter> {
         SpaceAfterEqualsAnalyzer(),
 
     )
-    override fun create(): Formatter {
+    fun create(): Formatter {
         return FormatterImpl(rules)
     }
 }

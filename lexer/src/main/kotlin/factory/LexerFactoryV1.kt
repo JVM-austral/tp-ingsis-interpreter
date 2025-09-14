@@ -1,6 +1,5 @@
-package factory.version.first
+package factory
 
-import factory.Factory
 import lexer.Lexer
 import lexer.LexerImplementation
 import lexer.rules.EnterAnalyzer
@@ -17,7 +16,7 @@ import lexer.rules.StringTypeAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
 
-class LexerFactoryV1 : Factory<Lexer> {
+class LexerFactoryV1 {
 
     private val rules = listOf(
         NumberAnalyzer(), EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
@@ -27,7 +26,7 @@ class LexerFactoryV1 : Factory<Lexer> {
         MidStringAnalyzer(),
 
     )
-    override fun create(): Lexer {
+    fun create(): Lexer {
         return LexerImplementation(rules)
     }
 }

@@ -1,11 +1,13 @@
 package commands
 
 import Linter
+import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import commands.factory.LintCommandFactory
+import factory.LintCommandFactory
+import factory.fromString
 import lexer.Lexer
 import parser.Parser
 import java.io.File
@@ -19,7 +21,6 @@ class LintCommand :
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {
-        val factory = LintCommandFactory(fromString(version ?: "V1"), linterConfigPath)
 
         println("Running linter on $file...")
         val code = File(file).readText()
@@ -27,21 +28,12 @@ class LintCommand :
             println("File is empty.")
             return
         }
-
-        val lexer: Lexer = factory.getLexer()
-        val parser: Parser = factory.getParser()
-        val linter: Linter = factory.getLinter()
+        val runner = RunnerImplementation(version)
 
         try {
             println("Running linter on $file...")
-            val tokens = lexer.tokenize(code)
-            val ast = parser.parse(tokens)
-            val lintResult = linter.lint(ast)
-            if (lintResult.isEmpty()) {
-                println("No lint issues found.")
-            } else {
-                lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
-            }
+            runner.lint(code, linterConfigPath)
+
         } catch (e: Exception) {
             println("Parse error: ${e.message}")
         }

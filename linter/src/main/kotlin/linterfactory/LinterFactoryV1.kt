@@ -1,17 +1,16 @@
-package factory.version.first.linterfactory
+package linterfactory
 
 import Linter
 import LinterImplementation
 import analyzers.CamelCaseAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer
-import factory.Factory
 
-class LinterFactoryV1 : Factory<Linter> {
+class LinterFactoryV1 {
     private val rules = listOf(
         CamelCaseAnalyzer(),
         PrintLnWithOutBinaryOperationAnalyzer(),
     )
-    override fun create(): Linter {
+    fun create(): Linter {
         return LinterImplementation(rules)
     }
 }

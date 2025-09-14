@@ -1,15 +1,14 @@
-package factory.version.first
+package factory
 
 import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.VariableDefinitionAnalyzer
-import factory.Factory
 import parser.Parser
 import parser.ParserImplementation
 
-class ParserFactoryV1 : Factory<Parser> {
+class ParserFactoryV1 {
     private val rules = listOf(
 
         FunctionAnalyzer(),
@@ -19,7 +18,7 @@ class ParserFactoryV1 : Factory<Parser> {
         VariableDefinitionAnalyzer(),
 
     )
-    override fun create(): Parser {
+    fun create(): Parser {
         return ParserImplementation(rules)
     }
 }

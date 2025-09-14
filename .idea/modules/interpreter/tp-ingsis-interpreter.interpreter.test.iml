@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":interpreter:test" external.linked.project.path="$MODULE_DIR$/../../../interpreter" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="tp-ingsis-interpreter" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":interpreter:test" external.linked.project.path="$MODULE_DIR$/../../../interpreter" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="org.JVM-austral" external.system.module.type="sourceSet" external.system.module.version="1.0.0-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false">
+      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\interpreter\src\main\kotlin;C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\interpreter\src\test\kotlin">
         <additionalVisibleModuleNames>:interpreter:main</additionalVisibleModuleNames>
+        <compilerSettings />
         <compilerArguments>
           <flagArguments>
             <flagArg name="allowNoSourceFiles" arg="true" />
@@ -34,14 +35,20 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
-    <output-test url="file://$MODULE_DIR$/../../../interpreter/build/classes/java/test" />
+    <output-test url="file://$MODULE_DIR$/../../../interpreter/build/classes/kotlin/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../interpreter/src/test" />
-    <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
+    <content url="file://$MODULE_DIR$/../../../interpreter/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../interpreter/src/test/kotlin" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.interpreter.main" />
+    <orderEntry type="module" module-name="tp-ingsis-interpreter.token.main" />
+    <orderEntry type="module" module-name="tp-ingsis-interpreter.ast.main" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.11.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-test-junit5:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.11.3" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.11.3" level="project" />

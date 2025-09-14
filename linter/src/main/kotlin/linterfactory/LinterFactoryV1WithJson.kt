@@ -1,12 +1,11 @@
-package factory.version.first.linterfactory
+package linterfactory
 
 import Linter
-import factory.Factory
 import linterconfig.ConfigurableLinter
 
-class LinterFactoryV1WithJson(private val linterConfigPath: String?) : Factory<Linter> {
+class LinterFactoryV1WithJson(private val linterConfigPath: String?)  {
 
-    override fun create(): Linter {
+        fun create(): Linter {
         var configPath = linterConfigPath
         if (configPath == null) {
             configPath = "src/main/resources/linter-rules-v-1.json"

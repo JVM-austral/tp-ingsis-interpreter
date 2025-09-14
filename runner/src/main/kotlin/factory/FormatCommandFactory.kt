@@ -1,9 +1,7 @@
-package commands.factory
+package factory
 
 import Formatter
-import commands.Version
-import factory.version.first.LexerFactoryV1
-import factory.version.first.formatterfactory.FormatterFactoryWithJsonV1
+import formatterfactory.FormatterFactoryWithJsonV1
 import lexer.Lexer
 
 class FormatCommandFactory(private val version: Version, private val formatterConfigPath: String?) {
