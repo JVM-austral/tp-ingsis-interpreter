@@ -11,7 +11,7 @@ class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAn
         lateinit var secondPartExecutor: StructureExecutor
 
         for (analyzer in operatorAnalyzers) {
-            if (analyzer.analyzeStructure(tokens)) {
+            if (analyzer.analyzeStructure(tokens.subList(2, tokens.size - 1))) {
                 secondPartExecutor = analyzer.getExecutor()
             }
         }

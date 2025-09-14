@@ -39,7 +39,7 @@ class IfExecutor : StructureExecutor {
         val onSuccess = ParserImplementation(getAnalyzers()).parse(mainTokens.map { Result.success(it) })
 
         val onFailure: List<Result<Ast>> = if (index < tokens.size &&
-            tokens[index].type == TokenType.KEYWORD &&
+            tokens[index].type == TokenType.CONDITIONAL &&
             tokens[index].value == "else"
         ) {
             index++

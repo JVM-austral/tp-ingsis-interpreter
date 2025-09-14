@@ -50,7 +50,6 @@ class ComprehensiveParserTest {
             )
     }
 
-    // ============ LetVariableDeclarationAnalyzer Tests ============
 
     @Test
     fun `should analyze valid let declaration`() {
@@ -131,8 +130,6 @@ class ComprehensiveParserTest {
 
         assertFalse(letAnalyzer.analyzeStructure(tokens))
     }
-
-    // ============ BinaryNumberOperatorAnalyzer Tests ============
 
     @Test
     fun `should analyze simple addition`() {
@@ -231,7 +228,6 @@ class ComprehensiveParserTest {
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ StringConcatenationAnalyzer Tests ============
 
     @Test
     fun `should analyze simple string concatenation`() {
@@ -321,8 +317,6 @@ class ComprehensiveParserTest {
         assertFalse(stringConcatenationAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ VariableDefinitionAnalyzer Tests ============
-
     @Test
     fun `should analyze variable definition with number expression`() {
         val tokens =
@@ -388,7 +382,6 @@ class ComprehensiveParserTest {
         assertFalse(variableDefinitionAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ LetVariableDeclarationWithAssignmentAnalyzer Tests ============
 
     @Test
     fun `should analyze let declaration with number assignment`() {
@@ -459,7 +452,6 @@ class ComprehensiveParserTest {
         assertFalse(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
-    // ============ Executor Tests ============
 
     @Test
     fun `should execute let variable declaration`() {
@@ -475,7 +467,6 @@ class ComprehensiveParserTest {
         val result = executor.execute(tokens)
 
         assertTrue(result is VarDeclaration)
-        // Additional assertions based on VarDeclaration structure
     }
 
     @Test
@@ -570,7 +561,6 @@ class ComprehensiveParserTest {
         assertEquals("hello", stringLiteral.getValue())
     }
 
-    // ============ Integration Tests ============
 
     @Test
     fun `should parse complete let declaration with parser`() {
@@ -606,7 +596,6 @@ class ComprehensiveParserTest {
         assertTrue(result1.first().isFailure)
     }
 
-    // ============ Edge Cases and Error Handling ============
 
     @Test
     fun `should handle empty token list`() {
