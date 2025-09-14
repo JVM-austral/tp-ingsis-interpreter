@@ -1,4 +1,4 @@
-package lexerwrapper
+package wrapper
 
 import token.Token
 
@@ -8,6 +8,8 @@ class TokenBuffer {
     fun add(token: Result<Token>) {
         buffer.add(token)
     }
+
+    fun isEmpty(): Boolean = buffer.isEmpty()
 
     fun isNotEmpty(): Boolean = buffer.isNotEmpty()
 

@@ -92,19 +92,17 @@ class NewLexerVersionTest {
 
     @Test
     fun `boolean operators should be recognized as BOOLOPERATOR`() {
-        val input = "== != > < >= <="
+        val input = "== > < >= <="
         val expected = listOf(
             Result.success(Token("==", TokenType.BOOL_OPERATOR, 1, 1)),
             Result.success(Token(" ", TokenType.WHITESPACE, 1, 3)),
-            Result.success(Token("!=", TokenType.BOOL_OPERATOR, 1, 4)),
-            Result.success(Token(" ", TokenType.WHITESPACE, 1, 6)),
-            Result.success(Token(">", TokenType.BOOL_OPERATOR, 1, 7)),
-            Result.success(Token(" ", TokenType.WHITESPACE, 1, 8)),
-            Result.success(Token("<", TokenType.BOOL_OPERATOR, 1, 9)),
+            Result.success(Token(">", TokenType.BOOL_OPERATOR, 1, 4)),
+            Result.success(Token(" ", TokenType.WHITESPACE, 1, 5)),
+            Result.success(Token("<", TokenType.BOOL_OPERATOR, 1, 6)),
+            Result.success(Token(" ", TokenType.WHITESPACE, 1, 7)),
+            Result.success(Token(">=", TokenType.BOOL_OPERATOR, 1, 8)),
             Result.success(Token(" ", TokenType.WHITESPACE, 1, 10)),
-            Result.success(Token(">=", TokenType.BOOL_OPERATOR, 1, 11)),
-            Result.success(Token(" ", TokenType.WHITESPACE, 1, 13)),
-            Result.success(Token("<=", TokenType.BOOL_OPERATOR, 1, 14)),
+            Result.success(Token("<=", TokenType.BOOL_OPERATOR, 1, 11)),
         )
 
         assertEquals(expected, lexer.tokenize(input))

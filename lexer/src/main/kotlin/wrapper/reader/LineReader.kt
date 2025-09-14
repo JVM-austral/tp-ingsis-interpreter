@@ -1,4 +1,4 @@
-package lexerwrapper.reader
+package wrapper.reader
 
 interface LineReader {
     fun readLine(): String?

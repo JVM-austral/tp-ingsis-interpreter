@@ -1,4 +1,4 @@
-package lexerwrapper.reader
+package wrapper.reader
 
 import java.io.BufferedReader
 

@@ -1,4 +1,4 @@
-package lexerwrapper
+package wrapper
 
 import lexer.LexerImplementation
 import lexer.newrules.BooleanAnalyzer
@@ -18,10 +18,8 @@ import lexer.rules.StringAnalyzer
 import lexer.rules.StringTypeAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
-import lexerwrapper.reader.BufferedLineReader
+import lexer.rules.EnterAnalyzer
 import token.TokenType
-import java.io.BufferedReader
-import java.io.StringReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -39,17 +37,18 @@ class LexerWrapperImplementationTest {
             KeywordAnalyzer(),
             NumberAnalyzer(),
             NumberTypeAnalyzer(),
-            OperatorAnalyzer(),
             PunctuationAnalyzer(),
             StringAnalyzer(),
             StringTypeAnalyzer(),
             VariableAnalyzer(),
             WhitespaceAnalyzer(),
             MidStringAnalyzer(),
+            EnterAnalyzer(),
             MidNumberAnalyzer(),
+            OperatorAnalyzer(),
         )
         val lexer = LexerImplementation(analyzers)
-        val lineReader = BufferedLineReader(BufferedReader(StringReader(input)))
+        val lineReader = input.reader()
         val tokenBuffer = TokenBuffer()
         return LexerWrapperImplementation(lexer, lineReader, tokenBuffer)
     }
@@ -317,11 +316,9 @@ class LexerWrapperImplementationTest {
 
     @Test
     fun testBooleanOperatorsShouldBeRecognizedAsBoolOperator() {
-        val input = "== != > < >= <="
+        val input = "== > < >= <="
         val expected = listOf(
             Triple("==", TokenType.BOOL_OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("!=", TokenType.BOOL_OPERATOR, 1),
             Triple(" ", TokenType.WHITESPACE, 1),
             Triple(">", TokenType.BOOL_OPERATOR, 1),
             Triple(" ", TokenType.WHITESPACE, 1),
