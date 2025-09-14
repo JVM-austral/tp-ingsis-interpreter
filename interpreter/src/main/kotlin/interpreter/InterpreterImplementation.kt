@@ -8,7 +8,7 @@ import executor.InterpreterExecutor
 class InterpreterImplementation(
     private val listOfAnalyzers: List<InterpreterAnalyzer>,
     private var heap: MutableMap<String, VariableInfo>,
-    private var env: MutableMap<String, String>,
+    private var env: MutableMap<String, Ast>,
 ) : Interpreter {
 
     private val executionQueue: MutableList<ExecutionUnit> = mutableListOf()

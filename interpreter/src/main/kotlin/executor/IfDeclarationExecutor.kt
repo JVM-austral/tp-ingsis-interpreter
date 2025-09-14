@@ -2,13 +2,17 @@ package executor
 
 import ast.Ast
 import evaluator.AstEvaluator
+import evaluator.input.InputProvider
+import evaluator.input.LiteralConverter
 import interpreter.ExecutionUnit
 import interpreter.Interpreter
 import interpreter.VariableInfo
 import mock.OutputHandler
 
-class IfDeclarationExecutor(private val engine: AstEvaluator, private val outputHandler: OutputHandler) : InterpreterExecutor {
-    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Result<Ast> {
+class IfDeclarationExecutor(private val engine: AstEvaluator, private val outputHandler: OutputHandler, private val inputProvider: InputProvider,
+                            private val converter: LiteralConverter
+) : InterpreterExecutor {
+    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Result<Ast> {
         val ast = statement.getOrNull() ?: return Result.failure(Exception("AST is null"))
         if (ast !is ast.IfDeclaration) {
             return Result.failure(Exception("AST is not an IfDeclaration"))
@@ -28,8 +32,8 @@ class IfDeclarationExecutor(private val engine: AstEvaluator, private val output
         return concatErrors(finalResults)
     }
 
-    private fun interpreterFactory(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Interpreter {
-        val interpreter = factory.interpreters.InterpreterFactory().createInterpreterV2(heap, outputHandler, env)
+    private fun interpreterFactory(heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Interpreter {
+        val interpreter = factory.interpreters.InterpreterFactory().createInterpreterV2(heap, outputHandler, env, inputProvider, converter)
         return interpreter
     }
 
