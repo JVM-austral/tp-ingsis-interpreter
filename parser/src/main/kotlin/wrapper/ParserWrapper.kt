@@ -1,3 +1,0 @@
-package wrapper
-
-interface ParserWrapper
