@@ -8,7 +8,7 @@ class PrintLnExecutor(private val engine: AstEvaluator) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
-        env: MutableMap<String, String>,
+        env:  MutableMap<String, Ast>,
     ): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->

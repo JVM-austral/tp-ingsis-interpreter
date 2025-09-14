@@ -5,7 +5,7 @@ import ast.StringLiteral
 import interpreter.VariableInfo
 
 class StringLiteralEvaluator : AstEvaluator {
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Any {
         return (ast as StringLiteral).getValue()
     }
 }

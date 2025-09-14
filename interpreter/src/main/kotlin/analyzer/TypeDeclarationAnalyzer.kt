@@ -9,12 +9,12 @@ import executor.TypeDeclarationExecutor
 import interpreter.VariableInfo
 
 class TypeDeclarationAnalyzer : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): Boolean {
+    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Boolean {
         val ast = statement.getOrNull() ?: return false
         return ast is TypeDeclaration
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, String>): InterpreterExecutor {
+    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): InterpreterExecutor {
         return TypeDeclarationExecutor(ConditionMessageHandler(listOfConditions = listOf(VariableAlreadyDeclaredCondition())))
     }
 }
