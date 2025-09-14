@@ -5,16 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/reader/BufferedLineReader.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/wrapper/ParserWrapper.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/wrapper/ParserWrapperImplementation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/kotlin/IteratorWrapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/README_LexerWrapperImplementation_ES.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/parser/src/test/kotlin/wrapper/WrapperTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapperImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapperImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/TokenBuffer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/TokenBuffer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/BufferedLineReader.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/LineReader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/reader/LineReader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/lexerwrapper/LexerWrapperImplementationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapperImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/LexerWrapperImplementation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/reader/BufferedLineReader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/wrapper/reader/LineReader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/parser/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/wrapper/ParserWrapper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/wrapper/ParserWrapperImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/wrapper/ParserWrapperImplementation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,17 +47,15 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/lexer">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="tp-ingsis-interpreter" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="tp-ingsis-interpreter" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -74,6 +83,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -87,6 +100,9 @@
   "keyToString": {
     "Gradle.AnalyzerTest.executor": "Run",
     "Gradle.Build tp-ingsis-interpreter.executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
     "Gradle.ComprehensiveParserTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
     "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
@@ -110,6 +126,7 @@
     "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
     "Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor": "Run",
     "Gradle.NewLexerVersionTest.executor": "Run",
     "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
@@ -144,12 +161,79 @@
       <recent name="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\main\kotlin\commands\factory" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="" />
       <recent name="factory" />
       <recent name="factory.components.version.first.lexerfactory" />
       <recent name="lexerwrapper.bufferreader" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR">
+  <component name="RunManager" selected="JUnit.All in tp-ingsis-interpreter.lexer.test">
+    <configuration name="C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="buildDependents" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="LexerWrapperImplementationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -174,116 +258,28 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;wrapper.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;wrapper.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LexerWrapperImplementationTest.testStringLiteralAnalyzer" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;wrapper.LexerWrapperImplementationTest.testStringLiteralAnalyzer&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexertest.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
+    <configuration name="All in tp-ingsis-interpreter.lexer.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tp-ingsis-interpreter.lexer.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer" />
-      <item itemvalue="Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR" />
+      <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble]" />
+      <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents]" />
+      <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build]" />
       <item itemvalue="Gradle.LexerWrapperImplementationTest" />
+      <item itemvalue="JUnit.All in tp-ingsis-interpreter.lexer.test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR" />
+        <item itemvalue="JUnit.All in tp-ingsis-interpreter.lexer.test" />
+        <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents]" />
+        <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build]" />
+        <item itemvalue="Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble]" />
         <item itemvalue="Gradle.LexerWrapperImplementationTest" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer" />
       </list>
     </recent_temporary>
   </component>
@@ -313,7 +309,8 @@
       <workItem from="1755712431787" duration="81000" />
       <workItem from="1755712519877" duration="75000" />
       <workItem from="1757678306012" duration="15634000" />
-      <workItem from="1757882606782" duration="5730000" />
+      <workItem from="1757882606782" duration="9188000" />
+      <workItem from="1757891890320" duration="1279000" />
     </task>
     <servers />
   </component>

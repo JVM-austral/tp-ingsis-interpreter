@@ -15,6 +15,9 @@
       <module name="tp-ingsis-interpreter.cli" target="21" />
       <module name="tp-ingsis-interpreter.cli.main" target="21" />
       <module name="tp-ingsis-interpreter.cli.test" target="21" />
+      <module name="tp-ingsis-interpreter.common" target="21" />
+      <module name="tp-ingsis-interpreter.common.main" target="21" />
+      <module name="tp-ingsis-interpreter.common.test" target="21" />
       <module name="tp-ingsis-interpreter.formatter" target="21" />
       <module name="tp-ingsis-interpreter.formatter.main" target="21" />
       <module name="tp-ingsis-interpreter.formatter.test" target="21" />

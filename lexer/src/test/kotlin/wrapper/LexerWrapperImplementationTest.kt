@@ -7,6 +7,7 @@ import lexer.newrules.BooleanTypeAnalyzer
 import lexer.newrules.ConstAnalyzer
 import lexer.newrules.IfElseAnalyzer
 import lexer.newrules.ReadInputAnalyzer
+import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
 import lexer.rules.MidStringAnalyzer
@@ -18,7 +19,6 @@ import lexer.rules.StringAnalyzer
 import lexer.rules.StringTypeAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
-import lexer.rules.EnterAnalyzer
 import token.TokenType
 import kotlin.test.Test
 import kotlin.test.assertEquals

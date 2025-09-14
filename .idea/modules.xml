@@ -15,6 +15,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.test.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/tp-ingsis-interpreter.cli.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/tp-ingsis-interpreter.common.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.iml" filepath="$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.test.iml" filepath="$PROJECT_DIR$/.idea/modules/formatter/tp-ingsis-interpreter.formatter.test.iml" />

@@ -1,4 +1,3 @@
 package wrapper
 
-class WrapperTest {
-}
+class WrapperTest

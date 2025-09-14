@@ -1,4 +1,4 @@
-interface IteratorGeneric<T> {
+interface IteratorWrapper<T> {
     fun hasNext(): Boolean
     fun next(): T
 }

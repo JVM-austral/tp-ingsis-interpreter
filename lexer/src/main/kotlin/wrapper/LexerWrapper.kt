@@ -1,4 +1,4 @@
-package lexerwrapper
+package wrapper
 
 import token.Token
 

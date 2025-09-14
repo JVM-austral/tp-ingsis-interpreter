@@ -1,7 +1,7 @@
 package wrapper
 
+import IteratorWrapper
 import lexer.Lexer
-import lexerwrapper.LexerWrapper
 import token.Token
 import token.TokenType
 import java.io.Reader
@@ -10,7 +10,7 @@ class LexerWrapperImplementation(
     private val lexerBase: Lexer,
     private val reader: Reader,
     private val tokenBuffer: TokenBuffer,
-) : LexerWrapper {
+) : IteratorWrapper<Result<Token>> {
 
     private var endOfFile = false
     private var currentLine = 1
@@ -22,7 +22,6 @@ class LexerWrapperImplementation(
         if (tokenBuffer.isNotEmpty()) return true
 
         while (tokenBuffer.isEmpty()) {
-
             if (buffer.isEmpty() && !endOfFile) {
                 completeBufferMinLength(1)
             }
@@ -43,7 +42,6 @@ class LexerWrapperImplementation(
         return tokenBuffer.removeFirst()
     }
 
-
     private fun completeBufferMinLength(minLen: Int): Boolean {
         while (buffer.length < minLen && !endOfFile) {
             val c = reader.read()
@@ -56,7 +54,6 @@ class LexerWrapperImplementation(
         return buffer.length >= minLen || endOfFile
     }
 
-
     private fun processOneToken(): Boolean {
         if (buffer.isEmpty() && endOfFile) return false
 
@@ -64,7 +61,6 @@ class LexerWrapperImplementation(
         var windowSize = 1
 
         while (true) {
-
             if (windowSize > buffer.length) {
                 if (!endOfFile) {
                     completeBufferMinLength(windowSize)
