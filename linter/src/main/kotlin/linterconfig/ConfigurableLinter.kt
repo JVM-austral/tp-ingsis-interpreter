@@ -1,12 +1,12 @@
 package linterconfig
 
 import Linter
-import linter.LinterImplementation
 import analyzers.CamelCaseAnalyzer
 import analyzers.LinterAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer
 import analyzers.SnakeCaseAnalyzer
 import com.google.gson.Gson
+import linter.LinterImplementation
 import newanalyzers.ConcatenationInReadInputAnalyzer
 import java.io.File
 

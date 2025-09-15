@@ -1,10 +1,10 @@
 package commands
 
-import runner.RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
+import runner.RunnerImplementation
 import java.io.File
 
 class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source code") {

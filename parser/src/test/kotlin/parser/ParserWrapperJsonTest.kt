@@ -1,6 +1,5 @@
 package parser
 
-import wrapper.IteratorWrapper
 import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import token.Token
 import token.TokenType
+import wrapper.IteratorWrapper
 import wrapper.ParserWrapperImplementation
 
 class ParserWrapperJsonTest {
