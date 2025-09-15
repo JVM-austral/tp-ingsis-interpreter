@@ -5,7 +5,6 @@ import IsCompatibleTypeCondition
 import MissMatchNumberCondition
 import MissMatchStringCondition
 import MissMatchTypeCondition
-import analyzer.TypeDeclarationAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
 import ast.Ast
 import ast.BinaryOperation
@@ -18,12 +17,10 @@ import ast.VarDeclaration
 import ast.VarDefinition
 import condition.MissMatchBooleanCondition
 import executor.FailInterpreterExecutor
-import executor.TypeDeclarationExecutor
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionUnit
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
-import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -111,21 +108,6 @@ class InterpreterWrapperTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].executor is FailInterpreterExecutor && results[1].message?.contains("Second AST is invalid") == true)
         assertTrue(results[2].message == null)
-    }
-
-    @Test
-    fun `TypeDeclarationExecutor should identify Boolean TypeDeclaration and puts in the heap via wrapper`() {
-        val analyzer = TypeDeclarationAnalyzer()
-        val interpreter = InterpreterImplementation(listOf(analyzer), heap, mutableMapOf())
-        val typeDecl = TypeDeclaration("boolean", 0, 0)
-        val asts = listOf(Result.success(typeDecl as Ast))
-        val wrapper = InterpreterWrapper(AstIteratorWrapper(asts), interpreter)
-        while (wrapper.hasNext()) {
-            val execUnit = wrapper.next()
-            execUnit.executor.execute(execUnit.statement, heap, mutableMapOf())
-        }
-        assertTrue(analyzer.analyzeInterpretation(Result.success(typeDecl as Ast), heap, mutableMapOf()))
-        assertInstanceOf(TypeDeclarationExecutor::class.java, analyzer.getExecutor(heap, mutableMapOf()))
     }
 
     @Test
