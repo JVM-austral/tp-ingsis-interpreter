@@ -1,6 +1,6 @@
 package formatterconfig
 
-data class ConfigurableFormatterOptions(
+data class ConfigurableFormatterOptionsV2(
     val spaceBeforeColon: Boolean = false,
     val spaceAfterColon: Boolean = false,
     val spaceBeforeEquals: Boolean = false,
