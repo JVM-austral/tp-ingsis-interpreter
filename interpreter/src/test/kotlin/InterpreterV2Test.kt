@@ -376,7 +376,7 @@ class InterpreterV2Test {
             "let",
             StringLiteral("x", 0, 0),
             TypeDeclaration("string", 0, 0),
-            FunctionCallAst("input", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
+            FunctionCallAst("readInput", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
             0,
             0,
         )

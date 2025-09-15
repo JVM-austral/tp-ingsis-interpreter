@@ -1,5 +1,7 @@
-package analyzer
+package newanalyzers
 
+import analyzer.ConditionAnalyzer
+import analyzer.StructureAnalyzer
 import executor.StructureExecutor
 import newexecutors.IfExecutor
 import token.Token

@@ -1,13 +1,19 @@
 package parser
 
-import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
-import analyzer.StringConcatenationAnalyzer
 import analyzer.VariableDefinitionAnalyzer
 import dsl.AstJsonDsl.toJson
+import newanalyzers.BooleanDeclarationAnalyzer
+import newanalyzers.BooleanDefinitionAnalyzer
+import newanalyzers.IfAnalyzer
+import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
+import newanalyzers.LetVariableDeclarationWithEnvAssignment
+import newanalyzers.LetVariableDeclarationWithInputAssignment
+import newanalyzers.VariableDefinitionWithEnvAnalyzer
+import newanalyzers.VariableDefinitionWithInputAnalyzer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import token.Token
@@ -22,23 +28,32 @@ class ParserWrapperJsonTest {
     private lateinit var letWithStringAssignmentAnalyzer: LetVariableDeclarationWithStringAssignmentAnalyzer
     private lateinit var letWithNumberAssignmentAnalyzer: LetVariableDeclarationWithNumberAssignmentAnalyzer
     private lateinit var variableDefinitionAnalyzer: VariableDefinitionAnalyzer
-    private lateinit var binaryNumberAnalyzer: BinaryNumberOperatorAnalyzer
-    private lateinit var stringConcatenationAnalyzer: StringConcatenationAnalyzer
     private lateinit var functionAnalyzer: FunctionAnalyzer
 
     @BeforeEach
     fun setUp() {
         letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let"))
-        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
-        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let"))
+        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const"))
+        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const"))
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
-        binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
-        stringConcatenationAnalyzer = StringConcatenationAnalyzer()
         functionAnalyzer = FunctionAnalyzer()
 
         parser =
             ParserImplementation(
-                listOf(functionAnalyzer, letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer),
+                listOf(
+                    FunctionAnalyzer(), LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let")),
+                    LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
+                    LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
+                    VariableDefinitionAnalyzer(),
+                    BooleanDefinitionAnalyzer(),
+                    BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+                    LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+                    LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+                    VariableDefinitionWithEnvAnalyzer(),
+                    IfAnalyzer(),
+                    LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+                    VariableDefinitionWithInputAnalyzer(),
+                ),
             )
     }
 
@@ -337,6 +352,56 @@ class ParserWrapperJsonTest {
 ]
         """.trimIndent()
         println("\n🔍 LET PI DECLARATION, ASSIGNMENT AND PRINTLN WRAPPER TEST")
+        printJsonComparison(expectedJson, actualJson)
+        assertJsonSimilar(expectedJson, actualJson)
+    }
+
+    @Test
+    fun `test const declaration and assignment to JSON using wrapper`() {
+        val tokens = listOf(
+            Token("const", TokenType.KEYWORD, 1, 1),
+            Token("PI", TokenType.IDENTIFIER, 1, 2),
+            Token(":", TokenType.PUNCTUATION, 1, 3),
+            Token("number", TokenType.IDENTIFIER, 1, 4),
+            Token("=", TokenType.OPERATOR, 1, 5),
+            Token("3.14", TokenType.NUMBER_LITERAL, 1, 6),
+            Token(";", TokenType.PUNCTUATION, 1, 7),
+        )
+        val tokenResults = tokens.map { Result.success(it) }
+        val lexerWrapper = object : IteratorWrapper<Result<Token>> {
+            private var index = 0
+            override fun hasNext(): Boolean = index < tokenResults.size
+            override fun next(): Result<Token> = tokenResults[index++]
+        }
+        val wrapper = ParserWrapperImplementation(lexerWrapper, parser)
+        val astResults = mutableListOf<Result<ast.Ast>>()
+        while (wrapper.hasNext()) {
+            astResults.add(wrapper.next())
+        }
+        val actualJson = astResults.toJson()
+        val expectedJson = """
+[
+  {
+    "type": "VarDeclaration",
+    "value": "const",
+    "children": [
+      {
+        "type": "StringLiteral",
+        "value": "PI"
+      },
+      {
+        "type": "TypeDeclaration",
+        "value": "number"
+      },
+      {
+        "type": "NumberLiteral",
+        "value": "3.14"
+      }
+    ]
+  }
+]
+        """.trimIndent()
+        println("\n🔍 CONST DECLARATION AND ASSIGNMENT WRAPPER TEST")
         printJsonComparison(expectedJson, actualJson)
         assertJsonSimilar(expectedJson, actualJson)
     }
