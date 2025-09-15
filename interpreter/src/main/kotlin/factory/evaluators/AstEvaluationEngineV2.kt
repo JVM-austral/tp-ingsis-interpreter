@@ -28,11 +28,11 @@ import evaluator.typeconversionstrategy.NumberTypeStrategy
 import evaluator.typeconversionstrategy.StringTypeStrategy
 import interpreter.VariableInfo
 import mock.OutputHandler
-import mock.StdOutputHandler
 
-class AstEvaluationEngineV2(private val outputHandler: OutputHandler,
-                            private val inputProvider: InputProvider,
-                            private val converter: LiteralConverter
+class AstEvaluationEngineV2(
+    private val outputHandler: OutputHandler,
+    private val inputProvider: InputProvider,
+    private val converter: LiteralConverter,
 ) : AstEvaluator {
     private val evaluators: Map<Class<out Ast>, AstEvaluator> = mapOf(
         NumberLiteral::class.java to NumberLiteralEvaluator(),
@@ -50,7 +50,7 @@ class AstEvaluationEngineV2(private val outputHandler: OutputHandler,
 
     )
 
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Any {
+    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Any {
         val evaluator = evaluators[ast::class.java]
             ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
         return evaluator.evaluate(ast, heap, env)

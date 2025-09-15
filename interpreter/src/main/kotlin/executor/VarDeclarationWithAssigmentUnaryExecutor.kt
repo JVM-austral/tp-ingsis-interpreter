@@ -11,7 +11,7 @@ class VarDeclarationWithAssigmentUnaryExecutor(private val engine: AstEvaluator,
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
-        env:  MutableMap<String, Ast>,
+        env: MutableMap<String, Ast>,
     ): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
@@ -19,7 +19,7 @@ class VarDeclarationWithAssigmentUnaryExecutor(private val engine: AstEvaluator,
                 val type: String = ast.getListOfChildren()[1].getValue()
                 val evaluatedValue = engine.evaluate(ast.getListOfChildren()[2], heap, env)
                 isCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
-                val compatibleTypeResult= isCompatibleTypeCondition.evaluate(statement, heap)
+                val compatibleTypeResult = isCompatibleTypeCondition.evaluate(statement, heap)
                 if (compatibleTypeResult != null) {
                     return Result.failure(Exception(compatibleTypeResult))
                 }

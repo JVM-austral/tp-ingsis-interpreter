@@ -1,12 +1,5 @@
 package newanalyzers
 
-import ast.FunctionCallAst
-import ast.StringLiteral
-import ast.TypeDeclaration
-import ast.VarDeclaration
-import ast.VarDefinition
-import newexecutors.LetVariableDeclarationWithInputAssignmentExecutor
-import newexecutors.VariableDefinitionWithInputExecutor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -23,7 +16,6 @@ class InputParserTest {
     fun setUp() {
         letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
-
     }
 
     @Test
@@ -265,18 +257,20 @@ class InputParserTest {
     // ============ VariableDefinitionWithInputAnalyzer Tests ============
 
     @Test
-    fun `should analyze not valid variable definition with readInput assignment`() {
+    fun `should analyze valid variable definition with readInput assignment`() {
         val tokens = listOf(
             Token("userChoice", TokenType.IDENTIFIER, 1, 1),
             Token("=", TokenType.OPERATOR, 1, 2),
             Token("readInput", TokenType.IDENTIFIER, 1, 3),
             Token("(", TokenType.PUNCTUATION, 1, 4),
             Token("prompt", TokenType.IDENTIFIER, 1, 5),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("hola", TokenType.IDENTIFIER, 1, 5),
             Token(")", TokenType.PUNCTUATION, 1, 6),
             Token(";", TokenType.PUNCTUATION, 1, 7),
         )
 
-        assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
+        assertTrue(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
@@ -395,9 +389,6 @@ class InputParserTest {
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
-
-
-
     @Test
     fun `should reject empty token list for let input analyzer`() {
         val tokens = emptyList<Token>()
@@ -409,7 +400,6 @@ class InputParserTest {
         val tokens = emptyList<Token>()
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
-
 
     @Test
     fun `should validate exact token count requirements`() {

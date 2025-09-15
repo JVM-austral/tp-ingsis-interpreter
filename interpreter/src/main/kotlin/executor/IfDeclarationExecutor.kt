@@ -9,10 +9,13 @@ import interpreter.Interpreter
 import interpreter.VariableInfo
 import mock.OutputHandler
 
-class IfDeclarationExecutor(private val engine: AstEvaluator, private val outputHandler: OutputHandler, private val inputProvider: InputProvider,
-                            private val converter: LiteralConverter
+class IfDeclarationExecutor(
+    private val engine: AstEvaluator,
+    private val outputHandler: OutputHandler,
+    private val inputProvider: InputProvider,
+    private val converter: LiteralConverter,
 ) : InterpreterExecutor {
-    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Result<Ast> {
+    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Result<Ast> {
         val ast = statement.getOrNull() ?: return Result.failure(Exception("AST is null"))
         if (ast !is ast.IfDeclaration) {
             return Result.failure(Exception("AST is not an IfDeclaration"))
@@ -32,7 +35,7 @@ class IfDeclarationExecutor(private val engine: AstEvaluator, private val output
         return concatErrors(finalResults)
     }
 
-    private fun interpreterFactory(heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Interpreter {
+    private fun interpreterFactory(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Interpreter {
         val interpreter = factory.interpreters.InterpreterFactory().createInterpreterV2(heap, outputHandler, env, inputProvider, converter)
         return interpreter
     }
