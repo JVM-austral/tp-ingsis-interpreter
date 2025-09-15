@@ -1,6 +1,6 @@
 package commands
 
-import RunnerImplementation
+import runner.RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required

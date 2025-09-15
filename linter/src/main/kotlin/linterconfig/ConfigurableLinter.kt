@@ -1,7 +1,7 @@
 package linterconfig
 
 import Linter
-import LinterImplementation
+import linter.LinterImplementation
 import analyzers.CamelCaseAnalyzer
 import analyzers.LinterAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer

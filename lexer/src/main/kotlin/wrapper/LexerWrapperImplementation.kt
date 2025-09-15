@@ -1,6 +1,5 @@
 package wrapper
 
-import IteratorWrapper
 import lexer.Lexer
 import token.Token
 import token.TokenType

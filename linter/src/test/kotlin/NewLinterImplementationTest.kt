@@ -5,6 +5,7 @@ import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
 import ast.VariableIdentifier
+import linter.LinterImplementation
 import newanalyzers.ConcatenationInReadInputAnalyzer
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test

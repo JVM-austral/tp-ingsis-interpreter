@@ -1,7 +1,7 @@
 package formatterconfig
 
 import Formatter
-import FormatterImpl
+import formatter.FormatterImpl
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.FormatRulesAnalyzers
 import analyzers.NewLineAfterSemiColonAnalyzer

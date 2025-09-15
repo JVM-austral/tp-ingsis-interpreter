@@ -2,7 +2,6 @@ package wrapper
 
 import ConditionMessageHandler
 import IsCompatibleTypeCondition
-import IteratorWrapper
 import MissMatchNumberCondition
 import MissMatchStringCondition
 import MissMatchTypeCondition

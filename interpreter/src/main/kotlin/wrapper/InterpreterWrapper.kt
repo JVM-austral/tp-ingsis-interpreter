@@ -1,6 +1,5 @@
 package wrapper
 
-import IteratorWrapper
 import ast.Ast
 import interpreter.ExecutionUnit
 import interpreter.Interpreter

@@ -42,6 +42,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.token.main" />
+    <orderEntry type="module" module-name="tp-ingsis-interpreter.common.main" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.ast.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />

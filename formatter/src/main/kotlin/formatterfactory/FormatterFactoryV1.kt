@@ -1,7 +1,7 @@
 package formatterfactory
 
 import Formatter
-import FormatterImpl
+import formatter.FormatterImpl
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.NewLineAfterSemiColonAnalyzer
 import analyzers.NewLinesBeforePrintlnAnalyzer

@@ -1,3 +1,6 @@
+package linter
+
+import Linter
 import analyzers.LinterAnalyzer
 import ast.Ast
 import ast.IfDeclaration

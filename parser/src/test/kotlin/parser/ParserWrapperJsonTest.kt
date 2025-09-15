@@ -1,6 +1,6 @@
 package parser
 
-import IteratorWrapper
+import wrapper.IteratorWrapper
 import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer

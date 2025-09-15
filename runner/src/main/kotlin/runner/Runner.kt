@@ -1,3 +1,5 @@
+package runner
+
 interface Runner {
     fun format(code: String, formatterConfigPath: String?): String
 

@@ -8,6 +8,7 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
+import formatter.FormatterImpl
 import lexer.LexerImplementation
 import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer

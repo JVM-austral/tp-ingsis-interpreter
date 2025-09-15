@@ -1,3 +1,5 @@
+package linter
+
 import ast.Ast
 import error.LinterError
 
