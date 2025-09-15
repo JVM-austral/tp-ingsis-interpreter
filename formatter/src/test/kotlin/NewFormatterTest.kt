@@ -8,6 +8,7 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
+import formatter.FormatterImpl
 import lexer.LexerImplementation
 import lexer.newrules.BooleanAnalyzer
 import lexer.newrules.BooleanOperatorsAnalyzer
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
 class NewFormatterTest {
-    private lateinit var formatter: Formatter
+    private lateinit var formatter: formatter.Formatter
     private lateinit var lexer: lexer.Lexer
 
     @BeforeEach

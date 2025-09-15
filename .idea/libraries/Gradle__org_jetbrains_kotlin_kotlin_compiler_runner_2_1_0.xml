@@ -4,7 +4,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/2.1.0/aeff856eff94e2ca0582f155b414a57cc7837e07/kotlin-compiler-runner-2.1.0.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/2.1.0/2ad14aed781c4a73ed4dbb421966d408a0a06686/kotlin-compiler-runner-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/2.1.0/207a0cb7fc5054fa0d9e7fdb102210bd55524aa7/kotlin-compiler-runner-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

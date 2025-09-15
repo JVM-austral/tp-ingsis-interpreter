@@ -10,6 +10,7 @@ import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
 import ast.VariableIdentifier
+import linter.LinterImplementation
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals

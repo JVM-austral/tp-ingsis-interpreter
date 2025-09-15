@@ -2,6 +2,14 @@ package factory
 
 import lexer.Lexer
 import lexer.LexerImplementation
+import lexer.newrules.BooleanAnalyzer
+import lexer.newrules.BooleanOperatorsAnalyzer
+import lexer.newrules.BooleanTypeAnalyzer
+import lexer.newrules.ConstAnalyzer
+import lexer.newrules.IfElseAnalyzer
+import lexer.newrules.ReadEnvAnalyzer
+import lexer.newrules.ReadInputAnalyzer
+import lexer.newrules.TabAnalyzer
 import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
@@ -18,15 +26,30 @@ import lexer.rules.WhitespaceAnalyzer
 
 class LexerFactoryV1 {
 
-    private val rules = listOf(
-        NumberAnalyzer(), EnterAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
-        OperatorAnalyzer(), NumberTypeAnalyzer(),
-        PrintAnalyzer(), PunctuationAnalyzer(), StringTypeAnalyzer(),
-        StringAnalyzer(), VariableAnalyzer(), WhitespaceAnalyzer(),
+    private val analyzers = listOf(
+        BooleanOperatorsAnalyzer(),
+        BooleanAnalyzer(),
+        BooleanTypeAnalyzer(),
+        ConstAnalyzer(),
+        IfElseAnalyzer(),
+        ReadInputAnalyzer(),
+        KeywordAnalyzer(),
+        NumberAnalyzer(),
+        NumberTypeAnalyzer(),
+        OperatorAnalyzer(),
+        PunctuationAnalyzer(),
+        StringAnalyzer(),
+        StringTypeAnalyzer(),
+        VariableAnalyzer(),
+        WhitespaceAnalyzer(),
         MidStringAnalyzer(),
-
+        MidNumberAnalyzer(),
+        TabAnalyzer(),
+        ReadEnvAnalyzer(),
+        EnterAnalyzer(),
+        PrintAnalyzer(),
     )
     fun create(): Lexer {
-        return LexerImplementation(rules)
+        return LexerImplementation(analyzers)
     }
 }

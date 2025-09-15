@@ -8,11 +8,12 @@ plugins {
 }
 
 group = 'org.JVM-austral'
-version = '1.0.0-SNAPSHOT'
+
 
 dependencies {
 
     implementation project(":runner")
+    implementation project(":interpreter")
     implementation("com.github.ajalt.clikt:clikt:4.2.0")
     testImplementation 'com.google.code.gson:gson:2.10.1'
     testImplementation "org.jetbrains.kotlin:kotlin-test:2.1.0"

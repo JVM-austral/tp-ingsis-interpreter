@@ -1,9 +1,9 @@
 package linterfactory
 
-import Linter
-import LinterImplementation
 import analyzers.CamelCaseAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer
+import linter.Linter
+import linter.LinterImplementation
 
 class LinterFactoryV1 {
     private val rules = listOf(

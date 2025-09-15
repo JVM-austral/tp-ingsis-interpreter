@@ -368,7 +368,9 @@ class InterpreterV2Test {
             0,
         )
         val result = interpreter.interpret(listOf(Result.success(assigment as Ast)))
+
         val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
+
         assertEquals("hello world", heap["x"]?.value)
     }
 }

@@ -8,6 +8,7 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
+import formatter.FormatterImpl
 import lexer.LexerImplementation
 import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
@@ -28,7 +29,7 @@ import kotlin.test.assertEquals
 
 class FormatterTest {
 
-    private lateinit var formatter: Formatter
+    private lateinit var formatter: formatter.Formatter
     private lateinit var lexer: lexer.Lexer
 
     @BeforeEach

@@ -10,7 +10,6 @@ import parser.ParserImplementation
 
 class ParserFactoryV1 {
     private val rules = listOf(
-
         FunctionAnalyzer(),
         LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let")),
         LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let")),

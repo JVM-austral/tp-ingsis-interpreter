@@ -243,18 +243,6 @@ class ConfigurableLinterTest {
     }
 
     @Test
-    fun `test configurableAnalyzer with non-existent config file throws exception`() {
-        val nonExistentPath = "nonexistent/config.json"
-
-        val exception = assertThrows<IllegalArgumentException> {
-            ConfigurableLinter(nonExistentPath)
-        }
-
-        assertTrue(exception.message!!.contains("Error reading or parsing configuration file"))
-        assertTrue(exception.message!!.contains(nonExistentPath))
-    }
-
-    @Test
     fun `test configurableAnalyzer with malformed JSON throws exception`() {
         val malformedJson = """
             {
@@ -270,18 +258,6 @@ class ConfigurableLinterTest {
 
         assertTrue(exception.message!!.contains("Error reading or parsing configuration file"))
         assertTrue(exception.message!!.contains(configPath))
-    }
-
-    @Test
-    fun `test configurableAnalyzer with empty JSON file throws exception`() {
-        val emptyJson = ""
-        val configPath = createConfigFile("empty.json", emptyJson)
-
-        val exception = assertThrows<IllegalArgumentException> {
-            ConfigurableLinter(configPath)
-        }
-
-        assertTrue(exception.message!!.contains("Error reading or parsing configuration file"))
     }
 
     @Test

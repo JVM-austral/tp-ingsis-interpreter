@@ -1,3 +1,5 @@
+package formatter
+
 import analyzers.FormatRulesAnalyzers
 import token.Token
 

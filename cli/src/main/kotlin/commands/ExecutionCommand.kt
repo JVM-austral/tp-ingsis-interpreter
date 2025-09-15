@@ -1,10 +1,10 @@
 package commands
 
-import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
+import runner.RunnerImplementation
 import java.io.File
 
 class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source code") {
@@ -14,7 +14,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         .choice("V1", "V2")
 
     override fun run() {
-        val code = File(file).readText()
+        val code = File(file).inputStream()
         echo("Running $file...")
         val runner = RunnerImplementation(version)
         runner.run(code)

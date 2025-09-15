@@ -4,7 +4,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-tooling-core/2.1.0/9055094879c715b1c39945150156f2e876ae7438/kotlin-tooling-core-2.1.0.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-tooling-core/2.1.0/2ad14aed781c4a73ed4dbb421966d408a0a06686/kotlin-tooling-core-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-tooling-core/2.1.0/e89539fac3df0df83c187ec09683b9e789b1bca1/kotlin-tooling-core-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

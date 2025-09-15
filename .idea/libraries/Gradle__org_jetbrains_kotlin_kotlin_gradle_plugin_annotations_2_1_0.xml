@@ -4,7 +4,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-annotations/2.1.0/9b36b3d02a0937d7d5c867a2273b016213131980/kotlin-gradle-plugin-annotations-2.1.0.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-annotations/2.1.0/2ad14aed781c4a73ed4dbb421966d408a0a06686/kotlin-gradle-plugin-annotations-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-annotations/2.1.0/3b20493cb0abb1ec78a13f4ec687b25096c8d945/kotlin-gradle-plugin-annotations-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

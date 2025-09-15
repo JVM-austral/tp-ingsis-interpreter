@@ -8,10 +8,9 @@ plugins {
 }
 
 group = 'org.JVM-austral'
-version = '1.0.0-SNAPSHOT'
-
 dependencies {
     implementation project(":token")
+    implementation project(":common")
     implementation project(":interpreter")
     implementation project(":lexer")
     implementation project(":parser")
@@ -26,7 +25,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             groupId = project.group
-            artifactId = 'lexer'
+            artifactId = 'runner'
             version = project.version
         }
     }

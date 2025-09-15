@@ -18,3 +18,7 @@ task publish {
     description = 'Publishes all subprojects.'
     dependsOn subprojects.collect { it.tasks.matching { t -> t.name == 'publish' } }
 }
+
+allprojects {
+    version = '1.0.8'
+}
