@@ -6,6 +6,12 @@ import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
+import token.Token
+import wrapper.InterpreterWrapper
+import wrapper.LexerWrapperImplementation
+import wrapper.ParserWrapperImplementation
+import wrapper.TokenBuffer
+import java.io.StringReader
 
 class RunnerImplementation(private val version: String?) : Runner {
 
@@ -13,7 +19,14 @@ class RunnerImplementation(private val version: String?) : Runner {
         val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
-        val tokens = lexer.tokenize(code)
+        val reader = StringReader(code)
+        val tokenBuffer = TokenBuffer()
+        val lexerWrapper = LexerWrapperImplementation(lexer, reader, tokenBuffer)
+        val tokens = mutableListOf<Result<Token>>()
+        while (lexerWrapper.hasNext()) {
+            val result = lexerWrapper.next()
+            tokens.add(result)
+        }
         return formatter.format(tokens)
     }
 
@@ -22,11 +35,19 @@ class RunnerImplementation(private val version: String?) : Runner {
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val interpreter: Interpreter = factory.getInterpreter()
-        val tokens = lexer.tokenize(code)
-        val ast = parser.parse(tokens)
-        val result = interpreter.interpret(ast)
+
+        val reader = StringReader(code)
+        val tokenBuffer = TokenBuffer()
+        val lexerWrapper = LexerWrapperImplementation(lexer, reader, tokenBuffer)
+        val parserWrapper = ParserWrapperImplementation(lexerWrapper, parser)
+        val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
+
+        val executionUnits = mutableListOf<interpreter.ExecutionUnit>()
+        while (interpreterWrapper.hasNext()) {
+            executionUnits.add(interpreterWrapper.next())
+        }
         val executionEngine = ExecutionEngine(mutableMapOf(), mutableMapOf())
-        val finalResult = executionEngine.runAll(result)
+        val finalResult = executionEngine.runAll(executionUnits)
 
         if (finalResult.isNotEmpty()) {
             println("Printing errors found during execution:")
@@ -40,8 +61,15 @@ class RunnerImplementation(private val version: String?) : Runner {
         val parser: Parser = factory.getParser()
         val linter: Linter = factory.getLinter()
 
-        val tokens = lexer.tokenize(code)
-        val ast = parser.parse(tokens)
+        val reader = StringReader(code)
+        val tokenBuffer = TokenBuffer()
+        val lexerWrapper = LexerWrapperImplementation(lexer, reader, tokenBuffer)
+        val tokens = mutableListOf<token.Token>()
+        while (lexerWrapper.hasNext()) {
+            val result = lexerWrapper.next()
+            result.onSuccess { tokens.add(it) }
+        }
+        val ast = parser.parse(tokens.map { Result.success(it) })
         val lintResult = linter.lint(ast)
         if (lintResult.isEmpty()) {
             println("No lint issues found.")
