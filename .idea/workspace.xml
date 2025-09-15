@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/errorhandler/ErrorHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/wrapper/WrapperTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/runner/Runner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" afterDir="false" />
-    </list>
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +94,7 @@
     "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
     "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
     "Gradle.CliTest.ExecutionCommand should execute pi division code correctly.executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should read file and execute valid PrintScript code.executor": "Run",
     "Gradle.CliTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
@@ -183,7 +174,31 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CliTest.ExecutionCommand should execute pi division code correctly">
+  <component name="RunManager" selected="Gradle.CliTest">
+    <configuration name="CliTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cli:test" />
+            <option value="--tests" />
+            <option value="&quot;CliTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="CliTest.ExecutionCommand should execute pi division code correctly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -198,6 +213,30 @@
             <option value=":cli:test" />
             <option value="--tests" />
             <option value="&quot;CliTest.ExecutionCommand should execute pi division code correctly&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CliTest.ExecutionCommand should read file and execute valid PrintScript code" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cli:test" />
+            <option value="--tests" />
+            <option value="&quot;CliTest.ExecutionCommand should read file and execute valid PrintScript code&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -256,61 +295,13 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":parser:test" />
-            <option value="--tests" />
-            <option value="&quot;parser.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ParserWrapperJsonTest.test single println with identifier to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":parser:test" />
-            <option value="--tests" />
-            <option value="&quot;parser.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CliTest" />
+        <item itemvalue="Gradle.CliTest.ExecutionCommand should read file and execute valid PrintScript code" />
         <item itemvalue="Gradle.CliTest.ExecutionCommand should execute pi division code correctly" />
         <item itemvalue="Gradle.ParserWrapperJsonTest" />
         <item itemvalue="Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper" />
-        <item itemvalue="Gradle.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper" />
-        <item itemvalue="Gradle.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper" />
       </list>
     </recent_temporary>
   </component>
@@ -358,7 +349,7 @@
       <workItem from="1757961124531" duration="430000" />
       <workItem from="1757962073836" duration="50000" />
       <workItem from="1757963551607" duration="417000" />
-      <workItem from="1757966280377" duration="1571000" />
+      <workItem from="1757966280377" duration="2388000" />
     </task>
     <servers />
   </component>
