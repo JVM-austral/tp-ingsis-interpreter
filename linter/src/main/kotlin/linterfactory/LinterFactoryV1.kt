@@ -1,8 +1,8 @@
 package linterfactory
 
-import Linter
 import analyzers.CamelCaseAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer
+import linter.Linter
 import linter.LinterImplementation
 
 class LinterFactoryV1 {

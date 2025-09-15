@@ -29,7 +29,7 @@ import kotlin.test.assertEquals
 
 class FormatterTest {
 
-    private lateinit var formatter: Formatter
+    private lateinit var formatter: formatter.Formatter
     private lateinit var lexer: lexer.Lexer
 
     @BeforeEach

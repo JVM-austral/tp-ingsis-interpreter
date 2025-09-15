@@ -1,7 +1,7 @@
 package factory
 
-import Linter
 import lexer.Lexer
+import linter.Linter
 import linterfactory.LinterFactoryWithJson
 import parser.Parser
 

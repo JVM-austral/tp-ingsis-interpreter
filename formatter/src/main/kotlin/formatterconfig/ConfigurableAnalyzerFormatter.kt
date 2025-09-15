@@ -1,6 +1,5 @@
 package formatterconfig
 
-import Formatter
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.FormatRulesAnalyzers
 import analyzers.NewLineAfterSemiColonAnalyzer
@@ -13,6 +12,7 @@ import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
 import com.google.gson.Gson
+import formatter.Formatter
 import formatter.FormatterImpl
 import newanalyzers.IfOpenBlockInTheSameLineAnalyzer
 import newanalyzers.IndentationAnalyzer

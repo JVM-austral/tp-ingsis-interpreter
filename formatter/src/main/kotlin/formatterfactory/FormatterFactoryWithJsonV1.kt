@@ -1,6 +1,6 @@
 package formatterfactory
 
-import Formatter
+import formatter.Formatter
 import formatterconfig.ConfigurableAnalyzerFormatter
 
 class FormatterFactoryWithJsonV1(private val linterConfigPath: String?) {

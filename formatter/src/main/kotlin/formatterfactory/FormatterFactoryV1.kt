@@ -1,6 +1,5 @@
 package formatterfactory
 
-import Formatter
 import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.NewLineAfterSemiColonAnalyzer
 import analyzers.NewLinesBeforePrintlnAnalyzer
@@ -11,6 +10,7 @@ import analyzers.SpaceAfterOperatorAnalyzer
 import analyzers.SpaceBeforeColonAnalyzer
 import analyzers.SpaceBeforeEqualsAnalyzer
 import analyzers.SpaceBeforeOperatorAnalyzer
+import formatter.Formatter
 import formatter.FormatterImpl
 
 class FormatterFactoryV1 {

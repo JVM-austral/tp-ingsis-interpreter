@@ -1,6 +1,6 @@
 package factory
 
-import Formatter
+import formatter.Formatter
 import formatterfactory.FormatterFactoryWithJsonV1
 import lexer.Lexer
 

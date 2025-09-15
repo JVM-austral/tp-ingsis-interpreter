@@ -1,6 +1,6 @@
 package linterfactory
 
-import Linter
+import linter.Linter
 import linterconfig.ConfigurableLinter
 
 class LinterFactoryWithJson(private val linterConfigPath: String?, private val v2: Boolean = true) {

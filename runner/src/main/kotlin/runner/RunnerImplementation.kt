@@ -1,14 +1,14 @@
 package runner
 
-import Formatter
-import Linter
 import factory.ExecutionCommandFactory
 import factory.FormatCommandFactory
 import factory.LintCommandFactory
 import factory.fromString
+import formatter.Formatter
 import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
+import linter.Linter
 import parser.Parser
 import token.Token
 import wrapper.InterpreterWrapper

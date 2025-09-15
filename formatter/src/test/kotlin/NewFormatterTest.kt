@@ -37,7 +37,7 @@ import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
 class NewFormatterTest {
-    private lateinit var formatter: Formatter
+    private lateinit var formatter: formatter.Formatter
     private lateinit var lexer: lexer.Lexer
 
     @BeforeEach
