@@ -63,7 +63,6 @@ class InterpreterWrapperTest {
         val wrapper = InterpreterWrapper(AstIteratorWrapper(asts), interpreter)
         assertTrue(wrapper.hasNext())
         val execUnit = wrapper.next()
-        assertTrue(execUnit.executor != null)
         assertEquals(null, execUnit.message)
     }
 

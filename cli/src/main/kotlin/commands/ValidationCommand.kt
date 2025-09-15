@@ -5,8 +5,6 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import factory.ValidationCommandFactory
-import factory.fromString
 import java.io.File
 
 class ValidationCommand : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
@@ -20,8 +18,6 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
 
     override fun run() {
         try {
-            val factory = ValidationCommandFactory(fromString(version ?: "V1"), linterConfigPath, formatterConfigPath)
-
             echo("Formatting $file...")
 
             val code = File(file).readText()

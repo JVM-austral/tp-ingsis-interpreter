@@ -8,7 +8,7 @@ class FormatCommandFactory(private val version: Version, private val formatterCo
     fun getLexer(): Lexer {
         return when (version) {
             Version.V1 -> LexerFactoryV1().create()
-            Version.V2 -> TODO()
+            Version.V2 -> LexerFactoryV2().create()
         }
     }
 
