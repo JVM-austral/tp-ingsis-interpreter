@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     implementation project(":token")
+    implementation project(":common")
     implementation project(":ast")
     testImplementation "org.jetbrains.kotlin:kotlin-test:2.1.0"
 }

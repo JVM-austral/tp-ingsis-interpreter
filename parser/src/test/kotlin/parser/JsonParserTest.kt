@@ -509,6 +509,6 @@ class JsonParserTest {
     }
 }
 
-private operator fun String.times(n: Int): String {
+operator fun String.times(n: Int): String {
     return this.repeat(n)
 }
