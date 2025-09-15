@@ -169,4 +169,14 @@ class LexerWrapperImplementationTest {
         val result = dsl.tokensToString(wrapper)
         assertEquals("keyword->whitespace->identifier->whitespace->operator->whitespace->identifier->punctuation", result)
     }
+
+    @Test
+    fun testPiAssignmentAndPrintlnExpression() {
+        val wrapper = createWrapper("let pi : number; pi = 3.14; println( pi / 2);")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals(
+            "keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->punctuation->whitespace->identifier->whitespace->operator->whitespace->number->punctuation->whitespace->identifier->punctuation->whitespace->identifier->whitespace->operator->whitespace->number->punctuation->punctuation",
+            result,
+        )
+    }
 }

@@ -339,9 +339,4 @@ class CliTest {
 
         // All commands should execute without throwing exceptions
     }
-
-    @org.junit.jupiter.api.AfterEach
-    fun tearDown() {
-        System.setOut(originalOut)
-    }
 }

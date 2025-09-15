@@ -1,5 +1,6 @@
 package runner
 
+import errorhandler.MockErrorHandler
 import evaluator.input.ConsoleInputProvider
 import evaluator.input.InputProvider
 import factory.ExecutionCommandFactory
@@ -25,8 +26,10 @@ import java.io.StringReader
 
 class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider()) : Runner {
 
+    private val errorHandler = MockErrorHandler()
+
     override fun format(code: String, formatterConfigPath: String?): String {
-        val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
+        val factory = FormatCommandFactory(fromString(version ?: "V2"), formatterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
         val reader = StringReader(code)
@@ -41,7 +44,7 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
     }
 
     override fun run(code: InputStream) {
-        val factory = ExecutionCommandFactory(fromString(version ?: "V1"), stdOutHandler, inputProvider)
+        val factory = ExecutionCommandFactory(fromString(version ?: "V2"), stdOutHandler, inputProvider)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val interpreter: Interpreter = factory.getInterpreter()
@@ -60,6 +63,7 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
 
         if (finalResult.isNotEmpty()) {
             println("Printing errors found during execution:")
+            finalResult.forEach { errorHandler.handleError(it) }
             finalResult.map { println(it.message) }
         }
         code.close()
@@ -88,7 +92,7 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
         }
     }
 
-    override fun getStdOutHandler(): OutputHandler {
-        return stdOutHandler
+    override fun getErrorHandler(): MockErrorHandler {
+        return errorHandler
     }
 }

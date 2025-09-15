@@ -1,7 +1,6 @@
 package runner
 
-import mock.OutputHandler
-import mock.StdOutputHandler
+import errorhandler.MockErrorHandler
 import java.io.InputStream
 
 interface Runner {
@@ -11,5 +10,5 @@ interface Runner {
 
     fun lint(code: String, linterConfigPath: String?)
 
-    fun getStdOutHandler(): OutputHandler
+    fun getErrorHandler(): MockErrorHandler
 }

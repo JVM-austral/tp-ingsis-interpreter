@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/errorhandler/ErrorHandler.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/wrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/wrapper/WrapperTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/factory/ExecutionCommandFactory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/runner/Runner.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" afterDir="false" />
     </list>
@@ -110,6 +103,7 @@
     "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor": "Run",
     "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
     "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should execute pi division code correctly.executor": "Run",
     "Gradle.CliTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
@@ -118,6 +112,7 @@
     "Gradle.ComprehensiveParserTest.should analyze simple addition.executor": "Run",
     "Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor": "Run",
     "Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should execute function call with single parameter.executor": "Run",
     "Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor": "Run",
     "Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor": "Run",
     "Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor": "Run",
@@ -136,6 +131,7 @@
     "Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testPiAssignmentAndPrintlnExpression.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor": "Run",
@@ -145,6 +141,10 @@
     "Gradle.NewLexerVersionTest.executor": "Run",
     "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
     "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper.executor": "Run",
     "Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor": "Run",
     "Gradle.tp-ingsis-interpreter [buildDependents].executor": "Run",
     "Gradle.tp-ingsis-interpreter [build].executor": "Run",
@@ -157,7 +157,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/sereb/programming/faculty/ingsis",
+    "last_opened_file_path": "C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -183,8 +183,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CliTest">
-    <configuration name="CliTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.CliTest.ExecutionCommand should execute pi division code correctly">
+    <configuration name="CliTest.ExecutionCommand should execute pi division code correctly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -197,7 +197,7 @@
           <list>
             <option value=":cli:test" />
             <option value="--tests" />
-            <option value="&quot;CliTest&quot;" />
+            <option value="&quot;CliTest.ExecutionCommand should execute pi division code correctly&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -208,7 +208,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ConfigurableLinterTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParserWrapperJsonTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -219,9 +219,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":linter:test" />
+            <option value=":parser:test" />
             <option value="--tests" />
-            <option value="&quot;ConfigurableLinterTest&quot;" />
+            <option value="&quot;parser.ParserWrapperJsonTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -232,7 +232,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -243,9 +243,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":linter:test" />
+            <option value=":parser:test" />
             <option value="--tests" />
-            <option value="&quot;ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception&quot;" />
+            <option value="&quot;parser.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -256,7 +256,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -267,9 +267,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":linter:test" />
+            <option value=":parser:test" />
             <option value="--tests" />
-            <option value="&quot;ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception&quot;" />
+            <option value="&quot;parser.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -280,7 +280,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="InterpreterWrapperTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParserWrapperJsonTest.test single println with identifier to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -291,9 +291,9 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":interpreter:test" />
+            <option value=":parser:test" />
             <option value="--tests" />
-            <option value="&quot;wrapper.InterpreterWrapperTest&quot;" />
+            <option value="&quot;parser.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -306,7 +306,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.CliTest" />
+        <item itemvalue="Gradle.CliTest.ExecutionCommand should execute pi division code correctly" />
+        <item itemvalue="Gradle.ParserWrapperJsonTest" />
+        <item itemvalue="Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper" />
+        <item itemvalue="Gradle.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper" />
+        <item itemvalue="Gradle.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper" />
       </list>
     </recent_temporary>
   </component>
@@ -351,6 +355,10 @@
       <workItem from="1757941323404" duration="1388000" />
       <workItem from="1757958829595" duration="13000" />
       <workItem from="1757959163993" duration="745000" />
+      <workItem from="1757961124531" duration="430000" />
+      <workItem from="1757962073836" duration="50000" />
+      <workItem from="1757963551607" duration="417000" />
+      <workItem from="1757966280377" duration="1571000" />
     </task>
     <servers />
   </component>
