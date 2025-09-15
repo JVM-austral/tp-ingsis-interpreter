@@ -14,7 +14,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test:2.1.0"
 }
 group = 'org.JVM-austral'
-version = '1.0.2'
+version = '1.0.3'
 publishing {
     publications {
         mavenJava(MavenPublication) {

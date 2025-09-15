@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,18 +61,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "mateoserebrinsky"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mateoserebrinsky&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JVM-austral/tp-ingsis-interpreter.git",
-    "accountId": "b1e3b1b8-4200-4a89-b8b8-72865d7357c3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JVM-austral/tp-ingsis-interpreter.git&quot;,
+    &quot;accountId&quot;: &quot;b1e3b1b8-4200-4a89-b8b8-72865d7357c3&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -163,10 +159,11 @@
       <recent name="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\main\kotlin\commands\factory" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="wrapper" />
+      <recent name="formatter" />
+      <recent name="linter" />
+      <recent name="runner" />
       <recent name="" />
-      <recent name="factory" />
-      <recent name="factory.components.version.first.lexerfactory" />
-      <recent name="lexerwrapper.bufferreader" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.ConfigurableLinterTest">
@@ -339,6 +336,7 @@
       <workItem from="1757895648651" duration="13000" />
       <workItem from="1757895666499" duration="274000" />
       <workItem from="1757906600497" duration="4000" />
+      <workItem from="1757910423773" duration="1111000" />
     </task>
     <servers />
   </component>
