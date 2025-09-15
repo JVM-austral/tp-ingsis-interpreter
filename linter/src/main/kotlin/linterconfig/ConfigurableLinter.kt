@@ -10,13 +10,14 @@ import com.google.gson.Gson
 import newanalyzers.ConcatenationInReadInputAnalyzer
 import java.io.File
 
-class ConfigurableLinter(private val configFilePath: String, private val v2: Boolean) {
+class ConfigurableLinter(private val configFilePath: String, private val v2: Boolean = false) {
     private val analyzers = mutableListOf<LinterAnalyzer>()
+
+    private val jsonContent = File(configFilePath).readText()
 
     private val jsonOptionsV1: ConfigurableAnalyzerOptionsV1? = if (!v2) {
         try {
-            val jsonContent1 = File(configFilePath).readText()
-            Gson().fromJson(jsonContent1, ConfigurableAnalyzerOptionsV1::class.java)
+            Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV1::class.java)
         } catch (e: Exception) {
             throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
         }
@@ -26,8 +27,7 @@ class ConfigurableLinter(private val configFilePath: String, private val v2: Boo
 
     private val jsonOptionsV2: ConfigurableAnalyzerOptionsV2? = if (v2) {
         try {
-            val jsonContent2 = File(configFilePath).readText()
-            Gson().fromJson(jsonContent2, ConfigurableAnalyzerOptionsV2::class.java)
+            Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV2::class.java)
         } catch (e: Exception) {
             throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
         }

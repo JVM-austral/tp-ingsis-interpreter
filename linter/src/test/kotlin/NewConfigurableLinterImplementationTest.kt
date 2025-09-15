@@ -41,7 +41,7 @@ class NewConfigurableLinterImplementationTest {
         """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
-        val configurableLinter = ConfigurableLinter(configPath)
+        val configurableLinter = ConfigurableLinter(configPath, true)
         val linter = configurableLinter.getConfigurableLinter()
         val validVarDeclaration = VarDeclaration(
             "let",
@@ -72,7 +72,7 @@ class NewConfigurableLinterImplementationTest {
         """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
-        val configurableLinter = ConfigurableLinter(configPath)
+        val configurableLinter = ConfigurableLinter(configPath, true)
         val linter = configurableLinter.getConfigurableLinter()
         val validVarDeclaration = VarDeclaration(
             "let",
@@ -111,7 +111,7 @@ class NewConfigurableLinterImplementationTest {
         """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
-        val configurableLinter = ConfigurableLinter(configPath)
+        val configurableLinter = ConfigurableLinter(configPath, true)
         val linter = configurableLinter.getConfigurableLinter()
         val validVarDeclaration = VarDeclaration(
             "let",
@@ -142,7 +142,7 @@ class NewConfigurableLinterImplementationTest {
         """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
-        val configurableLinter = ConfigurableLinter(configPath)
+        val configurableLinter = ConfigurableLinter(configPath, true)
         val linter = configurableLinter.getConfigurableLinter()
 
         val validIfBlock = IfDeclaration(
