@@ -11,6 +11,6 @@ class FormatterFactoryWithJsonV1(private val linterConfigPath: String?) {
             configPath = "src/main/resources/formatter-rules-v-1.json"
         }
 
-        return ConfigurableAnalyzerFormatter(configPath).buildFormatter()
+        return ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
     }
 }

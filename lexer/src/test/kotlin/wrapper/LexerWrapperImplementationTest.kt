@@ -1,5 +1,6 @@
 package wrapper
 
+import LexerWrapperTestDsl
 import lexer.LexerImplementation
 import lexer.newrules.BooleanAnalyzer
 import lexer.newrules.BooleanOperatorsAnalyzer
@@ -26,6 +27,8 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class LexerWrapperImplementationTest {
+    private val dsl = LexerWrapperTestDsl()
+
     private fun createWrapper(input: String): LexerWrapperImplementation {
         val analyzers = listOf(
             BooleanOperatorsAnalyzer(),
@@ -66,23 +69,15 @@ class LexerWrapperImplementationTest {
     @Test
     fun testMultipleTokens() {
         val wrapper = createWrapper("foo bar baz")
-        val tokens = mutableListOf<String>()
-        while (wrapper.hasNext()) {
-            val next = wrapper.next()
-            tokens.add(next.getOrNull()?.value ?: "")
-        }
-        assertEquals(listOf("foo", " ", "bar", " ", "baz"), tokens)
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->whitespace->identifier->whitespace->identifier", result)
     }
 
     @Test
     fun testUnknownThenValid() {
         val wrapper = createWrapper("123 valid")
-        val tokens = mutableListOf<String>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null && t.type == TokenType.IDENTIFIER) tokens.add(t.value)
-        }
-        assertEquals(listOf("valid"), tokens)
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("number->whitespace->identifier", result)
     }
 
     @Test
@@ -93,269 +88,85 @@ class LexerWrapperImplementationTest {
 
     @Test
     fun testFirstTokenAnalyzer() {
-        val input = "let hola = 12.3;"
-        val expected = listOf(
-            Triple("let", TokenType.KEYWORD, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("hola", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("=", TokenType.OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("12.3", TokenType.NUMBER_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("let hola = 12.3;")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("keyword->whitespace->identifier->whitespace->operator->whitespace->number->punctuation", result)
     }
 
     @Test
     fun testStringLiteralAnalyzer() {
-        val input = "\"hola mundo\";"
-        val expected = listOf(
-            Triple("\"hola mundo\"", TokenType.STRING_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("\"hola mundo\";")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("string->punctuation", result)
     }
 
     @Test
     fun testSimpleVariableAssignment() {
-        val input = "y=5;"
-        val expected = listOf(
-            Triple("y", TokenType.IDENTIFIER, 1),
-            Triple("=", TokenType.OPERATOR, 1),
-            Triple("5", TokenType.NUMBER_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("y=5;")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->operator->number->punctuation", result)
     }
 
     @Test
     fun testMultipleOperatorsAndNumbers() {
-        val input = "z+y-2;"
-        val expected = listOf(
-            Triple("z", TokenType.IDENTIFIER, 1),
-            Triple("+", TokenType.OPERATOR, 1),
-            Triple("y", TokenType.IDENTIFIER, 1),
-            Triple("-", TokenType.OPERATOR, 1),
-            Triple("2", TokenType.NUMBER_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("z+y-2;")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->operator->identifier->operator->number->punctuation", result)
     }
 
     @Test
     fun testParenthesesAndWhitespace() {
-        val input = "(a + b)"
-        val expected = listOf(
-            Triple("(", TokenType.PUNCTUATION, 1),
-            Triple("a", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("+", TokenType.OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("b", TokenType.IDENTIFIER, 1),
-            Triple(")", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("(a + b)")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("punctuation->identifier->whitespace->operator->whitespace->identifier->punctuation", result)
     }
 
     @Test
     fun testAnalyzePrintln() {
-        val input = "println(x+5);"
-        val expected = listOf(
-            Triple("println", TokenType.IDENTIFIER, 1),
-            Triple("(", TokenType.PUNCTUATION, 1),
-            Triple("x", TokenType.IDENTIFIER, 1),
-            Triple("+", TokenType.OPERATOR, 1),
-            Triple("5", TokenType.NUMBER_LITERAL, 1),
-            Triple(")", TokenType.PUNCTUATION, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("println(x+5);")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->punctuation->identifier->operator->number->punctuation->punctuation", result)
     }
 
     @Test
     fun testPrintlnWithSumParameter() {
-        val input = "println(a+b);"
-        val expected = listOf(
-            Triple("println", TokenType.IDENTIFIER, 1),
-            Triple("(", TokenType.PUNCTUATION, 1),
-            Triple("a", TokenType.IDENTIFIER, 1),
-            Triple("+", TokenType.OPERATOR, 1),
-            Triple("b", TokenType.IDENTIFIER, 1),
-            Triple(")", TokenType.PUNCTUATION, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("println(a+b);")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->punctuation->identifier->operator->identifier->punctuation->punctuation", result)
     }
 
     @Test
     fun testComplexExpressionWithAllTokenTypes() {
-        val input = "let a : string = \"hello\";\n" +
-            "println(\"world\" + a);"
-        val expected = listOf(
-            Triple("let", TokenType.KEYWORD, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("a", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple(":", TokenType.PUNCTUATION, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("string", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("=", TokenType.OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("\"hello\"", TokenType.STRING_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-            Triple("\n", TokenType.ENTER, 1),
-            Triple("println", TokenType.IDENTIFIER, 2),
-            Triple("(", TokenType.PUNCTUATION, 2),
-            Triple("\"world\"", TokenType.STRING_LITERAL, 2),
-            Triple(" ", TokenType.WHITESPACE, 2),
-            Triple("+", TokenType.OPERATOR, 2),
-            Triple(" ", TokenType.WHITESPACE, 2),
-            Triple("a", TokenType.IDENTIFIER, 2),
-            Triple(")", TokenType.PUNCTUATION, 2),
-            Triple(";", TokenType.PUNCTUATION, 2),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("let a : string = \"hello\";\nprintln(\"world\" + a);")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->whitespace->operator->whitespace->string->punctuation->enter->identifier->punctuation->string->whitespace->operator->whitespace->identifier->punctuation->punctuation", result)
     }
 
     @Test
     fun testConstAssignmentWithBooleanTypeAsIdentifier() {
-        val input = "const hola : boolean = true;"
-        val expected = listOf(
-            Triple("const", TokenType.KEYWORD, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("hola", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple(":", TokenType.PUNCTUATION, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("boolean", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("=", TokenType.OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("true", TokenType.BOOLEAN_LITERAL, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("const hola : boolean = true;")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->whitespace->operator->whitespace->boolean->punctuation", result)
     }
 
     @Test
     fun testSimpleIfElseConditional() {
-        val input = "if true else false"
-        val expected = listOf(
-            Triple("if", TokenType.CONDITIONAL, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("true", TokenType.BOOLEAN_LITERAL, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("else", TokenType.CONDITIONAL, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("false", TokenType.BOOLEAN_LITERAL, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("if true else false")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("conditional->whitespace->boolean->whitespace->conditional->whitespace->boolean", result)
     }
 
     @Test
     fun testBooleanOperatorsShouldBeRecognizedAsBoolOperator() {
-        val input = "== > < >= <="
-        val expected = listOf(
-            Triple("==", TokenType.BOOL_OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple(">", TokenType.BOOL_OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("<", TokenType.BOOL_OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple(">=", TokenType.BOOL_OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("<=", TokenType.BOOL_OPERATOR, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("== > < >= <=")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("bool_operator->whitespace->bool_operator->whitespace->bool_operator->whitespace->bool_operator->whitespace->bool_operator", result)
     }
 
     @Test
     fun testReadInputShouldBeRecognizedAsIdentifier() {
-        val input = "const value = readInput;"
-        val expected = listOf(
-            Triple("const", TokenType.KEYWORD, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("value", TokenType.IDENTIFIER, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("=", TokenType.OPERATOR, 1),
-            Triple(" ", TokenType.WHITESPACE, 1),
-            Triple("readInput", TokenType.IDENTIFIER, 1),
-            Triple(";", TokenType.PUNCTUATION, 1),
-        )
-        val wrapper = createWrapper(input)
-        val tokens = mutableListOf<Triple<String, TokenType, Int>>()
-        while (wrapper.hasNext()) {
-            val t = wrapper.next().getOrNull()
-            if (t != null) tokens.add(Triple(t.value, t.type, t.line))
-        }
-        assertEquals(expected, tokens)
+        val wrapper = createWrapper("const value = readInput;")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("keyword->whitespace->identifier->whitespace->operator->whitespace->identifier->punctuation", result)
     }
 }
