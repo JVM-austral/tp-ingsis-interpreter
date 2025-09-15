@@ -40,27 +40,6 @@ class InterpreterImplementation(
         return executionQueue
     }
 
-    override fun runAll(): List<ExecutionUnit> {
-        val results = mutableListOf<ExecutionUnit>()
-        for (unit in executionQueue) {
-            if (unit.message != null) {
-                results.add(unit)
-            } else {
-                val execution = unit.executor.execute(unit.statement, heap, env)
-                if (execution.isFailure) {
-                    results.add(
-                        ExecutionUnit(
-                            executor = unit.executor,
-                            statement = execution,
-                            message = execution.exceptionOrNull()?.message,
-                        ),
-                    )
-                }
-            }
-        }
-        executionQueue.clear()
-        return results
-    }
     private fun verifyRules(statement: Result<Ast>): InterpreterExecutor {
         for (analyzer in listOfAnalyzers) {
             if (analyzer.analyzeInterpretation(statement, heap, env)) {

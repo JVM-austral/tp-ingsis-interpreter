@@ -15,4 +15,4 @@ plugins {
 
 
 rootProject.name = 'tp-ingsis-interpreter'
-include('lexer', 'parser', 'ast', 'token', 'interpreter', 'formatter', 'linter','cli')
+include('parser', 'ast', 'token', 'interpreter', 'formatter', 'linter','cli', 'runner', 'common','lexer' )

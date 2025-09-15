@@ -12,6 +12,7 @@ version = '1.0.0-SNAPSHOT'
 
 dependencies {
     implementation project(":token")
+    implementation project(":common")
     testImplementation 'com.google.code.gson:gson:2.10.1'
     testImplementation "org.jetbrains.kotlin:kotlin-test:2.1.0"
 }
