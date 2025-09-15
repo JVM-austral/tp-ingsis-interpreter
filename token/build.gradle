@@ -7,7 +7,6 @@ plugins {
 }
 
 group = 'org.JVM-austral'
-version = '1.0.5'
 publishing {
     publications {
         mavenJava(MavenPublication) {

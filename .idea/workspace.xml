@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ast/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/cli/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/common/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/formatter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/formatter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/linter/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/parser/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runner/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/runner/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/token/build.gradle" afterDir="false" />
+    </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,6 +358,8 @@
       <workItem from="1757913104526" duration="45000" />
       <workItem from="1757913654251" duration="108000" />
       <workItem from="1757916102326" duration="841000" />
+      <workItem from="1757916980909" duration="1083000" />
+      <workItem from="1757941323404" duration="589000" />
     </task>
     <servers />
   </component>
