@@ -2,6 +2,7 @@ import factory.ExecutionCommandFactory
 import factory.FormatCommandFactory
 import factory.LintCommandFactory
 import factory.fromString
+import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
 import parser.Parser
@@ -24,7 +25,8 @@ class RunnerImplementation(private val version: String?) : Runner {
         val tokens = lexer.tokenize(code)
         val ast = parser.parse(tokens)
         val result = interpreter.interpret(ast)
-        val finalResult = interpreter.runAll()
+        val executionEngine = ExecutionEngine(mutableMapOf(), mutableMapOf())
+        val finalResult = executionEngine.runAll(result)
 
         if (finalResult.isNotEmpty()) {
             println("Printing errors found during execution:")

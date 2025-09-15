@@ -40,7 +40,6 @@ import factory.evaluators.AstEvaluationEngineV1
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionEngine
-import interpreter.ExecutionUnit
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
 import mock.MockOutputHandler
@@ -1217,7 +1216,7 @@ class InterpreterTest {
         assertTrue(results[1].executor is VarDefinitionUnaryExecutor)
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
-        val finalResults =ExecutionEngine(heap, mutableMapOf()).runAll(results)
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("La variable PI es una constante y no puede ser reasignada") ?: false)
         assertTrue(heap.containsKey("PI"))
