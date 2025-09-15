@@ -15,7 +15,7 @@ dependencies {
 }
 
 group = 'org.JVM-austral'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.1'
 
 publishing {
     publications {
