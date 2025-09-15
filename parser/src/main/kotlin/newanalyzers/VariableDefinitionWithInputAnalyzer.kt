@@ -1,5 +1,6 @@
 package newanalyzers
 
+import analyzer.StringConcatenationAnalyzer
 import analyzer.StructureAnalyzer
 import executor.StructureExecutor
 import newexecutors.VariableDefinitionWithInputExecutor
@@ -14,9 +15,9 @@ class VariableDefinitionWithInputAnalyzer : StructureAnalyzer {
             tokens[1].value == "=" &&
             tokens[2].value == "readInput" &&
             tokens[3].value == "(" &&
-            tokens[4].type == TokenType.STRING_LITERAL &&
-            tokens[5].value == ")" &&
-            tokens[6].value == ";"
+            StringConcatenationAnalyzer().analyzeStructure(tokens.subList(4, tokens.size - 2)) &&
+            tokens[tokens.size - 2].value == ")" &&
+            tokens[tokens.size - 1].value == ";"
     }
 
     override fun getExecutor(): StructureExecutor {

@@ -257,18 +257,20 @@ class InputParserTest {
     // ============ VariableDefinitionWithInputAnalyzer Tests ============
 
     @Test
-    fun `should analyze not valid variable definition with readInput assignment`() {
+    fun `should analyze valid variable definition with readInput assignment`() {
         val tokens = listOf(
             Token("userChoice", TokenType.IDENTIFIER, 1, 1),
             Token("=", TokenType.OPERATOR, 1, 2),
             Token("readInput", TokenType.IDENTIFIER, 1, 3),
             Token("(", TokenType.PUNCTUATION, 1, 4),
             Token("prompt", TokenType.IDENTIFIER, 1, 5),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("hola", TokenType.IDENTIFIER, 1, 5),
             Token(")", TokenType.PUNCTUATION, 1, 6),
             Token(";", TokenType.PUNCTUATION, 1, 7),
         )
 
-        assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
+        assertTrue(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
     @Test

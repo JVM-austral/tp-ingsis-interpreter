@@ -8,6 +8,8 @@ import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.StringConcatenationAnalyzer
 import analyzer.VariableDefinitionAnalyzer
 import dsl.AstJsonDsl.toJson
+import newanalyzers.LetVariableDeclarationWithInputAssignment
+import newanalyzers.VariableDefinitionWithInputAnalyzer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import token.Token
@@ -22,6 +24,8 @@ class JsonParserTest {
     private lateinit var variableDefinitionAnalyzer: VariableDefinitionAnalyzer
     private lateinit var binaryNumberAnalyzer: BinaryNumberOperatorAnalyzer
     private lateinit var stringConcatenationAnalyzer: StringConcatenationAnalyzer
+    private lateinit var letVariableDeclarationWithInputAssignment: LetVariableDeclarationWithInputAssignment
+    private lateinit var variableDefinitionWithInputAnalyzer: VariableDefinitionWithInputAnalyzer
 
     @BeforeEach
     fun setUp() {
@@ -31,10 +35,15 @@ class JsonParserTest {
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()
+        letVariableDeclarationWithInputAssignment = LetVariableDeclarationWithInputAssignment(listOf("number", "string"), listOf("let"))
+        variableDefinitionWithInputAnalyzer = VariableDefinitionWithInputAnalyzer()
 
         parser =
             ParserImplementation(
-                listOf(letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer()),
+                listOf(
+                    letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer(), letVariableDeclarationWithInputAssignment, variableDefinitionWithInputAnalyzer,
+                ),
+
             )
     }
 
@@ -433,6 +442,25 @@ class JsonParserTest {
         assert(actualJson.contains("VarDeclaration"))
     }
 
+    @Test
+    fun `test multiple variables in input`() {
+        val letTokens = listOf(
+            Token("userChoice", TokenType.IDENTIFIER, 1, 1),
+            Token("=", TokenType.OPERATOR, 1, 2),
+            Token("readInput", TokenType.IDENTIFIER, 1, 3),
+            Token("(", TokenType.PUNCTUATION, 1, 4),
+            Token("prompt", TokenType.IDENTIFIER, 1, 5),
+            Token("+", TokenType.OPERATOR, 1, 2),
+            Token("hola", TokenType.IDENTIFIER, 1, 5),
+            Token(")", TokenType.PUNCTUATION, 1, 6),
+            Token(";", TokenType.PUNCTUATION, 1, 7),
+        )
+
+        val result = parser.parse(letTokens.map { Result.success(it) })
+        val actualJson = result.toJson()
+        println(actualJson)
+    }
+
     private fun printJsonComparison(expected: String, actual: String) {
         println("=" * 60)
         println("📋 EXPECTED:")
@@ -481,6 +509,6 @@ class JsonParserTest {
     }
 }
 
-operator fun String.times(n: Int): String {
+private operator fun String.times(n: Int): String {
     return this.repeat(n)
 }
