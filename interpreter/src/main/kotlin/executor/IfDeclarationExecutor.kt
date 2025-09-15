@@ -28,7 +28,7 @@ class IfDeclarationExecutor(
         }
         val interpreter = interpreterFactory(heap, env)
         val blockToExecute = if (conditionResult.toString() == "true") ast.getOnSuccess() else ast.getOnFailure()
-        val result=interpreter.interpret(blockToExecute)
+        val result = interpreter.interpret(blockToExecute)
         val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(result)
         if (finalResults.isEmpty()) {
             return Result.success(ast)

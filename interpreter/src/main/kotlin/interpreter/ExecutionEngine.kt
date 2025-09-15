@@ -4,7 +4,7 @@ import ast.Ast
 
 class ExecutionEngine(
     private val heap: MutableMap<String, VariableInfo>,
-    private val env: MutableMap<String, Ast>
+    private val env: MutableMap<String, Ast>,
 ) {
     fun runAll(units: List<ExecutionUnit>): List<ExecutionUnit> {
         val results = mutableListOf<ExecutionUnit>()

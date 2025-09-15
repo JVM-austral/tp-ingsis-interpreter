@@ -50,7 +50,6 @@ class ComprehensiveParserTest {
             )
     }
 
-
     @Test
     fun `should analyze valid let declaration`() {
         val tokens =
@@ -228,7 +227,6 @@ class ComprehensiveParserTest {
         assertFalse(binaryNumberAnalyzer.analyzeStructure(tokens))
     }
 
-
     @Test
     fun `should analyze simple string concatenation`() {
         val tokens =
@@ -382,7 +380,6 @@ class ComprehensiveParserTest {
         assertFalse(variableDefinitionAnalyzer.analyzeStructure(tokens))
     }
 
-
     @Test
     fun `should analyze let declaration with number assignment`() {
         val tokens =
@@ -451,7 +448,6 @@ class ComprehensiveParserTest {
 
         assertFalse(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
-
 
     @Test
     fun `should execute let variable declaration`() {
@@ -561,7 +557,6 @@ class ComprehensiveParserTest {
         assertEquals("hello", stringLiteral.getValue())
     }
 
-
     @Test
     fun `should parse complete let declaration with parser`() {
         val tokens =
@@ -595,7 +590,6 @@ class ComprehensiveParserTest {
         assertEquals(1, result1.size)
         assertTrue(result1.first().isFailure)
     }
-
 
     @Test
     fun `should handle empty token list`() {

@@ -22,20 +22,15 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/ast" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/cli" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/formatter" />
             <option value="$PROJECT_DIR$/interpreter" />
             <option value="$PROJECT_DIR$/lexer" />
+            <option value="$PROJECT_DIR$/linter" />
             <option value="$PROJECT_DIR$/parser" />
+            <option value="$PROJECT_DIR$/runner" />
             <option value="$PROJECT_DIR$/token" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="distributionType" value="WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/lexer" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,6 +1,5 @@
 package parser
 
-
 import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
@@ -46,7 +45,7 @@ class JsonParserTest {
             Token("userName", TokenType.IDENTIFIER, 1, 2),
             Token(":", TokenType.PUNCTUATION, 1, 3),
             Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5)
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -93,7 +92,7 @@ class JsonParserTest {
             Token("3", TokenType.NUMBER_LITERAL, 1, 8),
             Token("+", TokenType.OPERATOR, 1, 7),
             Token("3", TokenType.NUMBER_LITERAL, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9)
+            Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -158,7 +157,7 @@ class JsonParserTest {
             Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
             Token("+", TokenType.OPERATOR, 1, 7),
             Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9)
+            Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -208,7 +207,7 @@ class JsonParserTest {
             Token("userName", TokenType.IDENTIFIER, 1, 1),
             Token("=", TokenType.OPERATOR, 1, 2),
             Token("\"John\"", TokenType.STRING_LITERAL, 1, 3),
-            Token(";", TokenType.PUNCTUATION, 1, 4)
+            Token(";", TokenType.PUNCTUATION, 1, 4),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -246,7 +245,7 @@ class JsonParserTest {
             Token("10", TokenType.NUMBER_LITERAL, 1, 3),
             Token("*", TokenType.OPERATOR, 1, 4),
             Token("2", TokenType.NUMBER_LITERAL, 1, 5),
-            Token(";", TokenType.PUNCTUATION, 1, 6)
+            Token(";", TokenType.PUNCTUATION, 1, 6),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -293,7 +292,7 @@ class JsonParserTest {
             Token("(", TokenType.PUNCTUATION, 1, 2),
             Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
             Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5)
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -326,7 +325,7 @@ class JsonParserTest {
             Token("(", TokenType.PUNCTUATION, 1, 2),
             Token("userName", TokenType.IDENTIFIER, 1, 3),
             Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5)
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -361,7 +360,7 @@ class JsonParserTest {
             Token("+", TokenType.OPERATOR, 1, 4),
             Token("3", TokenType.NUMBER_LITERAL, 1, 5),
             Token(")", TokenType.PUNCTUATION, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7)
+            Token(";", TokenType.PUNCTUATION, 1, 7),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -401,7 +400,7 @@ class JsonParserTest {
     fun `test invalid syntax to JSON`() {
         val tokens = listOf(
             Token("invalid", TokenType.KEYWORD, 1, 1),
-            Token("syntax", TokenType.IDENTIFIER, 1, 2)
+            Token("syntax", TokenType.IDENTIFIER, 1, 2),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -416,13 +415,12 @@ class JsonParserTest {
 
     @Test
     fun `test multiple statements to JSON`() {
-
         val letTokens = listOf(
             Token("let", TokenType.KEYWORD, 1, 1),
             Token("x", TokenType.IDENTIFIER, 1, 2),
             Token(":", TokenType.PUNCTUATION, 1, 3),
             Token("number", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5)
+            Token(";", TokenType.PUNCTUATION, 1, 5),
         )
 
         val result = parser.parse(letTokens.map { Result.success(it) })
@@ -482,7 +480,6 @@ class JsonParserTest {
         }
     }
 }
-
 
 private operator fun String.times(n: Int): String {
     return this.repeat(n)

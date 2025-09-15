@@ -39,6 +39,7 @@ class JsonIfParserTest {
 
     private lateinit var letInputAnalyzer: LetVariableDeclarationWithInputAssignment
     private lateinit var varDefInputAnalyzer: VariableDefinitionWithInputAnalyzer
+
     @BeforeEach
     fun setUp() {
         letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
@@ -57,15 +58,15 @@ class JsonIfParserTest {
         letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
 
-
         parser =
             ParserImplementation(
-                listOf(letAnalyzer, letWithNumberAssignmentAnalyzer,
+                listOf(
+                    letAnalyzer, letWithNumberAssignmentAnalyzer,
                     letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer(),
-                        booleanDeclarationAnalyzer, booleanDefinitionAnalyzer, letWithBooleanAnalyzer,
+                    booleanDeclarationAnalyzer, booleanDefinitionAnalyzer, letWithBooleanAnalyzer,
                     IfAnalyzer(), letEnvAnalyzer, varDefEnvAnalyzer,
-                    letInputAnalyzer, varDefInputAnalyzer
-                    ),
+                    letInputAnalyzer, varDefInputAnalyzer,
+                ),
 
             )
     }
@@ -83,7 +84,7 @@ class JsonIfParserTest {
             Token("\"ok\"", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
-            Token("}", TokenType.PUNCTUATION, 1, 11)
+            Token("}", TokenType.PUNCTUATION, 1, 11),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })
@@ -143,7 +144,7 @@ class JsonIfParserTest {
             Token("\"else branch\"", TokenType.STRING_LITERAL, 1, 16),
             Token(")", TokenType.PUNCTUATION, 1, 17),
             Token(";", TokenType.PUNCTUATION, 1, 18),
-            Token("}", TokenType.PUNCTUATION, 1, 19)
+            Token("}", TokenType.PUNCTUATION, 1, 19),
         )
 
         val result = parser.parse(tokens.map { Result.success(it) })

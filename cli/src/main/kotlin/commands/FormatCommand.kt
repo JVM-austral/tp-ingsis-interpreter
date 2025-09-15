@@ -1,12 +1,10 @@
 package commands
 
-import Formatter
+import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import commands.factory.FormatCommandFactory
-import lexer.Lexer
 
 class FormatCommand : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
@@ -18,14 +16,9 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
     override fun run() {
         try {
             echo("Formatting $file...")
-
-            val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
-            val lexer: Lexer = factory.getLexer()
-            val formatter: Formatter = factory.getFormatter()
             val code = java.io.File(file).readText()
-            val tokens = lexer.tokenize(code)
-            val formatted = formatter.format(tokens)
-            java.io.File(file).writeText(formatted)
+            val runner = RunnerImplementation(version)
+            java.io.File(file).writeText(runner.format(code, formatterConfigPath))
             echo("Formatted successfully $file")
         } catch (exception: Exception) {
             echo(exception)

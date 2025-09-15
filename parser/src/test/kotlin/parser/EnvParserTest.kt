@@ -1,13 +1,7 @@
 package newanalyzers
 
-import ast.FunctionCallAst
-import ast.StringLiteral
-import ast.TypeDeclaration
-import ast.VarDeclaration
-import ast.VarDefinition
 import newexecutors.LetVariableDeclarationWithEnvAssignmentExecutor
 import newexecutors.VariableDefinitionWithEnvExecutor
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -19,14 +13,11 @@ class EnvParserTest {
     private lateinit var letEnvAnalyzer: LetVariableDeclarationWithEnvAssignment
     private lateinit var varDefEnvAnalyzer: VariableDefinitionWithEnvAnalyzer
 
-
     @BeforeEach
     fun setUp() {
         letEnvAnalyzer = LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefEnvAnalyzer = VariableDefinitionWithEnvAnalyzer()
-
     }
-
 
     @Test
     fun `should analyze valid let declaration with string type and readEnv assignment`() {
@@ -386,7 +377,6 @@ class EnvParserTest {
 
         assertFalse(varDefEnvAnalyzer.analyzeStructure(tokens))
     }
-
 
     @Test
     fun `should get correct executor from let env analyzer`() {

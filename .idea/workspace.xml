@@ -5,20 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/interpreterwrapper/InterpreterWrapper.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapper.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/LexerWrapperImplementation.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/TokenBuffer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/BufferedLineReader.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexerwrapper/reader/LineReader.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexerwrapper/LexerWrapperImplementationTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/LexerImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/LexerImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/LexerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/LexerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/groovy/buildlogic.kotlin-library-conventions.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/groovy/buildlogic.kotlin-library-conventions.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/IfDeclarationAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/IfDeclarationAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/InterpreterAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/InterpreterAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/PrintLnAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/PrintLnAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/TypeDeclarationAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/TypeDeclarationAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDeclarationWithAssigmentBinaryAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDeclarationWithAssigmentBinaryAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDeclarationWithAssigmentUnaryAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDeclarationWithAssigmentUnaryAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDefinitionBinaryAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDefinitionBinaryAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDefinitionUnaryAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/analyzer/VarDefinitionUnaryAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/AstEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/AstEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BinaryOperationEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BinaryOperationEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BooleanBinaryOperationEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BooleanBinaryOperationEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BooleanLiteralEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/BooleanLiteralEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/InputEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/InputEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/NumberLiteralEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/NumberLiteralEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/PrintLnEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/PrintLnEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/ReadEnvEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/ReadEnvEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/StringLiteralEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/StringLiteralEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/VariableIdentifierEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/VariableIdentifierEvaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/input/LiteralConverter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/input/LiteralConverter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/FailInterpreterExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/FailInterpreterExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/IfDeclarationExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/IfDeclarationExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/PrintLnExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/PrintLnExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/TypeDeclarationExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/TypeDeclarationExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDeclarationWithAssigmentBinaryExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDeclarationWithAssigmentBinaryExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDeclarationWithAssigmentUnaryExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDeclarationWithAssigmentUnaryExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDefinitionBinaryExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDefinitionBinaryExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDefinitionUnaryExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/executor/VarDefinitionUnaryExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/analyzers/AnalyzerFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/analyzers/AnalyzerFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/AstEvaluationEngineV1.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/AstEvaluationEngineV1.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/AstEvaluationEngineV2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/AstEvaluationEngineV2.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/EvaluatorFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/evaluators/EvaluatorFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/interpreters/InterpreterFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/interpreters/InterpreterFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/lexertest/TestGenerator.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/AstJsonDsl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/AstJsonDsl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/BooleanParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/BooleanParserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ComprehensiveParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ComprehensiveParserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/EnvParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/EnvParserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/InputParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/InputParserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonIfParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonIfParserTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonParserTest.kt" afterDir="false" />
     </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +81,9 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/lexer">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -50,7 +94,7 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="tp-ingsis-interpreter" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -78,6 +122,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -91,6 +139,9 @@
   "keyToString": {
     "Gradle.AnalyzerTest.executor": "Run",
     "Gradle.Build tp-ingsis-interpreter.executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
     "Gradle.ComprehensiveParserTest.executor": "Run",
     "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
     "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
@@ -106,21 +157,30 @@
     "Gradle.LexerTest.complex expression with all token types.executor": "Run",
     "Gradle.LexerTest.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator.executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor": "Run",
     "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor": "Run",
     "Gradle.NewLexerVersionTest.executor": "Run",
     "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
     "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
+    "Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor": "Run",
     "Gradle.tp-ingsis-interpreter [buildDependents].executor": "Run",
     "Gradle.tp-ingsis-interpreter [build].executor": "Run",
     "Gradle.tp-ingsis-interpreter [dependencies].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [testClasses].executor": "Run",
     "JUnit.All in tp-ingsis-interpreter.lexer.test.executor": "Run",
     "Kotlin.TestGenerator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feat-lexer-wrapper",
+    "git-widget-placeholder": "runner-module-with-wrappers",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Vito/Programming/faculty/ingsis",
     "node.js.detected.package.eslint": "true",
@@ -130,157 +190,58 @@
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "kotlin-gradle-user-dirs": [
-      "C:\\Users\\juani\\.gradle"
-    ]
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\main\kotlin\commands\factory" />
+    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="factory" />
+      <recent name="factory.components.version.first.lexerfactory" />
       <recent name="lexerwrapper.bufferreader" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.LexerWrapperImplementationTest">
-    <configuration name="LexerTest.complex expression with all token types" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.tp-ingsis-interpreter [testClasses]">
+    <configuration name="tp-ingsis-interpreter [testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexertest.LexerTest.complex expression with all token types&quot;" />
+            <option value="testClasses" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LexerWrapperImplementationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
+    <configuration name="All in tp-ingsis-interpreter.lexer.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tp-ingsis-interpreter.lexer.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LexerWrapperImplementationTest.testMultipleTokens" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testMultipleTokens&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LexerWrapperImplementationTest.testSingleValidToken" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;lexerwrapper.LexerWrapperImplementationTest.testSingleValidToken&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Gradle.LexerTest.complex expression with all token types" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testMultipleTokens" />
-      <item itemvalue="Gradle.LexerWrapperImplementationTest.testSingleValidToken" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LexerWrapperImplementationTest" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes" />
-        <item itemvalue="Gradle.LexerTest.complex expression with all token types" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testMultipleTokens" />
-        <item itemvalue="Gradle.LexerWrapperImplementationTest.testSingleValidToken" />
+        <item itemvalue="Gradle.tp-ingsis-interpreter [testClasses]" />
+        <item itemvalue="JUnit.All in tp-ingsis-interpreter.lexer.test" />
       </list>
     </recent_temporary>
   </component>
@@ -310,6 +271,11 @@
       <workItem from="1755712431787" duration="81000" />
       <workItem from="1755712519877" duration="75000" />
       <workItem from="1757678306012" duration="15634000" />
+      <workItem from="1757882606782" duration="9188000" />
+      <workItem from="1757891890320" duration="1279000" />
+      <workItem from="1757895397270" duration="242000" />
+      <workItem from="1757895648651" duration="13000" />
+      <workItem from="1757895666499" duration="274000" />
     </task>
     <servers />
   </component>
@@ -326,5 +292,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -1,14 +1,10 @@
 package commands
 
+import RunnerImplementation
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import commands.factory.ExecutionCommandFactory
-import interpreter.ExecutionEngine
-import interpreter.Interpreter
-import lexer.Lexer
-import parser.Parser
 import java.io.File
 
 class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source code") {
@@ -20,18 +16,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
     override fun run() {
         val code = File(file).readText()
         echo("Running $file...")
-        val factory = ExecutionCommandFactory()
-        val lexer: Lexer = factory.getLexerV1()
-        val parser: Parser = factory.getParserV1()
-        val interpreter: Interpreter = factory.getInterpreterV1()
-        val tokens = lexer.tokenize(code)
-        val ast = parser.parse(tokens)
-        val result = interpreter.interpret(ast)
-        val finalResult = ExecutionEngine(mutableMapOf(), mutableMapOf()).runAll(result)
-
-        if (finalResult.isNotEmpty()) {
-            echo("Printing errors found during execution:")
-            finalResult.map { echo(it.message) }
-        }
+        val runner = RunnerImplementation(version)
+        runner.run(code)
     }
 }
