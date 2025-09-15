@@ -5,35 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/tp-ingsis-interpreter.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/factory/ParserFactoryV2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/factory/ParserFactoryV2.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/newanalyzers/IfAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/newanalyzers/IfAnalyzer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/newexecutors/IfExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/newexecutors/IfExecutor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parser/ParserImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ComprehensiveParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ComprehensiveParserTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/IfElseBlocksParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/IfElseBlocksParserTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonIfParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/JsonIfParserTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/parser/ParserWrapperJsonTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/runner/src/main/kotlin/runner/RunnerImplementation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -388,7 +361,7 @@
       <workItem from="1757963551607" duration="417000" />
       <workItem from="1757966280377" duration="2803000" />
       <workItem from="1757974161509" duration="18000" />
-      <workItem from="1757974262722" duration="3234000" />
+      <workItem from="1757974262722" duration="3457000" />
     </task>
     <servers />
   </component>
