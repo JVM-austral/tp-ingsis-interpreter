@@ -1,9 +1,11 @@
 package runner
 
+import java.io.InputStream
+
 interface Runner {
     fun format(code: String, formatterConfigPath: String?): String
 
-    fun run(code: String)
+    fun run(code: InputStream)
 
     fun lint(code: String, linterConfigPath: String?)
 }

@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="" />
+    <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,74 +103,74 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.AnalyzerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build tp-ingsis-interpreter.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CliTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze simple addition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a bool value via wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a value in a binary op via wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerTest.complex expression with all token types.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserV1Test.should parse valid let declaration tokens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [buildDependents].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [testClasses].executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in tp-ingsis-interpreter.lexer.test.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.TestGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vito/Programming/faculty/ingsis&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.AnalyzerTest.executor": "Run",
+    "Gradle.Build tp-ingsis-interpreter.executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
+    "Gradle.CliTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
+    "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze simple addition.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor": "Run",
+    "Gradle.ConfigurableLinterTest.executor": "Run",
+    "Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception.executor": "Run",
+    "Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception.executor": "Run",
+    "Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a bool value via wrapper.executor": "Run",
+    "Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a value in a binary op via wrapper.executor": "Run",
+    "Gradle.InterpreterWrapperTest.executor": "Run",
+    "Gradle.LexerTest.complex expression with all token types.executor": "Run",
+    "Gradle.LexerTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor": "Run",
+    "Gradle.NewLexerVersionTest.executor": "Run",
+    "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
+    "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
+    "Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor": "Run",
+    "Gradle.tp-ingsis-interpreter [buildDependents].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [build].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [dependencies].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [testClasses].executor": "Run",
+    "JUnit.All in tp-ingsis-interpreter.lexer.test.executor": "Run",
+    "Kotlin.TestGenerator.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\main\kotlin\commands\factory" />
@@ -166,7 +183,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ConfigurableLinterTest">
+  <component name="RunManager">
     <configuration name="CliTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -287,28 +304,11 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Gradle.CliTest" />
-      <item itemvalue="Gradle.ConfigurableLinterTest" />
-      <item itemvalue="Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception" />
-      <item itemvalue="Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception" />
-      <item itemvalue="Gradle.InterpreterWrapperTest" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.ConfigurableLinterTest" />
-        <item itemvalue="Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception" />
-        <item itemvalue="Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception" />
-        <item itemvalue="Gradle.InterpreterWrapperTest" />
-        <item itemvalue="Gradle.CliTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
       </set>
     </attachedChunks>
   </component>
@@ -337,6 +337,9 @@
       <workItem from="1757895666499" duration="274000" />
       <workItem from="1757906600497" duration="4000" />
       <workItem from="1757910423773" duration="1111000" />
+      <workItem from="1757911761087" duration="576000" />
+      <workItem from="1757913104526" duration="45000" />
+      <workItem from="1757913654251" duration="108000" />
     </task>
     <servers />
   </component>

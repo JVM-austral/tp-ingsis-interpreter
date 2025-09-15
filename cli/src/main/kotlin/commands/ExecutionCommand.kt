@@ -14,7 +14,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         .choice("V1", "V2")
 
     override fun run() {
-        val code = File(file).readText()
+        val code = File(file).inputStream()
         echo("Running $file...")
         val runner = RunnerImplementation(version)
         runner.run(code)

@@ -15,6 +15,8 @@ import wrapper.InterpreterWrapper
 import wrapper.LexerWrapperImplementation
 import wrapper.ParserWrapperImplementation
 import wrapper.TokenBuffer
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.io.StringReader
 
 class RunnerImplementation(private val version: String?) : Runner {
@@ -34,15 +36,14 @@ class RunnerImplementation(private val version: String?) : Runner {
         return formatter.format(tokens)
     }
 
-    override fun run(code: String) {
+    override fun run(code: InputStream) {
         val factory = ExecutionCommandFactory(fromString(version ?: "V1"))
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val interpreter: Interpreter = factory.getInterpreter()
 
-        val reader = StringReader(code)
         val tokenBuffer = TokenBuffer()
-        val lexerWrapper = LexerWrapperImplementation(lexer, reader, tokenBuffer)
+        val lexerWrapper = LexerWrapperImplementation(lexer, InputStreamReader(code), tokenBuffer)
         val parserWrapper = ParserWrapperImplementation(lexerWrapper, parser)
         val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
 
@@ -57,6 +58,7 @@ class RunnerImplementation(private val version: String?) : Runner {
             println("Printing errors found during execution:")
             finalResult.map { println(it.message) }
         }
+        code.close()
     }
 
     override fun lint(code: String, linterConfigPath: String?) {
