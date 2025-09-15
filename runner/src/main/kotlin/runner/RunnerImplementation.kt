@@ -1,5 +1,6 @@
 package runner
 
+import evaluator.input.ConsoleInputProvider
 import factory.ExecutionCommandFactory
 import factory.FormatCommandFactory
 import factory.LintCommandFactory
@@ -9,6 +10,7 @@ import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
 import linter.Linter
+import mock.StdOutputHandler
 import parser.Parser
 import token.Token
 import wrapper.InterpreterWrapper
@@ -19,7 +21,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringReader
 
-class RunnerImplementation(private val version: String?) : Runner {
+class RunnerImplementation(private val version: String?, private val stdOutHandler: StdOutputHandler = StdOutputHandler(), private val inputProvider: ConsoleInputProvider = ConsoleInputProvider()) : Runner {
 
     override fun format(code: String, formatterConfigPath: String?): String {
         val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
@@ -37,7 +39,7 @@ class RunnerImplementation(private val version: String?) : Runner {
     }
 
     override fun run(code: InputStream) {
-        val factory = ExecutionCommandFactory(fromString(version ?: "V1"))
+        val factory = ExecutionCommandFactory(fromString(version ?: "V1"), stdOutHandler, inputProvider)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val interpreter: Interpreter = factory.getInterpreter()

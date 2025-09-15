@@ -4,7 +4,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/2.1.0/43b225a353673533d9b523667983ee0276baf947/kotlin-gradle-plugin-2.1.0-gradle85.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/2.1.0/2ad14aed781c4a73ed4dbb421966d408a0a06686/kotlin-gradle-plugin-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/2.1.0/a6906d02219a6dd64cc98cb1dd7d836d0f123262/kotlin-gradle-plugin-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

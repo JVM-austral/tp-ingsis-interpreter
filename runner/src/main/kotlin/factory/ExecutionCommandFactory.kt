@@ -8,7 +8,7 @@ import lexer.Lexer
 import mock.StdOutputHandler
 import parser.Parser
 
-class ExecutionCommandFactory(private val version: Version) {
+class ExecutionCommandFactory(private val version: Version, private val stdOutHandler: StdOutputHandler, private val inputProvider: ConsoleInputProvider) {
     fun getLexer(): Lexer {
         return when (version) {
             Version.V1 -> LexerFactoryV1().create()
@@ -25,8 +25,8 @@ class ExecutionCommandFactory(private val version: Version) {
 
     fun getInterpreter(): Interpreter {
         return when (version) {
-            Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), StdOutputHandler(), mutableMapOf())
-            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), StdOutputHandler(), mutableMapOf(), ConsoleInputProvider(), LiteralConverter())
+            Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), stdOutHandler, mutableMapOf())
+            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), stdOutHandler, mutableMapOf(), inputProvider, LiteralConverter())
         }
     }
 }

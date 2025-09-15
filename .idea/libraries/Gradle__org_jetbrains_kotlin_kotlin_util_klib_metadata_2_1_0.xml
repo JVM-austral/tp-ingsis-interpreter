@@ -4,7 +4,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib-metadata/2.1.0/c0f515d35d514c0689afd56c0bd3b35cdb64d1d/kotlin-util-klib-metadata-2.1.0.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib-metadata/2.1.0/2ad14aed781c4a73ed4dbb421966d408a0a06686/kotlin-util-klib-metadata-2.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-klib-metadata/2.1.0/4510768280d329b9d904d2d8d290276c2c95b102/kotlin-util-klib-metadata-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
