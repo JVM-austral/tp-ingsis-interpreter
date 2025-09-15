@@ -16,22 +16,22 @@ class LexerWrapperImplementation(
     private var currentLine = 1
     private var currentColumn = 1
 
-    private val buffer = StringBuilder()
+    private val strBuilder = StringBuilder()
 
     override fun hasNext(): Boolean {
         if (tokenBuffer.isNotEmpty()) return true
 
         while (tokenBuffer.isEmpty()) {
-            if (buffer.isEmpty() && !endOfFile) {
+            if (strBuilder.isEmpty() && !endOfFile) {
                 completeBufferMinLength(1)
             }
-            if (buffer.isEmpty() && endOfFile) return false
+            if (strBuilder.isEmpty() && endOfFile) return false
 
             val emitted = processOneToken()
             if (!emitted) {
-                val before = buffer.length
+                val before = strBuilder.length
                 completeBufferMinLength(before + 1)
-                if (buffer.length == before && endOfFile) break
+                if (strBuilder.length == before && endOfFile) break
             }
         }
         return tokenBuffer.isNotEmpty()
@@ -43,35 +43,35 @@ class LexerWrapperImplementation(
     }
 
     private fun completeBufferMinLength(minLen: Int): Boolean {
-        while (buffer.length < minLen && !endOfFile) {
+        while (strBuilder.length < minLen && !endOfFile) {
             val c = reader.read()
             if (c == -1) {
                 endOfFile = true
                 break
             }
-            buffer.append(c.toChar())
+            strBuilder.append(c.toChar())
         }
-        return buffer.length >= minLen || endOfFile
+        return strBuilder.length >= minLen || endOfFile
     }
 
     private fun processOneToken(): Boolean {
-        if (buffer.isEmpty() && endOfFile) return false
+        if (strBuilder.isEmpty() && endOfFile) return false
 
         var lastGoodToken: Result<Token>? = null
         var windowSize = 1
 
         while (true) {
-            if (windowSize > buffer.length) {
+            if (windowSize > strBuilder.length) {
                 if (!endOfFile) {
                     completeBufferMinLength(windowSize)
-                    if (windowSize > buffer.length) break
+                    if (windowSize > strBuilder.length) break
                 } else {
                     break
                 }
             }
 
-            if (windowSize <= buffer.length) {
-                val slice = buffer.substring(0, windowSize)
+            if (windowSize <= strBuilder.length) {
+                val slice = strBuilder.substring(0, windowSize)
                 val match = lexerBase.tokenize(slice).firstOrNull()
                 val tokenMatch = match?.getOrNull()
                 val matchSize = tokenMatch?.value?.length ?: 0
@@ -87,7 +87,7 @@ class LexerWrapperImplementation(
 
             windowSize++
 
-            if (windowSize > buffer.length && !endOfFile) {
+            if (windowSize > strBuilder.length && !endOfFile) {
                 completeBufferMinLength(windowSize)
             }
         }
@@ -98,18 +98,18 @@ class LexerWrapperImplementation(
         }
         if (!endOfFile) return false
 
-        if (buffer.isNotEmpty()) {
+        if (strBuilder.isNotEmpty()) {
             return resolveInvalidToken()
         }
         return false
     }
 
     private fun resolveInvalidToken(): Boolean {
-        val leftoverChar = buffer.substring(0, 1)
+        val leftoverChar = strBuilder.substring(0, 1)
         val unknown = Token(leftoverChar, TokenType.UNKNOWN, currentLine, currentColumn)
         tokenBuffer.add(Result.success(unknown))
         advancePosition(leftoverChar)
-        buffer.delete(0, 1)
+        strBuilder.delete(0, 1)
         return true
     }
 
@@ -118,7 +118,7 @@ class LexerWrapperImplementation(
         val tokWithPosition = token.copy(line = currentLine, column = currentColumn)
         tokenBuffer.add(Result.success(tokWithPosition))
         advancePosition(token.value)
-        buffer.delete(0, token.value.length)
+        strBuilder.delete(0, token.value.length)
     }
 
     private fun advancePosition(text: String) {
