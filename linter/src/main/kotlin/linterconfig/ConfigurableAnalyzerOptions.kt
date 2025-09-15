@@ -8,4 +8,5 @@ package linterconfig
 data class ConfigurableAnalyzerOptions(
     val namingConvention: String = "camelCase",
     val usePrintlnAnalyzer: Boolean = true,
+    val useReadInputAnalyzer: Boolean = true,
 )

@@ -7,6 +7,7 @@ import analyzers.LinterAnalyzer
 import analyzers.PrintLnWithOutBinaryOperationAnalyzer
 import analyzers.SnakeCaseAnalyzer
 import com.google.gson.Gson
+import newanalyzers.ConcatenationInReadInputAnalyzer
 import java.io.File
 
 class ConfigurableLinter(private val configFilePath: String) {
@@ -33,6 +34,9 @@ class ConfigurableLinter(private val configFilePath: String) {
 
         if (jsonOptions.usePrintlnAnalyzer) {
             analyzers.add(PrintLnWithOutBinaryOperationAnalyzer())
+        }
+        if (jsonOptions.useReadInputAnalyzer) {
+            analyzers.add(ConcatenationInReadInputAnalyzer())
         }
 
         val linterImpl: LinterImplementation = LinterImplementation(analyzers)

@@ -1,5 +1,6 @@
 package newanalyzers
 
+import analyzer.StringConcatenationAnalyzer
 import analyzer.StructureAnalyzer
 import executor.StructureExecutor
 import newexecutors.LetVariableDeclarationWithInputAssignmentExecutor
@@ -17,9 +18,9 @@ class LetVariableDeclarationWithInputAssignment(private val reservedTypes: List<
             tokens[4].value == "=" &&
             tokens[5].value == "readInput" &&
             tokens[6].value == "(" &&
-            tokens[7].type == TokenType.STRING_LITERAL &&
-            tokens[8].value == ")" &&
-            tokens[9].value == ";"
+            StringConcatenationAnalyzer().analyzeStructure(tokens.subList(7, tokens.size - 2)) &&
+            tokens[tokens.size - 2].value == ")" &&
+            tokens[tokens.size - 1].value == ";"
     }
 
     override fun getExecutor(): StructureExecutor {

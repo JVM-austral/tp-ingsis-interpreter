@@ -1,5 +1,6 @@
 import analyzers.LinterAnalyzer
 import ast.Ast
+import ast.IfDeclaration
 import error.LinterError
 
 class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter {
@@ -27,6 +28,13 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
 
     private fun detectRulesViolations(ast: Ast, listOfRules: List<LinterAnalyzer>): List<LinterError> {
         val listOfErrors = mutableListOf<LinterError>()
+        var listOfIfErrors = listOf<LinterError>()
+        var listOfElseErrors = listOf<LinterError>()
+
+        if (ast is IfDeclaration) {
+            listOfIfErrors = lint(ast.getOnSuccess())
+            listOfElseErrors = lint(ast.getOnFailure())
+        }
 
         for (rule in listOfRules) {
             val executed = rule.analyze(ast)
@@ -34,6 +42,8 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
                 listOfErrors.add(executed.get())
             }
         }
+        listOfErrors.addAll(listOfIfErrors)
+        listOfErrors.addAll(listOfElseErrors)
         return listOfErrors
     }
 }

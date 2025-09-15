@@ -4,6 +4,7 @@ import ast.Ast
 import ast.FunctionCallAst
 import ast.StringLiteral
 import ast.VarDefinition
+import executor.StringConcatenationExecutor
 import executor.StructureExecutor
 import token.Token
 
@@ -15,7 +16,7 @@ class VariableDefinitionWithInputExecutor : StructureExecutor {
             FunctionCallAst(
                 tokens[2].value,
                 listOf(
-                    StringLiteral(tokens[4].value, tokens[4].line, tokens[4].column),
+                    StringConcatenationExecutor().execute(tokens.subList(4, tokens.size - 2)),
                 ),
                 tokens[2].line,
                 tokens[2].column,

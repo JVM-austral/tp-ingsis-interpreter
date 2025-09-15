@@ -5,6 +5,7 @@ import ast.FunctionCallAst
 import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
+import executor.StringConcatenationExecutor
 import executor.StructureExecutor
 import token.Token
 
@@ -17,7 +18,7 @@ class LetVariableDeclarationWithInputAssignmentExecutor : StructureExecutor {
             FunctionCallAst(
                 tokens[5].value,
                 listOf(
-                    StringLiteral(tokens[7].value, tokens[7].line, tokens[7].column),
+                    StringConcatenationExecutor().execute(tokens.subList(7, tokens.size - 2)),
                 ),
                 tokens[5].line,
                 tokens[5].column,
