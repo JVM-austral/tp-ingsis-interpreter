@@ -1,6 +1,7 @@
 package runner
 
 import evaluator.input.ConsoleInputProvider
+import evaluator.input.InputProvider
 import factory.ExecutionCommandFactory
 import factory.FormatCommandFactory
 import factory.LintCommandFactory
@@ -10,6 +11,7 @@ import interpreter.ExecutionEngine
 import interpreter.Interpreter
 import lexer.Lexer
 import linter.Linter
+import mock.OutputHandler
 import mock.StdOutputHandler
 import parser.Parser
 import token.Token
@@ -21,7 +23,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringReader
 
-class RunnerImplementation(private val version: String?, private val stdOutHandler: StdOutputHandler = StdOutputHandler(), private val inputProvider: ConsoleInputProvider = ConsoleInputProvider()) : Runner {
+class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider()) : Runner {
 
     override fun format(code: String, formatterConfigPath: String?): String {
         val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
@@ -84,5 +86,9 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
         } else {
             lintResult.forEach { println(it.message + "on " + it.line + ":" + it.column) }
         }
+    }
+
+    override fun getStdOutHandler(): OutputHandler {
+        return stdOutHandler
     }
 }

@@ -1,14 +1,16 @@
 package factory
 
 import evaluator.input.ConsoleInputProvider
+import evaluator.input.InputProvider
 import evaluator.input.LiteralConverter
 import factory.interpreters.InterpreterFactory
 import interpreter.Interpreter
 import lexer.Lexer
+import mock.OutputHandler
 import mock.StdOutputHandler
 import parser.Parser
 
-class ExecutionCommandFactory(private val version: Version, private val stdOutHandler: StdOutputHandler, private val inputProvider: ConsoleInputProvider) {
+class ExecutionCommandFactory(private val version: Version, private val stdOutHandler: OutputHandler, private val inputProvider: InputProvider) {
     fun getLexer(): Lexer {
         return when (version) {
             Version.V1 -> LexerFactoryV1().create()
