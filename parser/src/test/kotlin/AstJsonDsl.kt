@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
-
 object AstJsonDsl {
     private val gson = GsonBuilder()
         .setPrettyPrinting()
@@ -31,14 +30,12 @@ object AstJsonDsl {
         json.addProperty("type", this::class.simpleName)
         json.addProperty("value", getValue())
 
-
         val children = getListOfChildren()
         if (children.isNotEmpty()) {
             val childrenArray = JsonArray()
             children.forEach { child -> childrenArray.add(child.toJsonObject()) }
             json.add("children", childrenArray)
         }
-
 
         if (this is IfDeclaration) {
             val successArray = JsonArray()
@@ -63,7 +60,6 @@ object AstJsonDsl {
         return json
     }
 
-
     private fun createError(message: String): JsonObject {
         val error = JsonObject()
         error.addProperty("type", "ERROR")
@@ -71,4 +67,3 @@ object AstJsonDsl {
         return error
     }
 }
-

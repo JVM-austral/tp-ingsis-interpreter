@@ -45,5 +45,6 @@
     <orderEntry type="module" module-name="tp-ingsis-interpreter.ast.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.code.gson:gson:2.10.1" level="project" />
   </component>
 </module>

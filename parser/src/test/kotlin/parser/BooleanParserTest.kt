@@ -19,16 +19,12 @@ class BooleanParserTest {
     private lateinit var booleanDefinitionAnalyzer: BooleanDefinitionAnalyzer
     private lateinit var letWithBooleanAnalyzer: LetVariableDeclarationWithBooleanAnalyzer
 
-
     @BeforeEach
     fun setUp() {
         booleanDeclarationAnalyzer = BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
         booleanDefinitionAnalyzer = BooleanDefinitionAnalyzer()
         letWithBooleanAnalyzer = LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
-
-
     }
-
 
     @Test
     fun `should analyze valid let boolean declaration`() {
@@ -342,7 +338,6 @@ class BooleanParserTest {
         assertFalse(letWithBooleanAnalyzer.analyzeStructure(tokens))
     }
 
-
     @Test
     fun `should get correct executor from boolean declaration analyzer`() {
         val executor = booleanDeclarationAnalyzer.getExecutor()
@@ -360,8 +355,6 @@ class BooleanParserTest {
         val executor = letWithBooleanAnalyzer.getExecutor()
         assertTrue(executor is LetVariableDeclarationWithBooleanExecutor)
     }
-
-
 
     @Test
     fun `should handle boolean declarations with different variable names`() {
@@ -456,6 +449,4 @@ class BooleanParserTest {
             )
         }
     }
-
-
 }

@@ -1,12 +1,5 @@
 package newanalyzers
 
-import ast.FunctionCallAst
-import ast.StringLiteral
-import ast.TypeDeclaration
-import ast.VarDeclaration
-import ast.VarDefinition
-import newexecutors.LetVariableDeclarationWithInputAssignmentExecutor
-import newexecutors.VariableDefinitionWithInputExecutor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -23,7 +16,6 @@ class InputParserTest {
     fun setUp() {
         letInputAnalyzer = LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const"))
         varDefInputAnalyzer = VariableDefinitionWithInputAnalyzer()
-
     }
 
     @Test
@@ -395,9 +387,6 @@ class InputParserTest {
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
 
-
-
-
     @Test
     fun `should reject empty token list for let input analyzer`() {
         val tokens = emptyList<Token>()
@@ -409,7 +398,6 @@ class InputParserTest {
         val tokens = emptyList<Token>()
         assertFalse(varDefInputAnalyzer.analyzeStructure(tokens))
     }
-
 
     @Test
     fun `should validate exact token count requirements`() {

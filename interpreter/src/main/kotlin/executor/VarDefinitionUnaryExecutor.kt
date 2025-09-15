@@ -7,7 +7,7 @@ import ast.VarDefinition
 import interpreter.VariableInfo
 
 class VarDefinitionUnaryExecutor(private val conditionMessageHandler: ConditionMessageHandler) : InterpreterExecutor {
-    override fun execute(statement: Result<ast.Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Result<Ast> {
+    override fun execute(statement: Result<ast.Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Result<Ast> {
         val ast = statement.getOrNull() ?: return Result.failure(Exception("Invalid AST"))
         if (ast !is VarDefinition) {
             return Result.failure(Exception("AST is not a VarDefinition"))

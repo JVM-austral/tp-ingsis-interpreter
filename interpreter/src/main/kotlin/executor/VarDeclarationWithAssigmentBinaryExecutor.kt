@@ -8,7 +8,7 @@ import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
 class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator, private val isCompatibleTypeCondition: IsCompatibleTypeCondition, private val constCondition: Condition) : InterpreterExecutor {
-    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env:  MutableMap<String, Ast>): Result<Ast> {
+    override fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Result<Ast> {
         return statement.fold(
             onSuccess = { ast ->
                 try {
@@ -56,7 +56,7 @@ class VarDeclarationWithAssigmentBinaryExecutor(private val engine: AstEvaluator
     private fun settingConditionHandler(
         expression: Ast,
         heap: MutableMap<String, VariableInfo>,
-        env:  MutableMap<String, Ast>,
+        env: MutableMap<String, Ast>,
     ): Pair<Any, ConditionMessageHandler> {
         val evaluatedValue = engine.evaluate(expression, heap, env)
         isCompatibleTypeCondition.setEvaluatedValue(evaluatedValue)
