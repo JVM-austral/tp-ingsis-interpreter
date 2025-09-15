@@ -20,7 +20,9 @@ class ConfigurableLinter(private val configFilePath: String, private val v2: Boo
         } catch (e: Exception) {
             throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
         }
-    } else null
+    } else {
+        null
+    }
 
     private val jsonOptionsV2: ConfigurableAnalyzerOptionsV2? = if (v2) {
         try {
@@ -29,7 +31,9 @@ class ConfigurableLinter(private val configFilePath: String, private val v2: Boo
         } catch (e: Exception) {
             throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
         }
-    } else null
+    } else {
+        null
+    }
 
     fun getConfigurableLinter(): Linter {
         if (v2) {
