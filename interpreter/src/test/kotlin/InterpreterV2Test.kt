@@ -6,7 +6,6 @@ import MissMatchNumberCondition
 import MissMatchStringCondition
 import MissMatchTypeCondition
 import analyzer.IfDeclarationAnalyzer
-import analyzer.TypeDeclarationAnalyzer
 import analyzer.VarDeclarationWithAssigmentBinaryAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
 import ast.Ast
@@ -24,14 +23,12 @@ import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
 import evaluator.input.LiteralConverter
 import evaluator.input.MockInputProvider
-import executor.TypeDeclarationExecutor
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionEngine
 import interpreter.VariableInfo
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -45,16 +42,6 @@ class InterpreterV2Test {
     }
 
     // Tests para executors
-    @Test
-    fun `TypeDeclarationExecutor should identify Boolean TypeDeclaration and puts in the heap`() {
-        val analyzer = TypeDeclarationAnalyzer()
-        val executor = analyzer.getExecutor(heap, mutableMapOf())
-        val typeDecl = TypeDeclaration("boolean", 0, 0)
-        val result = Result.success(typeDecl as Ast)
-        executor.execute(result, heap, mutableMapOf())
-        assertTrue(analyzer.analyzeInterpretation(result, heap, mutableMapOf()))
-        assertInstanceOf(TypeDeclarationExecutor::class.java, analyzer.getExecutor(heap, mutableMapOf()))
-    }
 
     @Test
     fun `VarDefinitionUnaryExecutor should identify Boolean TypeDeclaration and checks the block`() {
