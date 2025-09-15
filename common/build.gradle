@@ -19,7 +19,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             groupId = project.group
-            artifactId = 'lexer'
+            artifactId = 'common'
             version = project.version
         }
     }
