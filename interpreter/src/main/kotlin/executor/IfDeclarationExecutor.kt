@@ -4,6 +4,7 @@ import ast.Ast
 import evaluator.AstEvaluator
 import evaluator.input.InputProvider
 import evaluator.input.LiteralConverter
+import interpreter.ExecutionEngine
 import interpreter.ExecutionUnit
 import interpreter.Interpreter
 import interpreter.VariableInfo
@@ -27,8 +28,8 @@ class IfDeclarationExecutor(
         }
         val interpreter = interpreterFactory(heap, env)
         val blockToExecute = if (conditionResult.toString() == "true") ast.getOnSuccess() else ast.getOnFailure()
-        interpreter.interpret(blockToExecute)
-        val finalResults = interpreter.runAll()
+        val result=interpreter.interpret(blockToExecute)
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(result)
         if (finalResults.isEmpty()) {
             return Result.success(ast)
         }

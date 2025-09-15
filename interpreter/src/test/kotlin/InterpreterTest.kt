@@ -39,6 +39,8 @@ import executor.VarDefinitionUnaryExecutor
 import factory.evaluators.AstEvaluationEngineV1
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
+import interpreter.ExecutionEngine
+import interpreter.ExecutionUnit
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
 import mock.MockOutputHandler
@@ -654,7 +656,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is TypeDeclarationExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
 
         assertTrue(heap.containsKey("x"))
         assertEquals("x", heap["x"]?.type)
@@ -710,7 +712,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(heap.containsKey("y"))
         assertEquals("string", heap["y"]?.type)
         assertEquals("hello", heap["y"]?.value)
@@ -757,7 +759,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is VarDefinitionUnaryExecutor)
         assertTrue(results[0].message == null)
-        interpreter.runAll()
+        ExecutionEngine(initialHeap, mutableMapOf()).runAll(results)
 
         assertTrue(initialHeap.containsKey("x"))
         assertEquals("number", initialHeap["x"]?.type)
@@ -844,7 +846,7 @@ class InterpreterTest {
         assertTrue(results[0].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[1].executor is TypeDeclarationExecutor) // Duplicate declaration
         assertTrue(results[2].executor is VarDeclarationWithAssigmentUnaryExecutor)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("its already declared") ?: false)
         assertTrue(heap.containsKey("x"))
@@ -925,7 +927,7 @@ class InterpreterTest {
         assertTrue(results[0].executor is VarDeclarationWithAssigmentBinaryExecutor)
         assertTrue(results[1].executor is VarDeclarationWithAssigmentUnaryExecutor)
         assertTrue(results[2].executor is VarDefinitionBinaryExecutor)
-        interpreter.runAll()
+        ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(heap.containsKey("a"))
         assertTrue(heap.containsKey("b"))
         assertEquals("number", heap["a"]?.type)
@@ -955,7 +957,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is PrintLnExecutor)
         assertTrue(results[0].message == null)
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResult.isEmpty())
         assertTrue(heap.isEmpty())
     }
@@ -1015,7 +1017,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResult.isEmpty())
         assertTrue(heap.containsKey("message"))
         assertEquals("Hello from variable!", heap["message"]?.value)
@@ -1041,7 +1043,7 @@ class InterpreterTest {
         assertEquals(1, results.size)
         assertTrue(results[0].executor is PrintLnExecutor)
         assertTrue(results[0].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("Variable no encontrada: undeclaredVar") ?: false)
     }
@@ -1094,7 +1096,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResults.isEmpty())
         assertTrue(heap.containsKey("greeting"))
         assertEquals("Hello", heap["greeting"]?.value)
@@ -1145,7 +1147,7 @@ class InterpreterTest {
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
         assertTrue(results[2].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertTrue(finalResults.isEmpty())
         assertTrue(heap.containsKey("num1"))
         assertEquals("8.0", heap["num1"]?.value)
@@ -1215,7 +1217,7 @@ class InterpreterTest {
         assertTrue(results[1].executor is VarDefinitionUnaryExecutor)
         assertTrue(results[0].message == null)
         assertTrue(results[1].message == null)
-        val finalResults = interpreter.runAll()
+        val finalResults =ExecutionEngine(heap, mutableMapOf()).runAll(results)
         assertEquals(1, finalResults.size)
         assertTrue(finalResults[0].message?.contains("La variable PI es una constante y no puede ser reasignada") ?: false)
         assertTrue(heap.containsKey("PI"))

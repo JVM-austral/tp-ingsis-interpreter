@@ -27,6 +27,7 @@ import evaluator.input.MockInputProvider
 import executor.TypeDeclarationExecutor
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
+import interpreter.ExecutionEngine
 import interpreter.VariableInfo
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -364,7 +365,7 @@ class InterpreterV2Test {
             0,
         )
         val result = interpreter.interpret(listOf(Result.success(assigment as Ast)))
-        interpreter.runAll()
+        ExecutionEngine(heap, env).runAll(result)
         assertEquals("Hello from env", heap["x"]?.value)
     }
 
@@ -380,7 +381,7 @@ class InterpreterV2Test {
             0,
         )
         val result = interpreter.interpret(listOf(Result.success(assigment as Ast)))
-        val finalResult = interpreter.runAll()
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
         assertEquals("hello world", heap["x"]?.value)
     }
 }
