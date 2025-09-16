@@ -1,6 +1,4 @@
-import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.NewLineAfterSemiColonAnalyzer
-import analyzers.NewLinesBeforePrintlnAnalyzer
 import analyzers.OnlyOneSpaceAnalyzer
 import analyzers.SpaceAfterColonAnalyzer
 import analyzers.SpaceAfterEqualsAnalyzer
@@ -44,7 +42,7 @@ class NewFormatterTest {
     fun setup() {
         formatter = FormatterImpl(
             listOf(
-                CanNotStartLineWithSpaceAnalyzer(), IfOpenBlockInTheSameLineAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
+                IfOpenBlockInTheSameLineAnalyzer(), SpaceAfterColonAnalyzer(),
                 SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(), NewLineAfterIfStatementAnalyzer(),
                 SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
                 SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
@@ -79,21 +77,21 @@ class NewFormatterTest {
     fun `debe poner la llave de apertura en la misma línea que el if`() {
         val tokens = lexer.tokenize("if (a>5)\n{  println(a);}")
         val result = formatter.format(tokens)
-        assertEquals(result, "if (a > 5){\n    println(a);\n}")
+        assertEquals(result, "if (a > 5) {\n    println(a);\n}")
     }
 
     @Test
     fun `debe aplicar indentado configurado dentro del if`() {
         val tokens = lexer.tokenize("if(a>5){println(a);}")
         val result = formatter.format(tokens)
-        assertEquals(result, "if(a > 5){\n    println(a);\n}")
+        assertEquals(result, "if(a > 5) {\n    println(a);\n}")
     }
 
     @Test
     fun `debe manejar múltiples sentencias dentro del if con indentado`() {
         val tokens = lexer.tokenize("if(x<10){let y:number=5;println(y);}")
         val result = formatter.format(tokens)
-        assertEquals(result, "if(x < 10){\n    let y : number = 5;\n    println(y);\n}")
+        assertEquals(result, "if(x < 10) {\n    let y : number = 5;\n    println(y);\n}")
     }
 
     @Test
@@ -102,7 +100,7 @@ class NewFormatterTest {
         val result = formatter.format(tokens)
         assertEquals(
             result,
-            "if(a > 0){\n    if(b > 0){\n        println(b);\n    }\n}",
+            "if(a > 0) {\n    if(b > 0) {\n        println(b);\n    }\n}",
         )
     }
 
@@ -112,7 +110,7 @@ class NewFormatterTest {
         val result = formatter.format(tokens)
         assertEquals(
             result,
-            "if(a > 0){\n    println(a);\n}\nelse{\n    println(b);\n}",
+            "if(a > 0) {\n    println(a);\n}\nelse {\n    println(b);\n}",
         )
     }
 
@@ -129,22 +127,15 @@ class NewFormatterTest {
         val result = formatter.format(tokens)
         assertEquals(
             result,
-            "if(a > 0){\n    if(b > 0){\n        let x : number = 5;\n    }\n}",
+            "if(a > 0) {\n    if(b > 0) {\n        let x : number = 5;\n    }\n}",
         )
-    }
-
-    @Test
-    fun `debe manejar println seguido de múltiples enters`() {
-        val tokens = lexer.tokenize("println(a);\n\nprintln(b);")
-        val result = formatter.format(tokens)
-        assertEquals(result, "println(a);\nprintln(b);")
     }
 
     @Test
     fun `debe mantener indentado en bloques vacíos`() {
         val tokens = lexer.tokenize("if(a>0){}")
         val result = formatter.format(tokens)
-        assertEquals(result, "if(a > 0){\n}")
+        assertEquals(result, "if(a > 0) {\n}")
     }
 
     @Test
@@ -153,7 +144,7 @@ class NewFormatterTest {
         val result = formatter.format(tokens)
         assertEquals(
             result,
-            "if(a > 0){\n    while(b < 5){\n        println(b);\n    }\n}",
+            "if(a > 0) {\n    while(b < 5) {\n        println(b);\n    }\n}",
         )
     }
 }

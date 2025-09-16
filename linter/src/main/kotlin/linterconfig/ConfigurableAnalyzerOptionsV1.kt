@@ -5,6 +5,6 @@ package linterconfig
  * @param usePrintlnAnalyzer Whether to use the PrintLnWithOutBinaryOperationAnalyzer
  */
 data class ConfigurableAnalyzerOptionsV1(
-    val namingConvention: String = "camelCase",
+    val namingConvention: String = " ",
     val usePrintlnAnalyzer: Boolean = true,
 )

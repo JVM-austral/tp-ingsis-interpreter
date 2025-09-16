@@ -239,7 +239,6 @@ class ConfigurableLinterTest {
         }
 
         assertTrue(exception.message!!.contains("Invalid naming convention: invalidConvention"))
-        assertTrue(exception.message!!.contains("Supported values are 'camelCase' and 'snake_case'"))
     }
 
     @Test

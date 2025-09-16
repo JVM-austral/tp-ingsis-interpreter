@@ -24,9 +24,9 @@
       <module name="tp-ingsis-interpreter.ast" target="21" />
       <module name="tp-ingsis-interpreter.ast.main" target="21" />
       <module name="tp-ingsis-interpreter.ast.test" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.main" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.test" target="21" />
+      <module name="tp-ingsis-interpreter.buildSrc" target="17" />
+      <module name="tp-ingsis-interpreter.buildSrc.main" target="17" />
+      <module name="tp-ingsis-interpreter.buildSrc.test" target="17" />
       <module name="tp-ingsis-interpreter.cli" target="21" />
       <module name="tp-ingsis-interpreter.cli.main" target="21" />
       <module name="tp-ingsis-interpreter.cli.test" target="21" />

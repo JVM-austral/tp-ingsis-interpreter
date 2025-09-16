@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":parser:main" external.linked.project.path="$MODULE_DIR$/../../../parser" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="org.JVM-austral" external.system.module.type="sourceSet" external.system.module.version="1.1.2" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":parser:main" external.linked.project.path="$MODULE_DIR$/../../../parser" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="org.JVM-austral" external.system.module.type="sourceSet" external.system.module.version="1.1.4" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet external-system-id="GRADLE" type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\parser\src\test\kotlin;C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\parser\src\main\kotlin">
+      <configuration version="5" platform="JVM 21" allPlatforms="JVM [21]" useProjectSettings="false" pureKotlinSourceFolders="C:\Users\Vito\Programming\faculty\ingsis\tp-ingsis-interpreter\parser\src\test\kotlin;C:\Users\Vito\Programming\faculty\ingsis\tp-ingsis-interpreter\parser\src\main\kotlin">
         <compilerSettings />
         <compilerArguments>
           <flagArguments>
@@ -43,7 +43,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.token.main" />
     <orderEntry type="module" module-name="tp-ingsis-interpreter.ast.main" />
-    <orderEntry type="module" module-name="tp-ingsis-interpreter.common.main" />
+    <orderEntry type="module" module-name="org.JVM-austral.tp-ingsis-interpreter.common.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.10.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
