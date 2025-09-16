@@ -362,7 +362,7 @@ class CliTest {
         assertTrue(output.contains("Running ${testFile.absolutePath}..."))
         assertTrue(output.contains("3.14"))
     }
-    
+
     @Test
     fun `ExecutionCommand should print with input`() {
         val testFile = tempDir.resolve("input.ps").toFile()
