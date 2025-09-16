@@ -1,7 +1,7 @@
 import errorhandler.MockErrorHandler
 import mock.StdOutputHandler
-import kotlin.test.Test
 import runner.RunnerImplementation
+import kotlin.test.Test
 
 class RunnerTest {
 
@@ -14,7 +14,7 @@ class RunnerTest {
             let b : string = "world";
             println(a + " " + b);
         """.trimIndent()
-        val runner = RunnerImplementation("V2", output);
+        val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
     }
 
@@ -33,8 +33,22 @@ class RunnerTest {
             println("outside of conditional");
         """.trimIndent()
 
-        val runner = RunnerImplementation("V2", output);
+        val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
     }
 
+    @Test
+    fun `dummy test v2`() {
+        val output = StdOutputHandler()
+        val errorHandler = MockErrorHandler()
+
+        val input = """
+            let PI : number;
+            PI = 3.14;
+            println( PI/2 );
+        """.trimIndent()
+
+        val runner = RunnerImplementation("V2", output)
+        runner.run(input.byteInputStream())
+    }
 }

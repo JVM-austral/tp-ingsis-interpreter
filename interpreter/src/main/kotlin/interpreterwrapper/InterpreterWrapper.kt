@@ -1,3 +1,0 @@
-package interpreterwrapper
-
-interface InterpreterWrapper

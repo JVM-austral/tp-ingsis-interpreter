@@ -17,35 +17,32 @@ class ParserWrapperImplementation(
 
     private fun fetchNextAst() {
         nextAst = null
-        var currentToken : Result<Token>;
+        var currentToken: Result<Token>
         var alreadyEnterInIfMode = false
 
         while (true) {
-
-            if(lexerWrapper.hasNext()) {
+            if (lexerWrapper.hasNext()) {
                 currentToken = lexerWrapper.next()
                 tokenBuffer.add(currentToken)
             } else {
                 break
             }
-            val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size-1))
+            val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size - 1))
 
             val singleAst = asts.firstOrNull()
-
             if (singleAst != null) {
-                if(singleAst.isSuccess) {
-                    if(singleAst.getOrNull() is IfDeclaration){
-                        if (currentToken.getOrNull()?.value == "else"){
+                if (singleAst.isSuccess) {
+                    if (singleAst.getOrNull() is IfDeclaration) {
+                        if (currentToken.getOrNull()?.value == "else") {
                             alreadyEnterInIfMode = true
                             continue
                         }
-                        if(alreadyEnterInIfMode){
+                        if (alreadyEnterInIfMode) {
                             astQueue.add(singleAst)
                             tokenBuffer.clear()
                             break
                         }
-                    }
-                    else{
+                    } else {
                         astQueue.add(singleAst)
                         tokenBuffer.clear()
                         break
@@ -54,17 +51,15 @@ class ParserWrapperImplementation(
             }
         }
 
-
         val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size))
 
         val singleAst = asts.firstOrNull()
         if (singleAst != null) {
-            if(singleAst.isSuccess) {
+            if (singleAst.isSuccess) {
                 astQueue.add(singleAst)
                 tokenBuffer.clear()
             }
         }
-
 
         if (astQueue.isNotEmpty()) {
             nextAst = astQueue.removeFirst()

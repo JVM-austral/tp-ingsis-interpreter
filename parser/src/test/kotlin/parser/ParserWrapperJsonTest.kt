@@ -5,6 +5,7 @@ import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
 import analyzer.VariableDefinitionAnalyzer
+import ast.Ast
 import dsl.AstJsonDsl.toJson
 import newanalyzers.BooleanDeclarationAnalyzer
 import newanalyzers.BooleanDefinitionAnalyzer

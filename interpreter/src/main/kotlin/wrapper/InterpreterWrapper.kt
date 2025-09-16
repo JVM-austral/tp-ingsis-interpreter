@@ -34,7 +34,6 @@ class InterpreterWrapper(
                 execIterator = it
                 return
             }
-
         }
         execIterator = null
     }
