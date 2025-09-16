@@ -10,17 +10,24 @@ import ast.Ast
 import ast.BinaryOperation
 import ast.BooleanBinaryOperation
 import ast.BooleanLiteral
+import ast.FunctionCallAst
+import ast.IfDeclaration
 import ast.NumberLiteral
 import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
 import ast.VarDefinition
+import ast.VariableIdentifier
 import condition.MissMatchBooleanCondition
+import evaluator.input.LiteralConverter
+import evaluator.input.MockInputProvider
 import executor.FailInterpreterExecutor
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionUnit
 import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
+import mock.StdOutputHandler
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -231,5 +238,34 @@ class InterpreterWrapperTest {
         }
         println(heap.values)
         assertEquals("true", heap["x"]?.value)
+    }
+
+    @Test
+    fun `should print first block with const boolean type`() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("hello world"), LiteralConverter())
+        val assigment = VarDeclaration(
+            "const",
+            StringLiteral("x", 0, 0),
+            TypeDeclaration("boolean", 0, 0),
+            BooleanLiteral("false", 0, 0),
+            0,
+            0,
+        )
+        val ifBlock = IfDeclaration(
+            "if",
+            VariableIdentifier("x", 0, 0),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0) as Ast)),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0) as Ast)),
+            0,
+            0,
+        )
+        val asts = listOf(Result.success(assigment as Ast), Result.success(ifBlock as Ast))
+        val wrapper = InterpreterWrapper(AstIteratorWrapper(asts), interpreter)
+        while (wrapper.hasNext()) {
+            val execUnit = wrapper.next()
+            println(execUnit.executor.execute(execUnit.statement, heap, mutableMapOf()))
+        }
+        println(heap.values)
+        Assertions.assertEquals("false", heap["x"]?.value)
     }
 }

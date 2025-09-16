@@ -3,15 +3,30 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="lexer" target="17" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.cli" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.cli.main" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.cli.test" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.common" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.common.main" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.common.test" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.formatter" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.formatter.main" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.formatter.test" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.linter" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.linter.main" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.linter.test" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.runner" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.runner.main" target="21" />
+      <module name="org.JVM-austral.tp-ingsis-interpreter.runner.test" target="21" />
       <module name="tp-ingsis-interpreter.app" target="21" />
       <module name="tp-ingsis-interpreter.app.main" target="21" />
       <module name="tp-ingsis-interpreter.app.test" target="21" />
       <module name="tp-ingsis-interpreter.ast" target="21" />
       <module name="tp-ingsis-interpreter.ast.main" target="21" />
       <module name="tp-ingsis-interpreter.ast.test" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.main" target="21" />
-      <module name="tp-ingsis-interpreter.buildSrc.test" target="21" />
+      <module name="tp-ingsis-interpreter.buildSrc" target="18" />
+      <module name="tp-ingsis-interpreter.buildSrc.main" target="18" />
+      <module name="tp-ingsis-interpreter.buildSrc.test" target="18" />
       <module name="tp-ingsis-interpreter.cli" target="21" />
       <module name="tp-ingsis-interpreter.cli.main" target="21" />
       <module name="tp-ingsis-interpreter.cli.test" target="21" />

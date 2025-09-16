@@ -25,11 +25,11 @@ import lexer.rules.WhitespaceAnalyzer
 
 class LexerFactoryV2 {
     private val rules = listOf(
-        NumberAnalyzer(), EnterAnalyzer(), ConstAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
+        ReadInputAnalyzer(), ReadEnvAnalyzer(), IfElseAnalyzer(), BooleanAnalyzer(), BooleanTypeAnalyzer(), NumberAnalyzer(), EnterAnalyzer(), ConstAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
         OperatorAnalyzer(), NumberTypeAnalyzer(),
         PrintAnalyzer(), PunctuationAnalyzer(), StringTypeAnalyzer(),
         StringAnalyzer(), VariableAnalyzer(), WhitespaceAnalyzer(),
-        MidStringAnalyzer(), TabAnalyzer(), ReadInputAnalyzer(), ReadEnvAnalyzer(), IfElseAnalyzer(), BooleanAnalyzer(), BooleanTypeAnalyzer(),
+        MidStringAnalyzer(), TabAnalyzer(),
 
     )
     fun create(): Lexer {

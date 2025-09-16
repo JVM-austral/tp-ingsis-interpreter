@@ -117,6 +117,7 @@ class AnalyzerFactory {
                             ),
                         ),
                         PriorityDeclarationCondition(),
+                        ConstDefinitionCondition(),
                     ),
                 ),
             ),

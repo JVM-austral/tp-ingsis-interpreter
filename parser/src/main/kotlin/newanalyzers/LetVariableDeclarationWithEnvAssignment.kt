@@ -17,7 +17,7 @@ class LetVariableDeclarationWithEnvAssignment(private val reservedTypes: List<St
             tokens[4].value == "=" &&
             tokens[5].value == "readEnv" &&
             tokens[6].value == "(" &&
-            tokens[7].type == TokenType.IDENTIFIER &&
+            tokens[7].type == TokenType.STRING_LITERAL &&
             tokens[8].value == ")" &&
             tokens[9].value == ";"
     }

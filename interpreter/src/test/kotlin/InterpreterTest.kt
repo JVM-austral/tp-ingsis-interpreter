@@ -881,7 +881,7 @@ class InterpreterTest {
 
     @Test
     fun `Const assigment must not be mutated`() {
-        val interpreter = InterpreterFactory().createInterpreterV1(heap, StdOutputHandler(), mutableMapOf())
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("hello world"), LiteralConverter())
         val statements = listOf(
             Result.success(
                 VarDeclaration(
@@ -950,5 +950,26 @@ class InterpreterTest {
         )
         val results = interpreter.interpret(statements)
         val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
+    }
+
+    @Test
+    fun `error type definition`() {
+        val interpreter = InterpreterFactory().createInterpreterV1(heap, StdOutputHandler(), mutableMapOf())
+        val statements = listOf(
+            Result.success(
+                VarDeclaration(
+                    "let",
+                    StringLiteral("x", 0, 0),
+                    TypeDeclaration("number", 0, 0),
+                    ScapeAst(),
+                    0,
+                    0,
+                ) as Ast,
+            ),
+            Result.success(VarDefinition("=", StringLiteral("x", 0, 0), StringLiteral("hola", 0, 0), 0, 0)),
+        )
+        val results = interpreter.interpret(statements)
+        val finalResults = ExecutionEngine(heap, mutableMapOf()).runAll(results)
+        println(finalResults[0].message)
     }
 }

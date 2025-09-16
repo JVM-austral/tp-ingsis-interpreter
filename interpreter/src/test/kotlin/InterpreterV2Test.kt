@@ -19,6 +19,7 @@ import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
 import ast.VarDefinition
+import ast.VariableIdentifier
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
 import evaluator.input.LiteralConverter
@@ -363,7 +364,7 @@ class InterpreterV2Test {
             "let",
             StringLiteral("x", 0, 0),
             TypeDeclaration("string", 0, 0),
-            FunctionCallAst("input", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
+            FunctionCallAst("readInput", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
             0,
             0,
         )
@@ -372,5 +373,49 @@ class InterpreterV2Test {
         val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
 
         assertEquals("hello world", heap["x"]?.value)
+    }
+
+    @Test
+    fun `should print first block with const boolean type`() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("hello world"), LiteralConverter())
+        val assigment = VarDeclaration(
+            "const",
+            StringLiteral("x", 0, 0),
+            TypeDeclaration("boolean", 0, 0),
+            BooleanLiteral("false", 0, 0),
+            0,
+            0,
+        )
+        val ifBlock = IfDeclaration(
+            "if",
+            VariableIdentifier("x", 0, 0),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0) as Ast)),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0) as Ast)),
+            0,
+            0,
+        )
+
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast), Result.success(ifBlock as Ast)))
+
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
+        assertEquals("false", heap["x"]?.value)
+    }
+
+    @Test
+    fun `should print with input`() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("world"), LiteralConverter())
+        val assigment = VarDeclaration(
+            "const",
+            StringLiteral("name", 0, 0),
+            TypeDeclaration("string", 0, 0),
+            FunctionCallAst("readInput", listOf(StringLiteral("Name:", 0, 0)), 0, 0),
+            0,
+            0,
+        )
+        val println = FunctionCallAst("println", listOf(BinaryOperation("+", StringLiteral("Hello ", 0, 0), VariableIdentifier("name", 0, 0), 0, 0)), 0, 0)
+
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast), Result.success(println as Ast)))
+
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
     }
 }

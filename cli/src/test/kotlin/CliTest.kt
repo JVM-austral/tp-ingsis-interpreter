@@ -97,7 +97,7 @@ class CliTest {
         testFile.writeText(
             """
             // This is a comment
-            
+
             // Another comment
             """.trimIndent(),
         )
@@ -308,9 +308,10 @@ class CliTest {
         val testFile = tempDir.resolve("valid.ps").toFile()
         testFile.writeText(
             """
-            let firstName: string = \"John\";
+            let firstName: string;
             let lastName: string = \"Doe\";
             let age: number = 25;
+            firstName = \"Jhon\";
             println(firstName + " " + lastName);
             println("Age: " + age);
             """.trimIndent(),
@@ -338,5 +339,26 @@ class CliTest {
         assertDoesNotThrow { lintCommand.run() }
 
         // All commands should execute without throwing exceptions
+    }
+
+    @Test
+    fun `should print first block with const boolean type`() {
+        val testFile = tempDir.resolve("if.ps").toFile()
+        testFile.writeText(
+            """
+            const firstName: boolean = true;
+            if (firstName) {
+                println("Es verdadero");
+            } else {
+                println("Es falso");
+            }
+            """.trimIndent(),
+        )
+        val command = ExecutionCommand()
+
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V2"))
+        command.run()
+        val output = outputStream.toString()
+        assertTrue(output.contains("Es verdadero"))
     }
 }
