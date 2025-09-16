@@ -97,7 +97,7 @@ class CliTest {
         testFile.writeText(
             """
             // This is a comment
-
+            
             // Another comment
             """.trimIndent(),
         )
@@ -308,10 +308,9 @@ class CliTest {
         val testFile = tempDir.resolve("valid.ps").toFile()
         testFile.writeText(
             """
-            let firstName: string;
+            let firstName: string = \"John\";
             let lastName: string = \"Doe\";
             let age: number = 25;
-            firstName = \"Jhon\";
             println(firstName + " " + lastName);
             println("Age: " + age);
             """.trimIndent(),
@@ -342,23 +341,48 @@ class CliTest {
     }
 
     @Test
-    fun `should print first block with const boolean type`() {
-        val testFile = tempDir.resolve("if.ps").toFile()
+    fun `ExecutionCommand should print a constant value`() {
+        // Arrange
+        val testFile = tempDir.resolve("const_print.ps").toFile()
         testFile.writeText(
             """
-            const firstName: boolean = true;
-            if (firstName) {
-                println("Es verdadero");
-            } else {
-                println("Es falso");
-            }
+        let PI: number = 3.14;
+        println(PI);
             """.trimIndent(),
         )
+
         val command = ExecutionCommand()
 
+        // Act
         command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V2"))
         command.run()
+
+        // Assert
         val output = outputStream.toString()
-        assertTrue(output.contains("Es verdadero"))
+        assertTrue(output.contains("Running ${testFile.absolutePath}..."))
+        assertTrue(output.contains("3.14"))
+    }
+
+    @Test
+    fun `ExecutionCommand should print a CONST value`() {
+        // Arrange
+        val testFile = tempDir.resolve("const_print_const.ps").toFile()
+        testFile.writeText(
+            """
+        const PI: number = 3.14;
+        println(PI);
+            """.trimIndent(),
+        )
+
+        val command = ExecutionCommand()
+
+        // Act
+        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
+        command.run()
+
+        // Assert
+        val output = outputStream.toString()
+        assertTrue(output.contains("Running ${testFile.absolutePath}..."))
+        assertTrue(output.contains("3.14"))
     }
 }

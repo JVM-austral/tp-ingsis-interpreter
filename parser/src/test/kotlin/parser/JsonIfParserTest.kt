@@ -2,7 +2,6 @@ package dsl.parser
 
 import analyzer.BinaryNumberOperatorAnalyzer
 import analyzer.FunctionAnalyzer
-import analyzer.IfAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
@@ -11,6 +10,7 @@ import analyzer.VariableDefinitionAnalyzer
 import dsl.AstJsonDsl.toJson
 import newanalyzers.BooleanDeclarationAnalyzer
 import newanalyzers.BooleanDefinitionAnalyzer
+import newanalyzers.IfAnalyzer
 import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
 import newanalyzers.LetVariableDeclarationWithEnvAssignment
 import newanalyzers.LetVariableDeclarationWithInputAssignment

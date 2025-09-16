@@ -3,7 +3,6 @@ package newexecutors
 
 import ConditionExecutor
 import analyzer.FunctionAnalyzer
-import analyzer.IfAnalyzer
 import analyzer.LetVariableDeclarationAnalyzer
 import analyzer.LetVariableDeclarationWithNumberAssignmentAnalyzer
 import analyzer.LetVariableDeclarationWithStringAssignmentAnalyzer
@@ -15,6 +14,7 @@ import ast.IfDeclaration
 import executor.StructureExecutor
 import newanalyzers.BooleanDeclarationAnalyzer
 import newanalyzers.BooleanDefinitionAnalyzer
+import newanalyzers.IfAnalyzer
 import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
 import newanalyzers.LetVariableDeclarationWithEnvAssignment
 import newanalyzers.LetVariableDeclarationWithInputAssignment

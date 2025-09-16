@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/cli/src/test/kotlin/CliTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/evaluator/FunctionCallEvaluator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/analyzers/AnalyzerFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/main/kotlin/factory/analyzers/AnalyzerFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/InterpreterV2Test.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/src/test/kotlin/wrapper/InterpreterWrapperTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/src/test/kotlin/wrapper/InterpreterWrapperTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <list id="1958f5b9-5aff-43f2-b952-fd476e6b9b9a" name="Changes by sereb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,87 +89,89 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.AnalyzerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build tp-ingsis-interpreter.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CliTest.ExecutionCommand should execute pi division code correctly.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CliTest.ExecutionCommand should read file and execute valid PrintScript code.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CliTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze simple addition.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should execute function call with single parameter.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a bool value via wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a value in a binary op via wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InterpreterWrapperTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerTest.complex expression with all token types.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testPiAssignmentAndPrintlnExpression.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserV1Test.should parse valid let declaration tokens.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserWrapperJsonTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [buildDependents].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tp-ingsis-interpreter [testClasses].executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in tp-ingsis-interpreter.lexer.test.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.TestGenerator.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/juani/faculty/3Ano/Ingsis/tp-ingsis-interpreter&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;C:\\Users\\juani\\.gradle&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.AnalyzerTest.executor": "Run",
+    "Gradle.BooleanParserTest.should analyze const declaration with boolean assignment.executor": "Run",
+    "Gradle.BooleanParserTest.should analyze valid const boolean declaration.executor": "Run",
+    "Gradle.Build tp-ingsis-interpreter.executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [assemble].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [buildDependents].executor": "Run",
+    "Gradle.C:/Users/sereb/programming/faculty/ingsis/tp-ingsis-interpreter/lexer [build].executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should execute pi division code correctly.executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should handle file with only comments or whitespace.executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should print a CONST value.executor": "Run",
+    "Gradle.CliTest.ExecutionCommand should read file and execute valid PrintScript code.executor": "Run",
+    "Gradle.CliTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should accept a variable definition with a binary operation.executor": "Debug",
+    "Gradle.ComprehensiveParserTest.should analyze complex arithmetic expression.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze expression with parentheses.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze simple addition.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration with number type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should analyze valid let declaration.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should execute function call with single parameter.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with invalid type.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with reserved identifier.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration with wrong size.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without colon.executor": "Run",
+    "Gradle.ComprehensiveParserTest.should reject let declaration without let keyword.executor": "Run",
+    "Gradle.ConfigurableLinterTest.executor": "Run",
+    "Gradle.ConfigurableLinterTest.test configurableAnalyzer with empty JSON file throws exception.executor": "Run",
+    "Gradle.ConfigurableLinterTest.test configurableAnalyzer with malformed JSON throws exception.executor": "Run",
+    "Gradle.InterpreterV2Test.executor": "Run",
+    "Gradle.InterpreterV2Test.should assign from input .executor": "Run",
+    "Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a bool value via wrapper.executor": "Run",
+    "Gradle.InterpreterWrapperTest.Var declaration with bool op assigment, should assign a value in a binary op via wrapper.executor": "Run",
+    "Gradle.InterpreterWrapperTest.executor": "Run",
+    "Gradle.LexerTest.complex expression with all token types.executor": "Run",
+    "Gradle.LexerTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testBooleanOperatorsShouldBeRecognizedAsBoolOperator.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testComplexExpressionWithAllTokenTypes.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens (1).executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testMultipleTokens.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testPiAssignmentAndPrintlnExpression.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken (1).executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testSingleValidToken.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testStringLiteralAnalyzer.executor": "Run",
+    "Gradle.LexerWrapperImplementationTest.testUnknownThenValid.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.NewLexerVersionTest.boolean operators should be recognized as BOOLOPERATOR.executor": "Run",
+    "Gradle.NewLexerVersionTest.executor": "Run",
+    "Gradle.NewLexerVersionTest.readInput should be recognized as identifier.executor": "Run",
+    "Gradle.ParserV1Test.should parse valid let declaration tokens.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test const declaration and assignment to JSON using wrapper.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test single println with binary operation to JSON using wrapper.executor": "Run",
+    "Gradle.ParserWrapperJsonTest.test single println with identifier to JSON using wrapper.executor": "Run",
+    "Gradle.Tests in 'tp-ingsis-interpreter.cli.test'.executor": "Run",
+    "Gradle.tp-ingsis-interpreter [buildDependents].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [build].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [dependencies].executor": "Run",
+    "Gradle.tp-ingsis-interpreter [testClasses].executor": "Run",
+    "JUnit.All in tp-ingsis-interpreter.lexer.test.executor": "Run",
+    "Kotlin.TestGenerator.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sereb/programming/faculty/ingsis/printscript-tck",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Vito/Programming/faculty/ingsis/tp-ingsis-interpreter/lexer/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\main\kotlin\commands\factory" />
@@ -188,7 +184,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CliTest">
+  <component name="RunManager" selected="Gradle.InterpreterV2Test.should assign from input ">
     <configuration name="CliTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -213,7 +209,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="CliTest.ExecutionCommand should execute pi division code correctly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="CliTest.ExecutionCommand should handle file with only comments or whitespace" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -226,7 +222,7 @@
           <list>
             <option value=":cli:test" />
             <option value="--tests" />
-            <option value="&quot;CliTest.ExecutionCommand should execute pi division code correctly&quot;" />
+            <option value="&quot;CliTest.ExecutionCommand should handle file with only comments or whitespace&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -237,7 +233,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="CliTest.ExecutionCommand should read file and execute valid PrintScript code" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="InterpreterV2Test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -248,9 +244,33 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cli:test" />
+            <option value=":interpreter:test" />
             <option value="--tests" />
-            <option value="&quot;CliTest.ExecutionCommand should read file and execute valid PrintScript code&quot;" />
+            <option value="&quot;test.InterpreterV2Test&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="InterpreterV2Test.should assign from input " type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":interpreter:test" />
+            <option value="--tests" />
+            <option value="&quot;test.InterpreterV2Test.should assign from input &quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -285,45 +305,21 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":parser:test" />
-            <option value="--tests" />
-            <option value="&quot;parser.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.InterpreterV2Test.should assign from input " />
+        <item itemvalue="Gradle.InterpreterV2Test" />
+        <item itemvalue="Gradle.CliTest.ExecutionCommand should handle file with only comments or whitespace" />
         <item itemvalue="Gradle.CliTest" />
-        <item itemvalue="Gradle.CliTest.ExecutionCommand should read file and execute valid PrintScript code" />
-        <item itemvalue="Gradle.CliTest.ExecutionCommand should execute pi division code correctly" />
         <item itemvalue="Gradle.ParserWrapperJsonTest" />
-        <item itemvalue="Gradle.ParserWrapperJsonTest.test let pi declaration, assignment and println to JSON using wrapper" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -363,9 +359,9 @@
       <workItem from="1757961124531" duration="430000" />
       <workItem from="1757962073836" duration="50000" />
       <workItem from="1757963551607" duration="417000" />
-      <workItem from="1757966280377" duration="2388000" />
-      <workItem from="1757978503689" duration="32000" />
-      <workItem from="1757979817298" duration="174000" />
+      <workItem from="1757966280377" duration="2803000" />
+      <workItem from="1757974161509" duration="18000" />
+      <workItem from="1757974262722" duration="3457000" />
     </task>
     <servers />
   </component>

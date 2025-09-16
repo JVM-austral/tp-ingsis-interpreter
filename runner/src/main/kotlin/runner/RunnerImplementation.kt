@@ -26,10 +26,10 @@ import java.io.StringReader
 
 class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider()) : Runner {
 
-    private val errorHandler = MockErrorHandler()
+    private var errorHandler = MockErrorHandler()
 
     override fun format(code: String, formatterConfigPath: String?): String {
-        val factory = FormatCommandFactory(fromString(version ?: "V2"), formatterConfigPath)
+        val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
         val reader = StringReader(code)
@@ -44,7 +44,8 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
     }
 
     override fun run(code: InputStream) {
-        val factory = ExecutionCommandFactory(fromString(version ?: "V2"), stdOutHandler, inputProvider)
+        println("Running code with version: $version")
+        val factory = ExecutionCommandFactory(fromString(version ?: "V1"), stdOutHandler, inputProvider)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val interpreter: Interpreter = factory.getInterpreter()
@@ -93,6 +94,8 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
     }
 
     override fun getErrorHandler(): MockErrorHandler {
-        return errorHandler
+        val result = errorHandler
+        errorHandler = MockErrorHandler()
+        return result
     }
 }
