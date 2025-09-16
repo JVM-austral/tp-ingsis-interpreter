@@ -17,8 +17,6 @@ class LexerWrapperImplementation(
 
     private val strBuilder = StringBuilder()
 
-    private val NO_MATCH_FALLBACK = 20
-
     override fun hasNext(): Boolean {
         if (tokenBuffer.isNotEmpty()) return true
 
@@ -88,8 +86,8 @@ class LexerWrapperImplementation(
 
             windowSize++
 
-            if (lastGoodToken == null && !endOfFile && strBuilder.length >= NO_MATCH_FALLBACK && windowSize > NO_MATCH_FALLBACK) {
-                break
+            if (windowSize > strBuilder.length && !endOfFile) {
+                completeBufferMinLength(windowSize)
             }
         }
 
@@ -98,21 +96,22 @@ class LexerWrapperImplementation(
             return true
         }
 
+        if (!endOfFile) return false
+
         if (strBuilder.isNotEmpty()) {
-            if (!endOfFile && strBuilder.length < NO_MATCH_FALLBACK) return false
-            emitUnknownFirstChar()
-            return true
+            return resolveInvalidToken()
         }
 
         return false
     }
 
-    private fun emitUnknownFirstChar() {
+    private fun resolveInvalidToken(): Boolean {
         val leftoverChar = strBuilder.substring(0, 1)
         val unknown = Token(leftoverChar, TokenType.UNKNOWN, currentLine, currentColumn)
         tokenBuffer.add(Result.success(unknown))
         advancePosition(leftoverChar)
         strBuilder.delete(0, 1)
+        return true
     }
 
     private fun consumeBufferAndEmitToken(tokenResult: Result<Token>) {
