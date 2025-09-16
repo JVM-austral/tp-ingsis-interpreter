@@ -8,7 +8,6 @@ import token.Token
 class ParserWrapperImplementation(
     private val lexerWrapper: IteratorWrapper<Result<Token>>,
     private val parser: Parser,
-    private val maxBufferSize: Int = 1000, // tamaño máximo del buffer
 ) : IteratorWrapper<Result<Ast>> {
 
     private val tokenBuffer = mutableListOf<Result<Token>>()
@@ -28,7 +27,6 @@ class ParserWrapperImplementation(
                 break
             }
             val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size - 1))
-
             val singleAst = asts.firstOrNull()
             if (singleAst != null) {
                 if (singleAst.isSuccess) {
@@ -40,11 +38,13 @@ class ParserWrapperImplementation(
                         if (alreadyEnterInIfMode) {
                             astQueue.add(singleAst)
                             tokenBuffer.clear()
+                            tokenBuffer.add(currentToken)
                             break
                         }
                     } else {
                         astQueue.add(singleAst)
                         tokenBuffer.clear()
+                        tokenBuffer.add(currentToken)
                         break
                     }
                 }
@@ -52,14 +52,8 @@ class ParserWrapperImplementation(
         }
 
         val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size))
-
-        val singleAst = asts.firstOrNull()
-        if (singleAst != null) {
-            if (singleAst.isSuccess) {
-                astQueue.add(singleAst)
-                tokenBuffer.clear()
-            }
-        }
+        astQueue.addAll(asts)
+        tokenBuffer.clear()
 
         if (astQueue.isNotEmpty()) {
             nextAst = astQueue.removeFirst()
@@ -77,4 +71,5 @@ class ParserWrapperImplementation(
         nextAst = null
         return result
     }
+
 }
