@@ -1,5 +1,6 @@
 package lexertest
 
+import lexer.newrules.ReadEnvAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
 import lexer.rules.MidStringAnalyzer
@@ -154,6 +155,15 @@ class AnalyzerTest {
         assertTrue(analyzer.analyze("println"))
         assertFalse(analyzer.analyze("print"))
         assertFalse(analyzer.analyze("printlnn"))
+        assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
+    }
+
+    @Test
+    fun `env analyzer`() {
+        val analyzer = ReadEnvAnalyzer()
+        assertTrue(analyzer.analyze("readEnv"))
+        assertFalse(analyzer.analyze("readEnvv"))
+        assertFalse(analyzer.analyze("readenv"))
         assertEquals(TokenType.IDENTIFIER, analyzer.giveType())
     }
 }

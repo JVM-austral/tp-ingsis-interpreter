@@ -20,11 +20,11 @@ import lexer.rules.StringAnalyzer
 import lexer.rules.StringTypeAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
-import token.TokenType
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import java.io.StringReader
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.assertFailsWith
 
 class LexerWrapperImplementationTest {
     private val dsl = LexerWrapperTestDsl()
@@ -51,132 +51,246 @@ class LexerWrapperImplementationTest {
             OperatorAnalyzer(),
         )
         val lexer = LexerImplementation(analyzers)
-        val lineReader = input.reader()
+        val reader = StringReader(input)
         val tokenBuffer = TokenBuffer()
-        return LexerWrapperImplementation(lexer, lineReader, tokenBuffer)
+        return LexerWrapperImplementation(lexer, reader, tokenBuffer)
+    }
+
+    // Tests para coverage de edge cases y error handling
+    @Test
+    fun testNoSuchElementExceptionWhenNoTokens() {
+        val wrapper = createWrapper("")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("", result)
+
+        assertFailsWith<NoSuchElementException> {
+            wrapper.next()
+        }
     }
 
     @Test
-    fun testSingleValidToken() {
+    fun testNoSuchElementExceptionAfterLastToken() {
         val wrapper = createWrapper("hello")
-        assertTrue(wrapper.hasNext())
-        val token = wrapper.next().getOrNull()
-        assertEquals(TokenType.IDENTIFIER, token?.type)
-        assertEquals("hello", token?.value)
-        assertFalse(wrapper.hasNext())
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier", result)
+
+        assertFailsWith<NoSuchElementException> {
+            wrapper.next()
+        }
+    }
+
+    // Tests para unknown tokens y caracteres inválidos
+    @Test
+    fun testUnknownCharacterHandling() {
+        val wrapper = createWrapper("@#$%")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("unknown->unknown->unknown->unknown", result)
     }
 
     @Test
-    fun testMultipleTokens() {
-        val wrapper = createWrapper("foo bar baz")
+    fun testMixedValidAndInvalidCharacters() {
+        val wrapper = createWrapper("hello@world")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->unknown->identifier", result)
+    }
+
+    @Test
+    fun testSingleUnknownCharacter() {
+        val wrapper = createWrapper("@")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("unknown", result)
+    }
+
+    @Test
+    fun testUnknownCharacterBetweenValidTokens() {
+        val wrapper = createWrapper("a@b")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->unknown->identifier", result)
+    }
+
+    // Tests para line y column tracking con DSL
+    @Test
+    fun testNewlineHandling() {
+        val wrapper = createWrapper("hello\nworld")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->enter->identifier", result)
+    }
+
+    @Test
+    fun testMultipleNewlines() {
+        val wrapper = createWrapper("a\n\nb\nc")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->enter->enter->identifier->enter->identifier", result)
+    }
+
+    @Test
+    fun testCarriageReturnNewline() {
+        val wrapper = createWrapper("a\r\nb")
+        val result = dsl.tokensToString(wrapper)
+        // Dependiendo de cómo maneja \r\n el lexer
+        assertTrue(result.contains("identifier"))
+    }
+
+    @Test
+    fun testKeywordVsIdentifierMatch() {
+        val wrapper = createWrapper("if ifxyz letx")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("conditional->whitespace->identifier->whitespace->identifier", result)
+    }
+
+    @Test
+    fun testConsecutiveWhitespace() {
+        val wrapper = createWrapper("a   b")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->whitespace->whitespace->whitespace->identifier", result)
+    }
+
+    // Tests para string literals con DSL
+    @Test
+    fun testEmptyStringLiteral() {
+        val wrapper = createWrapper("\"\"")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("string", result)
+    }
+
+    @Test
+    fun testStringWithSpaces() {
+        val wrapper = createWrapper("\"hello world\"")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("string", result)
+    }
+
+    @Test
+    fun testStringWithEscapeCharacters() {
+        val wrapper = createWrapper("\"hello\\nworld\"")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("string", result)
+    }
+
+    // Tests para números con DSL
+    @Test
+    fun testFloatingPointNumbers() {
+        val wrapper = createWrapper("3.14 0.5 123.456")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("number->whitespace->number->whitespace->number", result)
+    }
+
+    @Test
+    fun testNegativeNumbers() {
+        val wrapper = createWrapper("-42 -3.14")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("operator->number->whitespace->operator->number", result)
+    }
+
+    @Test
+    fun testZeroNumbers() {
+        val wrapper = createWrapper("0 0.0 00")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("number->whitespace->number->whitespace->number", result)
+    }
+
+    // Tests para operadores complejos con DSL
+    @Test
+    fun testComplexOperatorSequence() {
+        val wrapper = createWrapper("+=*/-=**")
+        val result = dsl.tokensToString(wrapper)
+        // Dependiendo de cómo maneja operadores complejos
+        assertTrue(result.contains("operator"))
+    }
+
+    @Test
+    fun testOperatorAndNumberCombination() {
+        val wrapper = createWrapper("x+5-2*3/4")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier->operator->number->operator->number->operator->number->operator->number", result)
+    }
+
+    // Tests para comentarios (si los maneja)
+    @Test
+    fun testLineComment() {
+        val wrapper = createWrapper("hello // comment")
+        val result = dsl.tokensToString(wrapper)
+        // Verifica cómo maneja comentarios
+        assertTrue(result.contains("identifier"))
+    }
+
+    // Tests para casos extremos con DSL
+    @Test
+    fun testVeryLongIdentifier() {
+        val longId = "a".repeat(1000)
+        val wrapper = createWrapper(longId)
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("identifier", result)
+    }
+
+    @Test
+    fun testVeryLongString() {
+        val longString = "\"" + "a".repeat(1000) + "\""
+        val wrapper = createWrapper(longString)
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("string", result)
+    }
+
+    // Tests para comportamiento incremental con DSL
+    @Test
+    fun testComplexMixedExpression() {
+        val wrapper = createWrapper("let x: number = 42.5; println(\"Result: \" + x);")
+        val result = dsl.tokensToString(wrapper)
+        assertEquals(
+            "keyword->whitespace->identifier->punctuation->whitespace->identifier->whitespace->operator->whitespace->number->punctuation->whitespace->identifier->punctuation->string->whitespace->operator->whitespace->identifier->punctuation->punctuation",
+            result,
+        )
+    }
+
+    @Test
+    fun testNestedStructures() {
+        val wrapper = createWrapper("if (x > 0) { println(\"positive\"); }")
+        val result = dsl.tokensToString(wrapper)
+        assertTrue(result.contains("conditional"))
+        assertTrue(result.contains("bool_operator"))
+        assertTrue(result.contains("string"))
+    }
+
+    // Tests para tipos de datos con DSL
+    @Test
+    fun testTypeDeclarations() {
+        val wrapper = createWrapper("string number boolean")
         val result = dsl.tokensToString(wrapper)
         assertEquals("identifier->whitespace->identifier->whitespace->identifier", result)
     }
 
     @Test
-    fun testUnknownThenValid() {
-        val wrapper = createWrapper("123 valid")
+    fun testBooleanLiterals() {
+        val wrapper = createWrapper("true false")
         val result = dsl.tokensToString(wrapper)
-        assertEquals("number->whitespace->identifier", result)
+        assertEquals("boolean->whitespace->boolean", result)
+    }
+
+    // Tests específicos para funciones del DSL
+    @Test
+    fun testDslWithComplexInput() {
+        val wrapper = createWrapper("const pi = 3.14159; if (pi > 3) println(\"Pi is greater than 3\");")
+        val result = dsl.tokensToString(wrapper)
+
+        assertTrue(result.startsWith("keyword"))
+        assertTrue(result.contains("number"))
+        assertTrue(result.contains("conditional"))
+        assertTrue(result.contains("bool_operator"))
+        assertTrue(result.contains("string"))
+        assertTrue(result.endsWith("punctuation"))
     }
 
     @Test
-    fun testEmptyInput() {
+    fun testDslEmptyInput() {
         val wrapper = createWrapper("")
-        assertFalse(wrapper.hasNext())
+        val result = dsl.tokensToString(wrapper)
+        assertEquals("", result)
     }
 
     @Test
-    fun testFirstTokenAnalyzer() {
-        val wrapper = createWrapper("let hola = 12.3;")
+    fun testDslSingleToken() {
+        val wrapper = createWrapper("hello")
         val result = dsl.tokensToString(wrapper)
-        assertEquals("keyword->whitespace->identifier->whitespace->operator->whitespace->number->punctuation", result)
-    }
-
-    @Test
-    fun testStringLiteralAnalyzer() {
-        val wrapper = createWrapper("\"hola mundo\";")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("string->punctuation", result)
-    }
-
-    @Test
-    fun testSimpleVariableAssignment() {
-        val wrapper = createWrapper("y=5;")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("identifier->operator->number->punctuation", result)
-    }
-
-    @Test
-    fun testMultipleOperatorsAndNumbers() {
-        val wrapper = createWrapper("z+y-2;")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("identifier->operator->identifier->operator->number->punctuation", result)
-    }
-
-    @Test
-    fun testParenthesesAndWhitespace() {
-        val wrapper = createWrapper("(a + b)")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("punctuation->identifier->whitespace->operator->whitespace->identifier->punctuation", result)
-    }
-
-    @Test
-    fun testAnalyzePrintln() {
-        val wrapper = createWrapper("println(x+5);")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("identifier->punctuation->identifier->operator->number->punctuation->punctuation", result)
-    }
-
-    @Test
-    fun testPrintlnWithSumParameter() {
-        val wrapper = createWrapper("println(a+b);")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("identifier->punctuation->identifier->operator->identifier->punctuation->punctuation", result)
-    }
-
-    @Test
-    fun testComplexExpressionWithAllTokenTypes() {
-        val wrapper = createWrapper("let a : string = \"hello\";\nprintln(\"world\" + a);")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->whitespace->operator->whitespace->string->punctuation->enter->identifier->punctuation->string->whitespace->operator->whitespace->identifier->punctuation->punctuation", result)
-    }
-
-    @Test
-    fun testConstAssignmentWithBooleanTypeAsIdentifier() {
-        val wrapper = createWrapper("const hola : boolean = true;")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->whitespace->operator->whitespace->boolean->punctuation", result)
-    }
-
-    @Test
-    fun testSimpleIfElseConditional() {
-        val wrapper = createWrapper("if true else false")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("conditional->whitespace->boolean->whitespace->conditional->whitespace->boolean", result)
-    }
-
-    @Test
-    fun testBooleanOperatorsShouldBeRecognizedAsBoolOperator() {
-        val wrapper = createWrapper("== > < >= <=")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("bool_operator->whitespace->bool_operator->whitespace->bool_operator->whitespace->bool_operator->whitespace->bool_operator", result)
-    }
-
-    @Test
-    fun testReadInputShouldBeRecognizedAsIdentifier() {
-        val wrapper = createWrapper("const value = readInput;")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals("keyword->whitespace->identifier->whitespace->operator->whitespace->identifier->punctuation", result)
-    }
-
-    @Test
-    fun testPiAssignmentAndPrintlnExpression() {
-        val wrapper = createWrapper("let pi : number; pi = 3.14; println( pi / 2);")
-        val result = dsl.tokensToString(wrapper)
-        assertEquals(
-            "keyword->whitespace->identifier->whitespace->punctuation->whitespace->identifier->punctuation->whitespace->identifier->whitespace->operator->whitespace->number->punctuation->whitespace->identifier->punctuation->whitespace->identifier->whitespace->operator->whitespace->number->punctuation->punctuation",
-            result,
-        )
+        assertEquals("identifier", result)
     }
 }

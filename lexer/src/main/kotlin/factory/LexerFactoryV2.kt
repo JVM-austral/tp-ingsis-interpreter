@@ -8,7 +8,6 @@ import lexer.newrules.ConstAnalyzer
 import lexer.newrules.IfElseAnalyzer
 import lexer.newrules.ReadEnvAnalyzer
 import lexer.newrules.ReadInputAnalyzer
-import lexer.newrules.TabAnalyzer
 import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
@@ -29,7 +28,7 @@ class LexerFactoryV2 {
         OperatorAnalyzer(), NumberTypeAnalyzer(),
         PrintAnalyzer(), PunctuationAnalyzer(), StringTypeAnalyzer(),
         StringAnalyzer(), VariableAnalyzer(), WhitespaceAnalyzer(),
-        MidStringAnalyzer(), TabAnalyzer(),
+        MidStringAnalyzer(),
 
     )
     fun create(): Lexer {

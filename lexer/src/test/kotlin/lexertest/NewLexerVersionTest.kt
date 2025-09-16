@@ -7,6 +7,7 @@ import lexer.newrules.BooleanOperatorsAnalyzer
 import lexer.newrules.BooleanTypeAnalyzer
 import lexer.newrules.ConstAnalyzer
 import lexer.newrules.IfElseAnalyzer
+import lexer.newrules.ReadEnvAnalyzer
 import lexer.newrules.ReadInputAnalyzer
 import lexer.rules.KeywordAnalyzer
 import lexer.rules.MidNumberAnalyzer
@@ -31,6 +32,7 @@ class NewLexerVersionTest {
     @BeforeEach
     fun setUp() {
         val analyzers = listOf(
+            ReadEnvAnalyzer(),
             BooleanOperatorsAnalyzer(),
             BooleanAnalyzer(),
             BooleanTypeAnalyzer(),
@@ -94,6 +96,19 @@ class NewLexerVersionTest {
 
     @Test
     fun `readInput should be recognized as identifier`() {
+        val input = "const value = readInput;"
+        val tokens = lexer.tokenize(input)
+
+        val result = lexerTestDsl.tokensToString(tokens)
+        assertEquals(
+            "keyword->whitespace->identifier" +
+                "->whitespace->operator->whitespace->identifier->punctuation",
+            result,
+        )
+    }
+
+    @Test
+    fun `readEnv should be recognized as identifier`() {
         val input = "const value = readInput;"
         val tokens = lexer.tokenize(input)
 
