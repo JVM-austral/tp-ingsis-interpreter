@@ -118,4 +118,23 @@ println(numberResult);
         assert(erroHandler.getCapturedErrors().isNotEmpty())
     }
 
+    @Test
+    fun `dummy test v7`() {
+        val output = MockOutputHandler()
+
+        val input = """
+            println("jaja");
+            println("jaja");
+            println("jaja");
+            println("jaja");
+            println("jaja");
+            println("jaja");
+            println("jaja");
+        """.trimIndent()
+        val runner = RunnerImplementation("V2", output)
+        runner.run(input.byteInputStream())
+        val erroHandler = runner.getErrorHandler()
+        println(erroHandler.getCapturedErrors())
+        assert(erroHandler.getCapturedErrors().isEmpty())
+    }
 }

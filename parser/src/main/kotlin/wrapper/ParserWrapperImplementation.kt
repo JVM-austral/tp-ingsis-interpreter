@@ -17,7 +17,6 @@ class ParserWrapperImplementation(
     private fun fetchNextAst() {
         nextAst = null
         var currentToken: Result<Token>
-        var alreadyEnterInIfMode = false
 
         while (true) {
             if (lexerWrapper.hasNext()) {
@@ -32,10 +31,9 @@ class ParserWrapperImplementation(
                 if (singleAst.isSuccess) {
                     if (singleAst.getOrNull() is IfDeclaration) {
                         if (currentToken.getOrNull()?.value == "else") {
-                            alreadyEnterInIfMode = true
                             continue
                         }
-                        if (alreadyEnterInIfMode) {
+                        else{
                             astQueue.add(singleAst)
                             tokenBuffer.clear()
                             tokenBuffer.add(currentToken)
@@ -50,11 +48,11 @@ class ParserWrapperImplementation(
                 }
             }
         }
-
         val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size))
-        astQueue.addAll(asts)
-        tokenBuffer.clear()
-
+       if(asts.isNotEmpty()){
+           astQueue.add(asts.first())
+           tokenBuffer.clear()
+       }
         if (astQueue.isNotEmpty()) {
             nextAst = astQueue.removeFirst()
         }
@@ -71,5 +69,4 @@ class ParserWrapperImplementation(
         nextAst = null
         return result
     }
-
 }
