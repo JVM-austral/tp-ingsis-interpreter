@@ -1,5 +1,6 @@
 package factory
 
+import ast.Ast
 import evaluator.input.InputProvider
 import evaluator.input.LiteralConverter
 import factory.interpreters.InterpreterFactory
@@ -8,7 +9,7 @@ import lexer.Lexer
 import mock.OutputHandler
 import parser.Parser
 
-class ExecutionCommandFactory(private val version: Version, private val stdOutHandler: OutputHandler, private val inputProvider: InputProvider) {
+class ExecutionCommandFactory(private val version: Version, private val stdOutHandler: OutputHandler, private val inputProvider: InputProvider, private val env: MutableMap<String, Ast>) {
     fun getLexer(): Lexer {
         return when (version) {
             Version.V1 -> LexerFactoryV1().create()
@@ -26,7 +27,7 @@ class ExecutionCommandFactory(private val version: Version, private val stdOutHa
     fun getInterpreter(): Interpreter {
         return when (version) {
             Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), stdOutHandler, mutableMapOf())
-            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), stdOutHandler, mutableMapOf(), inputProvider, LiteralConverter())
+            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), stdOutHandler, env, inputProvider, LiteralConverter())
         }
     }
 }

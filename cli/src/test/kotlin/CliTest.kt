@@ -362,30 +362,7 @@ class CliTest {
         assertTrue(output.contains("Running ${testFile.absolutePath}..."))
         assertTrue(output.contains("3.14"))
     }
-
-    @Test
-    fun `ExecutionCommand should print a CONST value`() {
-        // Arrange
-        val testFile = tempDir.resolve("const_print_const.ps").toFile()
-        testFile.writeText(
-            """
-        const PI: number = 3.14;
-        println(PI);
-            """.trimIndent(),
-        )
-
-        val command = ExecutionCommand()
-
-        // Act
-        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
-        command.run()
-
-        // Assert
-        val output = outputStream.toString()
-        assertTrue(output.contains("Running ${testFile.absolutePath}..."))
-        assertTrue(output.contains("3.14"))
-    }
-
+    
     @Test
     fun `ExecutionCommand should print with input`() {
         val testFile = tempDir.resolve("input.ps").toFile()

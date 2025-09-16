@@ -1,5 +1,6 @@
 package runner
 
+import ast.Ast
 import errorhandler.MockErrorHandler
 import evaluator.input.ConsoleInputProvider
 import evaluator.input.InputProvider
@@ -24,7 +25,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringReader
 
-class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider()) : Runner {
+class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider(), private val env: MutableMap<String, Ast> = mutableMapOf()) : Runner {
 
     private var errorHandler = MockErrorHandler()
 
@@ -44,30 +45,31 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
     }
 
     override fun run(code: InputStream) {
-        println("Running code with version: $version")
-        val factory = ExecutionCommandFactory(fromString(version ?: "V1"), stdOutHandler, inputProvider)
-        val lexer: Lexer = factory.getLexer()
-        val parser: Parser = factory.getParser()
-        val interpreter: Interpreter = factory.getInterpreter()
+        try {
+            val factory = ExecutionCommandFactory(fromString(version ?: "V1"), stdOutHandler, inputProvider, env)
+            val lexer: Lexer = factory.getLexer()
+            val parser: Parser = factory.getParser()
+            val interpreter: Interpreter = factory.getInterpreter()
 
-        val tokenBuffer = TokenBuffer()
-        val lexerWrapper = LexerWrapperImplementation(lexer, InputStreamReader(code), tokenBuffer)
-        val parserWrapper = ParserWrapperImplementation(lexerWrapper, parser)
-        val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
+            val tokenBuffer = TokenBuffer()
+            val lexerWrapper = LexerWrapperImplementation(lexer, InputStreamReader(code), tokenBuffer)
+            val parserWrapper = ParserWrapperImplementation(lexerWrapper, parser)
+            val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
 
-        val executionUnits = mutableListOf<interpreter.ExecutionUnit>()
-        while (interpreterWrapper.hasNext()) {
-            executionUnits.add(interpreterWrapper.next())
+            val executionUnits = mutableListOf<interpreter.ExecutionUnit>()
+            while (interpreterWrapper.hasNext()) {
+                executionUnits.add(interpreterWrapper.next())
+            }
+
+            val executionEngine = ExecutionEngine(mutableMapOf(), mutableMapOf())
+            val finalResult = executionEngine.runAll(executionUnits)
+
+            if (finalResult.isNotEmpty()) {
+                finalResult.forEach { errorHandler.handleError(it) }
+            }
+        } finally {
+            code.close()
         }
-        val executionEngine = ExecutionEngine(mutableMapOf(), mutableMapOf())
-        val finalResult = executionEngine.runAll(executionUnits)
-
-        if (finalResult.isNotEmpty()) {
-            println("Printing errors found during execution:")
-            finalResult.forEach { errorHandler.handleError(it) }
-            finalResult.map { println(it.message) }
-        }
-        code.close()
     }
 
     override fun lint(code: String, linterConfigPath: String?) {
