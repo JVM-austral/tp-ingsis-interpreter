@@ -5,6 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a286ff46-259e-4adf-8248-d57b476d5c55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ast/tp-ingsis-interpreter.ast.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/buildSrc/tp-ingsis-interpreter.buildSrc.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/interpreter/tp-ingsis-interpreter.interpreter.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lexer/tp-ingsis-interpreter.lexer.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/parser/tp-ingsis-interpreter.parser.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/token/tp-ingsis-interpreter.token.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
@@ -170,6 +184,11 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\juani\\.gradle"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -184,7 +203,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.InterpreterV2Test.should assign from input ">
+  <component name="RunManager" selected="Gradle.CliTest">
     <configuration name="CliTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -307,10 +326,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CliTest" />
         <item itemvalue="Gradle.InterpreterV2Test.should assign from input " />
         <item itemvalue="Gradle.InterpreterV2Test" />
         <item itemvalue="Gradle.CliTest.ExecutionCommand should handle file with only comments or whitespace" />
-        <item itemvalue="Gradle.CliTest" />
         <item itemvalue="Gradle.ParserWrapperJsonTest" />
       </list>
     </recent_temporary>
