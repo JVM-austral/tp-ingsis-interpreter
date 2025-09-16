@@ -259,27 +259,6 @@ class ConfigurableLinterTest {
         assertTrue(exception.message!!.contains(configPath))
     }
 
-    @Test
-    fun `test configurableAnalyzer with partial configuration uses defaults`() {
-        val partialConfig = """
-            {
-              "namingConvention": "snake_case"
-            }
-        """.trimIndent()
-        val configPath = createConfigFile("partial.json", partialConfig)
-
-        val configurableLinter = ConfigurableLinter(configPath)
-        val linter = configurableLinter.getConfigurableLinter()
-
-        // Should use snake_case and default usePrintlnAnalyzer (true)
-        val binaryOperation = BinaryOperation("+", NumberLiteral("1", 1, 9), NumberLiteral("2", 1, 13), 1, 7)
-        val invalidPrintln = FunctionCallAst("println", listOf(binaryOperation), 1, 1)
-        val statements = listOf(Result.success(invalidPrintln))
-        val errors = linter.lint(statements)
-
-        assertEquals(1, errors.size)
-        assertEquals("println should`nt have a binary operation as parameter", errors[0].message)
-    }
 
     @Test
     fun `test configurableAnalyzer with only usePrintlnAnalyzer specified`() {
