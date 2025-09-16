@@ -34,7 +34,7 @@ class InterpreterWrapper(
                 execIterator = it
                 return
             }
-            // Otherwise, loop to fetch next batch.
+
         }
         execIterator = null
     }
