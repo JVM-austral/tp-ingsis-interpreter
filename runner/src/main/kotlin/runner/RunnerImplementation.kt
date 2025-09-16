@@ -53,19 +53,20 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
 
             val tokenBuffer = TokenBuffer()
             val lexerWrapper = LexerWrapperImplementation(lexer, InputStreamReader(code), tokenBuffer)
-            val parserWrapper = ParserWrapperImplementation(lexerWrapper, parser)
+
+            val parserWrapper = ParserWrapperImplementation(
+                lexerWrapper,
+                parser,
+            )
             val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
 
-            val executionUnits = mutableListOf<interpreter.ExecutionUnit>()
-            while (interpreterWrapper.hasNext()) {
-                executionUnits.add(interpreterWrapper.next())
-            }
-
             val executionEngine = ExecutionEngine(mutableMapOf(), env)
-            val finalResult = executionEngine.runAll(executionUnits)
-
-            if (finalResult.isNotEmpty()) {
-                finalResult.forEach { errorHandler.handleError(it) }
+            while (interpreterWrapper.hasNext()) {
+                val unit = interpreterWrapper.next()
+                val results = executionEngine.runAll(listOf(unit))
+                for (result in results) {
+                    errorHandler.handleError(result)
+                }
             }
         } finally {
             code.close()
@@ -81,7 +82,7 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
         val reader = StringReader(code)
         val tokenBuffer = TokenBuffer()
         val lexerWrapper = LexerWrapperImplementation(lexer, reader, tokenBuffer)
-        val tokens = mutableListOf<token.Token>()
+        val tokens = mutableListOf<Token>()
         while (lexerWrapper.hasNext()) {
             val result = lexerWrapper.next()
             result.onSuccess { tokens.add(it) }

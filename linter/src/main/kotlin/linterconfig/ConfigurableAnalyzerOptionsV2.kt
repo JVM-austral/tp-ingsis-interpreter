@@ -8,6 +8,6 @@ package linterconfig
  */
 data class ConfigurableAnalyzerOptionsV2(
     val namingConvention: String = " ",
-    val usePrintlnAnalyzer: Boolean = true,
-    val useReadInputAnalyzer: Boolean = true,
+    val usePrintlnAnalyzer: Boolean = false,
+    val useReadInputAnalyzer: Boolean = false,
 )

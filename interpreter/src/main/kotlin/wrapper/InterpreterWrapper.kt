@@ -7,27 +7,46 @@ import interpreter.Interpreter
 class InterpreterWrapper(
     private val parserWrapper: IteratorWrapper<Result<Ast>>,
     private val interpreter: Interpreter,
+    private val batchSize: Int = 512,
 ) : IteratorWrapper<ExecutionUnit> {
-    private var executionBuffer: MutableList<ExecutionUnit>? = null
 
-    private fun ensureInterpreted() {
-        if (executionBuffer == null) {
-            val astResults = mutableListOf<Result<Ast>>()
-            while (parserWrapper.hasNext()) {
-                astResults.add(parserWrapper.next())
+    private var execIterator: Iterator<ExecutionUnit>? = null
+    private var inputDepleted = false
+
+    private fun fillExecIterator() {
+        if (execIterator?.hasNext() == true) return
+
+        while (!inputDepleted) {
+            val astBatch = ArrayList<Result<Ast>>(batchSize)
+            var count = 0
+            while (count < batchSize && parserWrapper.hasNext()) {
+                astBatch.add(parserWrapper.next())
+                count++
             }
-            executionBuffer = interpreter.interpret(astResults).toMutableList()
+            if (count == 0) {
+                inputDepleted = true
+                execIterator = null
+                return
+            }
+            val exec = interpreter.interpret(astBatch)
+            val it = exec.iterator()
+            if (it.hasNext()) {
+                execIterator = it
+                return
+            }
+            // Otherwise, loop to fetch next batch.
         }
+        execIterator = null
     }
 
     override fun hasNext(): Boolean {
-        ensureInterpreted()
-        return executionBuffer?.isNotEmpty() == true
+        fillExecIterator()
+        return execIterator?.hasNext() == true
     }
 
     override fun next(): ExecutionUnit {
-        ensureInterpreted()
-        if (executionBuffer.isNullOrEmpty()) throw NoSuchElementException()
-        return executionBuffer!!.removeFirst()
+        fillExecIterator()
+        val it = execIterator ?: throw NoSuchElementException()
+        return it.next()
     }
 }

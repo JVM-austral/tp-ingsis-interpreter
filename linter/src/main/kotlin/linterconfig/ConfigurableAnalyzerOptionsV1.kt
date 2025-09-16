@@ -6,5 +6,5 @@ package linterconfig
  */
 data class ConfigurableAnalyzerOptionsV1(
     val namingConvention: String = " ",
-    val usePrintlnAnalyzer: Boolean = true,
+    val usePrintlnAnalyzer: Boolean = false,
 )
