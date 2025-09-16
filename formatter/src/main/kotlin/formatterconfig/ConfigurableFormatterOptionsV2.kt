@@ -1,10 +1,16 @@
 package formatterconfig
 
 data class ConfigurableFormatterOptionsV2(
-    val spaceBeforeColon: Boolean = false,
-    val spaceAfterColon: Boolean = false,
-    val spaceBeforeEquals: Boolean = false,
-    val spaceAfterEquals: Boolean = false,
-    val amountOfNewLinesBeforePrint: Int = 0,
-    val indentationSize: Int = -1,
+    val enforceNoSpacingAroundEquals: Boolean = false,
+    val enforceSpacingAroundEquals: Boolean = false,
+    val enforceSpacingAfterColonInDeclaration: Boolean = false,
+    val enforceSpacingBeforeColonInDeclaration: Boolean = false,
+    val mandatorySingleSpaceSeparation: Boolean = false,
+    val mandatorySpaceSurroundingOperations: Boolean = false,
+    val mandatoryLineBreakAfterStatement: Boolean = false,
+    val lineBreakAfterPrintLn: Int = -1,
+    val ifBraceSameLine: Boolean = false,
+    val ifBraceBelowLine: Boolean = false,
+    val indentInsideIf: Int = -1,
+
 )

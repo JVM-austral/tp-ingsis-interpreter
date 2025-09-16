@@ -1,5 +1,4 @@
-import analyzers.NewLineAfterSemiColonAnalyzer
-import formatter.FormatterImpl
+import formatterconfig.ConfigurableAnalyzerFormatter
 import lexer.LexerImplementation
 import lexer.newrules.BooleanAnalyzer
 import lexer.newrules.BooleanOperatorsAnalyzer
@@ -20,17 +19,33 @@ import lexer.rules.StringTypeAnalyzer
 import lexer.rules.TokenAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
-import newanalyzers.IfOpenBlockInTheSameLineAnalyzer
-import newanalyzers.IfOpenBlockUnderLineAnalyzer
-import newanalyzers.IndentationAnalyzer
-import newanalyzers.NewLineAfterIfStatementAnalyzer
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.test.assertEquals
 
 class TheirFormatterTestV2 {
 
     private lateinit var lexer: lexer.Lexer
+
+    private val tempDir = "temp_test_configs"
+
+    @BeforeEach
+    fun setUp() {
+        File(tempDir).mkdirs()
+    }
+
+    @AfterEach
+    fun tearDown() {
+        File(tempDir).deleteRecursively()
+    }
+
+    private fun createConfigFile(filename: String, content: String): String {
+        val file = File(tempDir, filename)
+        file.writeText(content)
+        return file.absolutePath
+    }
 
     @BeforeEach
     fun setup() {
@@ -60,15 +75,14 @@ class TheirFormatterTestV2 {
 
     @Test
     fun `if brace same line`() {
-        val formatter = FormatterImpl(
-            listOf(
-                IfOpenBlockInTheSameLineAnalyzer(),
-                NewLineAfterIfStatementAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
+        val configContent = """
+            {
+              "ifBraceSameLine"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-        )
-
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
         val tokens = lexer.tokenize(
             "let something: boolean = true;\n" +
                 "if (something)\n" +
@@ -89,16 +103,14 @@ class TheirFormatterTestV2 {
 
     @Test
     fun `indentation test`() {
-        val formatter = FormatterImpl(
-            listOf(
+        val configContent = """
+            {
+              "indentInsideIf"=4
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-                IfOpenBlockInTheSameLineAnalyzer(),
-                NewLineAfterIfStatementAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                IndentationAnalyzer(4),
-
-            ),
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something: boolean = true;\n" +
@@ -123,13 +135,14 @@ class TheirFormatterTestV2 {
 
     @Test
     fun `if brace under line`() {
-        val formatter = FormatterImpl(
-            listOf(
+        val configContent = """
+            {
+              "ifBraceBelowLine"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-                IfOpenBlockUnderLineAnalyzer(),
-
-            ),
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something: boolean = true;\n" +

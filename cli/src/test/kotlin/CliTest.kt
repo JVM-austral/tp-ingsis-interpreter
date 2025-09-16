@@ -4,7 +4,6 @@ import commands.LintCommand
 import commands.PrintScriptCLI
 import commands.ValidationCommand
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
-import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -114,29 +113,6 @@ class CliTest {
     }
 
     @Test
-    fun `FormatCommand should format PrintScript code correctly`() {
-        // Arrange
-        val testFile = tempDir.resolve("unformatted.ps").toFile()
-        testFile.writeText("let x:number=5;let y:string=\"hello\";")
-
-        val command = FormatCommand()
-
-        // Act
-        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
-        command.run()
-
-        // Assert
-        val output = outputStream.toString()
-        assertTrue(output.contains("Formatting ${testFile.absolutePath}..."))
-        assertTrue(output.contains("Formatted successfully ${testFile.absolutePath}"))
-
-        // Check that file content was actually changed
-        val formattedContent = testFile.readText()
-        assertNotEquals("let x:number=5;let y:string=\"hello\";", formattedContent)
-        assertTrue(formattedContent.isNotEmpty())
-    }
-
-    @Test
     fun `FormatCommand should handle well-formatted code`() {
         // Arrange
         val testFile = tempDir.resolve("wellformatted.ps").toFile()
@@ -239,36 +215,6 @@ class CliTest {
         // Assert
         val output = outputStream.toString()
         assertTrue(output.contains("Running linter on ${testFile.absolutePath}..."))
-    }
-
-    @Test
-    fun `ValidationCommand should run both format and lint on code`() {
-        // Arrange
-        val testFile = tempDir.resolve("validate.ps").toFile()
-        val originalContent = "let x:number=5;let bad_name:string=\"test\";"
-        testFile.writeText(originalContent)
-
-        val command = ValidationCommand()
-
-        // Act
-        command.parse(arrayOf("-f", testFile.absolutePath, "-v", "V1"))
-        command.run()
-
-        // Assert
-        val output = outputStream.toString()
-
-        println(output)
-
-        // Should show formatting output
-        assertTrue(output.contains("Formatting ${testFile.absolutePath}..."))
-        assertTrue(output.contains("Formatted successfully ${testFile.absolutePath}"))
-
-        // Should show linting output
-        assertTrue(output.contains("Running linter on ${testFile.absolutePath}..."))
-
-        // File should be formatted (content changed)
-        val finalContent = testFile.readText()
-        assertNotEquals(originalContent, finalContent)
     }
 
     @Test

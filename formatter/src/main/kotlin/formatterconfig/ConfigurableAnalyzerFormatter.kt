@@ -1,9 +1,11 @@
 package formatterconfig
 
-import analyzers.CanNotStartLineWithSpaceAnalyzer
 import analyzers.FormatRulesAnalyzers
+import analyzers.NecessarySpaceAnalyzer
 import analyzers.NewLineAfterSemiColonAnalyzer
 import analyzers.NewLinesBeforePrintlnAnalyzer
+import analyzers.NoSpacesAfterEqualsAnalyzer
+import analyzers.NoSpacesBeforeEqualsAnalyzer
 import analyzers.OnlyOneSpaceAnalyzer
 import analyzers.SpaceAfterColonAnalyzer
 import analyzers.SpaceAfterEqualsAnalyzer
@@ -15,9 +17,8 @@ import com.google.gson.Gson
 import formatter.Formatter
 import formatter.FormatterImpl
 import newanalyzers.IfOpenBlockInTheSameLineAnalyzer
+import newanalyzers.IfOpenBlockUnderLineAnalyzer
 import newanalyzers.IndentationAnalyzer
-import newanalyzers.NewLineAfterIfStatementAnalyzer
-import newanalyzers.TabAnalyzer
 import java.io.File
 
 class ConfigurableAnalyzerFormatter(private val configFilePath: String, private val version: Int) {
@@ -47,47 +48,82 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String, private 
     private fun buildFormatterV2(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
 
-        if (options2.spaceBeforeColon) analyzers.add(SpaceBeforeColonAnalyzer())
-        if (options2.spaceAfterColon) analyzers.add(SpaceAfterColonAnalyzer())
-        if (options2.spaceBeforeEquals) analyzers.add(SpaceBeforeEqualsAnalyzer())
-        if (options2.spaceAfterEquals) analyzers.add(SpaceAfterEqualsAnalyzer())
-        if (options2.indentationSize >= 0) analyzers.add(IndentationAnalyzer(options2.indentationSize))
-
-        analyzers.add(NewLineAfterSemiColonAnalyzer())
-        analyzers.add(SpaceAfterOperatorAnalyzer())
-        analyzers.add(SpaceBeforeOperatorAnalyzer())
-        analyzers.add(OnlyOneSpaceAnalyzer())
-        analyzers.add(CanNotStartLineWithSpaceAnalyzer())
-
-        if (options2.amountOfNewLinesBeforePrint in 1..2) {
-            analyzers.add(NewLinesBeforePrintlnAnalyzer(options2.amountOfNewLinesBeforePrint))
+        if (options2.enforceSpacingAroundEquals) {
+            analyzers.add(SpaceBeforeEqualsAnalyzer())
+            analyzers.add(SpaceAfterEqualsAnalyzer())
         }
 
-        analyzers.add(IfOpenBlockInTheSameLineAnalyzer())
-        analyzers.add(NewLineAfterIfStatementAnalyzer())
-        analyzers.add(TabAnalyzer())
+        if (options2.enforceNoSpacingAroundEquals) {
+            analyzers.add(NoSpacesBeforeEqualsAnalyzer())
+            analyzers.add(NoSpacesAfterEqualsAnalyzer())
+        }
+
+        if (options2.enforceSpacingAfterColonInDeclaration) {
+            analyzers.add(SpaceAfterColonAnalyzer())
+        }
+        if (options2.enforceSpacingBeforeColonInDeclaration) {
+            analyzers.add(SpaceBeforeColonAnalyzer())
+        }
+        if (options2.mandatorySingleSpaceSeparation) {
+            analyzers.add(OnlyOneSpaceAnalyzer())
+            analyzers.add(NecessarySpaceAnalyzer())
+        }
+        if (options2.mandatorySpaceSurroundingOperations) {
+            analyzers.add(SpaceAfterOperatorAnalyzer())
+            analyzers.add(SpaceBeforeOperatorAnalyzer())
+        }
+        if (options2.mandatoryLineBreakAfterStatement) {
+            analyzers.add(NewLineAfterSemiColonAnalyzer())
+        }
+        if (options2.lineBreakAfterPrintLn in 0..2) {
+            analyzers.add(NewLinesBeforePrintlnAnalyzer(options1.lineBreakAfterPrintLn + 1))
+        }
+
+        if (options2.ifBraceSameLine) {
+            analyzers.add(IfOpenBlockInTheSameLineAnalyzer())
+        }
+        if (options2.ifBraceBelowLine) {
+            analyzers.add(IfOpenBlockUnderLineAnalyzer())
+        }
+        if (options2.indentInsideIf >= 0) {
+            analyzers.add(IndentationAnalyzer(options2.indentInsideIf))
+        }
 
         return FormatterImpl(analyzers)
     }
     private fun buildFormatterV1(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
 
-        if (options1.spaceBeforeColon) analyzers.add(SpaceBeforeColonAnalyzer())
-        if (options1.spaceAfterColon) analyzers.add(SpaceAfterColonAnalyzer())
-        if (options1.spaceBeforeEquals) analyzers.add(SpaceBeforeEqualsAnalyzer())
-        if (options1.spaceAfterEquals) analyzers.add(SpaceAfterEqualsAnalyzer())
-        if (options1.indentationSize >= 0) analyzers.add(IndentationAnalyzer(options1.indentationSize))
-
-        analyzers.add(NewLineAfterSemiColonAnalyzer())
-        analyzers.add(SpaceAfterOperatorAnalyzer())
-        analyzers.add(SpaceBeforeOperatorAnalyzer())
-        analyzers.add(OnlyOneSpaceAnalyzer())
-        analyzers.add(CanNotStartLineWithSpaceAnalyzer())
-
-        if (options1.amountOfNewLinesBeforePrint in 1..2) {
-            analyzers.add(NewLinesBeforePrintlnAnalyzer(options1.amountOfNewLinesBeforePrint))
+        if (options1.enforceSpacingAroundEquals) {
+            analyzers.add(SpaceBeforeEqualsAnalyzer())
+            analyzers.add(SpaceAfterEqualsAnalyzer())
         }
 
+        if (options1.enforceNoSpacingAroundEquals) {
+            analyzers.add(NoSpacesBeforeEqualsAnalyzer())
+            analyzers.add(NoSpacesAfterEqualsAnalyzer())
+        }
+
+        if (options1.enforceSpacingAfterColonInDeclaration) {
+            analyzers.add(SpaceAfterColonAnalyzer())
+        }
+        if (options1.enforceSpacingBeforeColonInDeclaration) {
+            analyzers.add(SpaceBeforeColonAnalyzer())
+        }
+        if (options1.mandatorySingleSpaceSeparation) {
+            analyzers.add(OnlyOneSpaceAnalyzer())
+            analyzers.add(NecessarySpaceAnalyzer())
+        }
+        if (options1.mandatorySpaceSurroundingOperations) {
+            analyzers.add(SpaceAfterOperatorAnalyzer())
+            analyzers.add(SpaceBeforeOperatorAnalyzer())
+        }
+        if (options1.mandatoryLineBreakAfterStatement) {
+            analyzers.add(NewLineAfterSemiColonAnalyzer())
+        }
+        if (options1.lineBreakAfterPrintLn in 0..2) {
+            analyzers.add(NewLinesBeforePrintlnAnalyzer(options1.lineBreakAfterPrintLn + 1))
+        }
         return FormatterImpl(analyzers)
     }
 }

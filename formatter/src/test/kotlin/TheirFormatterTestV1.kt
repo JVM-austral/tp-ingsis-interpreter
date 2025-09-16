@@ -1,17 +1,4 @@
-import analyzers.CanNotStartLineWithSpaceAnalyzer
-import analyzers.NecessarySpaceAnalyzer
-import analyzers.NewLineAfterSemiColonAnalyzer
-import analyzers.NewLinesBeforePrintlnAnalyzer
-import analyzers.NoSpacesAfterEqualsAnalyzer
-import analyzers.NoSpacesBeforeEqualsAnalyzer
-import analyzers.OnlyOneSpaceAnalyzer
-import analyzers.SpaceAfterColonAnalyzer
-import analyzers.SpaceAfterEqualsAnalyzer
-import analyzers.SpaceAfterOperatorAnalyzer
-import analyzers.SpaceBeforeColonAnalyzer
-import analyzers.SpaceBeforeEqualsAnalyzer
-import analyzers.SpaceBeforeOperatorAnalyzer
-import formatter.FormatterImpl
+import formatterconfig.ConfigurableAnalyzerFormatter
 import lexer.LexerImplementation
 import lexer.rules.EnterAnalyzer
 import lexer.rules.KeywordAnalyzer
@@ -26,13 +13,33 @@ import lexer.rules.StringTypeAnalyzer
 import lexer.rules.TokenAnalyzer
 import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.test.assertEquals
 
 class TheirFormatterTestV1 {
 
     private lateinit var lexer: lexer.Lexer
+
+    private val tempDir = "temp_test_configs"
+
+    @BeforeEach
+    fun setUp() {
+        File(tempDir).mkdirs()
+    }
+
+    @AfterEach
+    fun tearDown() {
+        File(tempDir).deleteRecursively()
+    }
+
+    private fun createConfigFile(filename: String, content: String): String {
+        val file = File(tempDir, filename)
+        file.writeText(content)
+        return file.absolutePath
+    }
 
     @BeforeEach
     fun setup() {
@@ -47,20 +54,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `no spacing around equals`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(1),
-                NoSpacesAfterEqualsAnalyzer(),
-                SpaceAfterOperatorAnalyzer(),
-                NoSpacesBeforeEqualsAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
+        val configContent = """
+            {
+              "enforceNoSpacingAroundEquals"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something: string= \"a really cool thing\";\n" +
@@ -81,20 +82,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing around equals`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(1),
-                SpaceAfterEqualsAnalyzer(),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeEqualsAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
+        val configContent = """
+            {
+              "enforceSpacingAroundEquals"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something: string= \"a really cool thing\";\n" +
@@ -115,19 +110,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing after colon`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(1),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
-                SpaceAfterColonAnalyzer(),
+        val configContent = """
+            {
+              "enforceSpacingAfterColonInDeclaration"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
@@ -148,19 +138,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing before colon`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(1),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
-                SpaceBeforeColonAnalyzer(),
+        val configContent = """
+            {
+              "enforceSpacingBeforeColonInDeclaration"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
@@ -181,14 +166,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce single space separation`() {
-        val formatter = FormatterImpl(
-            listOf(
-                NecessarySpaceAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
+        val configContent = """
+            {
+              "mandatorySingleSpaceSeparation"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:      string=\"a really cool thing\";\n" +
@@ -205,17 +190,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce space between operators`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
+        val configContent = """
+            {
+              "mandatorySpaceSurroundingOperations"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize("let result: number = 5+4*3/2;")
         val result = formatter.format(tokens)
@@ -225,17 +207,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce enter after semicolon`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
+        val configContent = """
+            {
+              "mandatoryLineBreakAfterStatement"=true
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-            ),
-
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
@@ -254,17 +233,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 0 breaks`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(1),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
-            ),
+        val configContent = """
+            {
+              "lineBreakAfterPrintLn"=0
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
@@ -287,17 +263,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 1 breaks`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(2),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
-            ),
+        val configContent = """
+            {
+              "lineBreakAfterPrintLn"=1
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
@@ -317,17 +290,14 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 2 breaks`() {
-        val formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(),
-                NewLinesBeforePrintlnAnalyzer(3),
-                SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeOperatorAnalyzer(),
-                NewLineAfterSemiColonAnalyzer(),
-                OnlyOneSpaceAnalyzer(),
-            ),
+        val configContent = """
+            {
+              "lineBreakAfterPrintLn"=2
+            }
+        """.trimIndent()
+        val configPath = createConfigFile("camelCase.json", configContent)
 
-        )
+        val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
         val tokens = lexer.tokenize(
             "let something:string = \"a really cool thing\";\n" +
