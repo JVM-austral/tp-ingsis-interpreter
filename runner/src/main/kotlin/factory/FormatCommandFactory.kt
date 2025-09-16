@@ -2,6 +2,7 @@ package factory
 
 import formatter.Formatter
 import formatterfactory.FormatterFactoryWithJsonV1
+import formatterfactory.FormatterFactoryWithJsonV2
 import lexer.Lexer
 
 class FormatCommandFactory(private val version: Version, private val formatterConfigPath: String?) {
@@ -15,7 +16,7 @@ class FormatCommandFactory(private val version: Version, private val formatterCo
     fun getFormatter(): Formatter {
         return when (version) {
             Version.V1 -> FormatterFactoryWithJsonV1(formatterConfigPath).create()
-            Version.V2 -> TODO()
+            Version.V2 -> FormatterFactoryWithJsonV2(formatterConfigPath).create()
         }
     }
 }
