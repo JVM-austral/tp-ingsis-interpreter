@@ -4,6 +4,7 @@ import ast.Ast
 import ast.IfDeclaration
 import parser.Parser
 import token.Token
+import token.TokenType
 
 class ParserWrapperImplementation(
     private val lexerWrapper: IteratorWrapper<Result<Token>>,
@@ -21,38 +22,39 @@ class ParserWrapperImplementation(
         while (true) {
             if (lexerWrapper.hasNext()) {
                 currentToken = lexerWrapper.next()
+
+                val type = currentToken.getOrNull()?.type
+                if (type == TokenType.ENTER || type == TokenType.WHITESPACE) {
+                    continue
+                }
                 tokenBuffer.add(currentToken)
             } else {
+                val asts = parser.parse(tokenBuffer.toList())
+                if (asts.isNotEmpty()) {
+                    astQueue.add(asts.first())
+                }
+                tokenBuffer.clear()
                 break
             }
-            val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size - 1))
+
+            val asts = parser.parse(tokenBuffer.dropLast(1))
             val singleAst = asts.firstOrNull()
-            if (singleAst != null) {
-                if (singleAst.isSuccess) {
-                    if (singleAst.getOrNull() is IfDeclaration) {
-                        if (currentToken.getOrNull()?.value == "else") {
-                            continue
-                        }
-                        else{
-                            astQueue.add(singleAst)
-                            tokenBuffer.clear()
-                            tokenBuffer.add(currentToken)
-                            break
-                        }
-                    } else {
-                        astQueue.add(singleAst)
-                        tokenBuffer.clear()
-                        tokenBuffer.add(currentToken)
-                        break
-                    }
+            println(singleAst)
+
+            if (singleAst != null && singleAst.isSuccess) {
+                if (singleAst.getOrNull() is IfDeclaration &&
+                    currentToken.getOrNull()?.value == "else"
+                ) {
+                    continue
+                } else {
+                    astQueue.add(singleAst)
+                    tokenBuffer.clear()
+                    tokenBuffer.add(currentToken)
+                    break
                 }
             }
         }
-        val asts = parser.parse(tokenBuffer.toList().subList(0, tokenBuffer.size))
-       if(asts.isNotEmpty()){
-           astQueue.add(asts.first())
-           tokenBuffer.clear()
-       }
+
         if (astQueue.isNotEmpty()) {
             nextAst = astQueue.removeFirst()
         }

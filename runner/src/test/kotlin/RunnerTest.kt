@@ -60,7 +60,7 @@ class RunnerTest {
 
         val input = """
             let numberResult: number = 5 * 5 - 8;
-println(numberResult);
+            println(numberResult);
         """.trimIndent()
 
         val runner = RunnerImplementation("V1", output)
