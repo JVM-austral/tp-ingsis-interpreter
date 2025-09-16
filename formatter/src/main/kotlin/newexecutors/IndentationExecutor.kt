@@ -5,11 +5,12 @@ import token.Token
 
 class IndentationExecutor(private val indentation: Int) : FormatRulesExecutors {
     override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
-        if (currentToken.value == "}") {
-            val tabAmount = (bracesDifference(currentString) - 1).coerceAtLeast(0) * indentation
-            return putTabsAfterEnter(currentString, tabAmount)
+        val braceLevel = bracesDifference(currentString)
+        val tabAmount = when (currentToken.value) {
+            "{" -> braceLevel * indentation
+            "}" -> (braceLevel - 1).coerceAtLeast(0) * indentation
+            else -> braceLevel * indentation
         }
-        val tabAmount = bracesDifference(currentString) * indentation
         return putTabsAfterEnter(currentString, tabAmount)
     }
 
@@ -31,9 +32,10 @@ class IndentationExecutor(private val indentation: Int) : FormatRulesExecutors {
     }
 
     private fun bracesDifference(code: String): Int {
-        val lastEnterIndex = code.lastIndexOf('\n').takeIf { it != -1 } ?: code.length
-        val codeUpToLastEnter = code.substring(0, lastEnterIndex)
+        val lastEnterIndex = code.lastIndexOf('\n')
+        if (lastEnterIndex == -1) return 0
 
+        val codeUpToLastEnter = code.substring(0, lastEnterIndex)
         val openCount = codeUpToLastEnter.count { it == '{' }
         val closeCount = codeUpToLastEnter.count { it == '}' }
 

@@ -19,7 +19,6 @@ class FormatterFactoryV1 {
         SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
         SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
         SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
-        SpaceAfterEqualsAnalyzer(),
 
     )
     fun create(): Formatter {

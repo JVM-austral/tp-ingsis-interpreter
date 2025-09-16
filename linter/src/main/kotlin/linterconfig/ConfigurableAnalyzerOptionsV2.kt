@@ -7,7 +7,7 @@ package linterconfig
  * @param useReadInputAnalyzer Whether to use the ConcatenationInReadInputAnalyzer
  */
 data class ConfigurableAnalyzerOptionsV2(
-    val namingConvention: String = "camelCase",
+    val namingConvention: String = " ",
     val usePrintlnAnalyzer: Boolean = true,
     val useReadInputAnalyzer: Boolean = true,
 )
