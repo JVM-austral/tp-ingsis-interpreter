@@ -259,7 +259,6 @@ class ConfigurableLinterTest {
         assertTrue(exception.message!!.contains(configPath))
     }
 
-
     @Test
     fun `test configurableAnalyzer with only usePrintlnAnalyzer specified`() {
         val partialConfig = """
