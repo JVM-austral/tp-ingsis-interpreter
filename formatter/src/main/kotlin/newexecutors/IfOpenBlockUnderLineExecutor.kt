@@ -3,13 +3,14 @@ package newexecutors
 import executors.FormatRulesExecutors
 import token.Token
 
-class IfOpenBlockInTheSameLineExecutor : FormatRulesExecutors {
+class IfOpenBlockUnderLineExecutor : FormatRulesExecutors {
     override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
-        val charactersToTake = amountOfEntersAndSpacesBefore(currentString)
-        return currentString.dropLast(charactersToTake) + " {"
+        val charactersToTake = amountOfEntersBefore(currentString)
+
+        return currentString.dropLast(charactersToTake) + "\n" + "{"
     }
 
-    private fun amountOfEntersAndSpacesBefore(string: String): Int {
+    private fun amountOfEntersBefore(string: String): Int {
         var i = string.length - 1
         var countNewlines = 0
 

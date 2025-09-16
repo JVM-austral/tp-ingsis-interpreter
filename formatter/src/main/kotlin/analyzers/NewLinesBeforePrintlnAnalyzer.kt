@@ -4,7 +4,7 @@ import executors.NewLineBeforePrintlnExecutor
 
 class NewLinesBeforePrintlnAnalyzer(private val amountOfLines: Int) : FormatRulesAnalyzers {
     override fun analyze(exToken: token.Token, currentToken: token.Token, currenString: String): Boolean {
-        return currentToken.value == "println" && countFinalNewLines(currenString) > amountOfLines
+        return currentToken.value == "println" && countFinalNewLines(currenString) != amountOfLines
     }
 
     override fun giveExecutor(): executors.FormatRulesExecutors {
