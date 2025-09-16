@@ -1,5 +1,6 @@
 package parser
 
+import ast.VarDeclaration
 import newanalyzers.BooleanDeclarationAnalyzer
 import newanalyzers.BooleanDefinitionAnalyzer
 import newanalyzers.LetVariableDeclarationWithBooleanAnalyzer
@@ -37,6 +38,8 @@ class BooleanParserTest {
         )
 
         assertTrue(booleanDeclarationAnalyzer.analyzeStructure(tokens))
+        val ast = booleanDeclarationAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -50,6 +53,8 @@ class BooleanParserTest {
         )
 
         assertTrue(booleanDeclarationAnalyzer.analyzeStructure(tokens))
+        val ast = booleanDeclarationAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -215,6 +220,8 @@ class BooleanParserTest {
         )
 
         assertTrue(letWithBooleanAnalyzer.analyzeStructure(tokens))
+        val ast = letWithBooleanAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -230,6 +237,8 @@ class BooleanParserTest {
         )
 
         assertTrue(letWithBooleanAnalyzer.analyzeStructure(tokens))
+        val ast = letWithBooleanAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -247,6 +256,8 @@ class BooleanParserTest {
         )
 
         assertTrue(letWithBooleanAnalyzer.analyzeStructure(tokens))
+        val ast = letWithBooleanAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -373,6 +384,8 @@ class BooleanParserTest {
                 booleanDeclarationAnalyzer.analyzeStructure(tokens),
                 "Should accept variable name: $varName",
             )
+            val ast = booleanDeclarationAnalyzer.getExecutor().execute(tokens)
+            assertTrue(ast is VarDeclaration)
         }
     }
 

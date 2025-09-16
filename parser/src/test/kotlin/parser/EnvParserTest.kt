@@ -1,5 +1,7 @@
 package newanalyzers
 
+import ast.VarDeclaration
+import ast.VarDefinition
 import newexecutors.LetVariableDeclarationWithEnvAssignmentExecutor
 import newexecutors.VariableDefinitionWithEnvExecutor
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -35,6 +37,8 @@ class EnvParserTest {
         )
 
         assertTrue(letEnvAnalyzer.analyzeStructure(tokens))
+        val ast = letEnvAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -53,6 +57,8 @@ class EnvParserTest {
         )
 
         assertTrue(letEnvAnalyzer.analyzeStructure(tokens))
+        val ast = letEnvAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -69,7 +75,8 @@ class EnvParserTest {
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
-
+        val ast = letEnvAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
         assertTrue(letEnvAnalyzer.analyzeStructure(tokens))
     }
 
@@ -261,6 +268,8 @@ class EnvParserTest {
         )
 
         assertTrue(varDefEnvAnalyzer.analyzeStructure(tokens))
+        val ast = varDefEnvAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDefinition)
     }
 
     @Test

@@ -2,7 +2,7 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        google() // si usas Android
+        google()
     }
     plugins {
         id 'com.diffplug.spotless' version '6.25.0'

@@ -22,11 +22,14 @@ import ast.VarDefinition
 import ast.VariableIdentifier
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
+import errorhandler.MockErrorHandler
 import evaluator.input.LiteralConverter
 import evaluator.input.MockInputProvider
+import executor.FailInterpreterExecutor
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionEngine
+import interpreter.ExecutionUnit
 import interpreter.VariableInfo
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -417,5 +420,12 @@ class InterpreterV2Test {
         val result = interpreter.interpret(listOf(Result.success(assigment as Ast), Result.success(println as Ast)))
 
         val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
+    }
+
+    @Test
+    fun `error handler`() {
+        val errorHandler = MockErrorHandler()
+        errorHandler.handleError(ExecutionUnit(FailInterpreterExecutor(), Result.failure(NoSuchFieldError()), "hola"))
+        assertTrue(errorHandler.getCapturedErrors().isNotEmpty())
     }
 }
