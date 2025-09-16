@@ -39,7 +39,6 @@ class ParserWrapperImplementation(
 
             val asts = parser.parse(tokenBuffer.dropLast(1))
             val singleAst = asts.firstOrNull()
-            println(singleAst)
 
             if (singleAst != null && singleAst.isSuccess) {
                 if (singleAst.getOrNull() is IfDeclaration &&
