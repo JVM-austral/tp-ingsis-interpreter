@@ -26,7 +26,7 @@ class CliTest {
         // Capture System.out
         outputStream = ByteArrayOutputStream()
         originalOut = System.out
-        //System.setOut(PrintStream(outputStream))
+        System.setOut(PrintStream(outputStream))
     }
 
     @Test
@@ -385,6 +385,7 @@ class CliTest {
         assertTrue(output.contains("Running ${testFile.absolutePath}..."))
         assertTrue(output.contains("3.14"))
     }
+
     @Test
     fun `ExecutionCommand should print with input`() {
         val testFile = tempDir.resolve("input.ps").toFile()
@@ -399,6 +400,5 @@ class CliTest {
         command.run()
 
         // Assert
-
     }
 }

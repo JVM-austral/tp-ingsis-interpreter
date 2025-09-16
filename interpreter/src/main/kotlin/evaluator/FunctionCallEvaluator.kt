@@ -16,7 +16,7 @@ class FunctionCallEvaluator(
     override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Any {
         val functionAst = ast as FunctionCallAst
         return when (functionAst.getValue()) {
-            "readInput" -> InputEvaluator(engine, converter, inputProvider,outputHandler).evaluate(ast, heap, env)
+            "readInput" -> InputEvaluator(engine, converter, inputProvider, outputHandler).evaluate(ast, heap, env)
             "readEnv" -> ReadEnvEvaluator(engine).evaluate(ast, heap, env)
             "println" -> PrintLnEvaluator(engine, outputHandler).evaluate(ast, heap, env)
             else -> throw Exception("Función no soportada: ${functionAst.getValue()}")
