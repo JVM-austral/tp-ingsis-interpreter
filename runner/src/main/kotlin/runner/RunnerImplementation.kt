@@ -61,7 +61,7 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
                 executionUnits.add(interpreterWrapper.next())
             }
 
-            val executionEngine = ExecutionEngine(mutableMapOf(), mutableMapOf())
+            val executionEngine = ExecutionEngine(mutableMapOf(), env)
             val finalResult = executionEngine.runAll(executionUnits)
 
             if (finalResult.isNotEmpty()) {
