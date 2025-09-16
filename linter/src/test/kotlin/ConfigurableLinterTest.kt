@@ -239,7 +239,6 @@ class ConfigurableLinterTest {
         }
 
         assertTrue(exception.message!!.contains("Invalid naming convention: invalidConvention"))
-
     }
 
     @Test

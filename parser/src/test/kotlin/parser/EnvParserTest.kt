@@ -29,7 +29,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -47,7 +47,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("PORT", TokenType.IDENTIFIER, 1, 8),
+            Token("PORT", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -65,7 +65,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("DEBUG", TokenType.IDENTIFIER, 1, 8),
+            Token("DEBUG", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -83,7 +83,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
         )
 
         assertFalse(letEnvAnalyzer.analyzeStructure(tokens))
@@ -99,7 +99,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -117,7 +117,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -135,7 +135,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -153,7 +153,7 @@ class EnvParserTest {
             Token(":", TokenType.PUNCTUATION, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -171,7 +171,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("getConfig", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 8),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )
@@ -188,7 +188,7 @@ class EnvParserTest {
             Token("string", TokenType.IDENTIFIER, 1, 4),
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
-            Token("API_KEY", TokenType.IDENTIFIER, 1, 7),
+            Token("API_KEY", TokenType.STRING_LITERAL, 1, 7),
             Token(")", TokenType.PUNCTUATION, 1, 8),
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
@@ -206,7 +206,7 @@ class EnvParserTest {
             Token("=", TokenType.OPERATOR, 1, 5),
             Token("readEnv", TokenType.IDENTIFIER, 1, 6),
             Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("\"API_KEY\"", TokenType.STRING_LITERAL, 1, 8),
+            Token("\"API_KEY\"", TokenType.IDENTIFIER, 1, 8),
             Token(")", TokenType.PUNCTUATION, 1, 9),
             Token(";", TokenType.PUNCTUATION, 1, 10),
         )

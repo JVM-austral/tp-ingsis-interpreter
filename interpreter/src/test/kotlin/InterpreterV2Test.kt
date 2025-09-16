@@ -6,7 +6,6 @@ import MissMatchNumberCondition
 import MissMatchStringCondition
 import MissMatchTypeCondition
 import analyzer.IfDeclarationAnalyzer
-import analyzer.TypeDeclarationAnalyzer
 import analyzer.VarDeclarationWithAssigmentBinaryAnalyzer
 import analyzer.VarDefinitionUnaryAnalyzer
 import ast.Ast
@@ -20,18 +19,17 @@ import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
 import ast.VarDefinition
+import ast.VariableIdentifier
 import condition.ConstDefinitionCondition
 import condition.MissMatchBooleanCondition
 import evaluator.input.LiteralConverter
 import evaluator.input.MockInputProvider
-import executor.TypeDeclarationExecutor
 import factory.evaluators.AstEvaluationEngineV2
 import factory.interpreters.InterpreterFactory
 import interpreter.ExecutionEngine
 import interpreter.VariableInfo
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -45,16 +43,6 @@ class InterpreterV2Test {
     }
 
     // Tests para executors
-    @Test
-    fun `TypeDeclarationExecutor should identify Boolean TypeDeclaration and puts in the heap`() {
-        val analyzer = TypeDeclarationAnalyzer()
-        val executor = analyzer.getExecutor(heap, mutableMapOf())
-        val typeDecl = TypeDeclaration("boolean", 0, 0)
-        val result = Result.success(typeDecl as Ast)
-        executor.execute(result, heap, mutableMapOf())
-        assertTrue(analyzer.analyzeInterpretation(result, heap, mutableMapOf()))
-        assertInstanceOf(TypeDeclarationExecutor::class.java, analyzer.getExecutor(heap, mutableMapOf()))
-    }
 
     @Test
     fun `VarDefinitionUnaryExecutor should identify Boolean TypeDeclaration and checks the block`() {
@@ -376,7 +364,7 @@ class InterpreterV2Test {
             "let",
             StringLiteral("x", 0, 0),
             TypeDeclaration("string", 0, 0),
-            FunctionCallAst("input", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
+            FunctionCallAst("readInput", listOf(StringLiteral("hola:", 0, 0)), 0, 0),
             0,
             0,
         )
@@ -385,5 +373,49 @@ class InterpreterV2Test {
         val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
 
         assertEquals("hello world", heap["x"]?.value)
+    }
+
+    @Test
+    fun `should print first block with const boolean type`() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("hello world"), LiteralConverter())
+        val assigment = VarDeclaration(
+            "const",
+            StringLiteral("x", 0, 0),
+            TypeDeclaration("boolean", 0, 0),
+            BooleanLiteral("false", 0, 0),
+            0,
+            0,
+        )
+        val ifBlock = IfDeclaration(
+            "if",
+            VariableIdentifier("x", 0, 0),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In if block", 0, 0)), 0, 0) as Ast)),
+            listOf(Result.success(FunctionCallAst("println", listOf(StringLiteral("In else block", 0, 0)), 0, 0) as Ast)),
+            0,
+            0,
+        )
+
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast), Result.success(ifBlock as Ast)))
+
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
+        assertEquals("false", heap["x"]?.value)
+    }
+
+    @Test
+    fun `should print with input`() {
+        val interpreter = InterpreterFactory().createInterpreterV2(heap, StdOutputHandler(), mutableMapOf(), MockInputProvider("world"), LiteralConverter())
+        val assigment = VarDeclaration(
+            "const",
+            StringLiteral("name", 0, 0),
+            TypeDeclaration("string", 0, 0),
+            FunctionCallAst("readInput", listOf(StringLiteral("Name:", 0, 0)), 0, 0),
+            0,
+            0,
+        )
+        val println = FunctionCallAst("println", listOf(BinaryOperation("+", StringLiteral("Hello ", 0, 0), VariableIdentifier("name", 0, 0), 0, 0)), 0, 0)
+
+        val result = interpreter.interpret(listOf(Result.success(assigment as Ast), Result.success(println as Ast)))
+
+        val finalResult = ExecutionEngine(heap, mutableMapOf()).runAll(result)
     }
 }

@@ -2,7 +2,7 @@ package executor
 
 import ConditionMessageHandler
 import ast.Ast
-import ast.TypeDeclaration
+import ast.VarDeclaration
 import interpreter.VariableInfo
 
 class TypeDeclarationExecutor(
@@ -15,11 +15,11 @@ class TypeDeclarationExecutor(
         env: MutableMap<String, Ast>,
     ): Result<Ast> {
         val ast = statement.getOrNull() ?: return errorResult("ast nulo")
-        if (ast !is TypeDeclaration) return errorResult("No es una declaración de tipo")
 
-        val variableName = ast.getValue()
-        val variableType = ast.type
+        if (ast !is VarDeclaration) return errorResult("No es una declaración de tipo")
 
+        val variableName = ast.getListOfChildren()[0].getValue()
+        val variableType = ast.getListOfChildren()[1].getValue()
         val error = validarCondiciones(statement, heap)
         if (error != null) return errorResult(error)
 

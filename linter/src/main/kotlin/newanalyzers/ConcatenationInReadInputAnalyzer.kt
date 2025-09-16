@@ -8,7 +8,7 @@ import ast.VarDeclaration
 import ast.VarDefinition
 import ast.VariableIdentifier
 import error.LinterError
-import java.util.*
+import java.util.Optional
 
 class ConcatenationInReadInputAnalyzer : LinterAnalyzer {
     override fun analyze(ast: Ast): Optional<LinterError> {

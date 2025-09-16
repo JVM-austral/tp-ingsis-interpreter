@@ -41,7 +41,7 @@ class ConfigurableLinter(private val configFilePath: String, private val v2: Boo
             when (options.namingConvention.lowercase()) {
                 "camelcase" -> analyzers.add(CamelCaseAnalyzer())
                 "snake_case" -> analyzers.add(SnakeCaseAnalyzer())
-                " "->{}
+                " " -> {}
                 else -> throw IllegalArgumentException(
                     "Invalid naming convention: " +
                         "${options.namingConvention}. Supported values are 'camelCase' and 'snake_case'",
@@ -58,7 +58,7 @@ class ConfigurableLinter(private val configFilePath: String, private val v2: Boo
             when (options.namingConvention.lowercase()) {
                 "camelcase" -> analyzers.add(CamelCaseAnalyzer())
                 "snake_case" -> analyzers.add(SnakeCaseAnalyzer())
-                " "->{}
+                " " -> {}
                 else -> throw IllegalArgumentException(
                     "Invalid naming convention: " +
                         "${options.namingConvention}. Supported values are 'camelCase' and 'snake_case'",
