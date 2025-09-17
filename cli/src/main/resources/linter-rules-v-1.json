@@ -1,4 +1,3 @@
 {
-    "namingConvention": "camelCase",
-    "usePrintlnAnalyzer": false
+    "namingConvention": "camelCase"
 }

@@ -1,5 +1,7 @@
 package newanalyzers
 
+import ast.VarDeclaration
+import ast.VarDefinition
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -49,7 +51,6 @@ class InputParserTest {
             Token(";", TokenType.PUNCTUATION, 1, 9),
         )
 
-        // Note: This test will fail due to the bug in the original code
         assertFalse(letInputAnalyzer.analyzeStructure(tokens))
     }
 
@@ -86,6 +87,8 @@ class InputParserTest {
         )
 
         assertTrue(letInputAnalyzer.analyzeStructure(tokens))
+        val ast = letInputAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDeclaration)
     }
 
     @Test
@@ -271,6 +274,8 @@ class InputParserTest {
         )
 
         assertTrue(varDefInputAnalyzer.analyzeStructure(tokens))
+        val ast = varDefInputAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDefinition)
     }
 
     @Test
@@ -359,6 +364,8 @@ class InputParserTest {
         )
 
         assertTrue(varDefInputAnalyzer.analyzeStructure(tokens))
+        val ast = varDefInputAnalyzer.getExecutor().execute(tokens)
+        assertTrue(ast is VarDefinition)
     }
 
     @Test
