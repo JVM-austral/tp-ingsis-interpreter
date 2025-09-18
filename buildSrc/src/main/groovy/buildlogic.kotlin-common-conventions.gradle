@@ -70,7 +70,5 @@ tasks.named('check') {
     dependsOn 'spotlessCheck', 'jacocoTestCoverageVerification'
 }
 
-tasks.named('build') {
-    dependsOn 'spotlessApply'
-}
+
 

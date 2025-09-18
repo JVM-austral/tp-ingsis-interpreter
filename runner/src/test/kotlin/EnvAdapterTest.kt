@@ -12,7 +12,7 @@ class EnvAdapterTest {
     }
 
     @Test
-    fun testEnvAdapterWithRunner(){
+    fun testEnvAdapterWithRunner() {
         val envAdapter = EnvAdapter()
         val envMap: MutableMap<String, String> = System.getenv()
         val env = envAdapter.processEnv(envMap)
