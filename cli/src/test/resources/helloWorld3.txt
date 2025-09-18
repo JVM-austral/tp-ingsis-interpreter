@@ -1,0 +1,5 @@
+let hola:           string          ="Hello, World!";
+
+
+
+println                 (hola);

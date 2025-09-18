@@ -4,6 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
+import envadapter.EnvAdapter
 import runner.RunnerImplementation
 import java.io.File
 
@@ -14,9 +15,17 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         .choice("V1", "V2")
 
     override fun run() {
-        val code = File(file).inputStream()
-        echo("Running $file...")
-        val runner = RunnerImplementation(version)
-        runner.run(code)
+        try{
+            val envAdapter = EnvAdapter()
+            val envMap: MutableMap<String, String> = System.getenv()
+            val env = envAdapter.processEnv(envMap)
+            val code = File(file).inputStream()
+            echo("Running $file...")
+            val runner = RunnerImplementation(version, env = env)
+            runner.run(code)
+        }
+        catch (e: Exception){
+            echo("Error: ${e.message}")
+        }
     }
 }
