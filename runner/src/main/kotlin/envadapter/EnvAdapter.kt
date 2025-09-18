@@ -32,12 +32,12 @@ class EnvAdapter {
         for ((key, value) in env) {
             val normalizedValue = quoteIfNeeded(value)
             val envVarAsString: Ast = when {
-                isNumeric(normalizedValue) -> NumberLiteral(normalizedValue, 0,0)
-                isBoolean(normalizedValue) -> BooleanLiteral(normalizedValue, 0,0)
-                else -> StringLiteral(normalizedValue, 0,0)
+                isNumeric(normalizedValue) -> NumberLiteral(normalizedValue, 0, 0)
+                isBoolean(normalizedValue) -> BooleanLiteral(normalizedValue, 0, 0)
+                else -> StringLiteral(normalizedValue, 0, 0)
             }
             resultMap[key] = envVarAsString
         }
-        return resultMap;
+        return resultMap
     }
 }

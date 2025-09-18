@@ -15,7 +15,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
         .choice("V1", "V2")
 
     override fun run() {
-        try{
+        try {
             val envAdapter = EnvAdapter()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
@@ -23,8 +23,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
             echo("Running $file...")
             val runner = RunnerImplementation(version, env = env)
             runner.run(code)
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             echo("Error: ${e.message}")
         }
     }

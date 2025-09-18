@@ -21,7 +21,7 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
             val envAdapter = EnvAdapter()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation(version, env=env)
+            val runner = RunnerImplementation(version, env = env)
             java.io.File(file).writeText(runner.format(code, formatterConfigPath))
             echo("Formatted successfully $file")
         } catch (exception: Exception) {

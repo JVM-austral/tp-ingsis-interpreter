@@ -26,7 +26,7 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
             val envAdapter = EnvAdapter()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation(version, env=env)
+            val runner = RunnerImplementation(version, env = env)
 
             File(file).writeText(runner.format(code, formatterConfigPath))
 

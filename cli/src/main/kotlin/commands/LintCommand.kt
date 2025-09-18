@@ -17,18 +17,17 @@ class LintCommand :
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {
-
-        try{
-        println("Running linter on $file...")
-        val code = File(file).readText()
-        if (code.isEmpty()) {
-            println("File is empty.")
-            return
-        }
-        val envAdapter = EnvAdapter()
-        val envMap: MutableMap<String, String> = System.getenv()
-        val env = envAdapter.processEnv(envMap)
-        val runner = RunnerImplementation(version, env=env)
+        try {
+            println("Running linter on $file...")
+            val code = File(file).readText()
+            if (code.isEmpty()) {
+                println("File is empty.")
+                return
+            }
+            val envAdapter = EnvAdapter()
+            val envMap: MutableMap<String, String> = System.getenv()
+            val env = envAdapter.processEnv(envMap)
+            val runner = RunnerImplementation(version, env = env)
 
             println("Running linter on $file...")
             runner.lint(code, linterConfigPath)
