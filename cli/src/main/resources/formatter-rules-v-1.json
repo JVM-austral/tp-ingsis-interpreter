@@ -1,8 +1,4 @@
 {
-    "spaceBeforeColon": true,
-    "spaceAfterColon": false,
-    "spaceBeforeEquals": true,
-    "spaceAfterEquals": false,
-    "amountOfNewLinesBeforePrint": 2,
-    "indentationSize": 2
+    "enforceNoSpacingAroundEquals": true
+
 }
