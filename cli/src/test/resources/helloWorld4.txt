@@ -1,0 +1,2 @@
+const a: string = readEnv("BEST_FOOTBALL_CLUB");
+println(a);
