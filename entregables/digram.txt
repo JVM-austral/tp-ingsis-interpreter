@@ -1,0 +1,73 @@
+1. Entrada
+
+Input (script/string)
+Es el programa que el usuario escribe. Puede venir desde un archivo, un editor o la CLI (línea de comandos).
+
+2. Análisis Léxico
+
+Lexer
+Separa el texto en piezas mínimas con significado, llamadas tokens (palabras clave, identificadores, operadores, literales, etc.).
+Ejemplo:
+
+x = 3 + 5
+
+
+→ Tokens: IDENTIFIER(x), OPERATOR(=), NUMBER(3), +, NUMBER(5)
+
+Token
+Es la lista de estas piezas ya clasificadas, que será la base para el parser.
+
+3. Análisis Sintáctico
+
+Parser
+Recibe los tokens y construye una representación estructurada: el AST (Árbol de Sintaxis Abstracta).
+Este árbol refleja la jerarquía de la expresión/programa.
+
+AST (Abstract Syntax Tree)
+Es un grafo que muestra qué operaciones se deben hacer y en qué orden.
+Ejemplo:
+
+     (=)
+    /   \
+  x     (+)
+       /   \
+      3     5
+
+4. Etapas de Validación y Preparación
+
+Linter
+Revisa el AST y señala problemas de estilo o malas prácticas.
+Ejemplo: variable sin usar, expresiones innecesarias, etc.
+
+Formatter
+Formatea el código de manera estandarizada (indentación, espacios, etc.), sin cambiar su lógica.
+Normalmente se conecta al Runner para mostrar el código formateado al ejecutar.
+
+5. Ejecución
+
+Interpreter
+Recorre el AST y evalúa paso a paso las instrucciones (interpreta directamente, sin compilar a máquina).
+
+Executor / ExecutionUnit
+Se encarga de realizar las acciones reales:
+
+Cálculos matemáticos
+
+Manejo de variables
+
+Control de flujo (if, while, etc.)
+
+Runner
+Coordina la ejecución completa del programa. Puede usar el Interpreter o llamar directamente al Executor.
+También recibe del Formatter el código limpio que se va a correr.
+
+6. Interfaz de Usuario
+
+CLI (Command Line Interface)
+Es el punto de entrada del usuario. Desde aquí se corre el script, se aplica el linter, o se muestra el resultado.
+El Runner y el Linter envían sus resultados de vuelta al CLI para mostrárselos al usuario.
+
+
+Para adaptar todo a streams, se utilizaron los wrappers, que toman la lógica de tanto el interpreter,
+lexer y parser y los trata como iteradores. De esta forma se adapta la lógica original de listas a
+streams.
