@@ -1,2 +1,5 @@
-let hola_mateo : string = "hello";
-println ("world " + hola_mateo);
+const booleanValue: boolean = true;
+if(booleanValue) {
+    println("if statement is not working correctly");
+}
+println("outside of conditional");

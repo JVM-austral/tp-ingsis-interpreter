@@ -4,6 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
+import envadapter.EnvAdapter
 import runner.RunnerImplementation
 import java.io.File
 
@@ -16,15 +17,18 @@ class LintCommand :
     private val linterConfigPath by option("-cl", "--configLinter", help = "path to linter configuration file")
 
     override fun run() {
-        println("Running linter on $file...")
-        val code = File(file).readText()
-        if (code.isEmpty()) {
-            println("File is empty.")
-            return
-        }
-        val runner = RunnerImplementation(version)
-
         try {
+            println("Running linter on $file...")
+            val code = File(file).readText()
+            if (code.isEmpty()) {
+                println("File is empty.")
+                return
+            }
+            val envAdapter = EnvAdapter()
+            val envMap: MutableMap<String, String> = System.getenv()
+            val env = envAdapter.processEnv(envMap)
+            val runner = RunnerImplementation(version, env = env)
+
             println("Running linter on $file...")
             runner.lint(code, linterConfigPath)
         } catch (e: Exception) {

@@ -12,14 +12,6 @@ fi
 # Crear el hook
 cat > "$HOOK_FILE" << 'EOF'
 #!/bin/sh
-echo "Ejecutando Spotless antes del commit..."
-
-# Aplicar formato automáticamente
-./gradlew spotlessApply
-if [ $? -ne 0 ]; then
-  echo "Error al aplicar Spotless"
-  exit 1
-fi
 
 # Verificar formato
 ./gradlew spotlessCheck
