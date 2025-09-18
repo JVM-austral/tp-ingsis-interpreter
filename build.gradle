@@ -3,22 +3,9 @@ plugins {
     id 'jacoco' apply true
 }
 
-subprojects {
-    afterEvaluate {
-        if (plugins.hasPlugin('maven-publish')) {
-            tasks.matching { it.name == 'publish' }.all {
 
-            }
-        }
-    }
-}
 
-task publish {
-    group = 'publishing'
-    description = 'Publishes all subprojects.'
-    dependsOn subprojects.collect { it.tasks.matching { t -> t.name == 'publish' } }
-}
 
 allprojects {
-    version = '1.1.18'
+    version = '1.1.21'
 }

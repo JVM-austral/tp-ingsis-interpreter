@@ -4,6 +4,7 @@
 
 plugins {
     id 'buildlogic.kotlin-library-conventions'
+    id 'buildlogic.kotlin-publishing'
 }
 dependencies {
     implementation project(":token")
@@ -13,26 +14,5 @@ dependencies {
 
 }
 
-group = 'org.JVM-austral'
 
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            groupId = project.group
-            artifactId = 'ast'
-            version = project.version
-        }
-    }
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri("https://maven.pkg.github.com/JVM-austral/tp-ingsis-interpreter")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
