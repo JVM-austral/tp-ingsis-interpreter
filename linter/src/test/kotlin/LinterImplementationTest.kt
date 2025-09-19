@@ -17,18 +17,18 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class LinterImplementationTest {
-
     @Test
     fun `test linter with empty rules list returns no errors`() {
         val linter = LinterImplementation(emptyList())
-        val validVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("validName", 1, 5),
-            TypeDeclaration("String", 1, 16),
-            StringLiteral("value", 1, 25),
-            1,
-            1,
-        )
+        val validVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("validName", 1, 5),
+                TypeDeclaration("String", 1, 16),
+                StringLiteral("value", 1, 25),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -50,14 +50,15 @@ class LinterImplementationTest {
     fun `test camelCase analyzer with valid camelCase variable name`() {
         val rules = listOf(CamelCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val validVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("validCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 20),
-            StringLiteral("value", 1, 29),
-            1,
-            1,
-        )
+        val validVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("validCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 20),
+                StringLiteral("value", 1, 29),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -69,14 +70,15 @@ class LinterImplementationTest {
     fun `test camelCase analyzer with invalid snake_case variable name`() {
         val rules = listOf(CamelCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val invalidVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("invalid_snake_case", 1, 5),
-            TypeDeclaration("String", 1, 25),
-            StringLiteral("value", 1, 34),
-            1,
-            1,
-        )
+        val invalidVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalid_snake_case", 1, 5),
+                TypeDeclaration("String", 1, 25),
+                StringLiteral("value", 1, 34),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -91,14 +93,15 @@ class LinterImplementationTest {
     fun `test camelCase analyzer with invalid PascalCase variable name`() {
         val rules = listOf(CamelCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val invalidVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("InvalidPascalCase", 1, 5),
-            TypeDeclaration("String", 1, 24),
-            StringLiteral("value", 1, 33),
-            1,
-            1,
-        )
+        val invalidVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("InvalidPascalCase", 1, 5),
+                TypeDeclaration("String", 1, 24),
+                StringLiteral("value", 1, 33),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -113,14 +116,15 @@ class LinterImplementationTest {
     fun `test snakeCase analyzer with valid snake_case variable name`() {
         val rules = listOf(SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val validVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("valid_snake_case", 1, 5),
-            TypeDeclaration("String", 1, 23),
-            StringLiteral("value", 1, 32),
-            1,
-            1,
-        )
+        val validVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("valid_snake_case", 1, 5),
+                TypeDeclaration("String", 1, 23),
+                StringLiteral("value", 1, 32),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -132,14 +136,15 @@ class LinterImplementationTest {
     fun `test snakeCase analyzer with single word variable name`() {
         val rules = listOf(SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val validVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("valid", 1, 5),
-            TypeDeclaration("String", 1, 12),
-            StringLiteral("value", 1, 21),
-            1,
-            1,
-        )
+        val validVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("valid", 1, 5),
+                TypeDeclaration("String", 1, 12),
+                StringLiteral("value", 1, 21),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -151,14 +156,15 @@ class LinterImplementationTest {
     fun `test snakeCase analyzer with invalid camelCase variable name`() {
         val rules = listOf(SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val invalidVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("invalidCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 23),
-            StringLiteral("value", 1, 32),
-            1,
-            1,
-        )
+        val invalidVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalidCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 23),
+                StringLiteral("value", 1, 32),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidVarDeclaration))
 
         val errors = linter.lint(statements)
@@ -171,12 +177,13 @@ class LinterImplementationTest {
     fun `test println analyzer with valid string literal parameter`() {
         val rules = listOf(PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
-        val validFunctionCall = FunctionCallAst(
-            "println",
-            listOf(StringLiteral("Hello World", 1, 9)),
-            1,
-            1,
-        )
+        val validFunctionCall =
+            FunctionCallAst(
+                "println",
+                listOf(StringLiteral("Hello World", 1, 9)),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validFunctionCall))
 
         val errors = linter.lint(statements)
@@ -188,12 +195,13 @@ class LinterImplementationTest {
     fun `test println analyzer with valid variable identifier parameter`() {
         val rules = listOf(PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
-        val validFunctionCall = FunctionCallAst(
-            "println",
-            listOf(VariableIdentifier("myVar", 1, 9)),
-            1,
-            1,
-        )
+        val validFunctionCall =
+            FunctionCallAst(
+                "println",
+                listOf(VariableIdentifier("myVar", 1, 9)),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validFunctionCall))
 
         val errors = linter.lint(statements)
@@ -205,19 +213,21 @@ class LinterImplementationTest {
     fun `test println analyzer with invalid binary operation parameter`() {
         val rules = listOf(PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
-        val binaryOperation = BinaryOperation(
-            "+",
-            NumberLiteral("5", 1, 9),
-            NumberLiteral("3", 1, 13),
-            1,
-            7,
-        )
-        val invalidFunctionCall = FunctionCallAst(
-            "println",
-            listOf(binaryOperation),
-            1,
-            1,
-        )
+        val binaryOperation =
+            BinaryOperation(
+                "+",
+                NumberLiteral("5", 1, 9),
+                NumberLiteral("3", 1, 13),
+                1,
+                7,
+            )
+        val invalidFunctionCall =
+            FunctionCallAst(
+                "println",
+                listOf(binaryOperation),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidFunctionCall))
 
         val errors = linter.lint(statements)
@@ -232,19 +242,21 @@ class LinterImplementationTest {
     fun `test println analyzer ignores other function calls`() {
         val rules = listOf(PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
-        val binaryOperation = BinaryOperation(
-            "+",
-            NumberLiteral("5", 1, 7),
-            NumberLiteral("3", 1, 11),
-            1,
-            5,
-        )
-        val otherFunctionCall = FunctionCallAst(
-            "print",
-            listOf(binaryOperation),
-            1,
-            1,
-        )
+        val binaryOperation =
+            BinaryOperation(
+                "+",
+                NumberLiteral("5", 1, 7),
+                NumberLiteral("3", 1, 11),
+                1,
+                5,
+            )
+        val otherFunctionCall =
+            FunctionCallAst(
+                "print",
+                listOf(binaryOperation),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(otherFunctionCall))
 
         val errors = linter.lint(statements)
@@ -256,19 +268,21 @@ class LinterImplementationTest {
     fun `test println analyzer with multiple parameters ignores binary operation check`() {
         val rules = listOf(PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
-        val binaryOperation = BinaryOperation(
-            "+",
-            NumberLiteral("5", 1, 22),
-            NumberLiteral("3", 1, 26),
-            1,
-            20,
-        )
-        val functionCallWithMultipleParams = FunctionCallAst(
-            "println",
-            listOf(StringLiteral("Result: ", 1, 9), binaryOperation),
-            1,
-            1,
-        )
+        val binaryOperation =
+            BinaryOperation(
+                "+",
+                NumberLiteral("5", 1, 22),
+                NumberLiteral("3", 1, 26),
+                1,
+                20,
+            )
+        val functionCallWithMultipleParams =
+            FunctionCallAst(
+                "println",
+                listOf(StringLiteral("Result: ", 1, 9), binaryOperation),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(functionCallWithMultipleParams))
 
         val errors = linter.lint(statements)
@@ -292,14 +306,15 @@ class LinterImplementationTest {
     fun `test multiple rules with conflicting requirements`() {
         val rules = listOf(CamelCaseAnalyzer(), SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val varDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("someVariable", 1, 5),
-            TypeDeclaration("String", 1, 19),
-            StringLiteral("value", 1, 28),
-            1,
-            1,
-        )
+        val varDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("someVariable", 1, 5),
+                TypeDeclaration("String", 1, 19),
+                StringLiteral("value", 1, 28),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(varDeclaration))
 
         val errors = linter.lint(statements)
@@ -314,32 +329,35 @@ class LinterImplementationTest {
         val rules = listOf(CamelCaseAnalyzer(), PrintLnWithOutBinaryOperationAnalyzer())
         val linter = LinterImplementation(rules)
 
-        val invalidVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("invalid_name", 1, 5),
-            TypeDeclaration("String", 1, 19),
-            StringLiteral("value", 1, 28),
-            1,
-            1,
-        )
+        val invalidVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalid_name", 1, 5),
+                TypeDeclaration("String", 1, 19),
+                StringLiteral("value", 1, 28),
+                1,
+                1,
+            )
 
         val binaryOperation = BinaryOperation("+", NumberLiteral("1", 2, 9), NumberLiteral("2", 2, 13), 2, 7)
         val invalidPrintln = FunctionCallAst("println", listOf(binaryOperation), 2, 1)
 
-        val validVarDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("validName", 3, 5),
-            TypeDeclaration("String", 3, 16),
-            StringLiteral("value", 3, 25),
-            3,
-            1,
-        )
+        val validVarDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("validName", 3, 5),
+                TypeDeclaration("String", 3, 16),
+                StringLiteral("value", 3, 25),
+                3,
+                1,
+            )
 
-        val statements = listOf(
-            Result.success(invalidVarDeclaration),
-            Result.success(invalidPrintln),
-            Result.success(validVarDeclaration),
-        )
+        val statements =
+            listOf(
+                Result.success(invalidVarDeclaration),
+                Result.success(invalidPrintln),
+                Result.success(validVarDeclaration),
+            )
 
         val errors = linter.lint(statements)
 
@@ -353,13 +371,14 @@ class LinterImplementationTest {
         val rules = listOf(CamelCaseAnalyzer(), SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
 
-        val statements = listOf(
-            Result.success(StringLiteral("some string", 1, 1)),
-            Result.success(NumberLiteral("42", 2, 1)),
-            Result.success(VariableIdentifier("someVar", 3, 1)),
-            Result.success(BinaryOperation("+", NumberLiteral("1", 4, 1), NumberLiteral("2", 4, 5), 4, 1)),
-            Result.success(ScapeAst()),
-        )
+        val statements =
+            listOf(
+                Result.success(StringLiteral("some string", 1, 1)),
+                Result.success(NumberLiteral("42", 2, 1)),
+                Result.success(VariableIdentifier("someVar", 3, 1)),
+                Result.success(BinaryOperation("+", NumberLiteral("1", 4, 1), NumberLiteral("2", 4, 5), 4, 1)),
+                Result.success(ScapeAst()),
+            )
 
         val errors = linter.lint(statements)
 
@@ -372,9 +391,10 @@ class LinterImplementationTest {
         val linter = LinterImplementation(rules)
         val statements = listOf(Result.failure<Ast>(RuntimeException("Parse error")))
 
-        val exception = assertThrows<Exception> {
-            linter.lint(statements)
-        }
+        val exception =
+            assertThrows<Exception> {
+                linter.lint(statements)
+            }
 
         assertEquals("Statement is not formatted correctly Parse error", exception.message)
     }
@@ -383,14 +403,15 @@ class LinterImplementationTest {
     fun `test edge case with single lowercase letter variable name`() {
         val rules = listOf(CamelCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val varDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("a", 1, 5),
-            TypeDeclaration("String", 1, 8),
-            StringLiteral("value", 1, 17),
-            1,
-            1,
-        )
+        val varDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("a", 1, 5),
+                TypeDeclaration("String", 1, 8),
+                StringLiteral("value", 1, 17),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(varDeclaration))
 
         val errors = linter.lint(statements)
@@ -402,14 +423,15 @@ class LinterImplementationTest {
     fun `test edge case with variable name containing numbers`() {
         val rules = listOf(CamelCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val varDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("variable123", 1, 5),
-            TypeDeclaration("String", 1, 18),
-            StringLiteral("value", 1, 27),
-            1,
-            1,
-        )
+        val varDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("variable123", 1, 5),
+                TypeDeclaration("String", 1, 18),
+                StringLiteral("value", 1, 27),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(varDeclaration))
 
         val errors = linter.lint(statements)
@@ -422,14 +444,15 @@ class LinterImplementationTest {
     fun `test snake_case analyzer with variable containing uppercase`() {
         val rules = listOf(SnakeCaseAnalyzer())
         val linter = LinterImplementation(rules)
-        val varDeclaration = VarDeclaration(
-            "let",
-            StringLiteral("Invalid_Case", 1, 5),
-            TypeDeclaration("String", 1, 19),
-            StringLiteral("value", 1, 28),
-            1,
-            1,
-        )
+        val varDeclaration =
+            VarDeclaration(
+                "let",
+                StringLiteral("Invalid_Case", 1, 5),
+                TypeDeclaration("String", 1, 19),
+                StringLiteral("value", 1, 28),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(varDeclaration))
 
         val errors = linter.lint(statements)
@@ -452,44 +475,49 @@ class LinterImplementationTest {
 
     @Test
     fun `test comprehensive scenario with all analyzers and various AST types`() {
-        val rules = listOf(
-            CamelCaseAnalyzer(),
-            PrintLnWithOutBinaryOperationAnalyzer(),
-        )
+        val rules =
+            listOf(
+                CamelCaseAnalyzer(),
+                PrintLnWithOutBinaryOperationAnalyzer(),
+            )
         val linter = LinterImplementation(rules)
 
-        val validCamelCaseVar = VarDeclaration(
-            "let",
-            StringLiteral("validName", 1, 5),
-            TypeDeclaration("String", 1, 16),
-            StringLiteral("value", 1, 25),
-            1,
-            1,
-        )
+        val validCamelCaseVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validName", 1, 5),
+                TypeDeclaration("String", 1, 16),
+                StringLiteral("value", 1, 25),
+                1,
+                1,
+            )
 
-        val invalidVar = VarDeclaration(
-            "let",
-            StringLiteral("Invalid_Name", 2, 5),
-            TypeDeclaration("String", 2, 19),
-            StringLiteral("value", 2, 28),
-            2,
-            1,
-        )
+        val invalidVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("Invalid_Name", 2, 5),
+                TypeDeclaration("String", 2, 19),
+                StringLiteral("value", 2, 28),
+                2,
+                1,
+            )
 
         val validPrintln = FunctionCallAst("println", listOf(StringLiteral("Hello", 3, 9)), 3, 1)
-        val invalidPrintln = FunctionCallAst(
-            "println",
-            listOf(BinaryOperation("+", StringLiteral("Hello ", 4, 9), StringLiteral("World", 4, 19), 4, 7)),
-            4,
-            1,
-        )
+        val invalidPrintln =
+            FunctionCallAst(
+                "println",
+                listOf(BinaryOperation("+", StringLiteral("Hello ", 4, 9), StringLiteral("World", 4, 19), 4, 7)),
+                4,
+                1,
+            )
 
-        val statements = listOf(
-            Result.success(validCamelCaseVar),
-            Result.success(invalidVar),
-            Result.success(validPrintln),
-            Result.success(invalidPrintln),
-        )
+        val statements =
+            listOf(
+                Result.success(validCamelCaseVar),
+                Result.success(invalidVar),
+                Result.success(validPrintln),
+                Result.success(invalidPrintln),
+            )
 
         val errors = linter.lint(statements)
 

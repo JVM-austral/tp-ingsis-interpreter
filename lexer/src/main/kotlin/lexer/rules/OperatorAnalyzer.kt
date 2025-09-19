@@ -8,7 +8,5 @@ class OperatorAnalyzer : TokenAnalyzer {
         return operators.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.OPERATOR
-    }
+    override fun giveType(): TokenType = TokenType.OPERATOR
 }

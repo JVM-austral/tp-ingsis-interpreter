@@ -5,7 +5,9 @@ import ast.Ast
 import ast.FunctionCallAst
 import token.Token
 
-class FunctionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) : StructureExecutor {
+class FunctionExecutor(
+    private val operatorAnalyzers: List<StructureAnalyzer>,
+) : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
         lateinit var secondPartExecutor: StructureExecutor
 
@@ -14,6 +16,11 @@ class FunctionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) :
                 secondPartExecutor = analyzer.getExecutor()
             }
         }
-        return FunctionCallAst(tokens[0].value, listOf(secondPartExecutor.execute(tokens.subList(2, tokens.size - 2))), tokens[0].line, tokens[0].column)
+        return FunctionCallAst(
+            tokens[0].value,
+            listOf(secondPartExecutor.execute(tokens.subList(2, tokens.size - 2))),
+            tokens[0].line,
+            tokens[0].column,
+        )
     }
 }

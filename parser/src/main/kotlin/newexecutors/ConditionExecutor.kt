@@ -30,9 +30,16 @@ class ConditionExecutor : StructureExecutor {
             val op = next()
             val right = parseAndExpression()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(
-                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
-            )
+            left =
+                ParseResult.Success(
+                    BooleanBinaryOperation(
+                        op.value,
+                        (left as ParseResult.Success).ast,
+                        (right as ParseResult.Success).ast,
+                        op.line,
+                        op.column,
+                    ),
+                )
         }
 
         return left
@@ -47,9 +54,16 @@ class ConditionExecutor : StructureExecutor {
             val op = next()
             val right = parseComparison()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(
-                BooleanBinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
-            )
+            left =
+                ParseResult.Success(
+                    BooleanBinaryOperation(
+                        op.value,
+                        (left as ParseResult.Success).ast,
+                        (right as ParseResult.Success).ast,
+                        op.line,
+                        op.column,
+                    ),
+                )
         }
 
         return left
@@ -116,22 +130,25 @@ class ConditionExecutor : StructureExecutor {
 
     private fun next() = tokens[index++]
 
-    private fun isOrOperator(token: Token) =
-        token.type == TokenType.OPERATOR && token.value == "||"
+    private fun isOrOperator(token: Token) = token.type == TokenType.OPERATOR && token.value == "||"
 
-    private fun isAndOperator(token: Token) =
-        token.type == TokenType.OPERATOR && token.value == "&&"
+    private fun isAndOperator(token: Token) = token.type == TokenType.OPERATOR && token.value == "&&"
 
     private fun isComparisonOperator(token: Token) =
         token.type == TokenType.OPERATOR &&
             (
-                token.value == "==" || token.value == "!=" ||
-                    token.value == "<" || token.value == "<=" ||
-                    token.value == ">" || token.value == ">="
-                )
+                token.value == "==" ||
+                    token.value == "!=" ||
+                    token.value == "<" ||
+                    token.value == "<=" ||
+                    token.value == ">" ||
+                    token.value == ">="
+            )
 
     private fun isStopToken(token: Token): Boolean =
-        token.type == TokenType.OPERATOR && (
-            isComparisonOperator(token) || isAndOperator(token) || isOrOperator(token)
-            ) || (token.type == TokenType.PUNCTUATION && token.value == ")")
+        token.type == TokenType.OPERATOR &&
+            (
+                isComparisonOperator(token) || isAndOperator(token) || isOrOperator(token)
+            ) ||
+            (token.type == TokenType.PUNCTUATION && token.value == ")")
 }

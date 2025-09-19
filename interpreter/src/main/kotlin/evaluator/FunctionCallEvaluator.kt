@@ -13,7 +13,11 @@ class FunctionCallEvaluator(
     private val inputProvider: InputProvider,
     private val converter: LiteralConverter,
 ) : AstEvaluator {
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Any {
+    override fun evaluate(
+        ast: Ast,
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Any {
         val functionAst = ast as FunctionCallAst
         return when (functionAst.getValue()) {
             "readInput" -> InputEvaluator(engine, converter, inputProvider, outputHandler).evaluate(ast, heap, env)

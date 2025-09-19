@@ -16,7 +16,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class ConfigurableLinterTest {
-
     private val tempDir = "temp_test_configs"
 
     @BeforeEach
@@ -29,7 +28,10 @@ class ConfigurableLinterTest {
         File(tempDir).deleteRecursively()
     }
 
-    private fun createConfigFile(filename: String, content: String): String {
+    private fun createConfigFile(
+        filename: String,
+        content: String,
+    ): String {
         val file = File(tempDir, filename)
         file.writeText(content)
         return file.absolutePath
@@ -37,26 +39,28 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with valid camelCase configuration`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Test with valid camelCase variable
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 20),
-            StringLiteral("value", 1, 29),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 20),
+                StringLiteral("value", 1, 29),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
 
@@ -65,26 +69,28 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with camelCase rejects snake_case`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": false
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCaseOnly.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Test with invalid snake_case variable
-        val invalidVar = VarDeclaration(
-            "let",
-            StringLiteral("invalid_snake_case", 1, 5),
-            TypeDeclaration("String", 1, 25),
-            StringLiteral("value", 1, 34),
-            1,
-            1,
-        )
+        val invalidVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalid_snake_case", 1, 5),
+                TypeDeclaration("String", 1, 25),
+                StringLiteral("value", 1, 34),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidVar))
         val errors = linter.lint(statements)
 
@@ -94,26 +100,28 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with valid snake_case configuration`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "snake_case",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("snakeCase.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Test with valid snake_case variable
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("valid_snake_case", 1, 5),
-            TypeDeclaration("String", 1, 23),
-            StringLiteral("value", 1, 32),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("valid_snake_case", 1, 5),
+                TypeDeclaration("String", 1, 23),
+                StringLiteral("value", 1, 32),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
 
@@ -122,26 +130,28 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with snake_case rejects camelCase`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "snake_case",
               "usePrintlnAnalyzer": false
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("snakeCaseOnly.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Test with invalid camelCase variable
-        val invalidVar = VarDeclaration(
-            "let",
-            StringLiteral("invalidCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 23),
-            StringLiteral("value", 1, 32),
-            1,
-            1,
-        )
+        val invalidVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalidCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 23),
+                StringLiteral("value", 1, 32),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(invalidVar))
         val errors = linter.lint(statements)
 
@@ -151,12 +161,13 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with println analyzer enabled`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("withPrintln.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
@@ -174,12 +185,13 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with println analyzer disabled`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": false
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("withoutPrintln.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
@@ -196,26 +208,28 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with case insensitive naming convention`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "CAMELCASE",
               "usePrintlnAnalyzer": false
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("upperCaseConfig.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Should still work with uppercase naming convention
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 20),
-            StringLiteral("value", 1, 29),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 20),
+                StringLiteral("value", 1, 29),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
 
@@ -224,36 +238,40 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with invalid naming convention throws exception`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "invalidConvention",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("invalidConvention.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
 
-        val exception = assertThrows<IllegalArgumentException> {
-            configurableLinter.getConfigurableLinter()
-        }
+        val exception =
+            assertThrows<IllegalArgumentException> {
+                configurableLinter.getConfigurableLinter()
+            }
 
         assertTrue(exception.message!!.contains("Invalid naming convention: invalidConvention"))
     }
 
     @Test
     fun `test configurableAnalyzer with malformed JSON throws exception`() {
-        val malformedJson = """
+        val malformedJson =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true
               // missing closing brace and comma
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("malformed.json", malformedJson)
 
-        val exception = assertThrows<IllegalArgumentException> {
-            ConfigurableLinter(configPath)
-        }
+        val exception =
+            assertThrows<IllegalArgumentException> {
+                ConfigurableLinter(configPath)
+            }
 
         assertTrue(exception.message!!.contains("Error reading or parsing configuration file"))
         assertTrue(exception.message!!.contains(configPath))
@@ -261,31 +279,34 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with only usePrintlnAnalyzer specified`() {
-        val partialConfig = """
+        val partialConfig =
+            """
             {
               "usePrintlnAnalyzer": false
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("onlyPrintln.json", partialConfig)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Should use default camelCase and disable println analyzer
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 20),
-            StringLiteral("value", 1, 29),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 20),
+                StringLiteral("value", 1, 29),
+                1,
+                1,
+            )
         val binaryOperation = BinaryOperation("+", NumberLiteral("1", 2, 9), NumberLiteral("2", 2, 13), 2, 7)
         val printlnWithBinaryOp = FunctionCallAst("println", listOf(binaryOperation), 2, 1)
-        val statements = listOf(
-            Result.success(validVar),
-            Result.success(printlnWithBinaryOp),
-        )
+        val statements =
+            listOf(
+                Result.success(validVar),
+                Result.success(printlnWithBinaryOp),
+            )
         val errors = linter.lint(statements)
 
         assertTrue(errors.isEmpty()) // No errors because println analyzer is disabled
@@ -293,47 +314,51 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer comprehensive scenario with both analyzers enabled`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("comprehensive.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Test multiple statements with different types of errors
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validCamelCase", 1, 5),
-            TypeDeclaration("String", 1, 20),
-            StringLiteral("value", 1, 29),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validCamelCase", 1, 5),
+                TypeDeclaration("String", 1, 20),
+                StringLiteral("value", 1, 29),
+                1,
+                1,
+            )
 
-        val invalidVar = VarDeclaration(
-            "let",
-            StringLiteral("invalid_snake_case", 2, 5),
-            TypeDeclaration("String", 2, 25),
-            StringLiteral("value", 2, 34),
-            2,
-            1,
-        )
+        val invalidVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("invalid_snake_case", 2, 5),
+                TypeDeclaration("String", 2, 25),
+                StringLiteral("value", 2, 34),
+                2,
+                1,
+            )
 
         val validPrintln = FunctionCallAst("println", listOf(StringLiteral("Hello", 3, 9)), 3, 1)
 
         val binaryOperation = BinaryOperation("+", NumberLiteral("1", 4, 9), NumberLiteral("2", 4, 13), 4, 7)
         val invalidPrintln = FunctionCallAst("println", listOf(binaryOperation), 4, 1)
 
-        val statements = listOf(
-            Result.success(validVar),
-            Result.success(invalidVar),
-            Result.success(validPrintln),
-            Result.success(invalidPrintln),
-        )
+        val statements =
+            listOf(
+                Result.success(validVar),
+                Result.success(invalidVar),
+                Result.success(validPrintln),
+                Result.success(invalidPrintln),
+            )
         val errors = linter.lint(statements)
 
         assertEquals(2, errors.size)
@@ -343,12 +368,13 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer multiple calls to getConfigurableLinter return different instances`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("multipleInstances.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
@@ -359,14 +385,15 @@ class ConfigurableLinterTest {
         assertFalse(linter1 === linter2)
 
         // Both should work identically
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validName", 1, 5),
-            TypeDeclaration("String", 1, 16),
-            StringLiteral("value", 1, 25),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validName", 1, 5),
+                TypeDeclaration("String", 1, 16),
+                StringLiteral("value", 1, 25),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVar))
 
         val errors1 = linter1.lint(statements)
@@ -378,28 +405,30 @@ class ConfigurableLinterTest {
 
     @Test
     fun `test configurableAnalyzer with JSON containing extra fields`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "namingConvention": "camelCase",
               "usePrintlnAnalyzer": true,
               "extraField": "shouldBeIgnored",
               "anotherField": 123
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("extraFields.json", configContent)
 
         val configurableLinter = ConfigurableLinter(configPath)
         val linter = configurableLinter.getConfigurableLinter()
 
         // Should work normally, ignoring extra fields
-        val validVar = VarDeclaration(
-            "let",
-            StringLiteral("validName", 1, 5),
-            TypeDeclaration("String", 1, 16),
-            StringLiteral("value", 1, 25),
-            1,
-            1,
-        )
+        val validVar =
+            VarDeclaration(
+                "let",
+                StringLiteral("validName", 1, 5),
+                TypeDeclaration("String", 1, 16),
+                StringLiteral("value", 1, 25),
+                1,
+                1,
+            )
         val statements = listOf(Result.success(validVar))
         val errors = linter.lint(statements)
 

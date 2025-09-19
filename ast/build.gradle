@@ -5,6 +5,7 @@
 plugins {
     id 'buildlogic.kotlin-library-conventions'
     id 'buildlogic.kotlin-publishing'
+    id "org.jlleitschuh.gradle.ktlint" version "12.1.1"
 }
 dependencies {
     implementation project(":token")

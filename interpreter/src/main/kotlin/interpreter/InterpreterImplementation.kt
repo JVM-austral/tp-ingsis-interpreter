@@ -10,7 +10,6 @@ class InterpreterImplementation(
     private var heap: MutableMap<String, VariableInfo>,
     private var env: MutableMap<String, Ast>,
 ) : Interpreter {
-
     private val executionQueue: MutableList<ExecutionUnit> = mutableListOf()
 
     override fun interpret(parsedStatement: List<Result<Ast>>): List<ExecutionUnit> {

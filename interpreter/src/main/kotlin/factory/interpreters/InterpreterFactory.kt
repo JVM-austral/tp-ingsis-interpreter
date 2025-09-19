@@ -10,10 +10,15 @@ import interpreter.VariableInfo
 import mock.OutputHandler
 
 class InterpreterFactory {
-    fun createInterpreterV1(heap: MutableMap<String, VariableInfo>, outputHandler: OutputHandler, env: MutableMap<String, Ast>): Interpreter {
+    fun createInterpreterV1(
+        heap: MutableMap<String, VariableInfo>,
+        outputHandler: OutputHandler,
+        env: MutableMap<String, Ast>,
+    ): Interpreter {
         val analyzerList = AnalyzerFactory().createAnalyzerV1(outputHandler)
         return InterpreterImplementation(analyzerList, heap, env)
     }
+
     fun createInterpreterV2(
         heap: MutableMap<String, VariableInfo>,
         outputHandler: OutputHandler,

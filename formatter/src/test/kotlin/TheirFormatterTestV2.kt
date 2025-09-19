@@ -26,7 +26,6 @@ import java.io.File
 import kotlin.test.assertEquals
 
 class TheirFormatterTestV2 {
-
     private lateinit var lexer: lexer.Lexer
 
     private val tempDir = "temp_test_configs"
@@ -41,7 +40,10 @@ class TheirFormatterTestV2 {
         File(tempDir).deleteRecursively()
     }
 
-    private fun createConfigFile(filename: String, content: String): String {
+    private fun createConfigFile(
+        filename: String,
+        content: String,
+    ): String {
         val file = File(tempDir, filename)
         file.writeText(content)
         return file.absolutePath
@@ -49,47 +51,50 @@ class TheirFormatterTestV2 {
 
     @BeforeEach
     fun setup() {
-        lexer = LexerImplementation(
-            listOf<TokenAnalyzer>(
-                BooleanOperatorsAnalyzer(),
-                BooleanAnalyzer(),
-                BooleanTypeAnalyzer(),
-                ConstAnalyzer(),
-                IfElseAnalyzer(),
-                ReadInputAnalyzer(),
-                KeywordAnalyzer(),
-                NumberAnalyzer(),
-                NumberTypeAnalyzer(),
-                OperatorAnalyzer(),
-                PunctuationAnalyzer(),
-                StringAnalyzer(),
-                StringTypeAnalyzer(),
-                VariableAnalyzer(),
-                WhitespaceAnalyzer(),
-                MidStringAnalyzer(),
-                MidNumberAnalyzer(),
-                EnterAnalyzer(),
-            ),
-        )
+        lexer =
+            LexerImplementation(
+                listOf<TokenAnalyzer>(
+                    BooleanOperatorsAnalyzer(),
+                    BooleanAnalyzer(),
+                    BooleanTypeAnalyzer(),
+                    ConstAnalyzer(),
+                    IfElseAnalyzer(),
+                    ReadInputAnalyzer(),
+                    KeywordAnalyzer(),
+                    NumberAnalyzer(),
+                    NumberTypeAnalyzer(),
+                    OperatorAnalyzer(),
+                    PunctuationAnalyzer(),
+                    StringAnalyzer(),
+                    StringTypeAnalyzer(),
+                    VariableAnalyzer(),
+                    WhitespaceAnalyzer(),
+                    MidStringAnalyzer(),
+                    MidNumberAnalyzer(),
+                    EnterAnalyzer(),
+                ),
+            )
     }
 
     @Test
     fun `if brace same line`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "ifBraceSameLine"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
-        val tokens = lexer.tokenize(
-            "let something: boolean = true;\n" +
-                "if (something)\n" +
-                "{\n" +
-                "  println(\"Entered if\");\n" +
-                "}",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something: boolean = true;\n" +
+                    "if (something)\n" +
+                    "{\n" +
+                    "  println(\"Entered if\");\n" +
+                    "}",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -103,23 +108,25 @@ class TheirFormatterTestV2 {
 
     @Test
     fun `indentation test`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "indentInsideIf"=4
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something: boolean = true;\n" +
-                "if (something) {\n" +
-                "  if (something) {\n" +
-                "    println(\"Entered two ifs\");\n" +
-                "  }\n" +
-                "}",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something: boolean = true;\n" +
+                    "if (something) {\n" +
+                    "  if (something) {\n" +
+                    "    println(\"Entered two ifs\");\n" +
+                    "  }\n" +
+                    "}",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -135,21 +142,23 @@ class TheirFormatterTestV2 {
 
     @Test
     fun `if brace under line`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "ifBraceBelowLine"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something: boolean = true;\n" +
-                "if (something) {\n" +
-                "  println(\"Entered if\");\n" +
-                "}",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something: boolean = true;\n" +
+                    "if (something) {\n" +
+                    "  println(\"Entered if\");\n" +
+                    "}",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(

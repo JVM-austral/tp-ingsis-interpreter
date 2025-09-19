@@ -8,16 +8,16 @@ import java.io.ByteArrayInputStream
 import kotlin.test.Test
 
 class RunnerTest {
-
     @Test
     fun `dummy test`() {
         val output = StdOutputHandler()
 
-        val input = """
+        val input =
+            """
             let a : string = "hello";
             let b : string = "world";
             println(a + " " + b);
-        """.trimIndent()
+            """.trimIndent()
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
     }
@@ -27,7 +27,8 @@ class RunnerTest {
         val output = StdOutputHandler()
         val errorHandler = MockErrorHandler()
 
-        val input = """
+        val input =
+            """
             const booleanResult: boolean = false;
             if(booleanResult) {
                 println("else statement not working correctly");
@@ -35,7 +36,7 @@ class RunnerTest {
                 println("else statement working correctly");
             }
             println("outside of conditional");
-        """.trimIndent()
+            """.trimIndent()
 
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
@@ -46,11 +47,12 @@ class RunnerTest {
         val output = StdOutputHandler()
         val errorHandler = MockErrorHandler()
 
-        val input = """
+        val input =
+            """
             let PI : number;
             PI = 3.14;
             println( PI/2 );
-        """.trimIndent()
+            """.trimIndent()
 
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
@@ -61,10 +63,11 @@ class RunnerTest {
         val output = MockOutputHandler()
         val errorHandler = MockErrorHandler()
 
-        val input = """
+        val input =
+            """
             let numberResult: number = 5 * 5 - 8;
             println(numberResult);
-        """.trimIndent()
+            """.trimIndent()
 
         val runner = RunnerImplementation("V1", output)
         runner.run(input.byteInputStream())
@@ -76,14 +79,15 @@ class RunnerTest {
         val output = MockOutputHandler()
         val errorHandler = MockErrorHandler()
 
-        val input = """
+        val input =
+            """
             const booleanValue: boolean = false;
             if(booleanValue) {
             println("if statement is not working correctly");
             }
             println("outside of conditional");
 
-        """.trimIndent()
+            """.trimIndent()
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
         assert(output.captured.contains("outside of conditional"))
@@ -94,14 +98,15 @@ class RunnerTest {
         val output = MockOutputHandler()
         val errorHandler = MockErrorHandler()
 
-        val input = """
+        val input =
+            """
             const booleanValue: boolean = true;
             if(booleanValue) {
             println("if statement is working correctly");
             }
             println("outside of conditional");
 
-        """.trimIndent()
+            """.trimIndent()
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
         assert(output.captured.contains("outside of conditional") && output.captured.contains("if statement is working correctly"))
@@ -111,9 +116,10 @@ class RunnerTest {
     fun `dummy test v6`() {
         val output = MockOutputHandler()
 
-        val input = """
+        val input =
+            """
             const a: string = "constant declaration should not be allowed in version 1.0";
-        """.trimIndent()
+            """.trimIndent()
         val runner = RunnerImplementation("V1", output)
         runner.run(input.byteInputStream())
         val erroHandler = runner.getErrorHandler()
@@ -125,7 +131,8 @@ class RunnerTest {
     fun `dummy test v7`() {
         val output = MockOutputHandler()
 
-        val input = """
+        val input =
+            """
             println("jaja");
             println("jaja");
             println("jaja");
@@ -133,7 +140,7 @@ class RunnerTest {
             println("jaja");
             println("jaja");
             println("jaja");
-        """.trimIndent()
+            """.trimIndent()
         val runner = RunnerImplementation("V2", output)
         runner.run(input.byteInputStream())
         val erroHandler = runner.getErrorHandler()
@@ -144,10 +151,11 @@ class RunnerTest {
     @Test
     fun `format code with V1 version`() {
         val runner = RunnerImplementation("V1")
-        val code = """
+        val code =
+            """
             let a:string="hello";
             println(a);
-        """.trimIndent()
+            """.trimIndent()
 
         val formatted = runner.format(code, null)
         // Verificar que el formateo no devuelve string vacío
@@ -157,10 +165,11 @@ class RunnerTest {
     @Test
     fun `format code with V2 version`() {
         val runner = RunnerImplementation("V2")
-        val code = """
+        val code =
+            """
             const b:number=42;
             if(b>0){println("positive");}
-        """.trimIndent()
+            """.trimIndent()
 
         val formatted = runner.format(code, null)
         assertTrue(formatted.isNotEmpty())
@@ -180,10 +189,11 @@ class RunnerTest {
     @Test
     fun `lint code with V1 version - no issues`() {
         val runner = RunnerImplementation("V1")
-        val code = """
+        val code =
+            """
             let message: string = "Hello World";
             println(message);
-        """.trimIndent()
+            """.trimIndent()
 
         // Capturar output del sistema para verificar mensaje de lint
         runner.lint(code, null)
@@ -192,11 +202,12 @@ class RunnerTest {
     @Test
     fun `lint code with V2 version - no issues`() {
         val runner = RunnerImplementation("V2")
-        val code = """
+        val code =
+            """
             const PI: number = 3.14159;
             let radius: number = 5;
             println(PI * radius * radius);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.lint(code, null)
     }
@@ -216,10 +227,11 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V1", output)
 
-        val input = """
+        val input =
+            """
             let result: number = 10 + 5 * 2;
             println(result);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("20.0"))
@@ -230,12 +242,13 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V2", output)
 
-        val input = """
+        val input =
+            """
             let firstName: string = "John";
             let lastName: string = "Doe";
             let fullName: string = firstName + " " + lastName;
             println(fullName);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("John Doe"))
@@ -246,13 +259,14 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V2", output)
 
-        val input = """
+        val input =
+            """
             let isTrue: boolean = true;
             let isFalse: boolean = false;
             if(isTrue) {
                 println("Boolean logic works");
             }
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("Boolean logic works"))
@@ -264,9 +278,10 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V1", output)
 
-        val input = """
+        val input =
+            """
             let incomplete: string = 
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         val errorHandler = runner.getErrorHandler()
@@ -279,10 +294,11 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V2", output)
 
-        val input = """
+        val input =
+            """
             let num: number = "this is not a number";
             println(num);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         val errorHandler = runner.getErrorHandler()
@@ -296,10 +312,11 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation(null, output) // Version será V1 por defecto
 
-        val input = """
+        val input =
+            """
             let greeting: string = "Hello Default Version";
             println(greeting);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("Hello Default Version"))
@@ -328,13 +345,14 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V2", output)
 
-        val input = """
+        val input =
+            """
             let a: number = 1;
             let b: number = 2;
             let c: number = 3;
             let sum: number = a + b + c;
             println(sum);
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("6.0"))
@@ -359,14 +377,15 @@ class RunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V2", output)
 
-        val input = """
+        val input =
+            """
             let x: number = 10;
             if(true) {
                 if(true) {
                     println("x is between 5 and 15");
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         runner.run(input.byteInputStream())
         assertTrue(output.captured.contains("x is between 5 and 15"))
@@ -386,10 +405,11 @@ class RunnerTest {
         assertTrue(firstErrorHandler.getCapturedErrors().isNotEmpty())
 
         // Ejecutar código válido
-        val validInput = """
+        val validInput =
+            """
             let valid: string = "valid code";
             println(valid);
-        """.trimIndent()
+            """.trimIndent()
         runner.run(validInput.byteInputStream())
 
         val secondErrorHandler = runner.getErrorHandler()

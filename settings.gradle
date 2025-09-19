@@ -4,9 +4,6 @@ pluginManagement {
         mavenCentral()
         google()
     }
-    plugins {
-        id 'com.diffplug.spotless' version '6.25.0'
-    }
 }
 
 plugins {
@@ -16,3 +13,9 @@ plugins {
 
 rootProject.name = 'tp-ingsis-interpreter'
 include('parser', 'ast', 'token', 'interpreter', 'formatter', 'linter','cli', 'runner', 'common','lexer' )
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}

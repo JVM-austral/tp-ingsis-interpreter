@@ -21,29 +21,32 @@ import newanalyzers.IfOpenBlockUnderLineAnalyzer
 import newanalyzers.IndentationAnalyzer
 import java.io.File
 
-class ConfigurableAnalyzerFormatter(private val configFilePath: String, private val version: Int) {
+class ConfigurableAnalyzerFormatter(
+    private val configFilePath: String,
+    private val version: Int,
+) {
+    private val options1: ConfigurableFormatterOptionsV1 =
+        try {
+            val jsonContent = File(configFilePath).readText()
+            Gson().fromJson(jsonContent, ConfigurableFormatterOptionsV1::class.java)
+        } catch (e: Exception) {
+            ConfigurableFormatterOptionsV1()
+        }
 
-    private val options1: ConfigurableFormatterOptionsV1 = try {
-        val jsonContent = File(configFilePath).readText()
-        Gson().fromJson(jsonContent, ConfigurableFormatterOptionsV1::class.java)
-    } catch (e: Exception) {
-        ConfigurableFormatterOptionsV1()
-    }
+    private val options2: ConfigurableFormatterOptionsV2 =
+        try {
+            val jsonContent = File(configFilePath).readText()
+            Gson().fromJson(jsonContent, ConfigurableFormatterOptionsV2::class.java)
+        } catch (e: Exception) {
+            ConfigurableFormatterOptionsV2()
+        }
 
-    private val options2: ConfigurableFormatterOptionsV2 = try {
-        val jsonContent = File(configFilePath).readText()
-        Gson().fromJson(jsonContent, ConfigurableFormatterOptionsV2::class.java)
-    } catch (e: Exception) {
-        ConfigurableFormatterOptionsV2()
-    }
-
-    fun buildFormatter(): Formatter {
-        return if (version == 1) {
+    fun buildFormatter(): Formatter =
+        if (version == 1) {
             buildFormatterV1()
         } else {
             buildFormatterV2()
         }
-    }
 
     private fun buildFormatterV2(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
@@ -91,6 +94,7 @@ class ConfigurableAnalyzerFormatter(private val configFilePath: String, private 
 
         return FormatterImpl(analyzers)
     }
+
     private fun buildFormatterV1(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
 

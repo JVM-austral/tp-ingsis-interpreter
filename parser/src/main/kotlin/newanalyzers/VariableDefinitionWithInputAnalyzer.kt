@@ -8,9 +8,8 @@ import token.Token
 import token.TokenType
 
 class VariableDefinitionWithInputAnalyzer : StructureAnalyzer {
-
-    override fun analyzeStructure(tokens: List<Token>): Boolean {
-        return tokens.size >= 7 &&
+    override fun analyzeStructure(tokens: List<Token>): Boolean =
+        tokens.size >= 7 &&
             tokens[0].type == TokenType.IDENTIFIER &&
             tokens[1].value == "=" &&
             tokens[2].value == "readInput" &&
@@ -18,9 +17,6 @@ class VariableDefinitionWithInputAnalyzer : StructureAnalyzer {
             StringConcatenationAnalyzer().analyzeStructure(tokens.subList(4, tokens.size - 2)) &&
             tokens[tokens.size - 2].value == ")" &&
             tokens[tokens.size - 1].value == ";"
-    }
 
-    override fun getExecutor(): StructureExecutor {
-        return VariableDefinitionWithInputExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = VariableDefinitionWithInputExecutor()
 }

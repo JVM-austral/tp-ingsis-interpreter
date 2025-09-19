@@ -3,8 +3,9 @@ package lexer
 import lexer.rules.TokenAnalyzer
 import token.Token
 
-class LexerImplementation(private val listOfAnalyzers: List<TokenAnalyzer>) : Lexer {
-
+class LexerImplementation(
+    private val listOfAnalyzers: List<TokenAnalyzer>,
+) : Lexer {
     override fun tokenize(input: String): List<Result<Token>> {
         var currentLine = 1
         var currentColumn = 1

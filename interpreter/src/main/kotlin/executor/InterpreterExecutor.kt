@@ -4,5 +4,9 @@ import ast.Ast
 import interpreter.VariableInfo
 
 interface InterpreterExecutor {
-    fun execute(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Result<Ast>
+    fun execute(
+        statement: Result<Ast>,
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Result<Ast>
 }

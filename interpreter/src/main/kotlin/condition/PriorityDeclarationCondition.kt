@@ -2,7 +2,10 @@ import ast.Ast
 import interpreter.VariableInfo
 
 class PriorityDeclarationCondition : Condition {
-    override fun evaluate(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): String? {
+    override fun evaluate(
+        statement: Result<Ast>,
+        heap: MutableMap<String, VariableInfo>,
+    ): String? {
         val ast = statement.getOrNull() ?: return "AST is null"
         val row = ast.getRow()
         val column = ast.getColumn()

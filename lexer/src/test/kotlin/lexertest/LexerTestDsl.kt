@@ -3,17 +3,16 @@ import token.Token
 import token.TokenType
 
 class LexerTestDsl {
+    fun tokensToString(tokens: List<Result<Token>>): String =
+        tokens
+            .mapNotNull { result ->
+                result.getOrNull()?.let { token ->
+                    tokenTypeToString(token.type)
+                }
+            }.joinToString("->")
 
-    fun tokensToString(tokens: List<Result<Token>>): String {
-        return tokens.mapNotNull { result ->
-            result.getOrNull()?.let { token ->
-                tokenTypeToString(token.type)
-            }
-        }.joinToString("->")
-    }
-
-    private fun tokenTypeToString(tokenType: TokenType): String {
-        return when (tokenType) {
+    private fun tokenTypeToString(tokenType: TokenType): String =
+        when (tokenType) {
             TokenType.IDENTIFIER -> "identifier"
             TokenType.KEYWORD -> "keyword"
             TokenType.STRING_LITERAL -> "string"
@@ -28,5 +27,4 @@ class LexerTestDsl {
             TokenType.BOOL_OPERATOR -> "bool_operator"
             TokenType.TAB -> "tab"
         }
-    }
 }

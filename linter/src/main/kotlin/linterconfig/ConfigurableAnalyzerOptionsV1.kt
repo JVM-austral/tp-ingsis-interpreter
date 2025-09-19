@@ -1,4 +1,5 @@
 package linterconfig
+
 /**
  * Configuration options for the ConfigurableAnalyzer
  * @param namingConvention The naming convention to use ("camelCase" or "snake_case")

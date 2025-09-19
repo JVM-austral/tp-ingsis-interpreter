@@ -8,7 +8,6 @@ plugins {
 
 }
 
-group = 'org.JVM-austral'
 dependencies {
     implementation project(":token")
     implementation project(":common")

@@ -1,3 +1,7 @@
 package error
 
-data class LinterError(val message: String, val line: Int, val column: Int)
+data class LinterError(
+    val message: String,
+    val line: Int,
+    val column: Int,
+)

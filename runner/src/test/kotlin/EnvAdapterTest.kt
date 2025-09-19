@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test
 import runner.RunnerImplementation
 
 class EnvAdapterTest {
-
     @Test
     fun testEnvAdapter() {
         val envAdapter = EnvAdapter()
@@ -17,10 +16,11 @@ class EnvAdapterTest {
         val envMap: MutableMap<String, String> = System.getenv()
         val env = envAdapter.processEnv(envMap)
         val runner = RunnerImplementation("V2", env = env)
-        val code = """ 
+        val code =
+            """ 
             const a: string = readEnv("BEST_FOOTBALL_CLUB");
             println(a);
-        """.trimIndent()
+            """.trimIndent()
 
         val codeStream = code.byteInputStream()
         runner.run(codeStream)

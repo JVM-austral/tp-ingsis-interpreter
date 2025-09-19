@@ -13,7 +13,6 @@ import java.io.PrintStream
 import java.nio.file.Path
 
 class CliTest {
-
     private lateinit var outputStream: ByteArrayOutputStream
     private lateinit var originalOut: PrintStream
 
@@ -149,8 +148,10 @@ class CliTest {
         val output = outputStream.toString()
         // Should show an exception message
         assertTrue(
-            output.contains("Exception") || output.contains("Error") ||
-                output.contains("FileNotFoundException") || output.contains("NoSuchFileException"),
+            output.contains("Exception") ||
+                output.contains("Error") ||
+                output.contains("FileNotFoundException") ||
+                output.contains("NoSuchFileException"),
         )
     }
 
@@ -292,8 +293,8 @@ class CliTest {
         val testFile = tempDir.resolve("const_print.ps").toFile()
         testFile.writeText(
             """
-        let PI: number = 3.14;
-        println(PI);
+            let PI: number = 3.14;
+            println(PI);
             """.trimIndent(),
         )
 

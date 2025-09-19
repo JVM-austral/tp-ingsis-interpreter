@@ -10,7 +10,5 @@ class NumberAnalyzer : TokenAnalyzer {
         return intRegex.matches(input) || floatRegex.matches(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.NUMBER_LITERAL
-    }
+    override fun giveType(): TokenType = TokenType.NUMBER_LITERAL
 }

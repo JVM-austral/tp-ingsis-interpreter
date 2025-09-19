@@ -3,20 +3,30 @@ package newexecutors
 import executors.FormatRulesExecutors
 import token.Token
 
-class IndentationExecutor(private val indentation: Int) : FormatRulesExecutors {
-    override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
+class IndentationExecutor(
+    private val indentation: Int,
+) : FormatRulesExecutors {
+    override fun apply(
+        exToken: Token,
+        currentToken: Token,
+        currentString: String,
+    ): String {
         val braceLevel = bracesDifference(currentString)
-        val tabAmount = when (currentToken.value) {
-            "{" -> braceLevel * indentation
-            "}" -> (braceLevel - 1).coerceAtLeast(0) * indentation
-            else -> braceLevel * indentation
-        }
+        val tabAmount =
+            when (currentToken.value) {
+                "{" -> braceLevel * indentation
+                "}" -> (braceLevel - 1).coerceAtLeast(0) * indentation
+                else -> braceLevel * indentation
+            }
         return putTabsAfterEnter(currentString, tabAmount)
     }
 
     private fun getTabs(tabAmount: Int): String = " ".repeat(tabAmount)
 
-    private fun putTabsAfterEnter(currentString: String, tabAmount: Int): String {
+    private fun putTabsAfterEnter(
+        currentString: String,
+        tabAmount: Int,
+    ): String {
         val lastEnterIndex = currentString.lastIndexOf('\n').takeIf { it != -1 } ?: 0
         val expectedTabs = getTabs(tabAmount)
 

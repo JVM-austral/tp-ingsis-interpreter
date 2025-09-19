@@ -40,37 +40,45 @@ class NewFormatterTest {
 
     @BeforeEach
     fun setup() {
-        formatter = FormatterImpl(
-            listOf(
-                IfOpenBlockInTheSameLineAnalyzer(), SpaceAfterColonAnalyzer(),
-                SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(), NewLineAfterIfStatementAnalyzer(),
-                SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
-                SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
-                IndentationAnalyzer(4),
-            ),
-        )
-        lexer = LexerImplementation(
-            listOf<TokenAnalyzer>(
-                BooleanOperatorsAnalyzer(),
-                BooleanAnalyzer(),
-                BooleanTypeAnalyzer(),
-                ConstAnalyzer(),
-                IfElseAnalyzer(),
-                ReadInputAnalyzer(),
-                KeywordAnalyzer(),
-                NumberAnalyzer(),
-                NumberTypeAnalyzer(),
-                OperatorAnalyzer(),
-                PunctuationAnalyzer(),
-                StringAnalyzer(),
-                StringTypeAnalyzer(),
-                VariableAnalyzer(),
-                WhitespaceAnalyzer(),
-                MidStringAnalyzer(),
-                MidNumberAnalyzer(),
-                EnterAnalyzer(),
-            ),
-        )
+        formatter =
+            FormatterImpl(
+                listOf(
+                    IfOpenBlockInTheSameLineAnalyzer(),
+                    SpaceAfterColonAnalyzer(),
+                    SpaceAfterEqualsAnalyzer(),
+                    SpaceAfterOperatorAnalyzer(),
+                    NewLineAfterIfStatementAnalyzer(),
+                    SpaceBeforeEqualsAnalyzer(),
+                    SpaceBeforeOperatorAnalyzer(),
+                    SpaceBeforeColonAnalyzer(),
+                    NewLineAfterSemiColonAnalyzer(),
+                    OnlyOneSpaceAnalyzer(),
+                    IndentationAnalyzer(4),
+                ),
+            )
+        lexer =
+            LexerImplementation(
+                listOf<TokenAnalyzer>(
+                    BooleanOperatorsAnalyzer(),
+                    BooleanAnalyzer(),
+                    BooleanTypeAnalyzer(),
+                    ConstAnalyzer(),
+                    IfElseAnalyzer(),
+                    ReadInputAnalyzer(),
+                    KeywordAnalyzer(),
+                    NumberAnalyzer(),
+                    NumberTypeAnalyzer(),
+                    OperatorAnalyzer(),
+                    PunctuationAnalyzer(),
+                    StringAnalyzer(),
+                    StringTypeAnalyzer(),
+                    VariableAnalyzer(),
+                    WhitespaceAnalyzer(),
+                    MidStringAnalyzer(),
+                    MidNumberAnalyzer(),
+                    EnterAnalyzer(),
+                ),
+            )
     }
 
     @Test

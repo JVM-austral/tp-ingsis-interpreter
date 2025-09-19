@@ -6,13 +6,9 @@ import token.Token
 import token.TokenType
 
 class ConditionAnalyzer : StructureAnalyzer {
-    override fun analyzeStructure(tokens: List<Token>): Boolean {
-        return isBooleanExpression(tokens)
-    }
+    override fun analyzeStructure(tokens: List<Token>): Boolean = isBooleanExpression(tokens)
 
-    override fun getExecutor(): StructureExecutor {
-        return ConditionExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = ConditionExecutor()
 
     private fun isBooleanExpression(tokens: List<Token>): Boolean {
         if (tokens.isEmpty()) return false

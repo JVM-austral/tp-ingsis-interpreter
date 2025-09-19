@@ -2,14 +2,16 @@ package analyzers
 
 import executors.NewLineBeforePrintlnExecutor
 
-class NewLinesBeforePrintlnAnalyzer(private val amountOfLines: Int) : FormatRulesAnalyzers {
-    override fun analyze(exToken: token.Token, currentToken: token.Token, currenString: String): Boolean {
-        return currentToken.value == "println" && countFinalNewLines(currenString) != amountOfLines
-    }
+class NewLinesBeforePrintlnAnalyzer(
+    private val amountOfLines: Int,
+) : FormatRulesAnalyzers {
+    override fun analyze(
+        exToken: token.Token,
+        currentToken: token.Token,
+        currenString: String,
+    ): Boolean = currentToken.value == "println" && countFinalNewLines(currenString) != amountOfLines
 
-    override fun giveExecutor(): executors.FormatRulesExecutors {
-        return NewLineBeforePrintlnExecutor(amountOfLines)
-    }
+    override fun giveExecutor(): executors.FormatRulesExecutors = NewLineBeforePrintlnExecutor(amountOfLines)
 
     private fun countFinalNewLines(str: String): Int {
         var count = 0
@@ -22,7 +24,6 @@ class NewLinesBeforePrintlnAnalyzer(private val amountOfLines: Int) : FormatRule
         }
         return count
     }
-    override fun stillNecessaryToAddToken(): Boolean {
-        return false
-    }
+
+    override fun stillNecessaryToAddToken(): Boolean = false
 }

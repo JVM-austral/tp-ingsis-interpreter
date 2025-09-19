@@ -12,5 +12,4 @@ data class ConfigurableFormatterOptionsV2(
     val ifBraceSameLine: Boolean = false,
     val ifBraceBelowLine: Boolean = false,
     val indentInsideIf: Int = -1,
-
 )

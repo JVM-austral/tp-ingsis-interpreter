@@ -5,8 +5,9 @@ import ast.Ast
 import ast.IfDeclaration
 import error.LinterError
 
-class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter {
-
+class LinterImplementation(
+    private val rulesList: List<LinterAnalyzer>,
+) : Linter {
     override fun lint(statements: List<Result<Ast>>): List<LinterError> {
         val errorsFound = mutableListOf<LinterError>()
 
@@ -28,7 +29,10 @@ class LinterImplementation(private val rulesList: List<LinterAnalyzer>) : Linter
         return errorsFound
     }
 
-    private fun detectRulesViolations(ast: Ast, listOfRules: List<LinterAnalyzer>): List<LinterError> {
+    private fun detectRulesViolations(
+        ast: Ast,
+        listOfRules: List<LinterAnalyzer>,
+    ): List<LinterError> {
         val listOfErrors = mutableListOf<LinterError>()
         var listOfIfErrors = listOf<LinterError>()
         var listOfElseErrors = listOf<LinterError>()

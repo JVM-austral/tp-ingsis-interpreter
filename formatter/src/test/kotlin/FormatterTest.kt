@@ -28,29 +28,43 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class FormatterTest {
-
     private lateinit var formatter: formatter.Formatter
     private lateinit var lexer: lexer.Lexer
 
     @BeforeEach
     fun setup() {
-        formatter = FormatterImpl(
-            listOf(
-                CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
-                SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
-                SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
-                SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
-
-            ),
-
-        )
-        lexer = LexerImplementation(
-            listOf<TokenAnalyzer>(
-                KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
-                OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(), EnterAnalyzer(),
-            ),
-        )
+        formatter =
+            FormatterImpl(
+                listOf(
+                    CanNotStartLineWithSpaceAnalyzer(),
+                    NewLinesBeforePrintlnAnalyzer(1),
+                    SpaceAfterColonAnalyzer(),
+                    SpaceAfterEqualsAnalyzer(),
+                    SpaceAfterOperatorAnalyzer(),
+                    SpaceBeforeEqualsAnalyzer(),
+                    SpaceBeforeOperatorAnalyzer(),
+                    SpaceBeforeColonAnalyzer(),
+                    NewLineAfterSemiColonAnalyzer(),
+                    OnlyOneSpaceAnalyzer(),
+                ),
+            )
+        lexer =
+            LexerImplementation(
+                listOf<TokenAnalyzer>(
+                    KeywordAnalyzer(),
+                    NumberAnalyzer(),
+                    NumberTypeAnalyzer(),
+                    OperatorAnalyzer(),
+                    PunctuationAnalyzer(),
+                    StringAnalyzer(),
+                    StringTypeAnalyzer(),
+                    VariableAnalyzer(),
+                    WhitespaceAnalyzer(),
+                    MidStringAnalyzer(),
+                    MidNumberAnalyzer(),
+                    EnterAnalyzer(),
+                ),
+            )
     }
 
     @Test
@@ -135,7 +149,10 @@ class FormatterTest {
     fun `debe formatear múltiples declaraciones con diferentes tipos`() {
         val tokens = lexer.tokenize("let nombre:string=\"Juan\";let edad:number=25;let activo:boolean=true;let salario:number=1500.50;")
         val result = formatter.format(tokens)
-        assertEquals(result, "let nombre : string = \"Juan\";\nlet edad : number = 25;\nlet activo : boolean = true;\nlet salario : number = 1500.50;")
+        assertEquals(
+            result,
+            "let nombre : string = \"Juan\";\nlet edad : number = 25;\nlet activo : boolean = true;\nlet salario : number = 1500.50;",
+        )
     }
 
     @Test
@@ -156,7 +173,10 @@ class FormatterTest {
     fun `debe formatear asignaciones múltiples sin espacios irregulares`() {
         val tokens = lexer.tokenize("let a:number=1;let b:number=a+2;let c:number=b+3;let d:number=c-a;let e:number=d/b;")
         val result = formatter.format(tokens)
-        assertEquals(result, "let a : number = 1;\nlet b : number = a + 2;\nlet c : number = b + 3;\nlet d : number = c - a;\nlet e : number = d / b;")
+        assertEquals(
+            result,
+            "let a : number = 1;\nlet b : number = a + 2;\nlet c : number = b + 3;\nlet d : number = c - a;\nlet e : number = d / b;",
+        )
     }
 
     @Test
@@ -168,9 +188,15 @@ class FormatterTest {
 
     @Test
     fun `debe formatear expresiones con diferentes tipos de operadores`() {
-        val tokens = lexer.tokenize("let suma:number=a+b;let resta:number=c-d;let multiplicacion:number=e+f;let division:number=g/h;let modulo:number=i+j;")
+        val tokens =
+            lexer.tokenize(
+                "let suma:number=a+b;let resta:number=c-d;let multiplicacion:number=e+f;let division:number=g/h;let modulo:number=i+j;",
+            )
         val result = formatter.format(tokens)
-        assertEquals(result, "let suma : number = a + b;\nlet resta : number = c - d;\nlet multiplicacion : number = e + f;\nlet division : number = g / h;\nlet modulo : number = i + j;")
+        assertEquals(
+            result,
+            "let suma : number = a + b;\nlet resta : number = c - d;\nlet multiplicacion : number = e + f;\nlet division : number = g / h;\nlet modulo : number = i + j;",
+        )
     }
 
     @Test

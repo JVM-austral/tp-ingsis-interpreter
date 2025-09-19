@@ -24,6 +24,7 @@ import mock.OutputHandler
 
 class AnalyzerFactory {
     private val evaluatorFactory = EvaluatorFactory()
+
     fun createAnalyzerV1(outputHandler: OutputHandler): List<InterpreterAnalyzer> {
         val engineV1 = evaluatorFactory.createEvaluationEngineV1(outputHandler)
         return listOf(
@@ -74,6 +75,7 @@ class AnalyzerFactory {
             ),
         )
     }
+
     fun createAnalyzerV2(
         outputHandler: OutputHandler,
         inputProvider: InputProvider,

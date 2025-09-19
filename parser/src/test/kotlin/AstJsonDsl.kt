@@ -7,10 +7,11 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 object AstJsonDsl {
-    private val gson = GsonBuilder()
-        .setPrettyPrinting()
-        .disableHtmlEscaping()
-        .create()
+    private val gson =
+        GsonBuilder()
+            .setPrettyPrinting()
+            .disableHtmlEscaping()
+            .create()
 
     fun List<Result<Ast>>.toJson(): String {
         val jsonArray = JsonArray()

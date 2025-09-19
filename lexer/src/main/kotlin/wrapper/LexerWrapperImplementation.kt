@@ -10,7 +10,6 @@ class LexerWrapperImplementation(
     private val reader: Reader,
     private val tokenBuffer: TokenBuffer,
 ) : IteratorWrapper<Result<Token>> {
-
     private var endOfFile = false
     private var currentLine = 1
     private var currentColumn = 1
