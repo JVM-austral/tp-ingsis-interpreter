@@ -8,7 +8,6 @@ import interpreter.VariableInfo
 class TypeDeclarationExecutor(
     private val conditionMessageHandler: ConditionMessageHandler,
 ) : InterpreterExecutor {
-
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
@@ -35,6 +34,5 @@ class TypeDeclarationExecutor(
         return if (resultError.isFailure) resultError.toString() else null
     }
 
-    private fun errorResult(message: String?): Result<Ast> =
-        Result.failure(Exception(message))
+    private fun errorResult(message: String?): Result<Ast> = Result.failure(Exception(message))
 }

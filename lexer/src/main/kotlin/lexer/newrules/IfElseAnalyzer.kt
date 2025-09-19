@@ -9,7 +9,5 @@ class IfElseAnalyzer : TokenAnalyzer {
         return restrictedList.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.CONDITIONAL
-    }
+    override fun giveType(): TokenType = TokenType.CONDITIONAL
 }

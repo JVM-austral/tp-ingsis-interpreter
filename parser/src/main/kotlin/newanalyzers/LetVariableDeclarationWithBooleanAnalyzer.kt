@@ -7,9 +7,12 @@ import newexecutors.LetVariableDeclarationWithBooleanExecutor
 import token.Token
 import token.TokenType
 
-class LetVariableDeclarationWithBooleanAnalyzer(private val reservedTypes: List<String>, private val declarationTypes: List<String>) : StructureAnalyzer {
-    override fun analyzeStructure(tokens: List<Token>): Boolean {
-        return tokens.size >= 7 &&
+class LetVariableDeclarationWithBooleanAnalyzer(
+    private val reservedTypes: List<String>,
+    private val declarationTypes: List<String>,
+) : StructureAnalyzer {
+    override fun analyzeStructure(tokens: List<Token>): Boolean =
+        tokens.size >= 7 &&
             tokens[0].type == TokenType.KEYWORD &&
             isDeclarationType(tokens[0].value) &&
             tokens[1].type == TokenType.IDENTIFIER &&
@@ -19,17 +22,10 @@ class LetVariableDeclarationWithBooleanAnalyzer(private val reservedTypes: List<
             tokens[4].value == "=" &&
             ConditionAnalyzer().analyzeStructure(tokens.subList(5, tokens.size - 1)) &&
             tokens.last().value == ";"
-    }
 
-    override fun getExecutor(): StructureExecutor {
-        return LetVariableDeclarationWithBooleanExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = LetVariableDeclarationWithBooleanExecutor()
 
-    private fun isReservedType(value: String): Boolean {
-        return reservedTypes.contains(value)
-    }
+    private fun isReservedType(value: String): Boolean = reservedTypes.contains(value)
 
-    private fun isDeclarationType(value: String): Boolean {
-        return declarationTypes.contains(value)
-    }
+    private fun isDeclarationType(value: String): Boolean = declarationTypes.contains(value)
 }

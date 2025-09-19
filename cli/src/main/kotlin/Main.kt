@@ -1,4 +1,5 @@
 import commands.PrintScriptCLI
 
-fun main(args: Array<String>) = PrintScriptCLI()
-    .main(args)
+fun main(args: Array<String>) =
+    PrintScriptCLI()
+        .main(args)

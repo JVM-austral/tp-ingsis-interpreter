@@ -14,14 +14,19 @@ import formatter.Formatter
 import formatter.FormatterImpl
 
 class FormatterFactoryV1 {
-    private val rules = listOf(
-        CanNotStartLineWithSpaceAnalyzer(), NewLinesBeforePrintlnAnalyzer(1), SpaceAfterColonAnalyzer(),
-        SpaceAfterEqualsAnalyzer(), SpaceAfterOperatorAnalyzer(),
-        SpaceBeforeEqualsAnalyzer(), SpaceBeforeOperatorAnalyzer(),
-        SpaceBeforeColonAnalyzer(), NewLineAfterSemiColonAnalyzer(), OnlyOneSpaceAnalyzer(),
+    private val rules =
+        listOf(
+            CanNotStartLineWithSpaceAnalyzer(),
+            NewLinesBeforePrintlnAnalyzer(1),
+            SpaceAfterColonAnalyzer(),
+            SpaceAfterEqualsAnalyzer(),
+            SpaceAfterOperatorAnalyzer(),
+            SpaceBeforeEqualsAnalyzer(),
+            SpaceBeforeOperatorAnalyzer(),
+            SpaceBeforeColonAnalyzer(),
+            NewLineAfterSemiColonAnalyzer(),
+            OnlyOneSpaceAnalyzer(),
+        )
 
-    )
-    fun create(): Formatter {
-        return FormatterImpl(rules)
-    }
+    fun create(): Formatter = FormatterImpl(rules)
 }

@@ -6,16 +6,18 @@ import newexecutors.IfOpenBlockInTheSameLineExecutor
 import token.Token
 
 class IfOpenBlockInTheSameLineAnalyzer : FormatRulesAnalyzers {
-    override fun analyze(exToken: Token, currentToken: Token, currenString: String): Boolean {
-        return currentToken.value == "{" && (
-            amountOfEntersBefore(currenString) > 0 ||
-                amountOfSpacesBefore(currenString) != 1
+    override fun analyze(
+        exToken: Token,
+        currentToken: Token,
+        currenString: String,
+    ): Boolean =
+        currentToken.value == "{" &&
+            (
+                amountOfEntersBefore(currenString) > 0 ||
+                    amountOfSpacesBefore(currenString) != 1
             )
-    }
 
-    override fun giveExecutor(): FormatRulesExecutors {
-        return IfOpenBlockInTheSameLineExecutor()
-    }
+    override fun giveExecutor(): FormatRulesExecutors = IfOpenBlockInTheSameLineExecutor()
 
     private fun amountOfEntersBefore(string: String): Int {
         var i = string.length - 1
@@ -36,9 +38,9 @@ class IfOpenBlockInTheSameLineAnalyzer : FormatRulesAnalyzers {
 
         return countNewlines
     }
-    override fun stillNecessaryToAddToken(): Boolean {
-        return false
-    }
+
+    override fun stillNecessaryToAddToken(): Boolean = false
+
     private fun amountOfSpacesBefore(string: String): Int {
         var i = string.length - 1
         var countNewlines = 0

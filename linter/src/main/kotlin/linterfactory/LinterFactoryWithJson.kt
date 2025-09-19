@@ -3,8 +3,10 @@ package linterfactory
 import linter.Linter
 import linterconfig.ConfigurableLinter
 
-class LinterFactoryWithJson(private val linterConfigPath: String?, private val v2: Boolean = true) {
-
+class LinterFactoryWithJson(
+    private val linterConfigPath: String?,
+    private val v2: Boolean = true,
+) {
     fun create(): Linter {
         var configPath = linterConfigPath
         if (configPath == null) {

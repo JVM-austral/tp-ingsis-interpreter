@@ -9,8 +9,8 @@ import executor.StructureExecutor
 import token.Token
 
 class VariableDefinitionWithInputExecutor : StructureExecutor {
-    override fun execute(tokens: List<Token>): Ast {
-        return VarDefinition(
+    override fun execute(tokens: List<Token>): Ast =
+        VarDefinition(
             tokens[1].value,
             StringLiteral(tokens[0].value, tokens[0].line, tokens[0].column),
             FunctionCallAst(
@@ -24,5 +24,4 @@ class VariableDefinitionWithInputExecutor : StructureExecutor {
             tokens[0].line,
             tokens[0].column,
         )
-    }
 }

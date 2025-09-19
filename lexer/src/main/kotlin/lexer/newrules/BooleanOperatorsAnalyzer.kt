@@ -9,7 +9,5 @@ class BooleanOperatorsAnalyzer : TokenAnalyzer {
         return restrictedList.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.BOOL_OPERATOR
-    }
+    override fun giveType(): TokenType = TokenType.BOOL_OPERATOR
 }

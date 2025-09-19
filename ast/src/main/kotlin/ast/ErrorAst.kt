@@ -1,24 +1,17 @@
 package ast
 
-class ErrorAst(private val message: String, private val row: Int, private val col: Int) : Ast {
+class ErrorAst(
+    private val message: String,
+    private val row: Int,
+    private val col: Int,
+) : Ast {
+    override fun getListOfChildren(): List<Ast> = listOf()
 
-    override fun getListOfChildren(): List<Ast> {
-        return listOf()
-    }
+    override fun getChildLimit(): Int = 0
 
-    override fun getChildLimit(): Int {
-        return 0
-    }
+    override fun getValue(): String = message
 
-    override fun getValue(): String {
-        return message
-    }
+    override fun getRow(): Int = row
 
-    override fun getRow(): Int {
-        return row
-    }
-
-    override fun getColumn(): Int {
-        return col
-    }
+    override fun getColumn(): Int = col
 }

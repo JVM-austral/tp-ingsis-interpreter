@@ -8,8 +8,7 @@ import envadapter.EnvAdapter
 import runner.RunnerImplementation
 import java.io.File
 
-class LintCommand :
-    CliktCommand(name = "analyzing", help = "Static code analysis of the source code") {
+class LintCommand : CliktCommand(name = "analyzing", help = "Static code analysis of the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the linter").required()
     private val version by option("-v", "--version", help = "printScript version to run")
         .choice("V1", "V2")

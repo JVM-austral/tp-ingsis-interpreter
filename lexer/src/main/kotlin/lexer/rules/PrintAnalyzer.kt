@@ -3,12 +3,7 @@ package lexer.rules
 import token.TokenType
 
 class PrintAnalyzer : TokenAnalyzer {
+    override fun analyze(input: String): Boolean = input == "println"
 
-    override fun analyze(input: String): Boolean {
-        return input == "println"
-    }
-
-    override fun giveType(): TokenType {
-        return TokenType.IDENTIFIER
-    }
+    override fun giveType(): TokenType = TokenType.IDENTIFIER
 }

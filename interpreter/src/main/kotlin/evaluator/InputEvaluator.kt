@@ -11,7 +11,11 @@ class InputEvaluator(
     private val inputProvider: InputProvider,
     private val outputHandler: OutputHandler,
 ) : AstEvaluator {
-    override fun evaluate(ast: ast.Ast, heap: MutableMap<String, interpreter.VariableInfo>, env: MutableMap<String, Ast>): Any {
+    override fun evaluate(
+        ast: ast.Ast,
+        heap: MutableMap<String, interpreter.VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Any {
         var label = ""
         ast.getListOfChildren().forEach {
             label += (engine.evaluate(it, heap, env))

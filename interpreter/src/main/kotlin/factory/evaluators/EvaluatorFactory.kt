@@ -6,14 +6,11 @@ import evaluator.input.LiteralConverter
 import mock.OutputHandler
 
 class EvaluatorFactory {
-    fun createEvaluationEngineV1(outputHandler: OutputHandler): AstEvaluator {
-        return AstEvaluationEngineV1(outputHandler)
-    }
+    fun createEvaluationEngineV1(outputHandler: OutputHandler): AstEvaluator = AstEvaluationEngineV1(outputHandler)
+
     fun createEvaluationEngineV2(
         outputHandler: OutputHandler,
         inputProvider: InputProvider,
         converter: LiteralConverter,
-    ): AstEvaluator {
-        return AstEvaluationEngineV2(outputHandler, inputProvider, converter)
-    }
+    ): AstEvaluator = AstEvaluationEngineV2(outputHandler, inputProvider, converter)
 }

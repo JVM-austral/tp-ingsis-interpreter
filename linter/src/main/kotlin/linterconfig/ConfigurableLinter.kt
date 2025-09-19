@@ -10,30 +10,35 @@ import linter.LinterImplementation
 import newanalyzers.ConcatenationInReadInputAnalyzer
 import java.io.File
 
-class ConfigurableLinter(private val configFilePath: String, private val v2: Boolean = false) {
+class ConfigurableLinter(
+    private val configFilePath: String,
+    private val v2: Boolean = false,
+) {
     private val analyzers = mutableListOf<LinterAnalyzer>()
 
     private val jsonContent = File(configFilePath).readText()
 
-    private val jsonOptionsV1: ConfigurableAnalyzerOptionsV1? = if (!v2) {
-        try {
-            Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV1::class.java)
-        } catch (e: Exception) {
-            throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
+    private val jsonOptionsV1: ConfigurableAnalyzerOptionsV1? =
+        if (!v2) {
+            try {
+                Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV1::class.java)
+            } catch (e: Exception) {
+                throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
 
-    private val jsonOptionsV2: ConfigurableAnalyzerOptionsV2? = if (v2) {
-        try {
-            Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV2::class.java)
-        } catch (e: Exception) {
-            throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
+    private val jsonOptionsV2: ConfigurableAnalyzerOptionsV2? =
+        if (v2) {
+            try {
+                Gson().fromJson(jsonContent, ConfigurableAnalyzerOptionsV2::class.java)
+            } catch (e: Exception) {
+                throw IllegalArgumentException("Error reading or parsing configuration file: $configFilePath", e)
+            }
+        } else {
+            null
         }
-    } else {
-        null
-    }
 
     fun getConfigurableLinter(): Linter {
         if (v2) {

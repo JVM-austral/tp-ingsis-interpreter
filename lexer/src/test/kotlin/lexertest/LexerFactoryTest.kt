@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class LexerFactoryTest {
-
     private lateinit var factoryV1: LexerFactoryV1
     private lateinit var factoryV2: LexerFactoryV2
 
@@ -26,7 +25,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("LexerFactoryV1 Tests")
     inner class LexerFactoryV1Tests {
-
         @Test
         @DisplayName("Should create a non-null Lexer instance")
         fun shouldCreateNonNullLexer() {
@@ -64,7 +62,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("LexerFactoryV2 Tests")
     inner class LexerFactoryV2Tests {
-
         @Test
         @DisplayName("Should create a non-null Lexer instance")
         fun shouldCreateNonNullLexer() {
@@ -91,7 +88,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("Comparison Tests")
     inner class ComparisonTests {
-
         @Test
         @DisplayName("Both factories should create compatible Lexer instances")
         fun bothFactoriesShouldCreateCompatibleLexers() {
@@ -123,7 +119,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("Integration Tests")
     inner class IntegrationTests {
-
         @Test
         @DisplayName("Should handle simple expressions with V1")
         fun shouldHandleSimpleExpressionsV1() {
@@ -178,7 +173,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("Error Handling Tests")
     inner class ErrorHandlingTests {
-
         @Test
         @DisplayName("Should handle invalid input gracefully")
         fun shouldHandleInvalidInputGracefully() {
@@ -193,7 +187,6 @@ class LexerFactoryTest {
     @Nested
     @DisplayName("Performance Tests")
     inner class PerformanceTests {
-
         @Test
         @DisplayName("Factory creation should be fast")
         fun factoryCreationShouldBeFast() {

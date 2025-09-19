@@ -30,9 +30,10 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next()
             val right = parseTerm()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(
-                BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
-            )
+            left =
+                ParseResult.Success(
+                    BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
+                )
         }
 
         return left
@@ -46,9 +47,10 @@ class BinaryNumberOperatorExecutor : StructureExecutor {
             val op = next()
             val right = parseFactor()
             if (right is ParseResult.Failure) return ParseResult.Failure
-            left = ParseResult.Success(
-                BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
-            )
+            left =
+                ParseResult.Success(
+                    BinaryOperation(op.value, (left as ParseResult.Success).ast, (right as ParseResult.Success).ast, op.line, op.column),
+                )
         }
 
         return left

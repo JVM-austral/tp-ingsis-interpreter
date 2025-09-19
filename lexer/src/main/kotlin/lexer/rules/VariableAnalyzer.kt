@@ -8,7 +8,5 @@ class VariableAnalyzer : TokenAnalyzer {
         return regex.matches(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.IDENTIFIER
-    }
+    override fun giveType(): TokenType = TokenType.IDENTIFIER
 }

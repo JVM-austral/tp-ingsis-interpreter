@@ -6,13 +6,9 @@ import token.Token
 import token.TokenType
 
 class BinaryNumberOperatorAnalyzer : StructureAnalyzer {
-    override fun analyzeStructure(tokens: List<Token>): Boolean {
-        return isArithmeticOperation(tokens)
-    }
+    override fun analyzeStructure(tokens: List<Token>): Boolean = isArithmeticOperation(tokens)
 
-    override fun getExecutor(): StructureExecutor {
-        return BinaryNumberOperatorExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = BinaryNumberOperatorExecutor()
 
     private fun isArithmeticOperation(tokens: List<Token>): Boolean {
         if (tokens.isEmpty()) return false

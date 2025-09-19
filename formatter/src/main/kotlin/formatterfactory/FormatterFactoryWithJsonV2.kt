@@ -3,7 +3,9 @@ package formatterfactory
 import formatter.Formatter
 import formatterconfig.ConfigurableAnalyzerFormatter
 
-class FormatterFactoryWithJsonV2(private val linterConfigPath: String?) {
+class FormatterFactoryWithJsonV2(
+    private val linterConfigPath: String?,
+) {
     fun create(): Formatter {
         var configPath = linterConfigPath
         if (configPath == null) {

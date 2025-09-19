@@ -30,26 +30,27 @@ class LexerWrapperImplementationTest {
     private val dsl = LexerWrapperTestDsl()
 
     private fun createWrapper(input: String): LexerWrapperImplementation {
-        val analyzers = listOf(
-            BooleanOperatorsAnalyzer(),
-            BooleanAnalyzer(),
-            BooleanTypeAnalyzer(),
-            ConstAnalyzer(),
-            IfElseAnalyzer(),
-            ReadInputAnalyzer(),
-            KeywordAnalyzer(),
-            NumberAnalyzer(),
-            NumberTypeAnalyzer(),
-            PunctuationAnalyzer(),
-            StringAnalyzer(),
-            StringTypeAnalyzer(),
-            VariableAnalyzer(),
-            WhitespaceAnalyzer(),
-            MidStringAnalyzer(),
-            EnterAnalyzer(),
-            MidNumberAnalyzer(),
-            OperatorAnalyzer(),
-        )
+        val analyzers =
+            listOf(
+                BooleanOperatorsAnalyzer(),
+                BooleanAnalyzer(),
+                BooleanTypeAnalyzer(),
+                ConstAnalyzer(),
+                IfElseAnalyzer(),
+                ReadInputAnalyzer(),
+                KeywordAnalyzer(),
+                NumberAnalyzer(),
+                NumberTypeAnalyzer(),
+                PunctuationAnalyzer(),
+                StringAnalyzer(),
+                StringTypeAnalyzer(),
+                VariableAnalyzer(),
+                WhitespaceAnalyzer(),
+                MidStringAnalyzer(),
+                EnterAnalyzer(),
+                MidNumberAnalyzer(),
+                OperatorAnalyzer(),
+            )
         val lexer = LexerImplementation(analyzers)
         val reader = StringReader(input)
         val tokenBuffer = TokenBuffer()

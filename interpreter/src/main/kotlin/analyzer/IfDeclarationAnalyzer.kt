@@ -16,12 +16,17 @@ class IfDeclarationAnalyzer(
     private val inputProvider: InputProvider,
     private val converter: LiteralConverter,
 ) : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Boolean {
+    override fun analyzeInterpretation(
+        statement: Result<Ast>,
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Boolean {
         val ast = statement.getOrNull() ?: return false
         return ast is IfDeclaration
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): InterpreterExecutor {
-        return IfDeclarationExecutor(engine, outputHandler, inputProvider, converter)
-    }
+    override fun getExecutor(
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): InterpreterExecutor = IfDeclarationExecutor(engine, outputHandler, inputProvider, converter)
 }

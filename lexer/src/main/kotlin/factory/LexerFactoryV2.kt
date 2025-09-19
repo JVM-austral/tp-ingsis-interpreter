@@ -23,15 +23,28 @@ import lexer.rules.VariableAnalyzer
 import lexer.rules.WhitespaceAnalyzer
 
 class LexerFactoryV2 {
-    private val rules = listOf(
-        ReadInputAnalyzer(), ReadEnvAnalyzer(), IfElseAnalyzer(), BooleanAnalyzer(), BooleanTypeAnalyzer(), NumberAnalyzer(), EnterAnalyzer(), ConstAnalyzer(), KeywordAnalyzer(), MidNumberAnalyzer(),
-        OperatorAnalyzer(), NumberTypeAnalyzer(),
-        PrintAnalyzer(), PunctuationAnalyzer(), StringTypeAnalyzer(),
-        StringAnalyzer(), VariableAnalyzer(), WhitespaceAnalyzer(),
-        MidStringAnalyzer(),
+    private val rules =
+        listOf(
+            ReadInputAnalyzer(),
+            ReadEnvAnalyzer(),
+            IfElseAnalyzer(),
+            BooleanAnalyzer(),
+            BooleanTypeAnalyzer(),
+            NumberAnalyzer(),
+            EnterAnalyzer(),
+            ConstAnalyzer(),
+            KeywordAnalyzer(),
+            MidNumberAnalyzer(),
+            OperatorAnalyzer(),
+            NumberTypeAnalyzer(),
+            PrintAnalyzer(),
+            PunctuationAnalyzer(),
+            StringTypeAnalyzer(),
+            StringAnalyzer(),
+            VariableAnalyzer(),
+            WhitespaceAnalyzer(),
+            MidStringAnalyzer(),
+        )
 
-    )
-    fun create(): Lexer {
-        return LexerImplementation(rules)
-    }
+    fun create(): Lexer = LexerImplementation(rules)
 }

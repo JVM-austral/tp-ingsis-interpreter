@@ -9,7 +9,5 @@ class ConstAnalyzer : TokenAnalyzer {
         return restrictedList.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.KEYWORD
-    }
+    override fun giveType(): TokenType = TokenType.KEYWORD
 }

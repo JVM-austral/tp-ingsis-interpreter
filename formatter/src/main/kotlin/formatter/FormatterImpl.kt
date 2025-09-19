@@ -3,7 +3,9 @@ package formatter
 import analyzers.FormatRulesAnalyzers
 import token.Token
 
-class FormatterImpl(private val listOfAnalyzers: List<FormatRulesAnalyzers>) : Formatter {
+class FormatterImpl(
+    private val listOfAnalyzers: List<FormatRulesAnalyzers>,
+) : Formatter {
     override fun format(tokens: List<Result<Token>>): String {
         var exToken = tokens[0].getOrNull() ?: return ""
         var formattedCode = ""
@@ -19,7 +21,11 @@ class FormatterImpl(private val listOfAnalyzers: List<FormatRulesAnalyzers>) : F
         return formattedCode
     }
 
-    private fun formatIfNecessary(exToken: Token, currentToken: Token, currentString: String): String {
+    private fun formatIfNecessary(
+        exToken: Token,
+        currentToken: Token,
+        currentString: String,
+    ): String {
         var formattedCode = currentString
         var hasChanged = false
         for (analyzer in listOfAnalyzers) {
@@ -34,7 +40,5 @@ class FormatterImpl(private val listOfAnalyzers: List<FormatRulesAnalyzers>) : F
         return formattedCode
     }
 
-    override fun getAnalyzers(): List<FormatRulesAnalyzers> {
-        return listOfAnalyzers
-    }
+    override fun getAnalyzers(): List<FormatRulesAnalyzers> = listOfAnalyzers
 }

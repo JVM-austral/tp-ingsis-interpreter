@@ -9,7 +9,5 @@ class MidNumberAnalyzer : TokenAnalyzer {
         return floatRegex.matches(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.UNKNOWN
-    }
+    override fun giveType(): TokenType = TokenType.UNKNOWN
 }

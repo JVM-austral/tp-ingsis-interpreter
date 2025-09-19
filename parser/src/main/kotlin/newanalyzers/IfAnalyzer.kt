@@ -26,17 +26,17 @@ class IfAnalyzer : StructureAnalyzer {
         return index == tokens.size
     }
 
-    override fun getExecutor(): StructureExecutor {
-        return IfExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = IfExecutor()
 
-    private fun startsWithIf(tokens: List<Token>): Boolean {
-        return tokens.isNotEmpty() &&
+    private fun startsWithIf(tokens: List<Token>): Boolean =
+        tokens.isNotEmpty() &&
             tokens[0].type == TokenType.CONDITIONAL &&
             tokens[0].value == "if"
-    }
 
-    private fun extractConditionTokens(tokens: List<Token>, startIndex: Int): Pair<List<Token>, Int>? {
+    private fun extractConditionTokens(
+        tokens: List<Token>,
+        startIndex: Int,
+    ): Pair<List<Token>, Int>? {
         var index = startIndex
         if (index >= tokens.size || tokens[index].value != "(") return null
         index++
@@ -47,7 +47,9 @@ class IfAnalyzer : StructureAnalyzer {
             val t = tokens[index]
             if (t.value == "(") {
                 balance++
-            } else if (t.value == ")") balance--
+            } else if (t.value == ")") {
+                balance--
+            }
             if (balance > 0) condTokens.add(t)
             index++
         }
@@ -56,7 +58,10 @@ class IfAnalyzer : StructureAnalyzer {
         return Pair(condTokens, index)
     }
 
-    private fun extractBlockTokens(tokens: List<Token>, startIndex: Int): Pair<List<Token>, Int>? {
+    private fun extractBlockTokens(
+        tokens: List<Token>,
+        startIndex: Int,
+    ): Pair<List<Token>, Int>? {
         if (startIndex >= tokens.size || tokens[startIndex].value != "{") return null
         var balance = 1
         val blockTokens = mutableListOf<Token>()
@@ -66,7 +71,9 @@ class IfAnalyzer : StructureAnalyzer {
             val t = tokens[index]
             if (t.value == "{") {
                 balance++
-            } else if (t.value == "}") balance--
+            } else if (t.value == "}") {
+                balance--
+            }
             if (balance > 0) blockTokens.add(t)
             index++
         }
@@ -75,7 +82,10 @@ class IfAnalyzer : StructureAnalyzer {
         return Pair(blockTokens, index)
     }
 
-    private fun extractElseTokens(tokens: List<Token>, startIndex: Int): Int? {
+    private fun extractElseTokens(
+        tokens: List<Token>,
+        startIndex: Int,
+    ): Int? {
         var index = startIndex
         if (index < tokens.size && tokens[index].type == TokenType.CONDITIONAL && tokens[index].value == "else") {
             index++

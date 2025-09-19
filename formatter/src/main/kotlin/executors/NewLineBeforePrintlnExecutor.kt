@@ -2,8 +2,14 @@ package executors
 
 import token.Token
 
-class NewLineBeforePrintlnExecutor(private val amountOfNewLines: Int) : FormatRulesExecutors {
-    override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
+class NewLineBeforePrintlnExecutor(
+    private val amountOfNewLines: Int,
+) : FormatRulesExecutors {
+    override fun apply(
+        exToken: Token,
+        currentToken: Token,
+        currentString: String,
+    ): String {
         var newString = currentString
         val currentNewLines = countFinalNewLines(currentString)
         val difference = amountOfNewLines - currentNewLines

@@ -34,25 +34,36 @@ class AstEvaluationEngineV2(
     private val inputProvider: InputProvider,
     private val converter: LiteralConverter,
 ) : AstEvaluator {
-    private val evaluators: Map<Class<out Ast>, AstEvaluator> = mapOf(
-        NumberLiteral::class.java to NumberLiteralEvaluator(),
-        StringLiteral::class.java to StringLiteralEvaluator(),
-        VariableIdentifier::class.java to VariableIdentifierEvaluator(
-            listOf(
-                NumberTypeStrategy(), StringTypeStrategy(),
-                BooleanTypeStrategy(),
-            ),
-        ),
-        BinaryOperation::class.java to BinaryOperationEvaluator(this, listOf(AdditionStrategy(), SubtractionStrategy(), MultiplicationStrategy(), DivisionStrategy())),
-        FunctionCallAst::class.java to FunctionCallEvaluator(this, outputHandler, inputProvider, converter),
-        BooleanLiteral::class.java to BooleanLiteralEvaluator(),
-        BooleanBinaryOperation::class.java to BooleanBinaryOperationEvaluator(this, listOf(EqualsStrategy())),
+    private val evaluators: Map<Class<out Ast>, AstEvaluator> =
+        mapOf(
+            NumberLiteral::class.java to NumberLiteralEvaluator(),
+            StringLiteral::class.java to StringLiteralEvaluator(),
+            VariableIdentifier::class.java to
+                VariableIdentifierEvaluator(
+                    listOf(
+                        NumberTypeStrategy(),
+                        StringTypeStrategy(),
+                        BooleanTypeStrategy(),
+                    ),
+                ),
+            BinaryOperation::class.java to
+                BinaryOperationEvaluator(
+                    this,
+                    listOf(AdditionStrategy(), SubtractionStrategy(), MultiplicationStrategy(), DivisionStrategy()),
+                ),
+            FunctionCallAst::class.java to FunctionCallEvaluator(this, outputHandler, inputProvider, converter),
+            BooleanLiteral::class.java to BooleanLiteralEvaluator(),
+            BooleanBinaryOperation::class.java to BooleanBinaryOperationEvaluator(this, listOf(EqualsStrategy())),
+        )
 
-    )
-
-    override fun evaluate(ast: Ast, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Any {
-        val evaluator = evaluators[ast::class.java]
-            ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
+    override fun evaluate(
+        ast: Ast,
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Any {
+        val evaluator =
+            evaluators[ast::class.java]
+                ?: throw Exception("Tipo de AST no soportado: ${ast::class.simpleName}")
         return evaluator.evaluate(ast, heap, env)
     }
 }

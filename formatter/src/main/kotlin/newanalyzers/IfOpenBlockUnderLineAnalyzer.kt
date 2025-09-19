@@ -6,13 +6,13 @@ import newexecutors.IfOpenBlockUnderLineExecutor
 import token.Token
 
 class IfOpenBlockUnderLineAnalyzer : FormatRulesAnalyzers {
-    override fun analyze(exToken: Token, currentToken: Token, currenString: String): Boolean {
-        return currentToken.value == "{" && amountOfEntersBefore(currenString) != 1
-    }
+    override fun analyze(
+        exToken: Token,
+        currentToken: Token,
+        currenString: String,
+    ): Boolean = currentToken.value == "{" && amountOfEntersBefore(currenString) != 1
 
-    override fun giveExecutor(): FormatRulesExecutors {
-        return IfOpenBlockUnderLineExecutor()
-    }
+    override fun giveExecutor(): FormatRulesExecutors = IfOpenBlockUnderLineExecutor()
 
     private fun amountOfEntersBefore(string: String): Int {
         var i = string.length - 1
@@ -33,7 +33,6 @@ class IfOpenBlockUnderLineAnalyzer : FormatRulesAnalyzers {
 
         return countNewlines
     }
-    override fun stillNecessaryToAddToken(): Boolean {
-        return false
-    }
+
+    override fun stillNecessaryToAddToken(): Boolean = false
 }

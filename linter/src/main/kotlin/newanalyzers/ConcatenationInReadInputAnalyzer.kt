@@ -15,8 +15,16 @@ class ConcatenationInReadInputAnalyzer : LinterAnalyzer {
         if (ast is VarDeclaration || ast is VarDefinition) {
             val readInputAst = lookForReadInput(ast)
             if (readInputAst.isPresent) {
-                if (readInputAst.get().getListOfChildren()[0] !is StringLiteral && readInputAst.get().getListOfChildren()[0] !is VariableIdentifier) {
-                    return Optional.of(LinterError("readInput should only have a string literal or a variable identifier as parameter", readInputAst.get().getRow(), readInputAst.get().getColumn()))
+                if (readInputAst.get().getListOfChildren()[0] !is StringLiteral &&
+                    readInputAst.get().getListOfChildren()[0] !is VariableIdentifier
+                ) {
+                    return Optional.of(
+                        LinterError(
+                            "readInput should only have a string literal or a variable identifier as parameter",
+                            readInputAst.get().getRow(),
+                            readInputAst.get().getColumn(),
+                        ),
+                    )
                 }
             }
         }

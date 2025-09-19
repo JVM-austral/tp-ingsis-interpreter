@@ -6,8 +6,11 @@ import ast.Ast
 import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
-class VarDeclarationWithAssigmentUnaryExecutor(private val engine: AstEvaluator, private val conditionHandler: ConditionMessageHandler, private val isCompatibleTypeCondition: IsCompatibleTypeCondition) : InterpreterExecutor {
-
+class VarDeclarationWithAssigmentUnaryExecutor(
+    private val engine: AstEvaluator,
+    private val conditionHandler: ConditionMessageHandler,
+    private val isCompatibleTypeCondition: IsCompatibleTypeCondition,
+) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,

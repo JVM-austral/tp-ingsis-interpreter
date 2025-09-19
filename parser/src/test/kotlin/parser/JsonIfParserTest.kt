@@ -43,8 +43,10 @@ class JsonIfParserTest {
     @BeforeEach
     fun setUp() {
         letAnalyzer = LetVariableDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
-        letWithStringAssignmentAnalyzer = LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
-        letWithNumberAssignmentAnalyzer = LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
+        letWithStringAssignmentAnalyzer =
+            LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
+        letWithNumberAssignmentAnalyzer =
+            LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const"))
         variableDefinitionAnalyzer = VariableDefinitionAnalyzer()
         binaryNumberAnalyzer = BinaryNumberOperatorAnalyzer()
         stringConcatenationAnalyzer = StringConcatenationAnalyzer()
@@ -61,62 +63,71 @@ class JsonIfParserTest {
         parser =
             ParserImplementation(
                 listOf(
-                    letAnalyzer, letWithNumberAssignmentAnalyzer,
-                    letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer(),
-                    booleanDeclarationAnalyzer, booleanDefinitionAnalyzer, letWithBooleanAnalyzer,
-                    IfAnalyzer(), letEnvAnalyzer, varDefEnvAnalyzer,
-                    letInputAnalyzer, varDefInputAnalyzer,
+                    letAnalyzer,
+                    letWithNumberAssignmentAnalyzer,
+                    letWithStringAssignmentAnalyzer,
+                    variableDefinitionAnalyzer,
+                    FunctionAnalyzer(),
+                    booleanDeclarationAnalyzer,
+                    booleanDefinitionAnalyzer,
+                    letWithBooleanAnalyzer,
+                    IfAnalyzer(),
+                    letEnvAnalyzer,
+                    varDefEnvAnalyzer,
+                    letInputAnalyzer,
+                    varDefInputAnalyzer,
                 ),
-
             )
     }
 
     @Test
     fun `test simple if without else to JSON`() {
-        val tokens = listOf(
-            Token("if", TokenType.CONDITIONAL, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("true", TokenType.BOOLEAN_LITERAL, 1, 3),
-            Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token("{", TokenType.PUNCTUATION, 1, 5),
-            Token("println", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("\"ok\"", TokenType.STRING_LITERAL, 1, 8),
-            Token(")", TokenType.PUNCTUATION, 1, 9),
-            Token(";", TokenType.PUNCTUATION, 1, 10),
-            Token("}", TokenType.PUNCTUATION, 1, 11),
-        )
+        val tokens =
+            listOf(
+                Token("if", TokenType.CONDITIONAL, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("true", TokenType.BOOLEAN_LITERAL, 1, 3),
+                Token(")", TokenType.PUNCTUATION, 1, 4),
+                Token("{", TokenType.PUNCTUATION, 1, 5),
+                Token("println", TokenType.IDENTIFIER, 1, 6),
+                Token("(", TokenType.PUNCTUATION, 1, 7),
+                Token("\"ok\"", TokenType.STRING_LITERAL, 1, 8),
+                Token(")", TokenType.PUNCTUATION, 1, 9),
+                Token(";", TokenType.PUNCTUATION, 1, 10),
+                Token("}", TokenType.PUNCTUATION, 1, 11),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "IfDeclaration",
-            "value": "if",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "BooleanLiteral",
-                "value": "true"
-              }
-            ],
-            "onSuccess": [
-              {
-                "type": "FunctionCallAst",
-                "value": "println",
+                "type": "IfDeclaration",
+                "value": "if",
                 "children": [
                   {
-                    "type": "StringLiteral",
-                    "value": "ok"
+                    "type": "BooleanLiteral",
+                    "value": "true"
                   }
-                ]
+                ],
+                "onSuccess": [
+                  {
+                    "type": "FunctionCallAst",
+                    "value": "println",
+                    "children": [
+                      {
+                        "type": "StringLiteral",
+                        "value": "ok"
+                      }
+                    ]
+                  }
+                ],
+                "onFailure": []
               }
-            ],
-            "onFailure": []
-          }
-        ]
-        """.trimIndent()
+            ]
+            """.trimIndent()
 
         println("\n🔍 IF WITHOUT ELSE TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -125,76 +136,81 @@ class JsonIfParserTest {
 
     @Test
     fun `test if with else to JSON`() {
-        val tokens = listOf(
-            Token("if", TokenType.CONDITIONAL, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("false", TokenType.BOOLEAN_LITERAL, 1, 3),
-            Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token("{", TokenType.PUNCTUATION, 1, 5),
-            Token("println", TokenType.IDENTIFIER, 1, 6),
-            Token("(", TokenType.PUNCTUATION, 1, 7),
-            Token("\"then branch\"", TokenType.STRING_LITERAL, 1, 8),
-            Token(")", TokenType.PUNCTUATION, 1, 9),
-            Token(";", TokenType.PUNCTUATION, 1, 10),
-            Token("}", TokenType.PUNCTUATION, 1, 11),
-            Token("else", TokenType.CONDITIONAL, 1, 12),
-            Token("{", TokenType.PUNCTUATION, 1, 13),
-            Token("println", TokenType.IDENTIFIER, 1, 14),
-            Token("(", TokenType.PUNCTUATION, 1, 15),
-            Token("\"else branch\"", TokenType.STRING_LITERAL, 1, 16),
-            Token(")", TokenType.PUNCTUATION, 1, 17),
-            Token(";", TokenType.PUNCTUATION, 1, 18),
-            Token("}", TokenType.PUNCTUATION, 1, 19),
-        )
+        val tokens =
+            listOf(
+                Token("if", TokenType.CONDITIONAL, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("false", TokenType.BOOLEAN_LITERAL, 1, 3),
+                Token(")", TokenType.PUNCTUATION, 1, 4),
+                Token("{", TokenType.PUNCTUATION, 1, 5),
+                Token("println", TokenType.IDENTIFIER, 1, 6),
+                Token("(", TokenType.PUNCTUATION, 1, 7),
+                Token("\"then branch\"", TokenType.STRING_LITERAL, 1, 8),
+                Token(")", TokenType.PUNCTUATION, 1, 9),
+                Token(";", TokenType.PUNCTUATION, 1, 10),
+                Token("}", TokenType.PUNCTUATION, 1, 11),
+                Token("else", TokenType.CONDITIONAL, 1, 12),
+                Token("{", TokenType.PUNCTUATION, 1, 13),
+                Token("println", TokenType.IDENTIFIER, 1, 14),
+                Token("(", TokenType.PUNCTUATION, 1, 15),
+                Token("\"else branch\"", TokenType.STRING_LITERAL, 1, 16),
+                Token(")", TokenType.PUNCTUATION, 1, 17),
+                Token(";", TokenType.PUNCTUATION, 1, 18),
+                Token("}", TokenType.PUNCTUATION, 1, 19),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "IfDeclaration",
-            "value": "if",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "BooleanLiteral",
-                "value": "false"
-              }
-            ],
-            "onSuccess": [
-              {
-                "type": "FunctionCallAst",
-                "value": "println",
+                "type": "IfDeclaration",
+                "value": "if",
                 "children": [
                   {
-                    "type": "StringLiteral",
-                    "value": "then branch"
+                    "type": "BooleanLiteral",
+                    "value": "false"
                   }
-                ]
-              }
-            ],
-            "onFailure": [
-              {
-                "type": "FunctionCallAst",
-                "value": "println",
-                "children": [
+                ],
+                "onSuccess": [
                   {
-                    "type": "StringLiteral",
-                    "value": "else branch"
+                    "type": "FunctionCallAst",
+                    "value": "println",
+                    "children": [
+                      {
+                        "type": "StringLiteral",
+                        "value": "then branch"
+                      }
+                    ]
+                  }
+                ],
+                "onFailure": [
+                  {
+                    "type": "FunctionCallAst",
+                    "value": "println",
+                    "children": [
+                      {
+                        "type": "StringLiteral",
+                        "value": "else branch"
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 IF WITH ELSE TEST")
         printJsonComparison(expectedJson, actualJson)
         assertJsonSimilar(expectedJson, actualJson)
     }
 
-    private fun printJsonComparison(expected: String, actual: String) {
+    private fun printJsonComparison(
+        expected: String,
+        actual: String,
+    ) {
         println("=" * 60)
         println("📋 EXPECTED:")
         println(expected)
@@ -204,7 +220,10 @@ class JsonIfParserTest {
         println("=" * 60)
     }
 
-    private fun assertJsonSimilar(expected: String, actual: String) {
+    private fun assertJsonSimilar(
+        expected: String,
+        actual: String,
+    ) {
         val expectedNormalized = normalizeJson(expected)
         val actualNormalized = normalizeJson(actual)
         assert(expectedNormalized == actualNormalized) {
@@ -212,9 +231,7 @@ class JsonIfParserTest {
         }
     }
 
-    private fun normalizeJson(json: String): String {
-        return json.replace("\\s+".toRegex(), " ").trim()
-    }
+    private fun normalizeJson(json: String): String = json.replace("\\s+".toRegex(), " ").trim()
 
     private operator fun String.times(n: Int): String = this.repeat(n)
 }
