@@ -1,1 +1,2 @@
-let mateo_sere: string = "Hello, World!";
+let mateo_sere: string = readInput("¿Cómo te llamas?");
+println("Hola " + mateo_sere + ", bienvenido a Ingsis");

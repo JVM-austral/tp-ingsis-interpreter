@@ -10,7 +10,9 @@ plugins {
 
 group = 'org.JVM-austral'
 
-
+run {
+    standardInput = System.in
+}
 dependencies {
 
     implementation project(":runner")
