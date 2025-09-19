@@ -1,0 +1,2 @@
+const a: string = readInput("Pone un jugador");
+println(a + " es un crack");

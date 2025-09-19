@@ -1,11 +1,11 @@
-package envadapter
+package handler
 
 import ast.Ast
 import ast.BooleanLiteral
 import ast.NumberLiteral
 import ast.StringLiteral
 
-class EnvAdapter {
+class CliEnvHandler {
     private val numberRegex = Regex("^-?\\d+(?:\\.\\d+)?$")
 
     private fun isNumeric(value: String): Boolean = numberRegex.matches(value.trim())

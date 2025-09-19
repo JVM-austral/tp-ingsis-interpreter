@@ -4,7 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import envadapter.EnvAdapter
+import handler.CliEnvHandler
 import runner.RunnerImplementation
 import java.io.File
 
@@ -23,7 +23,7 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
 
             val code = File(file).readText()
 
-            val envAdapter = EnvAdapter()
+            val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
             val runner = RunnerImplementation(version, env = env)
