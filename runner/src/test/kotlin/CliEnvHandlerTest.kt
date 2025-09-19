@@ -5,7 +5,6 @@ import org.junit.jupiter.api.assertThrows
 import runner.RunnerImplementation
 
 class CliEnvHandlerTest {
-
     @Test
     fun testEnvAdapter() {
         val envAdapter = CliEnvHandler()
@@ -19,10 +18,11 @@ class CliEnvHandlerTest {
         val envMap: MutableMap<String, String> = System.getenv()
         val env = envAdapter.processEnv(envMap)
         val runner = RunnerImplementation("V2", env = env)
-        val code = """ 
+        val code =
+            """ 
             const a: string = readEnv("BEST_FOOTBALL_CLUB");
             println(a);
-        """.trimIndent()
+            """.trimIndent()
 
         val codeStream = code.byteInputStream()
         runner.run(codeStream)
@@ -35,10 +35,11 @@ class CliEnvHandlerTest {
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
             val runner = RunnerImplementation("V2", env = env)
-            val code = """ 
+            val code =
+                """ 
                 const a: string = readEnv("NOT_EXISTING_VAR");
                 println(a);
-            """.trimIndent()
+                """.trimIndent()
 
             val codeStream = code.byteInputStream()
             runner.run(codeStream)
