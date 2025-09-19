@@ -15,7 +15,6 @@ class VarDefinitionBinaryExecutor(
     private val declarationCondition: PriorityDeclarationCondition,
     private val constCondition: ConstDefinitionCondition,
 ) : InterpreterExecutor {
-
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
@@ -40,8 +39,9 @@ class VarDefinitionBinaryExecutor(
             val typeError = isCompatibleTypeCondition.evaluate(statement, heap)
             if (typeError != null) return errorResult(typeError)
 
-            val type = heap[variableName]?.type
-                ?: return errorResult("Variable '$variableName' has no type information")
+            val type =
+                heap[variableName]?.type
+                    ?: return errorResult("Variable '$variableName' has no type information")
 
             heap[variableName] = VariableInfo(type, evaluatedValue.toString())
             Result.success(ast)
@@ -51,6 +51,8 @@ class VarDefinitionBinaryExecutor(
     }
 
     private fun obtenerNombreVariable(ast: Ast) = ast.getListOfChildren()[0].getValue()
+
     private fun obtenerOperacionBinaria(ast: Ast) = ast.getListOfChildren()[1]
+
     private fun errorResult(message: String?): Result<Ast> = Result.failure(Exception(message))
 }

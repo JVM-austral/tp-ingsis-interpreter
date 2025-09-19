@@ -19,14 +19,16 @@ class IsCompatibleTypeCondition(
         val ast = statement.getOrNull() ?: return "Error: AST nulo"
         val row = ast.getRow()
         val column = ast.getColumn()
-        val type = if (
-            ast is VarDefinition && (ast.getListOfChildren()[1] is BinaryOperation || ast.getListOfChildren()[1] is BooleanBinaryOperation)
-        ) {
-            val key = ast.getListOfChildren()[0].getValue() as? String
-            heap[key]?.type
-        } else {
-            ast.getListOfChildren()[1].getValue()
-        }
+        val type =
+            if (
+                ast is VarDefinition &&
+                (ast.getListOfChildren()[1] is BinaryOperation || ast.getListOfChildren()[1] is BooleanBinaryOperation)
+            ) {
+                val key = ast.getListOfChildren()[0].getValue() as? String
+                heap[key]?.type
+            } else {
+                ast.getListOfChildren()[1].getValue()
+            }
         val expectedType = mapOfCondition[type]
         if (evaluatedValue == null) return "Error: valor evaluado nulo (rw: $row, col: $column)"
         return if (expectedType != null && expectedType.isInstance(evaluatedValue)) {

@@ -7,7 +7,6 @@ import java.io.File
 import kotlin.test.assertTrue
 
 class FormatterFactoryTest {
-
     @Test
     fun `FormatterFactoryV1 should create FormatterImpl with expected analyzers`() {
         val factory = FormatterFactoryV1()

@@ -4,13 +4,15 @@ import ast.Ast
 import evaluator.AstEvaluator
 import interpreter.VariableInfo
 
-class PrintLnExecutor(private val engine: AstEvaluator) : InterpreterExecutor {
+class PrintLnExecutor(
+    private val engine: AstEvaluator,
+) : InterpreterExecutor {
     override fun execute(
         statement: Result<Ast>,
         heap: MutableMap<String, VariableInfo>,
         env: MutableMap<String, Ast>,
-    ): Result<Ast> {
-        return statement.fold(
+    ): Result<Ast> =
+        statement.fold(
             onSuccess = { ast ->
                 try {
                     engine.evaluate(ast, heap, env)
@@ -23,5 +25,4 @@ class PrintLnExecutor(private val engine: AstEvaluator) : InterpreterExecutor {
                 Result.failure(Exception(exception.message))
             },
         )
-    }
 }

@@ -4,7 +4,10 @@ import ast.VarDefinition
 import interpreter.VariableInfo
 
 class VarDefinitionBinaryStructureCondition : Condition {
-    override fun evaluate(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>): String? {
+    override fun evaluate(
+        statement: Result<Ast>,
+        heap: MutableMap<String, VariableInfo>,
+    ): String? {
         val ast = statement.getOrNull() ?: return "AST inválido"
         val row = ast.getRow()
         val column = ast.getColumn()

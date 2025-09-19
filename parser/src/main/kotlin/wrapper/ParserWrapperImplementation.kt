@@ -10,7 +10,6 @@ class ParserWrapperImplementation(
     private val lexerWrapper: IteratorWrapper<Result<Token>>,
     private val parser: Parser,
 ) : IteratorWrapper<Result<Ast>> {
-
     private val tokenBuffer = mutableListOf<Result<Token>>()
     private val astQueue = ArrayDeque<Result<Ast>>()
     private var nextAst: Result<Ast>? = null

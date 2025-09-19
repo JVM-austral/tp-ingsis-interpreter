@@ -6,8 +6,9 @@ import executor.StructureExecutor
 import token.Token
 import token.TokenType
 
-class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>) : Parser {
-
+class ParserImplementation(
+    private val listOfAnalyzers: List<StructureAnalyzer>,
+) : Parser {
     override fun parse(tokens: List<Result<Token>>): List<Result<Ast>> {
         val root: MutableList<Result<Ast>> = mutableListOf()
         val cleanTokens: List<Result<Token>> = clearUnnecessaryTokens(tokens)
@@ -74,17 +75,24 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         return false
     }
 
-    private fun toggleIfMode(current: MutableList<Token>, ifMode: Boolean, token: Token): Boolean {
-        return if (current.firstOrNull()?.value == "if" && current.firstOrNull()?.type == TokenType.CONDITIONAL) {
+    private fun toggleIfMode(
+        current: MutableList<Token>,
+        ifMode: Boolean,
+        token: Token,
+    ): Boolean =
+        if (current.firstOrNull()?.value == "if" && current.firstOrNull()?.type == TokenType.CONDITIONAL) {
             true
         } else if (ifMode && token.value == "}") {
             false
         } else {
             ifMode
         }
-    }
 
-    private fun handleElseBranch(token: Token, ifMode: Boolean, current: MutableList<Token>): Boolean {
+    private fun handleElseBranch(
+        token: Token,
+        ifMode: Boolean,
+        current: MutableList<Token>,
+    ): Boolean {
         if (ifMode && token.type == TokenType.CONDITIONAL && token.value == "else") {
             current.add(token)
             return true
@@ -92,17 +100,21 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
         return false
     }
 
-    private fun shouldProcessStatement(current: List<Token>): Boolean {
-        return matchesAnalyzer(current).isSuccess
-    }
+    private fun shouldProcessStatement(current: List<Token>): Boolean = matchesAnalyzer(current).isSuccess
 
-    private fun finalizeRemainingTokens(current: MutableList<Token>, root: MutableList<Result<Ast>>) {
+    private fun finalizeRemainingTokens(
+        current: MutableList<Token>,
+        root: MutableList<Result<Ast>>,
+    ) {
         if (current.isNotEmpty()) {
             processStatement(current, root)
         }
     }
 
-    private fun processStatement(tokens: List<Token>, root: MutableList<Result<Ast>>) {
+    private fun processStatement(
+        tokens: List<Token>,
+        root: MutableList<Result<Ast>>,
+    ) {
         if (tokens.isEmpty()) return
 
         val executorResult = matchesAnalyzer(tokens)
@@ -118,7 +130,7 @@ class ParserImplementation(private val listOfAnalyzers: List<StructureAnalyzer>)
                 (
                     result.getOrNull()?.type != TokenType.WHITESPACE &&
                         result.getOrNull()?.type != TokenType.ENTER
-                    )
+                )
             ) {
                 resultList.add(result)
             }

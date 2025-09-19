@@ -18,18 +18,24 @@ class VarDefinitionBinaryAnalyzer(
     private val declarationCondition: PriorityDeclarationCondition,
     private val constCondition: ConstDefinitionCondition,
 ) : InterpreterAnalyzer {
-    override fun analyzeInterpretation(statement: Result<Ast>, heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): Boolean {
+    override fun analyzeInterpretation(
+        statement: Result<Ast>,
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): Boolean {
         val ast = statement.getOrNull() ?: return false
         return ast is VarDefinition && ast.getListOfChildren()[1] is BinaryOperation
     }
 
-    override fun getExecutor(heap: MutableMap<String, VariableInfo>, env: MutableMap<String, Ast>): InterpreterExecutor {
-        return executor.VarDefinitionBinaryExecutor(
+    override fun getExecutor(
+        heap: MutableMap<String, VariableInfo>,
+        env: MutableMap<String, Ast>,
+    ): InterpreterExecutor =
+        executor.VarDefinitionBinaryExecutor(
             engine,
             isCompatibleTypeCondition,
             structureCondition,
             declarationCondition,
             constCondition,
         )
-    }
 }

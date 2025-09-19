@@ -16,7 +16,6 @@ import token.Token
 import token.TokenType
 
 class JsonParserTest {
-
     private lateinit var parser: ParserImplementation
     private lateinit var letAnalyzer: LetVariableDeclarationAnalyzer
     private lateinit var letWithStringAssignmentAnalyzer: LetVariableDeclarationWithStringAssignmentAnalyzer
@@ -41,47 +40,54 @@ class JsonParserTest {
         parser =
             ParserImplementation(
                 listOf(
-                    letAnalyzer, letWithNumberAssignmentAnalyzer, letWithStringAssignmentAnalyzer, variableDefinitionAnalyzer, FunctionAnalyzer(), letVariableDeclarationWithInputAssignment, variableDefinitionWithInputAnalyzer,
+                    letAnalyzer,
+                    letWithNumberAssignmentAnalyzer,
+                    letWithStringAssignmentAnalyzer,
+                    variableDefinitionAnalyzer,
+                    FunctionAnalyzer(),
+                    letVariableDeclarationWithInputAssignment,
+                    variableDefinitionWithInputAnalyzer,
                 ),
-
             )
     }
 
     @Test
     fun `test simple let declaration to JSON`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("userName", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
+        val tokens =
+            listOf(
+                Token("let", TokenType.KEYWORD, 1, 1),
+                Token("userName", TokenType.IDENTIFIER, 1, 2),
+                Token(":", TokenType.PUNCTUATION, 1, 3),
+                Token("string", TokenType.IDENTIFIER, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "VarDeclaration",
-            "value": "let",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "StringLiteral",
-                "value": "userName"
-              },
-              {
-                "type": "TypeDeclaration",
-                "value": "string"
-              },
-              {
-                "type": "ScapeAst",
-                "value": ""
+                "type": "VarDeclaration",
+                "value": "let",
+                "children": [
+                  {
+                    "type": "StringLiteral",
+                    "value": "userName"
+                  },
+                  {
+                    "type": "TypeDeclaration",
+                    "value": "string"
+                  },
+                  {
+                    "type": "ScapeAst",
+                    "value": ""
+                  }
+                ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 LET DECLARATION TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -90,24 +96,26 @@ class JsonParserTest {
 
     @Test
     fun `test let with number assignment to JSON`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("result", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("number", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("5", TokenType.NUMBER_LITERAL, 1, 6),
-            Token("+", TokenType.OPERATOR, 1, 7),
-            Token("3", TokenType.NUMBER_LITERAL, 1, 8),
-            Token("+", TokenType.OPERATOR, 1, 7),
-            Token("3", TokenType.NUMBER_LITERAL, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
+        val tokens =
+            listOf(
+                Token("let", TokenType.KEYWORD, 1, 1),
+                Token("result", TokenType.IDENTIFIER, 1, 2),
+                Token(":", TokenType.PUNCTUATION, 1, 3),
+                Token("number", TokenType.IDENTIFIER, 1, 4),
+                Token("=", TokenType.OPERATOR, 1, 5),
+                Token("5", TokenType.NUMBER_LITERAL, 1, 6),
+                Token("+", TokenType.OPERATOR, 1, 7),
+                Token("3", TokenType.NUMBER_LITERAL, 1, 8),
+                Token("+", TokenType.OPERATOR, 1, 7),
+                Token("3", TokenType.NUMBER_LITERAL, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
+        val expectedJson =
+            """
 [
   {
     "type": "VarDeclaration",
@@ -148,7 +156,7 @@ class JsonParserTest {
     ]
   }
 ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 LET WITH NUMBER ASSIGNMENT TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -157,53 +165,55 @@ class JsonParserTest {
 
     @Test
     fun `test let with string assignment to JSON`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("message", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("string", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
-            Token("+", TokenType.OPERATOR, 1, 7),
-            Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
+        val tokens =
+            listOf(
+                Token("let", TokenType.KEYWORD, 1, 1),
+                Token("message", TokenType.IDENTIFIER, 1, 2),
+                Token(":", TokenType.PUNCTUATION, 1, 3),
+                Token("string", TokenType.IDENTIFIER, 1, 4),
+                Token("=", TokenType.OPERATOR, 1, 5),
+                Token("\"hello\"", TokenType.STRING_LITERAL, 1, 6),
+                Token("+", TokenType.OPERATOR, 1, 7),
+                Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "VarDeclaration",
-            "value": "let",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "StringLiteral",
-                "value": "message"
-              },
-              {
-                "type": "TypeDeclaration", 
-                "value": "string"
-              },
-              {
-                "type": "BinaryOperation",
-                "value": "+",
+                "type": "VarDeclaration",
+                "value": "let",
                 "children": [
                   {
                     "type": "StringLiteral",
-                    "value": "hello"
+                    "value": "message"
                   },
                   {
-                    "type": "StringLiteral",
-                    "value": "world"
+                    "type": "TypeDeclaration", 
+                    "value": "string"
+                  },
+                  {
+                    "type": "BinaryOperation",
+                    "value": "+",
+                    "children": [
+                      {
+                        "type": "StringLiteral",
+                        "value": "hello"
+                      },
+                      {
+                        "type": "StringLiteral",
+                        "value": "world"
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 LET WITH STRING ASSIGNMENT TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -212,34 +222,36 @@ class JsonParserTest {
 
     @Test
     fun `test variable definition to JSON`() {
-        val tokens = listOf(
-            Token("userName", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("\"John\"", TokenType.STRING_LITERAL, 1, 3),
-            Token(";", TokenType.PUNCTUATION, 1, 4),
-        )
+        val tokens =
+            listOf(
+                Token("userName", TokenType.IDENTIFIER, 1, 1),
+                Token("=", TokenType.OPERATOR, 1, 2),
+                Token("\"John\"", TokenType.STRING_LITERAL, 1, 3),
+                Token(";", TokenType.PUNCTUATION, 1, 4),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "VarDefinition",
-            "value": "=",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "StringLiteral",
-                "value": "userName"
-              },
-              {
-                "type": "StringLiteral",
-                "value": "John"
+                "type": "VarDefinition",
+                "value": "=",
+                "children": [
+                  {
+                    "type": "StringLiteral",
+                    "value": "userName"
+                  },
+                  {
+                    "type": "StringLiteral",
+                    "value": "John"
+                  }
+                ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 VARIABLE DEFINITION TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -248,46 +260,48 @@ class JsonParserTest {
 
     @Test
     fun `test variable definition with arithmetic to JSON`() {
-        val tokens = listOf(
-            Token("result", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("10", TokenType.NUMBER_LITERAL, 1, 3),
-            Token("*", TokenType.OPERATOR, 1, 4),
-            Token("2", TokenType.NUMBER_LITERAL, 1, 5),
-            Token(";", TokenType.PUNCTUATION, 1, 6),
-        )
+        val tokens =
+            listOf(
+                Token("result", TokenType.IDENTIFIER, 1, 1),
+                Token("=", TokenType.OPERATOR, 1, 2),
+                Token("10", TokenType.NUMBER_LITERAL, 1, 3),
+                Token("*", TokenType.OPERATOR, 1, 4),
+                Token("2", TokenType.NUMBER_LITERAL, 1, 5),
+                Token(";", TokenType.PUNCTUATION, 1, 6),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "VarDefinition",
-            "value": "=",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "StringLiteral",
-                "value": "result"
-              },
-              {
-                "type": "BinaryOperation",
-                "value": "*",
+                "type": "VarDefinition",
+                "value": "=",
                 "children": [
                   {
-                    "type": "NumberLiteral",
-                    "value": "10"
+                    "type": "StringLiteral",
+                    "value": "result"
                   },
                   {
-                    "type": "NumberLiteral",
-                    "value": "2"
+                    "type": "BinaryOperation",
+                    "value": "*",
+                    "children": [
+                      {
+                        "type": "NumberLiteral",
+                        "value": "10"
+                      },
+                      {
+                        "type": "NumberLiteral",
+                        "value": "2"
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 VARIABLE DEFINITION WITH ARITHMETIC TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -296,31 +310,33 @@ class JsonParserTest {
 
     @Test
     fun `test println function call to JSON`() {
-        val tokens = listOf(
-            Token("println", TokenType.IDENTIFIER, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
-            Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
+        val tokens =
+            listOf(
+                Token("println", TokenType.IDENTIFIER, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
+                Token(")", TokenType.PUNCTUATION, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "FunctionCallAst",
-            "value": "println",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "StringLiteral",
-                "value": "hello"
+                "type": "FunctionCallAst",
+                "value": "println",
+                "children": [
+                  {
+                    "type": "StringLiteral",
+                    "value": "hello"
+                  }
+                ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 PRINTLN FUNCTION CALL TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -329,31 +345,33 @@ class JsonParserTest {
 
     @Test
     fun `test println with variable to JSON`() {
-        val tokens = listOf(
-            Token("println", TokenType.IDENTIFIER, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("userName", TokenType.IDENTIFIER, 1, 3),
-            Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
+        val tokens =
+            listOf(
+                Token("println", TokenType.IDENTIFIER, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("userName", TokenType.IDENTIFIER, 1, 3),
+                Token(")", TokenType.PUNCTUATION, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "FunctionCallAst",
-            "value": "println",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "VariableIdentifier",
-                "value": "userName"
+                "type": "FunctionCallAst",
+                "value": "println",
+                "children": [
+                  {
+                    "type": "VariableIdentifier",
+                    "value": "userName"
+                  }
+                ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 PRINTLN WITH VARIABLE TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -362,43 +380,45 @@ class JsonParserTest {
 
     @Test
     fun `test println with arithmetic expression to JSON`() {
-        val tokens = listOf(
-            Token("println", TokenType.IDENTIFIER, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("5", TokenType.NUMBER_LITERAL, 1, 3),
-            Token("+", TokenType.OPERATOR, 1, 4),
-            Token("3", TokenType.NUMBER_LITERAL, 1, 5),
-            Token(")", TokenType.PUNCTUATION, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7),
-        )
+        val tokens =
+            listOf(
+                Token("println", TokenType.IDENTIFIER, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("5", TokenType.NUMBER_LITERAL, 1, 3),
+                Token("+", TokenType.OPERATOR, 1, 4),
+                Token("3", TokenType.NUMBER_LITERAL, 1, 5),
+                Token(")", TokenType.PUNCTUATION, 1, 6),
+                Token(";", TokenType.PUNCTUATION, 1, 7),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
 
-        val expectedJson = """
-        [
-          {
-            "type": "FunctionCallAst",
-            "value": "println",
-            "children": [
+        val expectedJson =
+            """
+            [
               {
-                "type": "BinaryOperation",
-                "value": "+",
+                "type": "FunctionCallAst",
+                "value": "println",
                 "children": [
                   {
-                    "type": "NumberLiteral",
-                    "value": "5"
-                  },
-                  {
-                    "type": "NumberLiteral",
-                    "value": "3"
+                    "type": "BinaryOperation",
+                    "value": "+",
+                    "children": [
+                      {
+                        "type": "NumberLiteral",
+                        "value": "5"
+                      },
+                      {
+                        "type": "NumberLiteral",
+                        "value": "3"
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ]
-        """.trimIndent()
+            """.trimIndent()
 
         println("\n🔍 PRINTLN WITH ARITHMETIC TEST")
         printJsonComparison(expectedJson, actualJson)
@@ -407,10 +427,11 @@ class JsonParserTest {
 
     @Test
     fun `test invalid syntax to JSON`() {
-        val tokens = listOf(
-            Token("invalid", TokenType.KEYWORD, 1, 1),
-            Token("syntax", TokenType.IDENTIFIER, 1, 2),
-        )
+        val tokens =
+            listOf(
+                Token("invalid", TokenType.KEYWORD, 1, 1),
+                Token("syntax", TokenType.IDENTIFIER, 1, 2),
+            )
 
         val result = parser.parse(tokens.map { Result.success(it) })
         val actualJson = result.toJson()
@@ -424,13 +445,14 @@ class JsonParserTest {
 
     @Test
     fun `test multiple statements to JSON`() {
-        val letTokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("x", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("number", TokenType.IDENTIFIER, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
+        val letTokens =
+            listOf(
+                Token("let", TokenType.KEYWORD, 1, 1),
+                Token("x", TokenType.IDENTIFIER, 1, 2),
+                Token(":", TokenType.PUNCTUATION, 1, 3),
+                Token("number", TokenType.IDENTIFIER, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+            )
 
         val result = parser.parse(letTokens.map { Result.success(it) })
         val actualJson = result.toJson()
@@ -444,24 +466,28 @@ class JsonParserTest {
 
     @Test
     fun `test multiple variables in input`() {
-        val letTokens = listOf(
-            Token("userChoice", TokenType.IDENTIFIER, 1, 1),
-            Token("=", TokenType.OPERATOR, 1, 2),
-            Token("readInput", TokenType.IDENTIFIER, 1, 3),
-            Token("(", TokenType.PUNCTUATION, 1, 4),
-            Token("prompt", TokenType.IDENTIFIER, 1, 5),
-            Token("+", TokenType.OPERATOR, 1, 2),
-            Token("hola", TokenType.IDENTIFIER, 1, 5),
-            Token(")", TokenType.PUNCTUATION, 1, 6),
-            Token(";", TokenType.PUNCTUATION, 1, 7),
-        )
+        val letTokens =
+            listOf(
+                Token("userChoice", TokenType.IDENTIFIER, 1, 1),
+                Token("=", TokenType.OPERATOR, 1, 2),
+                Token("readInput", TokenType.IDENTIFIER, 1, 3),
+                Token("(", TokenType.PUNCTUATION, 1, 4),
+                Token("prompt", TokenType.IDENTIFIER, 1, 5),
+                Token("+", TokenType.OPERATOR, 1, 2),
+                Token("hola", TokenType.IDENTIFIER, 1, 5),
+                Token(")", TokenType.PUNCTUATION, 1, 6),
+                Token(";", TokenType.PUNCTUATION, 1, 7),
+            )
 
         val result = parser.parse(letTokens.map { Result.success(it) })
         val actualJson = result.toJson()
         println(actualJson)
     }
 
-    private fun printJsonComparison(expected: String, actual: String) {
+    private fun printJsonComparison(
+        expected: String,
+        actual: String,
+    ) {
         println("=" * 60)
         println("📋 EXPECTED:")
         println(expected)
@@ -479,7 +505,10 @@ class JsonParserTest {
         println()
     }
 
-    private fun assertJsonSimilar(expected: String, actual: String) {
+    private fun assertJsonSimilar(
+        expected: String,
+        actual: String,
+    ) {
         val expectedNormalized = normalizeJson(expected)
         val actualNormalized = normalizeJson(actual)
         assert(expectedNormalized == actualNormalized) {
@@ -487,11 +516,12 @@ class JsonParserTest {
         }
     }
 
-    private fun normalizeJson(json: String): String {
-        return json.replace("\\s+".toRegex(), " ").trim()
-    }
+    private fun normalizeJson(json: String): String = json.replace("\\s+".toRegex(), " ").trim()
 
-    private fun printDifferences(expected: String, actual: String) {
+    private fun printDifferences(
+        expected: String,
+        actual: String,
+    ) {
         val expectedLines = expected.lines()
         val actualLines = actual.lines()
 
@@ -509,6 +539,4 @@ class JsonParserTest {
     }
 }
 
-operator fun String.times(n: Int): String {
-    return this.repeat(n)
-}
+operator fun String.times(n: Int): String = this.repeat(n)

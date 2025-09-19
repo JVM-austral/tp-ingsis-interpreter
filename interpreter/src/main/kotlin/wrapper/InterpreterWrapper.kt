@@ -9,7 +9,6 @@ class InterpreterWrapper(
     private val interpreter: Interpreter,
     private val batchSize: Int = 512,
 ) : IteratorWrapper<ExecutionUnit> {
-
     private var execIterator: Iterator<ExecutionUnit>? = null
     private var inputDepleted = false
 

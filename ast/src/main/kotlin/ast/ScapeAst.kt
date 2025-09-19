@@ -1,23 +1,13 @@
 package ast
 
 class ScapeAst : Ast {
-    override fun getListOfChildren(): List<Ast> {
-        return listOf()
-    }
+    override fun getListOfChildren(): List<Ast> = listOf()
 
-    override fun getChildLimit(): Int {
-        return 0
-    }
+    override fun getChildLimit(): Int = 0
 
-    override fun getValue(): String {
-        return ""
-    }
+    override fun getValue(): String = ""
 
-    override fun getRow(): Int {
-        return -1
-    }
+    override fun getRow(): Int = -1
 
-    override fun getColumn(): Int {
-        return -1
-    }
+    override fun getColumn(): Int = -1
 }

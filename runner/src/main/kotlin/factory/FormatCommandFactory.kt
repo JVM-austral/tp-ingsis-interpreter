@@ -5,18 +5,19 @@ import formatterfactory.FormatterFactoryWithJsonV1
 import formatterfactory.FormatterFactoryWithJsonV2
 import lexer.Lexer
 
-class FormatCommandFactory(private val version: Version, private val formatterConfigPath: String?) {
-    fun getLexer(): Lexer {
-        return when (version) {
+class FormatCommandFactory(
+    private val version: Version,
+    private val formatterConfigPath: String?,
+) {
+    fun getLexer(): Lexer =
+        when (version) {
             Version.V1 -> LexerFactoryV1().create()
             Version.V2 -> LexerFactoryV2().create()
         }
-    }
 
-    fun getFormatter(): Formatter {
-        return when (version) {
+    fun getFormatter(): Formatter =
+        when (version) {
             Version.V1 -> FormatterFactoryWithJsonV1(formatterConfigPath).create()
             Version.V2 -> FormatterFactoryWithJsonV2(formatterConfigPath).create()
         }
-    }
 }

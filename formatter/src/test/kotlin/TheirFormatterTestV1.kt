@@ -20,7 +20,6 @@ import java.io.File
 import kotlin.test.assertEquals
 
 class TheirFormatterTestV1 {
-
     private lateinit var lexer: lexer.Lexer
 
     private val tempDir = "temp_test_configs"
@@ -35,7 +34,10 @@ class TheirFormatterTestV1 {
         File(tempDir).deleteRecursively()
     }
 
-    private fun createConfigFile(filename: String, content: String): String {
+    private fun createConfigFile(
+        filename: String,
+        content: String,
+    ): String {
         val file = File(tempDir, filename)
         file.writeText(content)
         return file.absolutePath
@@ -43,32 +45,44 @@ class TheirFormatterTestV1 {
 
     @BeforeEach
     fun setup() {
-        lexer = LexerImplementation(
-            listOf<TokenAnalyzer>(
-                KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
-                OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-                VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(), EnterAnalyzer(),
-            ),
-        )
+        lexer =
+            LexerImplementation(
+                listOf<TokenAnalyzer>(
+                    KeywordAnalyzer(),
+                    NumberAnalyzer(),
+                    NumberTypeAnalyzer(),
+                    OperatorAnalyzer(),
+                    PunctuationAnalyzer(),
+                    StringAnalyzer(),
+                    StringTypeAnalyzer(),
+                    VariableAnalyzer(),
+                    WhitespaceAnalyzer(),
+                    MidStringAnalyzer(),
+                    MidNumberAnalyzer(),
+                    EnterAnalyzer(),
+                ),
+            )
     }
 
     @Test
     fun `no spacing around equals`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "enforceNoSpacingAroundEquals"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something: string= \"a really cool thing\";\n" +
-                "let another_thing: string =\"another really cool thing\";\n" +
-                "let twice_thing: string = \"another really cool thing twice\";\n" +
-                "let third_thing: string=\"another really cool thing three times\";",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something: string= \"a really cool thing\";\n" +
+                    "let another_thing: string =\"another really cool thing\";\n" +
+                    "let twice_thing: string = \"another really cool thing twice\";\n" +
+                    "let third_thing: string=\"another really cool thing three times\";",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -82,21 +96,23 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing around equals`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "enforceSpacingAroundEquals"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something: string= \"a really cool thing\";\n" +
-                "let another_thing: string =\"another really cool thing\";\n" +
-                "let twice_thing: string=\"another really cool thing twice\";\n" +
-                "let third_thing: string = \"another really cool thing three times\";",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something: string= \"a really cool thing\";\n" +
+                    "let another_thing: string =\"another really cool thing\";\n" +
+                    "let twice_thing: string=\"another really cool thing twice\";\n" +
+                    "let third_thing: string = \"another really cool thing three times\";",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -110,21 +126,23 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing after colon`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "enforceSpacingAfterColonInDeclaration"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "let another_thing: string = \"another really cool thing\";\n" +
-                "let twice_thing : string = \"another really cool thing twice\";\n" +
-                "let third_thing :string=\"another really cool thing three times\";",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "let another_thing: string = \"another really cool thing\";\n" +
+                    "let twice_thing : string = \"another really cool thing twice\";\n" +
+                    "let third_thing :string=\"another really cool thing three times\";",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -138,21 +156,23 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `spacing before colon`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "enforceSpacingBeforeColonInDeclaration"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "let another_thing :string = \"another really cool thing\";\n" +
-                "let twice_thing : string = \"another really cool thing twice\";\n" +
-                "let third_thing: string=\"another really cool thing three times\";",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "let another_thing :string = \"another really cool thing\";\n" +
+                    "let twice_thing : string = \"another really cool thing twice\";\n" +
+                    "let third_thing: string=\"another really cool thing three times\";",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -166,19 +186,21 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce single space separation`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "mandatorySingleSpaceSeparation"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:      string=\"a really cool thing\";\n" +
-                "println(something);",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:      string=\"a really cool thing\";\n" +
+                    "println(something);",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -190,11 +212,12 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce space between operators`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "mandatorySpaceSurroundingOperations"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
@@ -207,19 +230,21 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `enforce enter after semicolon`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "mandatoryLineBreakAfterStatement"=true
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "let another_thing: string = \"another really cool thing\";let twice_thing : string = \"another really cool thing twice\";let third_thing :string=\"another really cool thing three times\";",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "let another_thing: string = \"another really cool thing\";let twice_thing : string = \"another really cool thing twice\";let third_thing :string=\"another really cool thing three times\";",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -233,24 +258,26 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 0 breaks`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "lineBreakAfterPrintLn"=0
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "println(something);\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "println(\"in the way she moves\");",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "println(something);\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "println(\"in the way she moves\");",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -263,20 +290,22 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 1 breaks`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "lineBreakAfterPrintLn"=1
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "println(something);\n" +
-                "println(\"in the way she moves\");",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "println(something);\n" +
+                    "println(\"in the way she moves\");",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(
@@ -290,20 +319,22 @@ class TheirFormatterTestV1 {
 
     @Test
     fun `println 2 breaks`() {
-        val configContent = """
+        val configContent =
+            """
             {
               "lineBreakAfterPrintLn"=2
             }
-        """.trimIndent()
+            """.trimIndent()
         val configPath = createConfigFile("camelCase.json", configContent)
 
         val formatter = ConfigurableAnalyzerFormatter(configPath, 1).buildFormatter()
 
-        val tokens = lexer.tokenize(
-            "let something:string = \"a really cool thing\";\n" +
-                "println(something);\n" +
-                "println(\"in the way she moves\");",
-        )
+        val tokens =
+            lexer.tokenize(
+                "let something:string = \"a really cool thing\";\n" +
+                    "println(something);\n" +
+                    "println(\"in the way she moves\");",
+            )
         val result = formatter.format(tokens)
 
         assertEquals(

@@ -20,13 +20,22 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class LexerTest {
-
-    private val analyzers = listOf<TokenAnalyzer>(
-        KeywordAnalyzer(), NumberAnalyzer(), NumberTypeAnalyzer(),
-        OperatorAnalyzer(), PunctuationAnalyzer(), StringAnalyzer(), StringTypeAnalyzer(),
-        VariableAnalyzer(), WhitespaceAnalyzer(), MidStringAnalyzer(), MidNumberAnalyzer(),
-        PrintAnalyzer(), EnterAnalyzer(),
-    )
+    private val analyzers =
+        listOf<TokenAnalyzer>(
+            KeywordAnalyzer(),
+            NumberAnalyzer(),
+            NumberTypeAnalyzer(),
+            OperatorAnalyzer(),
+            PunctuationAnalyzer(),
+            StringAnalyzer(),
+            StringTypeAnalyzer(),
+            VariableAnalyzer(),
+            WhitespaceAnalyzer(),
+            MidStringAnalyzer(),
+            MidNumberAnalyzer(),
+            PrintAnalyzer(),
+            EnterAnalyzer(),
+        )
 
     private val lexerTestDsl = LexerTestDsl()
 

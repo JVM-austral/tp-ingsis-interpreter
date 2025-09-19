@@ -3,7 +3,10 @@ package condition
 import Condition
 
 class ConstDefinitionCondition : Condition {
-    override fun evaluate(statement: Result<ast.Ast>, heap: MutableMap<String, interpreter.VariableInfo>): String? {
+    override fun evaluate(
+        statement: Result<ast.Ast>,
+        heap: MutableMap<String, interpreter.VariableInfo>,
+    ): String? {
         val ast = statement.getOrNull() ?: return "AST is null"
         val row = ast.getRow()
         val column = ast.getColumn()

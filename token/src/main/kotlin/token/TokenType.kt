@@ -1,6 +1,6 @@
 package token
 
-enum class TokenType() {
+enum class TokenType {
     IDENTIFIER,
     KEYWORD,
     STRING_LITERAL,

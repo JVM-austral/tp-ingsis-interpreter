@@ -9,8 +9,8 @@ import executor.StructureExecutor
 import token.Token
 
 class BooleanDeclarationExecutor : StructureExecutor {
-    override fun execute(tokens: List<Token>): Ast {
-        return VarDeclaration(
+    override fun execute(tokens: List<Token>): Ast =
+        VarDeclaration(
             tokens[0].value,
             StringLiteral(tokens[1].value, tokens[1].line, tokens[1].column),
             TypeDeclaration(tokens[3].value, tokens[3].line, tokens[3].column),
@@ -18,5 +18,4 @@ class BooleanDeclarationExecutor : StructureExecutor {
             tokens[0].line,
             tokens[0].column,
         )
-    }
 }

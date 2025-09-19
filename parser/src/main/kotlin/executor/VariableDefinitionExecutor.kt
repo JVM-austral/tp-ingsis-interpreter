@@ -6,7 +6,9 @@ import ast.StringLiteral
 import ast.VarDefinition
 import token.Token
 
-class VariableDefinitionExecutor(private val operatorAnalyzers: List<StructureAnalyzer>) : StructureExecutor {
+class VariableDefinitionExecutor(
+    private val operatorAnalyzers: List<StructureAnalyzer>,
+) : StructureExecutor {
     override fun execute(tokens: List<Token>): Ast {
         lateinit var secondPartExecutor: StructureExecutor
 

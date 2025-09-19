@@ -8,7 +8,5 @@ class EnterAnalyzer : TokenAnalyzer {
         return restrictedList.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.ENTER
-    }
+    override fun giveType(): TokenType = TokenType.ENTER
 }

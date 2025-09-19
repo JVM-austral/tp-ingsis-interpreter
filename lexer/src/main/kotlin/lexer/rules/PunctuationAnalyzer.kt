@@ -8,7 +8,5 @@ class PunctuationAnalyzer : TokenAnalyzer {
         return punctuationList.contains(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.PUNCTUATION
-    }
+    override fun giveType(): TokenType = TokenType.PUNCTUATION
 }

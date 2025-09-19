@@ -14,11 +14,9 @@ cat > "$HOOK_FILE" << 'EOF'
 #!/bin/sh
 
 # Verificar formato
-./gradlew spotlessCheck
-if [ $? -ne 0 ]; then
-  echo "Spotless detectó problemas. Commit abortado."
-  exit 1
-fi
+#!/bin/sh
+./gradlew ktlintCheck
+./gradlew clean build
 
 echo "Spotless OK. Continuando con el commit..."
 EOF

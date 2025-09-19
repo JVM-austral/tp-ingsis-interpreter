@@ -6,7 +6,6 @@ import ast.NumberLiteral
 import ast.StringLiteral
 
 class CliEnvHandler {
-
     private val numberRegex = Regex("^-?\\d+(?:\\.\\d+)?$")
 
     private fun isNumeric(value: String): Boolean = numberRegex.matches(value.trim())
@@ -21,9 +20,10 @@ class CliEnvHandler {
         if (isNumeric(value) || isBoolean(value)) return value
 
         if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith('\'') && value.endsWith('\''))) return value
-        val escaped = value
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
+        val escaped =
+            value
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
         return "\"$escaped\""
     }
 
@@ -31,11 +31,12 @@ class CliEnvHandler {
         val resultMap = mutableMapOf<String, Ast>()
         for ((key, value) in env) {
             val normalizedValue = quoteIfNeeded(value)
-            val envVarAsString: Ast = when {
-                isNumeric(normalizedValue) -> NumberLiteral(normalizedValue, 0, 0)
-                isBoolean(normalizedValue) -> BooleanLiteral(normalizedValue, 0, 0)
-                else -> StringLiteral(normalizedValue, 0, 0)
-            }
+            val envVarAsString: Ast =
+                when {
+                    isNumeric(normalizedValue) -> NumberLiteral(normalizedValue, 0, 0)
+                    isBoolean(normalizedValue) -> BooleanLiteral(normalizedValue, 0, 0)
+                    else -> StringLiteral(normalizedValue, 0, 0)
+                }
             resultMap[key] = envVarAsString
         }
         return resultMap

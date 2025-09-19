@@ -8,7 +8,5 @@ class StringAnalyzer : TokenAnalyzer {
         return regex.matches(input)
     }
 
-    override fun giveType(): TokenType {
-        return TokenType.STRING_LITERAL
-    }
+    override fun giveType(): TokenType = TokenType.STRING_LITERAL
 }

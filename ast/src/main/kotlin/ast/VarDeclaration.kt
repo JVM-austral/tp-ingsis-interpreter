@@ -8,23 +8,13 @@ class VarDeclaration(
     private val row: Int,
     private val col: Int,
 ) : Ast {
-    override fun getListOfChildren(): List<Ast> {
-        return listOf(variable, type, expr)
-    }
+    override fun getListOfChildren(): List<Ast> = listOf(variable, type, expr)
 
-    override fun getChildLimit(): Int {
-        return 3
-    }
+    override fun getChildLimit(): Int = 3
 
-    override fun getValue(): String {
-        return identifier
-    }
+    override fun getValue(): String = identifier
 
-    override fun getRow(): Int {
-        return row
-    }
+    override fun getRow(): Int = row
 
-    override fun getColumn(): Int {
-        return col
-    }
+    override fun getColumn(): Int = col
 }

@@ -25,32 +25,32 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class NewLexerVersionTest {
-
     private lateinit var lexer: LexerImplementation
     private val lexerTestDsl = LexerTestDsl()
 
     @BeforeEach
     fun setUp() {
-        val analyzers = listOf(
-            ReadEnvAnalyzer(),
-            BooleanOperatorsAnalyzer(),
-            BooleanAnalyzer(),
-            BooleanTypeAnalyzer(),
-            ConstAnalyzer(),
-            IfElseAnalyzer(),
-            ReadInputAnalyzer(),
-            KeywordAnalyzer(),
-            NumberAnalyzer(),
-            NumberTypeAnalyzer(),
-            OperatorAnalyzer(),
-            PunctuationAnalyzer(),
-            StringAnalyzer(),
-            StringTypeAnalyzer(),
-            VariableAnalyzer(),
-            WhitespaceAnalyzer(),
-            MidStringAnalyzer(),
-            MidNumberAnalyzer(),
-        )
+        val analyzers =
+            listOf(
+                ReadEnvAnalyzer(),
+                BooleanOperatorsAnalyzer(),
+                BooleanAnalyzer(),
+                BooleanTypeAnalyzer(),
+                ConstAnalyzer(),
+                IfElseAnalyzer(),
+                ReadInputAnalyzer(),
+                KeywordAnalyzer(),
+                NumberAnalyzer(),
+                NumberTypeAnalyzer(),
+                OperatorAnalyzer(),
+                PunctuationAnalyzer(),
+                StringAnalyzer(),
+                StringTypeAnalyzer(),
+                VariableAnalyzer(),
+                WhitespaceAnalyzer(),
+                MidStringAnalyzer(),
+                MidNumberAnalyzer(),
+            )
         lexer = LexerImplementation(analyzers)
     }
 

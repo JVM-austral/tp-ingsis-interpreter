@@ -25,11 +25,18 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringReader
 
-class RunnerImplementation(private val version: String?, private val stdOutHandler: OutputHandler = StdOutputHandler(), private val inputProvider: InputProvider = ConsoleInputProvider(), private val env: MutableMap<String, Ast> = mutableMapOf()) : Runner {
-
+class RunnerImplementation(
+    private val version: String?,
+    private val stdOutHandler: OutputHandler = StdOutputHandler(),
+    private val inputProvider: InputProvider = ConsoleInputProvider(),
+    private val env: MutableMap<String, Ast> = mutableMapOf(),
+) : Runner {
     private var errorHandler = MockErrorHandler()
 
-    override fun format(code: String, formatterConfigPath: String?): String {
+    override fun format(
+        code: String,
+        formatterConfigPath: String?,
+    ): String {
         val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
@@ -54,10 +61,11 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
             val tokenBuffer = TokenBuffer()
             val lexerWrapper = LexerWrapperImplementation(lexer, InputStreamReader(code), tokenBuffer)
 
-            val parserWrapper = ParserWrapperImplementation(
-                lexerWrapper,
-                parser,
-            )
+            val parserWrapper =
+                ParserWrapperImplementation(
+                    lexerWrapper,
+                    parser,
+                )
             val interpreterWrapper = InterpreterWrapper(parserWrapper, interpreter)
 
             val executionEngine = ExecutionEngine(mutableMapOf(), env)
@@ -73,7 +81,10 @@ class RunnerImplementation(private val version: String?, private val stdOutHandl
         }
     }
 
-    override fun lint(code: String, linterConfigPath: String?) {
+    override fun lint(
+        code: String,
+        linterConfigPath: String?,
+    ) {
         val factory = LintCommandFactory(fromString(version ?: "V1"), linterConfigPath)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()

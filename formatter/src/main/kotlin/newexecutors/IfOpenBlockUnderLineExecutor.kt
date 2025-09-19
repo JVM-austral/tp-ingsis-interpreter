@@ -4,7 +4,11 @@ import executors.FormatRulesExecutors
 import token.Token
 
 class IfOpenBlockUnderLineExecutor : FormatRulesExecutors {
-    override fun apply(exToken: Token, currentToken: Token, currentString: String): String {
+    override fun apply(
+        exToken: Token,
+        currentToken: Token,
+        currentString: String,
+    ): String {
         val charactersToTake = amountOfEntersBefore(currentString)
 
         return currentString.dropLast(charactersToTake) + "\n" + "{"

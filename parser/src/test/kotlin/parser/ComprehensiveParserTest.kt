@@ -95,7 +95,6 @@ class ComprehensiveParserTest {
                 Token(":", TokenType.PUNCTUATION, 1, 3),
                 Token("number", TokenType.IDENTIFIER, 1, 4),
                 Token(";", TokenType.PUNCTUATION, 1, 5),
-
             )
 
         assertTrue(letAnalyzer.analyzeStructure(tokens))
@@ -347,7 +346,6 @@ class ComprehensiveParserTest {
                 Token("+", TokenType.OPERATOR, 1, 4),
                 Token("3", TokenType.NUMBER_LITERAL, 1, 5),
                 Token(";", TokenType.PUNCTUATION, 1, 6),
-
             )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -361,7 +359,6 @@ class ComprehensiveParserTest {
                 Token("=", TokenType.OPERATOR, 1, 2),
                 Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
                 Token(";", TokenType.PUNCTUATION, 1, 6),
-
             )
 
         assertTrue(variableDefinitionAnalyzer.analyzeStructure(tokens))
@@ -415,7 +412,6 @@ class ComprehensiveParserTest {
                 Token("+", TokenType.OPERATOR, 1, 7),
                 Token("3", TokenType.NUMBER_LITERAL, 1, 8),
                 Token(";", TokenType.PUNCTUATION, 1, 9),
-
             )
 
         assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
@@ -434,7 +430,6 @@ class ComprehensiveParserTest {
                 Token("+", TokenType.OPERATOR, 1, 7),
                 Token("\"world\"", TokenType.STRING_LITERAL, 1, 8),
                 Token(";", TokenType.PUNCTUATION, 1, 9),
-
             )
 
         assertTrue(letWithStringAssignmentAnalyzer.analyzeStructure(tokens))
@@ -681,13 +676,14 @@ class ComprehensiveParserTest {
 
     @Test
     fun `should execute function call with single parameter`() {
-        val tokens = listOf(
-            Token("println", TokenType.IDENTIFIER, 1, 1),
-            Token("(", TokenType.PUNCTUATION, 1, 2),
-            Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
-            Token(")", TokenType.PUNCTUATION, 1, 4),
-            Token(";", TokenType.PUNCTUATION, 1, 5),
-        )
+        val tokens =
+            listOf(
+                Token("println", TokenType.IDENTIFIER, 1, 1),
+                Token("(", TokenType.PUNCTUATION, 1, 2),
+                Token("\"hello\"", TokenType.STRING_LITERAL, 1, 3),
+                Token(")", TokenType.PUNCTUATION, 1, 4),
+                Token(";", TokenType.PUNCTUATION, 1, 5),
+            )
 
         val executor = FunctionExecutor(listOf(BinaryNumberOperatorAnalyzer(), StringConcatenationAnalyzer()))
         val result = executor.execute(tokens)
@@ -701,11 +697,12 @@ class ComprehensiveParserTest {
 
     @Test
     fun `should execute variable with number arithmetic`() {
-        val tokens = listOf(
-            Token("x", TokenType.IDENTIFIER, 1, 1),
-            Token("+", TokenType.OPERATOR, 1, 2),
-            Token("5", TokenType.NUMBER_LITERAL, 1, 3),
-        )
+        val tokens =
+            listOf(
+                Token("x", TokenType.IDENTIFIER, 1, 1),
+                Token("+", TokenType.OPERATOR, 1, 2),
+                Token("5", TokenType.NUMBER_LITERAL, 1, 3),
+            )
 
         val executor = BinaryNumberOperatorExecutor()
         val result = executor.execute(tokens)
@@ -719,28 +716,30 @@ class ComprehensiveParserTest {
 
     @Test
     fun `should analyze let declaration with variable arithmetic assignment`() {
-        val tokens = listOf(
-            Token("let", TokenType.KEYWORD, 1, 1),
-            Token("result", TokenType.IDENTIFIER, 1, 2),
-            Token(":", TokenType.PUNCTUATION, 1, 3),
-            Token("number", TokenType.IDENTIFIER, 1, 4),
-            Token("=", TokenType.OPERATOR, 1, 5),
-            Token("max", TokenType.IDENTIFIER, 1, 6),
-            Token("+", TokenType.OPERATOR, 1, 7),
-            Token("2", TokenType.NUMBER_LITERAL, 1, 8),
-            Token(";", TokenType.PUNCTUATION, 1, 9),
-        )
+        val tokens =
+            listOf(
+                Token("let", TokenType.KEYWORD, 1, 1),
+                Token("result", TokenType.IDENTIFIER, 1, 2),
+                Token(":", TokenType.PUNCTUATION, 1, 3),
+                Token("number", TokenType.IDENTIFIER, 1, 4),
+                Token("=", TokenType.OPERATOR, 1, 5),
+                Token("max", TokenType.IDENTIFIER, 1, 6),
+                Token("+", TokenType.OPERATOR, 1, 7),
+                Token("2", TokenType.NUMBER_LITERAL, 1, 8),
+                Token(";", TokenType.PUNCTUATION, 1, 9),
+            )
 
         assertTrue(letWithNumberAssignmentAnalyzer.analyzeStructure(tokens))
     }
 
     @Test
     fun `should execute string concatenation with variables`() {
-        val tokens = listOf(
-            Token("nombre", TokenType.IDENTIFIER, 1, 1),
-            Token("+", TokenType.OPERATOR, 1, 2),
-            Token("\"!\"", TokenType.STRING_LITERAL, 1, 3),
-        )
+        val tokens =
+            listOf(
+                Token("nombre", TokenType.IDENTIFIER, 1, 1),
+                Token("+", TokenType.OPERATOR, 1, 2),
+                Token("\"!\"", TokenType.STRING_LITERAL, 1, 3),
+            )
 
         val executor = StringConcatenationExecutor()
         val result = executor.execute(tokens)

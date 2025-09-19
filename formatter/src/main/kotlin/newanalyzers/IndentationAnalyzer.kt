@@ -5,8 +5,14 @@ import executors.FormatRulesExecutors
 import newexecutors.IndentationExecutor
 import token.TokenType
 
-class IndentationAnalyzer(private val indentation: Int) : FormatRulesAnalyzers {
-    override fun analyze(exToken: token.Token, currentToken: token.Token, currentString: String): Boolean {
+class IndentationAnalyzer(
+    private val indentation: Int,
+) : FormatRulesAnalyzers {
+    override fun analyze(
+        exToken: token.Token,
+        currentToken: token.Token,
+        currentString: String,
+    ): Boolean {
         if (currentToken.type == TokenType.ENTER) {
             return false
         }
@@ -17,11 +23,12 @@ class IndentationAnalyzer(private val indentation: Int) : FormatRulesAnalyzers {
         }
     }
 
-    override fun giveExecutor(): FormatRulesExecutors {
-        return IndentationExecutor(indentation)
-    }
+    override fun giveExecutor(): FormatRulesExecutors = IndentationExecutor(indentation)
 
-    private fun hasToIndent(currentString: String, expectedBraceLevel: Int): Boolean {
+    private fun hasToIndent(
+        currentString: String,
+        expectedBraceLevel: Int,
+    ): Boolean {
         val lastEnterIndex = currentString.lastIndexOf('\n').takeIf { it != -1 } ?: 0
 
         var i = lastEnterIndex + 1
@@ -46,7 +53,5 @@ class IndentationAnalyzer(private val indentation: Int) : FormatRulesAnalyzers {
         return openCount - closeCount
     }
 
-    override fun stillNecessaryToAddToken(): Boolean {
-        return true
-    }
+    override fun stillNecessaryToAddToken(): Boolean = true
 }

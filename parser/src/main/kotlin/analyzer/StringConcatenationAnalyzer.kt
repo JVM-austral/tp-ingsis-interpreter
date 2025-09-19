@@ -6,13 +6,9 @@ import token.Token
 import token.TokenType
 
 class StringConcatenationAnalyzer : StructureAnalyzer {
-    override fun analyzeStructure(tokens: List<Token>): Boolean {
-        return isStringConcatenation(tokens)
-    }
+    override fun analyzeStructure(tokens: List<Token>): Boolean = isStringConcatenation(tokens)
 
-    override fun getExecutor(): StructureExecutor {
-        return StringConcatenationExecutor()
-    }
+    override fun getExecutor(): StructureExecutor = StringConcatenationExecutor()
 
     private fun isStringConcatenation(tokens: List<Token>): Boolean {
         if (tokens.isEmpty()) return false

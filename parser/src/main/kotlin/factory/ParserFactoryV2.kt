@@ -17,22 +17,22 @@ import parser.Parser
 import parser.ParserImplementation
 
 class ParserFactoryV2 {
-    private val rules = listOf(
-        FunctionAnalyzer(), LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let")),
-        LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
-        LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
-        VariableDefinitionAnalyzer(),
-        BooleanDefinitionAnalyzer(),
-        BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
-        LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
-        LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
-        VariableDefinitionWithEnvAnalyzer(),
-        IfAnalyzer(),
-        LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
-        VariableDefinitionWithInputAnalyzer(),
-    )
+    private val rules =
+        listOf(
+            FunctionAnalyzer(),
+            LetVariableDeclarationAnalyzer(listOf("number", "string"), listOf("let")),
+            LetVariableDeclarationWithNumberAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
+            LetVariableDeclarationWithStringAssignmentAnalyzer(listOf("number", "string"), listOf("let", "const")),
+            VariableDefinitionAnalyzer(),
+            BooleanDefinitionAnalyzer(),
+            BooleanDeclarationAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithBooleanAnalyzer(listOf("number", "string", "boolean"), listOf("let", "const")),
+            LetVariableDeclarationWithEnvAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+            VariableDefinitionWithEnvAnalyzer(),
+            IfAnalyzer(),
+            LetVariableDeclarationWithInputAssignment(listOf("number", "string", "boolean"), listOf("let", "const")),
+            VariableDefinitionWithInputAnalyzer(),
+        )
 
-    fun create(): Parser {
-        return ParserImplementation(rules)
-    }
+    fun create(): Parser = ParserImplementation(rules)
 }

@@ -8,5 +8,6 @@ interface Ast {
     fun getValue(): String
 
     fun getRow(): Int
+
     fun getColumn(): Int
 }
