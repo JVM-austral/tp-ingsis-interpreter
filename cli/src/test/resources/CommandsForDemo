@@ -1,1 +1,4 @@
-./gradlew :cli:run --args="execution -f C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\test\resources\helloWorld4.txt -v V2"
+./gradlew :cli:run --args="execution -f C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\test\resources\executeWithReadEnv.txt -v V2"
+
+./gradlew :cli:run --args="execution -f C:\Users\sereb\programming\faculty\ingsis\tp-ingsis-interpreter\cli\src\test\resources\executeWithReadInput.txt  -v V2"
+

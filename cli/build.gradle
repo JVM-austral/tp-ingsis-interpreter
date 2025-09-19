@@ -11,6 +11,7 @@ group = 'org.JVM-austral'
 
 tasks.named('run') {
     environment "BEST_FOOTBALL_CLUB", "River Plate"
+    standardInput = System.in
 }
 
 

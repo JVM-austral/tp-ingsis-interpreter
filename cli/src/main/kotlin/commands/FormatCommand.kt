@@ -4,7 +4,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
-import envadapter.EnvAdapter
+import handler.CliEnvHandler
 import runner.RunnerImplementation
 
 class FormatCommand : CliktCommand(name = "format", help = "Formats the source code") {
@@ -18,7 +18,7 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
         try {
             echo("Formatting $file...")
             val code = java.io.File(file).readText()
-            val envAdapter = EnvAdapter()
+            val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
             val runner = RunnerImplementation(version, env = env)
