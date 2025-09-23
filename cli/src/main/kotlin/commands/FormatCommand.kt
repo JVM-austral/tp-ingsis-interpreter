@@ -17,7 +17,11 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
     override fun run() {
         try {
             echo("Formatting $file...")
-            val code = java.io.File(file).readText().replace("\r", "")
+            val code =
+                java.io
+                    .File(file)
+                    .readText()
+                    .replace("\r", "")
             val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
