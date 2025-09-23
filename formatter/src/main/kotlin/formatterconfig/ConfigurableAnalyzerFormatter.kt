@@ -115,7 +115,6 @@ class ConfigurableAnalyzerFormatter(
             analyzers.add(SpaceBeforeColonAnalyzer())
         }
         if (options1.mandatorySingleSpaceSeparation) {
-            analyzers.add(OnlyOneSpaceAnalyzer())
             analyzers.add(NecessarySpaceAnalyzer())
         }
         if (options1.mandatorySpaceSurroundingOperations) {
@@ -128,6 +127,7 @@ class ConfigurableAnalyzerFormatter(
         if (options1.lineBreakAfterPrintLn in 0..2) {
             analyzers.add(NewLinesBeforePrintlnAnalyzer(options1.lineBreakAfterPrintLn + 1))
         }
+        analyzers.add(OnlyOneSpaceAnalyzer())
         return FormatterImpl(analyzers)
     }
 }

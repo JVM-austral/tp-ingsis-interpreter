@@ -78,7 +78,7 @@ class TheirFormatterTestV1 {
 
         val tokens =
             lexer.tokenize(
-                "let something: string= \"a really cool thing\";\n" +
+                "let something: string   = \"a really cool thing\";\n" +
                     "let another_thing: string =\"another really cool thing\";\n" +
                     "let twice_thing: string = \"another really cool thing twice\";\n" +
                     "let third_thing: string=\"another really cool thing three times\";",

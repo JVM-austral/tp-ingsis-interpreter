@@ -1,5 +1,7 @@
-const booleanValue: boolean = true;
-if(booleanValue) {
-    println("if statement is not working correctly");
+let something: boolean = true;
+if (something) {
+    if (something) {
+        println("Entered two ifs");
+    }
 }
-println("outside of conditional");
+let something: boolean = readInput("hola" + "hola");

@@ -1,5 +1,2 @@
-let hola:           string          ="Hello, World!";
-
-
-
-println                 (hola);
+let hola_hola : string="Hello, World!";
+println (hola);

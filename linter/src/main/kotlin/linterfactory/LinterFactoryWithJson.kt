@@ -10,7 +10,7 @@ class LinterFactoryWithJson(
     fun create(): Linter {
         var configPath = linterConfigPath
         if (configPath == null) {
-            configPath = "src/main/resources/linter-rules-v-1.json"
+            configPath = "src/main/resources/linter-rules-v-2.json"
         }
         val configurableLinter = ConfigurableLinter(configPath, v2)
 

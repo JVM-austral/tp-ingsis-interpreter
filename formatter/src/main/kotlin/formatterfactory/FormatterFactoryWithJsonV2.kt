@@ -9,7 +9,7 @@ class FormatterFactoryWithJsonV2(
     fun create(): Formatter {
         var configPath = linterConfigPath
         if (configPath == null) {
-            configPath = "src/main/resources/formatter-rules-v-1.json"
+            configPath = "src/main/resources/formatter-rules-v-2.json"
         }
 
         return ConfigurableAnalyzerFormatter(configPath, 2).buildFormatter()

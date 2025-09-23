@@ -124,7 +124,7 @@ class TheirFormatterTestV2 {
                     "if (something) {\n" +
                     "  if (something) {\n" +
                     "    println(\"Entered two ifs\");\n" +
-                    "  }\n" +
+                    "     }\n" +
                     "}",
             )
         val result = formatter.format(tokens)

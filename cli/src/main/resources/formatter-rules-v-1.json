@@ -1,4 +1,6 @@
 {
-    "enforceNoSpacingAroundEquals": true
-
+    "enforceNoSpacingAroundEquals": true,
+    "lineBreakAfterPrintLn": 0,
+    "enforceSpacingAfterColonInDeclaration": true,
+    "enforceSpacingBeforeColonInDeclaration": true
 }
