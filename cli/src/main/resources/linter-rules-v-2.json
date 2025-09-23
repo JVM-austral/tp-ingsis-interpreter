@@ -1,3 +1,4 @@
 {
-  "useReadInputAnalyzer": true
+  "useReadInputAnalyzer": true,
+  "namingConvention" : "camelCase"
 }

@@ -50,6 +50,7 @@ class ConfigurableAnalyzerFormatter(
 
     private fun buildFormatterV2(): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
+        analyzers.add(OnlyOneSpaceAnalyzer())
 
         if (options2.enforceSpacingAroundEquals) {
             analyzers.add(SpaceBeforeEqualsAnalyzer())
@@ -68,7 +69,6 @@ class ConfigurableAnalyzerFormatter(
             analyzers.add(SpaceBeforeColonAnalyzer())
         }
         if (options2.mandatorySingleSpaceSeparation) {
-            analyzers.add(OnlyOneSpaceAnalyzer())
             analyzers.add(NecessarySpaceAnalyzer())
         }
         if (options2.mandatorySpaceSurroundingOperations) {

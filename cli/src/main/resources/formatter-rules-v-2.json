@@ -1,3 +1,4 @@
 {
-  "indentInsideIf":4
+  "indentInsideIf":4,
+  "ifBraceSameLine":true
 }

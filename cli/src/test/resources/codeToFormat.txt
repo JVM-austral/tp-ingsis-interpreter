@@ -1,2 +1,7 @@
-let hola_hola : string="Hello, World!";
+
+let hola_hola: string  =   "Hello, World!";
+
+
+
+
 println (hola);

@@ -1,7 +1,6 @@
-let something: boolean = true;
+let something : boolean=true;
 if (something) {
-    if (something) {
-        println("Entered two ifs");
+    if (something) { println("Entered two ifs");
     }
 }
-let something: boolean = readInput("hola" + "hola");
+let something : boolean=readInput("hola" + "hola");

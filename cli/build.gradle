@@ -12,7 +12,7 @@ group = 'org.JVM-austral'
 
 tasks.named('run') {
     standardInput = System.in
-    environment 'BEST_FOOTBALL_CLUB', 'River plate '
+    environment 'BEST_FOOTBALL_CLUB', 'Migajas Velez Sarsfield'
 }
 dependencies {
 
