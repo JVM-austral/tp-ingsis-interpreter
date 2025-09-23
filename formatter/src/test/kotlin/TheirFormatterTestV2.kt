@@ -101,7 +101,7 @@ class TheirFormatterTestV2 {
             result,
             "let something: boolean = true;\n" +
                 "if (something) {\n" +
-                "  println(\"Entered if\");\n" +
+                " println(\"Entered if\");\n" +
                 "}",
         )
     }
@@ -166,7 +166,7 @@ class TheirFormatterTestV2 {
             "let something: boolean = true;\n" +
                 "if (something)\n" +
                 "{\n" +
-                "  println(\"Entered if\");\n" +
+                " println(\"Entered if\");\n" +
                 "}",
         )
     }
