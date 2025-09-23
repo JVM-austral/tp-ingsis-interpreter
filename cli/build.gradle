@@ -10,8 +10,9 @@ plugins {
 
 group = 'org.JVM-austral'
 
-run {
+tasks.named('run') {
     standardInput = System.in
+    environment 'BEST_FOOTBALL_CLUB', 'River plate '
 }
 dependencies {
 
