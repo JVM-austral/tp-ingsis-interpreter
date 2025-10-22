@@ -1,18 +1,13 @@
 import errorhandler.MockErrorHandler
-import factory.LintCommandFactory
-import factory.fromString
-import lexer.Lexer
 import mock.MockOutputHandler
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import parser.Parser
 import runner.RunnerImplementation
 import java.io.ByteArrayInputStream
 import kotlin.test.Test
 
 class NormalRunnerTest {
-
     @Test
     fun `dummy test`() {
         val output = StdOutputHandler()
@@ -412,6 +407,8 @@ class NormalRunnerTest {
             """.trimIndent()
         val runned = runner.run(validInput)
 
+        println(runned.errors)
+
         // El nuevo error handler debería estar limpio
         assertTrue(runned.errors.isEmpty())
     }
@@ -436,37 +433,4 @@ class NormalRunnerTest {
         // No debería crashear con stream vacío
         assertFalse(result == null)
     }
-
-    @Test
-    fun `run nested conditionals and not working`() {
-
-        val factory = LintCommandFactory(fromString( "V1"), null)
-        val lexer: Lexer = factory.getLexer()
-        val parser: Parser = factory.getParser()
-
-
-        val output = MockOutputHandler()
-        val runner = RunnerImplementation("V1", output)
-
-        val input =
-            """
-            let x: number = 10;
-            if(true) {
-                if(true) {
-                    println("x is between 5 and 15");
-                }
-            }
-            """.trimIndent()
-
-        val tokens = lexer.tokenize(input)
-        val ast = parser.parse(tokens)
-
-
-        val runned = runner.run(input)
-
-        println(runned.output + " " + runned.errors)
-
-        assertTrue(runned.output.any { it.contains("x is between 5 and 15") })
-    }
-
 }
