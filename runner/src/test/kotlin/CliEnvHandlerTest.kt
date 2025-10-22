@@ -2,7 +2,7 @@ import handler.CliEnvHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 
 class CliEnvHandlerTest {
     @Test
@@ -17,7 +17,7 @@ class CliEnvHandlerTest {
         val envAdapter = CliEnvHandler()
         val envMap: MutableMap<String, String> = System.getenv()
         val env = envAdapter.processEnv(envMap)
-        val runner = RunnerImplementation("V2", env = env)
+        val runner = RunnerImplementationWithWrapper("V2", env = env)
         val code =
             """ 
             const a: string = readEnv("BEST_FOOTBALL_CLUB");
@@ -34,7 +34,7 @@ class CliEnvHandlerTest {
             val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation("V2", env = env)
+            val runner = RunnerImplementationWithWrapper("V2", env = env)
             val code =
                 """ 
                 const a: string = readEnv("NOT_EXISTING_VAR");

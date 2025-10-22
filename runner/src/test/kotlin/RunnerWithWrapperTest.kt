@@ -3,11 +3,11 @@ import mock.MockOutputHandler
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 import java.io.ByteArrayInputStream
 import kotlin.test.Test
 
-class RunnerTest {
+class RunnerWithWrapperTest {
     @Test
     fun `dummy test`() {
         val output = StdOutputHandler()
@@ -18,7 +18,7 @@ class RunnerTest {
             let b : string = "world";
             println(a + " " + b);
             """.trimIndent()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
     }
 
@@ -38,7 +38,7 @@ class RunnerTest {
             println("outside of conditional");
             """.trimIndent()
 
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
     }
 
@@ -54,7 +54,7 @@ class RunnerTest {
             println( PI/2 );
             """.trimIndent()
 
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
     }
 
@@ -69,7 +69,7 @@ class RunnerTest {
             println(numberResult);
             """.trimIndent()
 
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
         runner.run(input.byteInputStream())
         assert(output.captured.contains("17.0"))
     }
@@ -88,7 +88,7 @@ class RunnerTest {
             println("outside of conditional");
 
             """.trimIndent()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
         assert(output.captured.contains("outside of conditional"))
     }
@@ -107,7 +107,7 @@ class RunnerTest {
             println("outside of conditional");
 
             """.trimIndent()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
         assert(output.captured.contains("outside of conditional") && output.captured.contains("if statement is working correctly"))
     }
@@ -120,7 +120,7 @@ class RunnerTest {
             """
             const a: string = "constant declaration should not be allowed in version 1.0";
             """.trimIndent()
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
         runner.run(input.byteInputStream())
         val erroHandler = runner.getErrorHandler()
         println(erroHandler.getCapturedErrors())
@@ -141,7 +141,7 @@ class RunnerTest {
             println("jaja");
             println("jaja");
             """.trimIndent()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
         runner.run(input.byteInputStream())
         val erroHandler = runner.getErrorHandler()
         println(erroHandler.getCapturedErrors())
@@ -150,7 +150,7 @@ class RunnerTest {
 
     @Test
     fun `format code with V1 version`() {
-        val runner = RunnerImplementation("V1")
+        val runner = RunnerImplementationWithWrapper("V1")
         val code =
             """
             let a:string="hello";
@@ -164,7 +164,7 @@ class RunnerTest {
 
     @Test
     fun `format code with V2 version`() {
-        val runner = RunnerImplementation("V2")
+        val runner = RunnerImplementationWithWrapper("V2")
         val code =
             """
             const b:number=42;
@@ -177,7 +177,7 @@ class RunnerTest {
 
     @Test
     fun `format code with custom formatter config`() {
-        val runner = RunnerImplementation("V1")
+        val runner = RunnerImplementationWithWrapper("V1")
         val code = "let x:number=10;"
         val configPath = "custom_format.json"
 
@@ -188,7 +188,7 @@ class RunnerTest {
     // Tests para lint()
     @Test
     fun `lint code with V1 version - no issues`() {
-        val runner = RunnerImplementation("V1")
+        val runner = RunnerImplementationWithWrapper("V1")
         val code =
             """
             let message: string = "Hello World";
@@ -201,7 +201,7 @@ class RunnerTest {
 
     @Test
     fun `lint code with V2 version - no issues`() {
-        val runner = RunnerImplementation("V2")
+        val runner = RunnerImplementationWithWrapper("V2")
         val code =
             """
             const PI: number = 3.14159;
@@ -214,7 +214,7 @@ class RunnerTest {
 
     @Test
     fun `lint code with custom linter config`() {
-        val runner = RunnerImplementation("V1")
+        val runner = RunnerImplementationWithWrapper("V1")
         val code = "let x: number = 42;"
         val configPath = "src/main/resources/linter-rules-v-1.json"
 
@@ -225,7 +225,7 @@ class RunnerTest {
     @Test
     fun `run code with number operations V1`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
 
         val input =
             """
@@ -240,7 +240,7 @@ class RunnerTest {
     @Test
     fun `run code with string concatenation V2`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input =
             """
@@ -257,7 +257,7 @@ class RunnerTest {
     @Test
     fun `run code with boolean logic V2`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input =
             """
@@ -276,7 +276,7 @@ class RunnerTest {
     @Test
     fun `run code with syntax error V1`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
 
         val input =
             """
@@ -292,7 +292,7 @@ class RunnerTest {
     @Test
     fun `run code with type error V2`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input =
             """
@@ -310,7 +310,7 @@ class RunnerTest {
     @Test
     fun `run code with default version`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation(null, output) // Version será V1 por defecto
+        val runner = RunnerImplementationWithWrapper(null, output) // Version será V1 por defecto
 
         val input =
             """
@@ -324,7 +324,7 @@ class RunnerTest {
 
     @Test
     fun `format code with default version`() {
-        val runner = RunnerImplementation(null) // Version será V1 por defecto
+        val runner = RunnerImplementationWithWrapper(null) // Version será V1 por defecto
         val code = "let x: number = 100;"
 
         val formatted = runner.format(code, null)
@@ -333,7 +333,7 @@ class RunnerTest {
 
     @Test
     fun `lint code with default version`() {
-        val runner = RunnerImplementation(null) // Version será V1 por defecto
+        val runner = RunnerImplementationWithWrapper(null) // Version será V1 por defecto
         val code = "let message: string = \"Test\";"
 
         runner.lint(code, null)
@@ -343,7 +343,7 @@ class RunnerTest {
     @Test
     fun `run multiple variable declarations V2`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input =
             """
@@ -362,7 +362,7 @@ class RunnerTest {
     @Test
     fun `run with ByteArrayInputStream`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input = "println(\"From ByteArray\");".toByteArray()
         val stream = ByteArrayInputStream(input)
@@ -375,7 +375,7 @@ class RunnerTest {
     @Test
     fun `run nested conditionals V2`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V2", output)
+        val runner = RunnerImplementationWithWrapper("V2", output)
 
         val input =
             """
@@ -395,7 +395,7 @@ class RunnerTest {
     @Test
     fun `error handler resets after getErrorHandler call`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
 
         // Ejecutar código con error
         val inputWithError = "let incomplete: string = "
@@ -420,7 +420,7 @@ class RunnerTest {
     // Tests con strings vacíos y edge cases
     @Test
     fun `format empty code`() {
-        val runner = RunnerImplementation("V1")
+        val runner = RunnerImplementationWithWrapper("V1")
         val formatted = runner.format(" ", null)
         // Debería manejar código vacío sin crashear
         assertFalse(formatted == " ")
@@ -429,7 +429,7 @@ class RunnerTest {
     @Test
     fun `run empty code stream`() {
         val output = MockOutputHandler()
-        val runner = RunnerImplementation("V1", output)
+        val runner = RunnerImplementationWithWrapper("V1", output)
 
         val emptyStream = ByteArrayInputStream(ByteArray(0))
         runner.run(emptyStream)

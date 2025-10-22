@@ -144,6 +144,6 @@ class ParserImplementation(
                 return Result.success(analyzer.getExecutor())
             }
         }
-        return Result.failure(Exception("No matching analyzer for provided tokens ${tokens.map { it.value }}"))
+        return Result.failure(Exception("Problem parsing tokens: ${tokens.joinToString(" ") { it.value }} at line ${tokens.firstOrNull()?.line ?: -1} and column ${tokens.firstOrNull()?.column ?: -1}"))
     }
 }

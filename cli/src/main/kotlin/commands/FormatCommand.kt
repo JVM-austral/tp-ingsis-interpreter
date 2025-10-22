@@ -5,7 +5,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import handler.CliEnvHandler
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 
 class FormatCommand : CliktCommand(name = "format", help = "Formats the source code") {
     private val file by option("-f", "--file", help = "file to be processed by the formatter").required()
@@ -25,7 +25,7 @@ class FormatCommand : CliktCommand(name = "format", help = "Formats the source c
             val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation(version, env = env)
+            val runner = RunnerImplementationWithWrapper(version, env = env)
             java.io.File(file).writeText(runner.format(code, formatterConfigPath))
             echo("Formatted successfully $file")
         } catch (exception: Exception) {

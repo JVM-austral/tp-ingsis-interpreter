@@ -5,7 +5,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import handler.CliEnvHandler
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 import java.io.File
 
 class LintCommand : CliktCommand(name = "analyzing", help = "Static code analysis of the source code") {
@@ -26,7 +26,7 @@ class LintCommand : CliktCommand(name = "analyzing", help = "Static code analysi
             val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation(version, env = env)
+            val runner = RunnerImplementationWithWrapper(version, env = env)
 
             println("Running linter on $file...")
             runner.lint(code, linterConfigPath)
