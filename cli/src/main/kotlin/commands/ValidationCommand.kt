@@ -5,7 +5,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import handler.CliEnvHandler
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 import java.io.File
 
 class ValidationCommand : CliktCommand(name = "validation", help = "Validates both the formatter and the linter") {
@@ -26,7 +26,7 @@ class ValidationCommand : CliktCommand(name = "validation", help = "Validates bo
             val envAdapter = CliEnvHandler()
             val envMap: MutableMap<String, String> = System.getenv()
             val env = envAdapter.processEnv(envMap)
-            val runner = RunnerImplementation(version, env = env)
+            val runner = RunnerImplementationWithWrapper(version, env = env)
 
             File(file).writeText(runner.format(code, formatterConfigPath))
 

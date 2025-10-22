@@ -1,13 +1,18 @@
 import errorhandler.MockErrorHandler
+import factory.LintCommandFactory
+import factory.fromString
+import lexer.Lexer
 import mock.MockOutputHandler
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
+import parser.Parser
 import runner.RunnerImplementation
 import java.io.ByteArrayInputStream
 import kotlin.test.Test
 
-class RunnerTest {
+class NormalRunnerTest {
+
     @Test
     fun `dummy test`() {
         val output = StdOutputHandler()
@@ -19,7 +24,7 @@ class RunnerTest {
             println(a + " " + b);
             """.trimIndent()
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
+        runner.run(input)
     }
 
     @Test
@@ -39,7 +44,7 @@ class RunnerTest {
             """.trimIndent()
 
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
+        runner.run(input)
     }
 
     @Test
@@ -55,7 +60,7 @@ class RunnerTest {
             """.trimIndent()
 
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
+        runner.run(input)
     }
 
     @Test
@@ -70,8 +75,8 @@ class RunnerTest {
             """.trimIndent()
 
         val runner = RunnerImplementation("V1", output)
-        runner.run(input.byteInputStream())
-        assert(output.captured.contains("17.0"))
+        val result = runner.run(input)
+        assert(result.output.any { it.contains("17.0") })
     }
 
     @Test
@@ -89,8 +94,8 @@ class RunnerTest {
 
             """.trimIndent()
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
-        assert(output.captured.contains("outside of conditional"))
+        val result = runner.run(input)
+        assert(result.output.any { it.contains("outside of conditional") })
     }
 
     @Test
@@ -108,8 +113,8 @@ class RunnerTest {
 
             """.trimIndent()
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
-        assert(output.captured.contains("outside of conditional") && output.captured.contains("if statement is working correctly"))
+        val result = runner.run(input)
+        assert(result.output.any { it.contains("outside of conditional") } && result.output.any { it.contains("if statement is working correctly") })
     }
 
     @Test
@@ -121,10 +126,9 @@ class RunnerTest {
             const a: string = "constant declaration should not be allowed in version 1.0";
             """.trimIndent()
         val runner = RunnerImplementation("V1", output)
-        runner.run(input.byteInputStream())
-        val erroHandler = runner.getErrorHandler()
-        println(erroHandler.getCapturedErrors())
-        assert(erroHandler.getCapturedErrors().isNotEmpty())
+        val result = runner.run(input)
+        println(result.errors)
+        assert(result.errors.isNotEmpty())
     }
 
     @Test
@@ -142,10 +146,9 @@ class RunnerTest {
             println("jaja");
             """.trimIndent()
         val runner = RunnerImplementation("V2", output)
-        runner.run(input.byteInputStream())
-        val erroHandler = runner.getErrorHandler()
-        println(erroHandler.getCapturedErrors())
-        assert(erroHandler.getCapturedErrors().isEmpty())
+        val result = runner.run(input)
+        println(result.errors)
+        assert(result.errors.isEmpty())
     }
 
     @Test
@@ -233,8 +236,8 @@ class RunnerTest {
             println(result);
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("20.0"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("20.0") })
     }
 
     @Test
@@ -250,8 +253,8 @@ class RunnerTest {
             println(fullName);
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("John Doe"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("John Doe") })
     }
 
     @Test
@@ -268,8 +271,8 @@ class RunnerTest {
             }
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("Boolean logic works"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("Boolean logic works") })
     }
 
     // Tests para manejo de errores
@@ -283,10 +286,9 @@ class RunnerTest {
             let incomplete: string = 
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        val errorHandler = runner.getErrorHandler()
+        val result = runner.run(input)
         // Debería haber errores capturados
-        assertTrue(errorHandler.getCapturedErrors().isNotEmpty())
+        assertTrue(result.errors.isNotEmpty())
     }
 
     @Test
@@ -300,10 +302,9 @@ class RunnerTest {
             println(num);
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        val errorHandler = runner.getErrorHandler()
+        val result = runner.run(input)
         // Podría haber errores de tipo
-        assertFalse(errorHandler.getCapturedErrors().isEmpty())
+        assertFalse(result.errors.isEmpty())
     }
 
     // Tests con versión por defecto (null)
@@ -318,8 +319,8 @@ class RunnerTest {
             println(greeting);
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("Hello Default Version"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("Hello Default Version") })
     }
 
     @Test
@@ -354,8 +355,8 @@ class RunnerTest {
             println(sum);
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("6.0"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("6.0") })
     }
 
     // Tests con diferentes tipos de input streams
@@ -367,8 +368,9 @@ class RunnerTest {
         val input = "println(\"From ByteArray\");".toByteArray()
         val stream = ByteArrayInputStream(input)
 
-        runner.run(stream)
-        assertTrue(output.captured.contains("From ByteArray"))
+        val code = String(input)
+        val result = runner.run(code)
+        assertTrue(result.output.any { it.contains("From ByteArray") })
     }
 
     // Tests con condicionales más complejos
@@ -387,8 +389,8 @@ class RunnerTest {
             }
             """.trimIndent()
 
-        runner.run(input.byteInputStream())
-        assertTrue(output.captured.contains("x is between 5 and 15"))
+        val result = runner.run(input)
+        assertTrue(result.output.any { it.contains("x is between 5 and 15") })
     }
 
     // Test para verificar que el error handler se resetea
@@ -399,10 +401,8 @@ class RunnerTest {
 
         // Ejecutar código con error
         val inputWithError = "let incomplete: string = "
-        runner.run(inputWithError.byteInputStream())
-
-        val firstErrorHandler = runner.getErrorHandler()
-        assertTrue(firstErrorHandler.getCapturedErrors().isNotEmpty())
+        val first = runner.run(inputWithError)
+        assertTrue(first.errors.isNotEmpty())
 
         // Ejecutar código válido
         val validInput =
@@ -410,11 +410,10 @@ class RunnerTest {
             let valid: string = "valid code";
             println(valid);
             """.trimIndent()
-        runner.run(validInput.byteInputStream())
+        val runned = runner.run(validInput)
 
-        val secondErrorHandler = runner.getErrorHandler()
         // El nuevo error handler debería estar limpio
-        assertTrue(secondErrorHandler.getCapturedErrors().isEmpty())
+        assertTrue(runned.errors.isEmpty())
     }
 
     // Tests con strings vacíos y edge cases
@@ -432,10 +431,42 @@ class RunnerTest {
         val runner = RunnerImplementation("V1", output)
 
         val emptyStream = ByteArrayInputStream(ByteArray(0))
-        runner.run(emptyStream)
+        val result = runner.run("")
 
-        val errorHandler = runner.getErrorHandler()
         // No debería crashear con stream vacío
-        assertFalse(errorHandler == null)
+        assertFalse(result == null)
     }
+
+    @Test
+    fun `run nested conditionals and not working`() {
+
+        val factory = LintCommandFactory(fromString( "V1"), null)
+        val lexer: Lexer = factory.getLexer()
+        val parser: Parser = factory.getParser()
+
+
+        val output = MockOutputHandler()
+        val runner = RunnerImplementation("V1", output)
+
+        val input =
+            """
+            let x: number = 10;
+            if(true) {
+                if(true) {
+                    println("x is between 5 and 15");
+                }
+            }
+            """.trimIndent()
+
+        val tokens = lexer.tokenize(input)
+        val ast = parser.parse(tokens)
+
+
+        val runned = runner.run(input)
+
+        println(runned.output + " " + runned.errors)
+
+        assertTrue(runned.output.any { it.contains("x is between 5 and 15") })
+    }
+
 }

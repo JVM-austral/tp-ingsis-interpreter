@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.choice
 import handler.CliEnvHandler
 import handler.CliInputHandler
-import runner.RunnerImplementation
+import runner.RunnerImplementationWithWrapper
 import java.io.File
 
 class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source code") {
@@ -23,7 +23,7 @@ class ExecutionCommand : CliktCommand(name = "execution", help = "Run the source
             val env = envAdapter.processEnv(envMap)
             val code = File(file).inputStream()
             echo("Running $file...")
-            val runner = RunnerImplementation(version, env = env, inputProvider = inputAdapter)
+            val runner = RunnerImplementationWithWrapper(version, env = env, inputProvider = inputAdapter)
             runner.run(code)
         } catch (e: Exception) {
             echo("Error: ${e.message}")
