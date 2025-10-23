@@ -6,15 +6,17 @@ import errorhandler.MockErrorHandler
 import evaluator.input.ConsoleInputProvider
 import evaluator.input.InputProvider
 import factory.ExecutionCommandFactory
-import factory.FormatCommandFactory
-import factory.LintCommandFactory
+import factory.FormatCommandFactoryNew
+import factory.LinterCommandFactoryNew
 import factory.fromString
 import formatter.Formatter
+import formatterconfig.ConfigurableFormatterOptions
 import interpreter.ExecutionEngine
 import interpreter.ExecutionUnit
 import interpreter.Interpreter
 import lexer.Lexer
 import linter.Linter
+import linterconfig.ConfigurableAnalyzersOptions
 import mock.MockOutputHandler
 import mock.OutputHandler
 import mock.StdOutputHandler
@@ -29,9 +31,9 @@ class RunnerImplementation(
 ) {
     fun format(
         code: String,
-        formatterConfigPath: String?,
+        config: ConfigurableFormatterOptions,
     ): String {
-        val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
+        val factory = FormatCommandFactoryNew(fromString(version ?: "V1"), config)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
         return formatter.format(lexer.tokenize(code))
@@ -66,9 +68,9 @@ class RunnerImplementation(
 
     fun lint(
         code: String,
-        linterConfigPath: String?,
+        config: ConfigurableAnalyzersOptions,
     ): List<LinterError> {
-        val factory = LintCommandFactory(fromString(version ?: "V1"), linterConfigPath)
+        val factory = LinterCommandFactoryNew(fromString(version ?: "V1"), config)
         val lexer: Lexer = factory.getLexer()
         val parser: Parser = factory.getParser()
         val linter: Linter = factory.getLinter()

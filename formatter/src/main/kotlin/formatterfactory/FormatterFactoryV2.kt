@@ -16,46 +16,59 @@ import analyzers.SpaceBeforeOperatorAnalyzer
 import formatter.Formatter
 import formatter.FormatterImpl
 import formatterconfig.ConfigurableFormatterOptions
-import formatterconfig.ConfigurableFormatterOptionsV1
+import formatterconfig.ConfigurableFormatterOptionsV2
+import newanalyzers.IfOpenBlockInTheSameLineAnalyzer
+import newanalyzers.IfOpenBlockUnderLineAnalyzer
+import newanalyzers.IndentationAnalyzer
 
-class FormatterFactoryV1(
+class FormatterFactoryV2(
     val options: ConfigurableFormatterOptions,
 ) {
-    private fun buildFormatterV1(options1: ConfigurableFormatterOptionsV1): Formatter {
+    private fun buildFormatterV2(options2: ConfigurableFormatterOptionsV2): Formatter {
         val analyzers = mutableListOf<FormatRulesAnalyzers>()
+        analyzers.add(OnlyOneSpaceAnalyzer())
 
-        if (options1.enforceSpacingAroundEquals) {
+        if (options2.enforceSpacingAroundEquals) {
             analyzers.add(SpaceBeforeEqualsAnalyzer())
             analyzers.add(SpaceAfterEqualsAnalyzer())
         }
 
-        if (options1.enforceNoSpacingAroundEquals) {
+        if (options2.enforceNoSpacingAroundEquals) {
             analyzers.add(NoSpacesBeforeEqualsAnalyzer())
             analyzers.add(NoSpacesAfterEqualsAnalyzer())
         }
 
-        if (options1.enforceSpacingAfterColonInDeclaration) {
+        if (options2.enforceSpacingAfterColonInDeclaration) {
             analyzers.add(SpaceAfterColonAnalyzer())
         }
-        if (options1.enforceSpacingBeforeColonInDeclaration) {
+        if (options2.enforceSpacingBeforeColonInDeclaration) {
             analyzers.add(SpaceBeforeColonAnalyzer())
         }
-        if (options1.mandatorySingleSpaceSeparation) {
+        if (options2.mandatorySingleSpaceSeparation) {
             analyzers.add(NecessarySpaceAnalyzer())
         }
-        if (options1.mandatorySpaceSurroundingOperations) {
+        if (options2.mandatorySpaceSurroundingOperations) {
             analyzers.add(SpaceAfterOperatorAnalyzer())
             analyzers.add(SpaceBeforeOperatorAnalyzer())
         }
-        if (options1.mandatoryLineBreakAfterStatement) {
+        if (options2.mandatoryLineBreakAfterStatement) {
             analyzers.add(NewLineAfterSemiColonAnalyzer())
         }
-        if (options1.lineBreakAfterPrintLn in 0..2) {
-            analyzers.add(NewLinesBeforePrintlnAnalyzer(options1.lineBreakAfterPrintLn + 1))
+        if (options2.lineBreakAfterPrintLn in 0..2) {
+            analyzers.add(NewLinesBeforePrintlnAnalyzer(options2.lineBreakAfterPrintLn + 1))
         }
-        analyzers.add(OnlyOneSpaceAnalyzer())
+
+        if (options2.ifBraceSameLine) {
+            analyzers.add(IfOpenBlockInTheSameLineAnalyzer())
+        }
+        if (options2.ifBraceBelowLine) {
+            analyzers.add(IfOpenBlockUnderLineAnalyzer())
+        }
+        if (options2.indentInsideIf >= 0) {
+            analyzers.add(IndentationAnalyzer(options2.indentInsideIf))
+        }
         return FormatterImpl(analyzers)
     }
 
-    fun create(): Formatter = buildFormatterV1(options as ConfigurableFormatterOptionsV1)
+    fun create(): Formatter = buildFormatterV2(options as ConfigurableFormatterOptionsV2)
 }

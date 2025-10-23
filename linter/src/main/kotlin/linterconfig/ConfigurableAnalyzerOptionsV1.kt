@@ -8,4 +8,6 @@ package linterconfig
 data class ConfigurableAnalyzerOptionsV1(
     val namingConvention: String = " ",
     val usePrintlnAnalyzer: Boolean = false,
-)
+) : ConfigurableAnalyzersOptions {
+    override fun getVersion(): String = "V1"
+}

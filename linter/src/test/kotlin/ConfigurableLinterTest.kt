@@ -4,6 +4,8 @@ import ast.NumberLiteral
 import ast.StringLiteral
 import ast.TypeDeclaration
 import ast.VarDeclaration
+import linterconfig.ConfigurableAnalyzerOptionsV1
+import linterconfig.ConfigurableAnalyzerOptionsV2
 import linterconfig.ConfigurableLinter
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -433,5 +435,31 @@ class ConfigurableLinterTest {
         val errors = linter.lint(statements)
 
         assertTrue(errors.isEmpty())
+    }
+
+    @Test
+    fun `test configurableAnalyzer for coverage only`() {
+        val configV1 =
+            ConfigurableAnalyzerOptionsV1(
+                namingConvention = "camelCase",
+                usePrintlnAnalyzer = true,
+            )
+
+        val configV2 =
+            ConfigurableAnalyzerOptionsV2(
+                namingConvention = " ",
+                usePrintlnAnalyzer = false,
+                useReadInputAnalyzer = false,
+            )
+
+        assertEquals("V1", configV1.getVersion())
+        assertEquals("V2", configV2.getVersion())
+
+        val linterFactoryV1 = linterfactory.LinterFactoryV1(configV1)
+        val linter1 = linterFactoryV1.create()
+        assertTrue(linter1 is linter.LinterImplementation)
+        val linterFactoryV2 = linterfactory.LinterFactoryV2(configV2)
+        val linter2 = linterFactoryV2.create()
+        assertTrue(linter2 is linter.LinterImplementation)
     }
 }

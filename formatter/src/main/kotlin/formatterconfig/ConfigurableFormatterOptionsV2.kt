@@ -12,4 +12,6 @@ data class ConfigurableFormatterOptionsV2(
     val ifBraceSameLine: Boolean = false,
     val ifBraceBelowLine: Boolean = false,
     val indentInsideIf: Int = -1,
-)
+) : ConfigurableFormatterOptions {
+    override fun getVersion(): String = "V2"
+}
