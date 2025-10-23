@@ -9,4 +9,6 @@ data class ConfigurableFormatterOptionsV1(
     val mandatorySpaceSurroundingOperations: Boolean = false,
     val mandatoryLineBreakAfterStatement: Boolean = false,
     val lineBreakAfterPrintLn: Int = 0,
-)
+) : ConfigurableFormatterOptions {
+    override fun getVersion(): String = "V1"
+}

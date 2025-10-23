@@ -6,10 +6,11 @@ import errorhandler.MockErrorHandler
 import evaluator.input.ConsoleInputProvider
 import evaluator.input.InputProvider
 import factory.ExecutionCommandFactory
-import factory.FormatCommandFactory
+import factory.FormatCommandFactoryNew
 import factory.LinterCommandFactoryNew
 import factory.fromString
 import formatter.Formatter
+import formatterconfig.ConfigurableFormatterOptions
 import interpreter.ExecutionEngine
 import interpreter.ExecutionUnit
 import interpreter.Interpreter
@@ -30,9 +31,9 @@ class RunnerImplementation(
 ) {
     fun format(
         code: String,
-        formatterConfigPath: String?,
+        config: ConfigurableFormatterOptions,
     ): String {
-        val factory = FormatCommandFactory(fromString(version ?: "V1"), formatterConfigPath)
+        val factory = FormatCommandFactoryNew(fromString(version ?: "V1"), config)
         val lexer: Lexer = factory.getLexer()
         val formatter: Formatter = factory.getFormatter()
         return formatter.format(lexer.tokenize(code))

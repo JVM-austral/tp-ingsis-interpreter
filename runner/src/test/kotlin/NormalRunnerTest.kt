@@ -1,3 +1,5 @@
+import formatterconfig.ConfigurableFormatterOptionsV1
+import formatterconfig.ConfigurableFormatterOptionsV2
 import linterconfig.ConfigurableAnalyzerOptionsV1
 import linterconfig.ConfigurableAnalyzerOptionsV2
 import mock.MockOutputHandler
@@ -8,6 +10,8 @@ import runner.RunnerImplementation
 import kotlin.test.Test
 
 class NormalRunnerTest {
+    val configFormatter = ConfigurableFormatterOptionsV1()
+
     val configV1 =
         ConfigurableAnalyzerOptionsV1(
             namingConvention = "camelCase",
@@ -160,8 +164,7 @@ class NormalRunnerTest {
             let a:string="hello";
             println(a);
             """.trimIndent()
-
-        val formatted = runner.format(code, null)
+        val formatted = runner.format(code, configFormatter)
         // Verificar que el formateo no devuelve string vacío
         assertTrue(formatted.isNotEmpty())
     }
@@ -175,17 +178,7 @@ class NormalRunnerTest {
             if(b>0){println("positive");}
             """.trimIndent()
 
-        val formatted = runner.format(code, null)
-        assertTrue(formatted.isNotEmpty())
-    }
-
-    @Test
-    fun `format code with custom formatter config`() {
-        val runner = RunnerImplementation("V1")
-        val code = "let x:number=10;"
-        val configPath = "custom_format.json"
-
-        val formatted = runner.format(code, configPath)
+        val formatted = runner.format(code, ConfigurableFormatterOptionsV2())
         assertTrue(formatted.isNotEmpty())
     }
 
@@ -328,7 +321,7 @@ class NormalRunnerTest {
         val runner = RunnerImplementation(null) // Version será V1 por defecto
         val code = "let x: number = 100;"
 
-        val formatted = runner.format(code, null)
+        val formatted = runner.format(code, configFormatter)
         assertTrue(formatted.isNotEmpty())
     }
 
@@ -430,7 +423,7 @@ class NormalRunnerTest {
     @Test
     fun `format empty code`() {
         val runner = RunnerImplementation("V1")
-        val formatted = runner.format(" ", null)
+        val formatted = runner.format(" ", configFormatter)
         // Debería manejar código vacío sin crashear
         assertFalse(formatted == " ")
     }
