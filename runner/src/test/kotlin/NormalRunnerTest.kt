@@ -388,6 +388,15 @@ class NormalRunnerTest {
             }
             """.trimIndent()
 
+        val configV2 =
+            ConfigurableAnalyzerOptionsV2(
+                namingConvention = "camelCase",
+                usePrintlnAnalyzer = true,
+                useReadInputAnalyzer = true,
+            )
+        val fakeRunner = RunnerImplementation("V2")
+        fakeRunner.lint(input, configV2)
+
         val result = runner.run(input)
         assertTrue(result.output.any { it.contains("x is between 5 and 15") })
     }
