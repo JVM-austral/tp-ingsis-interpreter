@@ -6,14 +6,14 @@ import analyzers.PrintLnWithOutBinaryOperationAnalyzer
 import analyzers.SnakeCaseAnalyzer
 import linter.Linter
 import linter.LinterImplementation
-import linterconfig.ConfigurableAnalyzerOptionsV1
+import linterconfig.ConfigurableAnalyzerOptionsV2
+import newanalyzers.ConcatenationInReadInputAnalyzer
 
-class LinterFactoryV1(
-    private val config: ConfigurableAnalyzerOptionsV1,
+class LinterFactoryV2(
+    private val config: ConfigurableAnalyzerOptionsV2,
 ) {
-    fun getConfigurableLinter(): List<LinterAnalyzer> {
+    private fun getConfigurableLinter(): List<LinterAnalyzer> {
         val analyzers = mutableListOf<LinterAnalyzer>()
-
         when (config.namingConvention.lowercase()) {
             "camelcase" -> analyzers.add(CamelCaseAnalyzer())
             "snake_case" -> analyzers.add(SnakeCaseAnalyzer())
@@ -25,6 +25,9 @@ class LinterFactoryV1(
         }
         if (config.usePrintlnAnalyzer) {
             analyzers.add(PrintLnWithOutBinaryOperationAnalyzer())
+        }
+        if (config.useReadInputAnalyzer) {
+            analyzers.add(ConcatenationInReadInputAnalyzer())
         }
         return analyzers
     }
