@@ -12,6 +12,7 @@ class FunctionCallEvaluator(
     private val outputHandler: OutputHandler,
     private val inputProvider: InputProvider,
     private val converter: LiteralConverter,
+    private val canPrint: Boolean? = true,
 ) : AstEvaluator {
     override fun evaluate(
         ast: Ast,
@@ -20,7 +21,7 @@ class FunctionCallEvaluator(
     ): Any {
         val functionAst = ast as FunctionCallAst
         return when (functionAst.getValue()) {
-            "readInput" -> InputEvaluator(engine, converter, inputProvider, outputHandler).evaluate(ast, heap, env)
+            "readInput" -> InputEvaluator(engine, converter, inputProvider, outputHandler, canPrint ?: true).evaluate(ast, heap, env)
             "readEnv" -> ReadEnvEvaluator(engine).evaluate(ast, heap, env)
             "println" -> PrintLnEvaluator(engine, outputHandler).evaluate(ast, heap, env)
             else -> throw Exception("Función no soportada: ${functionAst.getValue()}")

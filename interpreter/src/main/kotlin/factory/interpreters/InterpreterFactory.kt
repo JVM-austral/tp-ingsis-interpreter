@@ -9,13 +9,15 @@ import interpreter.InterpreterImplementation
 import interpreter.VariableInfo
 import mock.OutputHandler
 
-class InterpreterFactory {
+class InterpreterFactory(
+    private val canPrint: Boolean? = true,
+) {
     fun createInterpreterV1(
         heap: MutableMap<String, VariableInfo>,
         outputHandler: OutputHandler,
         env: MutableMap<String, Ast>,
     ): Interpreter {
-        val analyzerList = AnalyzerFactory().createAnalyzerV1(outputHandler)
+        val analyzerList = AnalyzerFactory(canPrint).createAnalyzerV1(outputHandler)
         return InterpreterImplementation(analyzerList, heap, env)
     }
 
@@ -26,7 +28,7 @@ class InterpreterFactory {
         inputProvider: InputProvider,
         converter: LiteralConverter,
     ): Interpreter {
-        val analyzerList = AnalyzerFactory().createAnalyzerV2(outputHandler, inputProvider, converter)
+        val analyzerList = AnalyzerFactory(canPrint).createAnalyzerV2(outputHandler, inputProvider, converter)
         return InterpreterImplementation(analyzerList, heap, env)
     }
 }

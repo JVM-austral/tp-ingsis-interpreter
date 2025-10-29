@@ -22,8 +22,10 @@ import evaluator.input.LiteralConverter
 import factory.evaluators.EvaluatorFactory
 import mock.OutputHandler
 
-class AnalyzerFactory {
-    private val evaluatorFactory = EvaluatorFactory()
+class AnalyzerFactory(
+    canPrint: Boolean? = true,
+) {
+    private val evaluatorFactory = EvaluatorFactory(canPrint)
 
     fun createAnalyzerV1(outputHandler: OutputHandler): List<InterpreterAnalyzer> {
         val engineV1 = evaluatorFactory.createEvaluationEngineV1(outputHandler)

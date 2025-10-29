@@ -442,12 +442,12 @@ class NormalRunnerTest {
 
     @Test
     fun `test multiple inputs queue`() {
-        val inputProvider = ProvideQueueOfInputs(listOf("First2 Input", "Second Input", "Third Input"))
+        val inputProvider = ProvideQueueOfInputs(listOf("First Input", "Second Input", "Third Input"))
         val runner = RunnerImplementation("V2", inputProvider = inputProvider)
 
         val input =
             """
-            let first: string = readInput("First Input");
+            let first: string = readInput("First2 Input");
             println(first);
             let second: string = readInput("second");
             println(second);
