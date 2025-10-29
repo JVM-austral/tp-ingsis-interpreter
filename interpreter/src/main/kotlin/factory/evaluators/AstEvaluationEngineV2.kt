@@ -33,6 +33,7 @@ class AstEvaluationEngineV2(
     private val outputHandler: OutputHandler,
     private val inputProvider: InputProvider,
     private val converter: LiteralConverter,
+    private val canPrint: Boolean? = true,
 ) : AstEvaluator {
     private val evaluators: Map<Class<out Ast>, AstEvaluator> =
         mapOf(
@@ -51,7 +52,7 @@ class AstEvaluationEngineV2(
                     this,
                     listOf(AdditionStrategy(), SubtractionStrategy(), MultiplicationStrategy(), DivisionStrategy()),
                 ),
-            FunctionCallAst::class.java to FunctionCallEvaluator(this, outputHandler, inputProvider, converter),
+            FunctionCallAst::class.java to FunctionCallEvaluator(this, outputHandler, inputProvider, converter, canPrint),
             BooleanLiteral::class.java to BooleanLiteralEvaluator(),
             BooleanBinaryOperation::class.java to BooleanBinaryOperationEvaluator(this, listOf(EqualsStrategy())),
         )

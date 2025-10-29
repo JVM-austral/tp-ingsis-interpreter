@@ -10,6 +10,7 @@ class InputEvaluator(
     private val converter: LiteralConverter,
     private val inputProvider: InputProvider,
     private val outputHandler: OutputHandler,
+    private val canPrint: Boolean,
 ) : AstEvaluator {
     override fun evaluate(
         ast: ast.Ast,
@@ -20,7 +21,9 @@ class InputEvaluator(
         ast.getListOfChildren().forEach {
             label += (engine.evaluate(it, heap, env))
         }
-        outputHandler.print(label)
+        if (canPrint) {
+            outputHandler.print(label)
+        }
         return engine.evaluate(converter.convert(inputProvider.read(), ast.getColumn(), ast.getRow()), heap, env)
     }
 }

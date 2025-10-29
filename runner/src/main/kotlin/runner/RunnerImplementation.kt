@@ -43,7 +43,7 @@ class RunnerImplementation(
         val outputHandler = MockOutputHandler()
         val errorHandler = MockErrorHandler()
         try {
-            val factory = ExecutionCommandFactory(fromString(version ?: "V1"), outputHandler = outputHandler, inputProvider = inputProvider, env = env)
+            val factory = ExecutionCommandFactory(fromString(version ?: "V1"), outputHandler = outputHandler, inputProvider = inputProvider, env = env, canPrint = false)
             val lexer: Lexer = factory.getLexer()
             val parser: Parser = factory.getParser()
             val interpreter: Interpreter = factory.getInterpreter()

@@ -14,6 +14,7 @@ class ExecutionCommandFactory(
     private val outputHandler: OutputHandler,
     private val inputProvider: InputProvider,
     private val env: MutableMap<String, Ast>,
+    private val canPrint: Boolean? = true,
 ) {
     fun getLexer(): Lexer =
         when (version) {
@@ -29,7 +30,7 @@ class ExecutionCommandFactory(
 
     fun getInterpreter(): Interpreter =
         when (version) {
-            Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), outputHandler = outputHandler, mutableMapOf())
-            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), outputHandler = outputHandler, env, inputProvider, LiteralConverter())
+            Version.V1 -> InterpreterFactory(canPrint).createInterpreterV1(mutableMapOf(), outputHandler = outputHandler, mutableMapOf())
+            Version.V2 -> InterpreterFactory(canPrint).createInterpreterV2(mutableMapOf(), outputHandler = outputHandler, env, inputProvider, LiteralConverter())
         }
 }
