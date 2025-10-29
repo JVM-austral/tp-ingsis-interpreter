@@ -1,3 +1,4 @@
+import evaluator.input.ProvideQueueOfInputs
 import formatterconfig.ConfigurableFormatterOptionsV1
 import formatterconfig.ConfigurableFormatterOptionsV2
 import linterconfig.ConfigurableAnalyzerOptionsV1
@@ -437,5 +438,31 @@ class NormalRunnerTest {
 
         // No debería crashear con stream vacío
         assertFalse(result == null)
+    }
+
+    @Test
+    fun `test multiple inputs queue`() {
+        val inputProvider = ProvideQueueOfInputs(listOf("First2 Input", "Second Input", "Third Input"))
+        val runner = RunnerImplementation("V2", inputProvider = inputProvider)
+
+        val input =
+            """
+            let first: string = readInput("First Input");
+            println(first);
+            let second: string = readInput("second");
+            println(second);
+            let third: string = readInput("third");
+            println(third);
+            
+            """.trimIndent()
+        val ran = runner.run(input)
+
+        println(ran.output)
+
+        assertTrue(
+            ran.output.any { it.contains("First Input") } &&
+                ran.output.any { it.contains("Second Input") } &&
+                ran.output.any { it.contains("Third Input") },
+        )
     }
 }
