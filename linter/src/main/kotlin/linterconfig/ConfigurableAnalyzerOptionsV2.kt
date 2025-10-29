@@ -10,4 +10,6 @@ data class ConfigurableAnalyzerOptionsV2(
     val namingConvention: String = " ",
     val usePrintlnAnalyzer: Boolean = false,
     val useReadInputAnalyzer: Boolean = false,
-)
+) : ConfigurableAnalyzersOptions {
+    override fun getVersion(): String = "V2"
+}

@@ -1,6 +1,6 @@
-package formatterfactory
-
 import formatter.FormatterImpl
+import formatterfactory.FormatterFactoryWithJsonV1
+import formatterfactory.FormatterFactoryWithJsonV2
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -9,7 +9,7 @@ import kotlin.test.assertTrue
 class FormatterFactoryTest {
     @Test
     fun `FormatterFactoryV1 should create FormatterImpl with expected analyzers`() {
-        val factory = FormatterFactoryV1()
+        val factory = FormatterFactoryWithJsonV1(null)
         val formatter = factory.create()
 
         assertNotNull(formatter, "Formatter should not be null")

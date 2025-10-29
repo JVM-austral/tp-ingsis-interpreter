@@ -1,13 +1,30 @@
-import errorhandler.MockErrorHandler
+import formatterconfig.ConfigurableFormatterOptionsV1
+import formatterconfig.ConfigurableFormatterOptionsV2
+import linterconfig.ConfigurableAnalyzerOptionsV1
+import linterconfig.ConfigurableAnalyzerOptionsV2
 import mock.MockOutputHandler
 import mock.StdOutputHandler
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import runner.RunnerImplementation
-import java.io.ByteArrayInputStream
 import kotlin.test.Test
 
 class NormalRunnerTest {
+    val configFormatter = ConfigurableFormatterOptionsV1()
+
+    val configV1 =
+        ConfigurableAnalyzerOptionsV1(
+            namingConvention = "camelCase",
+            usePrintlnAnalyzer = true,
+        )
+
+    val configV2 =
+        ConfigurableAnalyzerOptionsV2(
+            namingConvention = " ",
+            usePrintlnAnalyzer = false,
+            useReadInputAnalyzer = false,
+        )
+
     @Test
     fun `dummy test`() {
         val output = StdOutputHandler()
@@ -25,8 +42,6 @@ class NormalRunnerTest {
     @Test
     fun `dummy test v1`() {
         val output = StdOutputHandler()
-        val errorHandler = MockErrorHandler()
-
         val input =
             """
             const booleanResult: boolean = false;
@@ -45,8 +60,6 @@ class NormalRunnerTest {
     @Test
     fun `dummy test v2`() {
         val output = StdOutputHandler()
-        val errorHandler = MockErrorHandler()
-
         val input =
             """
             let PI : number;
@@ -61,7 +74,6 @@ class NormalRunnerTest {
     @Test
     fun `dummy test v3`() {
         val output = MockOutputHandler()
-        val errorHandler = MockErrorHandler()
 
         val input =
             """
@@ -77,7 +89,6 @@ class NormalRunnerTest {
     @Test
     fun `dummy test v4`() {
         val output = MockOutputHandler()
-        val errorHandler = MockErrorHandler()
 
         val input =
             """
@@ -96,7 +107,6 @@ class NormalRunnerTest {
     @Test
     fun `dummy test v5`() {
         val output = MockOutputHandler()
-        val errorHandler = MockErrorHandler()
 
         val input =
             """
@@ -154,8 +164,7 @@ class NormalRunnerTest {
             let a:string="hello";
             println(a);
             """.trimIndent()
-
-        val formatted = runner.format(code, null)
+        val formatted = runner.format(code, configFormatter)
         // Verificar que el formateo no devuelve string vacío
         assertTrue(formatted.isNotEmpty())
     }
@@ -169,17 +178,7 @@ class NormalRunnerTest {
             if(b>0){println("positive");}
             """.trimIndent()
 
-        val formatted = runner.format(code, null)
-        assertTrue(formatted.isNotEmpty())
-    }
-
-    @Test
-    fun `format code with custom formatter config`() {
-        val runner = RunnerImplementation("V1")
-        val code = "let x:number=10;"
-        val configPath = "custom_format.json"
-
-        val formatted = runner.format(code, configPath)
+        val formatted = runner.format(code, ConfigurableFormatterOptionsV2())
         assertTrue(formatted.isNotEmpty())
     }
 
@@ -194,7 +193,7 @@ class NormalRunnerTest {
             """.trimIndent()
 
         // Capturar output del sistema para verificar mensaje de lint
-        runner.lint(code, null)
+        runner.lint(code, configV1)
     }
 
     @Test
@@ -207,16 +206,15 @@ class NormalRunnerTest {
             println(PI * radius * radius);
             """.trimIndent()
 
-        runner.lint(code, null)
+        runner.lint(code, configV2)
     }
 
     @Test
     fun `lint code with custom linter config`() {
         val runner = RunnerImplementation("V1")
         val code = "let x: number = 42;"
-        val configPath = "src/main/resources/linter-rules-v-1.json"
 
-        runner.lint(code, configPath)
+        runner.lint(code, configV1)
     }
 
     // Tests para diferentes tipos de datos y operaciones
@@ -323,7 +321,7 @@ class NormalRunnerTest {
         val runner = RunnerImplementation(null) // Version será V1 por defecto
         val code = "let x: number = 100;"
 
-        val formatted = runner.format(code, null)
+        val formatted = runner.format(code, configFormatter)
         assertTrue(formatted.isNotEmpty())
     }
 
@@ -332,7 +330,7 @@ class NormalRunnerTest {
         val runner = RunnerImplementation(null) // Version será V1 por defecto
         val code = "let message: string = \"Test\";"
 
-        runner.lint(code, null)
+        runner.lint(code, configV1)
     }
 
     // Tests con múltiples statements
@@ -361,7 +359,6 @@ class NormalRunnerTest {
         val runner = RunnerImplementation("V2", output)
 
         val input = "println(\"From ByteArray\");".toByteArray()
-        val stream = ByteArrayInputStream(input)
 
         val code = String(input)
         val result = runner.run(code)
@@ -383,6 +380,15 @@ class NormalRunnerTest {
                 }
             }
             """.trimIndent()
+
+        val configV2 =
+            ConfigurableAnalyzerOptionsV2(
+                namingConvention = "camelCase",
+                usePrintlnAnalyzer = true,
+                useReadInputAnalyzer = true,
+            )
+        val fakeRunner = RunnerImplementation("V2")
+        fakeRunner.lint(input, configV2)
 
         val result = runner.run(input)
         assertTrue(result.output.any { it.contains("x is between 5 and 15") })
@@ -417,7 +423,7 @@ class NormalRunnerTest {
     @Test
     fun `format empty code`() {
         val runner = RunnerImplementation("V1")
-        val formatted = runner.format(" ", null)
+        val formatted = runner.format(" ", configFormatter)
         // Debería manejar código vacío sin crashear
         assertFalse(formatted == " ")
     }
@@ -427,7 +433,6 @@ class NormalRunnerTest {
         val output = MockOutputHandler()
         val runner = RunnerImplementation("V1", output)
 
-        val emptyStream = ByteArrayInputStream(ByteArray(0))
         val result = runner.run("")
 
         // No debería crashear con stream vacío
