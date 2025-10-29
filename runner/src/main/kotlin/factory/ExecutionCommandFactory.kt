@@ -11,7 +11,7 @@ import parser.Parser
 
 class ExecutionCommandFactory(
     private val version: Version,
-    private val stdOutHandler: OutputHandler,
+    private val outputHandler: OutputHandler,
     private val inputProvider: InputProvider,
     private val env: MutableMap<String, Ast>,
 ) {
@@ -29,7 +29,7 @@ class ExecutionCommandFactory(
 
     fun getInterpreter(): Interpreter =
         when (version) {
-            Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), stdOutHandler, mutableMapOf())
-            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), stdOutHandler, env, inputProvider, LiteralConverter())
+            Version.V1 -> InterpreterFactory().createInterpreterV1(mutableMapOf(), outputHandler = outputHandler, mutableMapOf())
+            Version.V2 -> InterpreterFactory().createInterpreterV2(mutableMapOf(), outputHandler = outputHandler, env, inputProvider, LiteralConverter())
         }
 }

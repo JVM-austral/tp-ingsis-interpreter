@@ -3,8 +3,8 @@ package runner
 import ast.Ast
 import error.LinterError
 import errorhandler.MockErrorHandler
-import evaluator.input.ConsoleInputProvider
 import evaluator.input.InputProvider
+import evaluator.input.MockInputProvider
 import factory.ExecutionCommandFactory
 import factory.FormatCommandFactoryNew
 import factory.LinterCommandFactoryNew
@@ -26,7 +26,7 @@ import runner.result.RunnerResult
 class RunnerImplementation(
     private val version: String?,
     private val stdOutHandler: OutputHandler = StdOutputHandler(),
-    private val inputProvider: InputProvider = ConsoleInputProvider(),
+    private val inputProvider: InputProvider = MockInputProvider("No Input Provided"),
     private val env: MutableMap<String, Ast> = mutableMapOf(),
 ) {
     fun format(
@@ -43,7 +43,7 @@ class RunnerImplementation(
         val outputHandler = MockOutputHandler()
         val errorHandler = MockErrorHandler()
         try {
-            val factory = ExecutionCommandFactory(fromString(version ?: "V1"), outputHandler, inputProvider, env)
+            val factory = ExecutionCommandFactory(fromString(version ?: "V1"), outputHandler = outputHandler, inputProvider = inputProvider, env = env)
             val lexer: Lexer = factory.getLexer()
             val parser: Parser = factory.getParser()
             val interpreter: Interpreter = factory.getInterpreter()
